@@ -1,15 +1,33 @@
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
 
-router.get("/", (req, res) => {
-  res.json([{ tasks: { text: "coding", id: "0" } }]);
+const tasks = [];
+
+const fileLocation = path.join(
+  path.dirname(process.mainModule.filename),
+  "data",
+  "tasks.json"
+);
+
+router.get("/tasks", (req, res) => {
+  const data = fs.readFileSync(fileLocation);
+  const tasks = data.toString();
+  res.json(tasks);
 });
 
-router.post("/", (req, res) => {
+router.post("/tasks", (req, res) => {
   console.log(req.body);
   const text = req.body.tasks.text;
   const id = req.body.tasks.id;
-  res.json({ tasks: { text: text, id: id } });
+  tasks.push({ text: text, id: id });
+  fs.writeFile(fileLocation, JSON.parse(tasks), function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.send({ tasks: { text: text, id: id } });
 });
 
 module.exports = router;
