@@ -21,13 +21,17 @@ router.post("/tasks", (req, res) => {
   console.log(req.body);
   const text = req.body.tasks.text;
   const id = req.body.tasks.id;
+
   tasks.push({ text: text, id: id });
-  fs.writeFile(fileLocation, JSON.parse(tasks), function (err) {
+  const content = JSON.stringify(tasks);
+  console.log(tasks);
+  fs.writeFile(fileLocation, content, function (err) {
     if (err) {
       console.log(err);
+    } else {
+      res.send({ tasks: { text: text, id: id } });
     }
   });
-  res.send({ tasks: { text: text, id: id } });
 });
 
 module.exports = router;

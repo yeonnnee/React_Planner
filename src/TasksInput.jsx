@@ -11,7 +11,7 @@ const TasksInput = () => {
   }
   function onSubmit(event) {
     event.preventDefault();
-    axios.post("/api", state);
+    axios.post("/api/tasks", state);
     setState({ tasks: { text: "", id: "" } });
   }
   return (

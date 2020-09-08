@@ -9,7 +9,7 @@ const useData = () => {
     const fetchData = await axios.get("/api/tasks");
     const data = JSON.parse(fetchData.data);
     console.log(data);
-    setState({ tasks: [...data.tasks] });
+    setState({ tasks: data });
     console.log(state);
   }
 
