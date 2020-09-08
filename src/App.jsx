@@ -3,13 +3,14 @@ import axios from "axios";
 import TasksInput from "./TasksInput";
 
 const useData = () => {
-  const [state, setState] = useState({ tasks: { text: "", id: "" } });
+  const [state, setState] = useState({ tasks: [] });
 
   async function fetchData() {
-    const fetchData = await axios.get("/api");
-    const data = fetchData.data;
+    const fetchData = await axios.get("/api/tasks");
+    const data = JSON.parse(fetchData.data);
     console.log(data);
-    setState({ tasks: { text: data.tasks.text, id: data.tasks.id } });
+    setState({ tasks: [...data.tasks] });
+    console.log(state);
   }
 
   useEffect(() => {
@@ -27,7 +28,9 @@ function App() {
       <h1>TASKS</h1>
       <TasksInput />
       <ul>
-        <li>{tasks.map((task) => task.text)}</li>
+        {tasks.map((task, index) => {
+          return <li key={index}>{task.text}</li>;
+        })}
       </ul>
     </div>
   );
