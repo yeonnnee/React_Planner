@@ -1,27 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+
+import getData from "./hooks/useGetData";
 import TasksInput from "./TasksInput";
 
-const useData = () => {
-  const [state, setState] = useState({ tasks: [] });
-
-  async function fetchData() {
-    const fetchData = await axios.get("/api/tasks");
-    const data = JSON.parse(fetchData.data);
-    console.log(data);
-    setState({ tasks: data });
-    console.log(state);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  return state;
-};
-
 function App() {
-  const { tasks } = useData();
+  const { tasks } = getData();
 
   return (
     <div className="App">
