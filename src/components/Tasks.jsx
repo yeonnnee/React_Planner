@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import TasksInput from "../TasksInput";
-
 import { FETCH_SUCCESS, FETCH_FAILED, FETCH_START } from "../redux/actions";
-import { connect } from "react-redux";
+import TaskList from "./TaskList";
 
 const Tasks = ({ state, start, success, failed }) => {
   async function fetchData() {
     start();
     try {
       const fetchData = await axios.get("/api/tasks");
-      const data = JSON.parse(fetchData.data);
+      const data = await JSON.parse(fetchData.data);
       success(data);
     } catch (error) {
       failed();
@@ -25,14 +25,18 @@ const Tasks = ({ state, start, success, failed }) => {
   if (state.isLoading) {
     return <h1>Loading...</h1>;
   } else {
-    console.log("fetch", state);
     return (
       <div className="App">
         <h1>TASKS</h1>
         <TasksInput />
         <ul>
-          {state.tasks.map((task, index) => {
-            return <li key={index}>{task.text}</li>;
+          <h3>PENDING</h3>
+          {state.pendingList.map((task, index) => {
+            return <TaskList {...task} key={index} />;
+          })}
+          <h3>FINISHED</h3>
+          {state.finishedList.map((task, index) => {
+            return <TaskList {...task} key={index} />;
           })}
         </ul>
       </div>
@@ -41,10 +45,10 @@ const Tasks = ({ state, start, success, failed }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.fetchReducer };
+  return { state: state.tasksReducer };
 }
 
-function mapDisptachToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     start: () => {
       dispatch({ type: FETCH_START });
@@ -58,4 +62,4 @@ function mapDisptachToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDisptachToProps)(Tasks);
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks);
