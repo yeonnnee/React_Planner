@@ -4,28 +4,27 @@ import { connect } from "react-redux";
 import { FINISHED_TASKS } from "../redux/actions";
 import axios from "axios";
 
-const TaskList = ({ text, id, change }) => {
-  function changeStatus() {
+const TaskList = ({ text, id, finish }) => {
+  function finished() {
     const target = { id: id, text: text, status: "FINISHED" };
-    console.log(target);
     axios.put("/api/tasks", target);
-    change();
+    finish(target);
   }
   return (
     <div>
-      <input type="checkbox" onClick={changeStatus} defaultChecked={false} />
+      <input type="checkbox" onClick={finished} defaultChecked={false} />
       <li>{text}</li>
       <button>x</button>
     </div>
   );
 };
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
-    change: () => {
+    finish: (task) => {
       dispatch({
         type: FINISHED_TASKS,
-        payload: ownProps,
+        payload: task,
       });
     },
   };

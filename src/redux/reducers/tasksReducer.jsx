@@ -49,18 +49,14 @@ const tasksReducer = (state = initialState, action) => {
         pendingList: [...state.pendingList, action.payload],
       };
     case FINISHED_TASKS: {
-      let completed = state.pendingList.find(
-        (task) => task.id === action.payload.id
-      );
-      completed = { ...completed, status: "FINISHED" };
       const filtered_pendingList = state.pendingList.filter(
         (task) => task.id !== action.payload.id
       );
       return {
         ...state,
         isLoading: false,
-        pendingList: [{ ...filtered_pendingList }],
-        finishedList: [{ ...state.finishedList, completed }],
+        pendingList: [...filtered_pendingList],
+        finishedList: [...state.finishedList, action.payload],
       };
     }
     default:
