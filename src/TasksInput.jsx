@@ -7,18 +7,22 @@ import { connect } from "react-redux";
 import { ADD_TASKS } from "./redux/actions";
 
 const TasksInput = ({ add }) => {
-  const [state, setState] = useState({ tasks: { text: "", id: "" } });
+  const [state, setState] = useState({
+    tasks: { text: "", id: "", status: "" },
+  });
 
   function onChange(event) {
     const value = event.target.value;
-    setState({ tasks: { text: value, id: uuidv4().toString() } });
+    setState({
+      tasks: { text: value, id: uuidv4().toString(), status: "PENDING" },
+    });
   }
   function onSubmit(event) {
     event.preventDefault();
-    axios.post("/api/tasks", state);
-
-    add(state.tasks);
-
+    if (state.tasks.text !== "") {
+      axios.post("/api/tasks", state);
+      add(state.tasks);
+    }
     setState({ tasks: { text: "", id: "" } });
   }
   return (
@@ -40,4 +44,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(TasksInput);
-// export default TasksInput;
