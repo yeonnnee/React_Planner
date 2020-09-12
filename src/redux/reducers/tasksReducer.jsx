@@ -4,6 +4,7 @@ import {
   FETCH_START,
   ADD_TASKS,
   FINISHED_TASKS,
+  DELETE_TASKS,
 } from "../actions";
 
 export const initialState = {
@@ -57,6 +58,20 @@ const tasksReducer = (state = initialState, action) => {
         isLoading: false,
         pendingList: [...filtered_pendingList],
         finishedList: [...state.finishedList, action.payload],
+      };
+    }
+    case DELETE_TASKS: {
+      const filtered_PendingList = state.pendingList.filter(
+        (task) => task.id !== action.payload.id
+      );
+      const filtered_FinishedList = state.finishedList.filter(
+        (task) => task.id !== action.payload.id
+      );
+      return {
+        ...state,
+        isLoading: false,
+        pendingList: [...filtered_PendingList],
+        finishedList: [...filtered_FinishedList],
       };
     }
     default:
