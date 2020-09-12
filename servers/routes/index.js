@@ -49,13 +49,23 @@ router.post("/tasks", (req, res) => {
   saveData(tasks, res);
 });
 
-router.put("/tasks", (req, res) => {
+/*  부분수정 */
+router.patch("/tasks", (req, res) => {
   const data = getData();
   const tasks = JSON.parse(data);
   let target = tasks.find((task) => task.id === req.body.id);
   target.status = req.body.status;
 
   saveData(tasks, res);
+});
+
+/* delete method를 사용하는 대신 put method를 사용하여 해당 리스트를 제외한 목록을 저장함 */
+router.put("/tasks", (req, res) => {
+  const data = getData();
+  const tasks = JSON.parse(data);
+  const filtered_tasks = tasks.filter((list) => list.id !== req.body.id);
+
+  saveData(filtered_tasks, res);
 });
 
 module.exports = router;
