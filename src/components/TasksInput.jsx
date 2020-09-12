@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import { ADD_TASKS } from "./redux/actions";
+import { ADD_TASKS } from "../redux/actions";
 
 const TasksInput = ({ add }) => {
   const [state, setState] = useState({
