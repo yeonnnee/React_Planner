@@ -10,14 +10,17 @@ const List = styled.li`
   display: grid;
   grid-template-columns: 20px 1fr 20px;
 `;
-const CheckBtn = styled.input`
-  display: none;
-`;
-const Label = styled.label`
+
+const CheckBox = styled.div`
   width: 15px;
   height: 15px;
   border: 1px solid #5a2330;
   opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5a2330;
+  cursor: Default;
   &:hover {
     opacity: 1;
     border: 1px solid #5a2330;
@@ -37,13 +40,12 @@ const DelBtn = styled.button`
 
 const TaskList = ({ text, id, status, change, deleteItem }) => {
   function changeStatus() {
-    const target = { id: id, text: text, status: status };
-    if (target.status === "PENDING") {
+    if (status === "PENDING") {
       const completed = { id: id, text: text, status: "FINISHED" };
       axios.patch("/api/tasks", completed);
       change(completed);
     }
-    if (target.status === "FINISHED") {
+    if (status === "FINISHED") {
       const uncompleted = { id: id, text: text, status: "PENDING" };
       axios.patch("/api/tasks", uncompleted);
       change(uncompleted);
@@ -57,13 +59,9 @@ const TaskList = ({ text, id, status, change, deleteItem }) => {
   }
   return (
     <List>
-      <CheckBtn
-        type="checkbox"
-        onClick={changeStatus}
-        defaultChecked={false}
-        id={id}
-      />
-      <Label htmlFor={id}></Label>
+      <CheckBox onClick={changeStatus}>
+        {status === "PENDING" ? "" : "v"}
+      </CheckBox>
       {text}
       <DelBtn onClick={deleteTask}>x</DelBtn>
     </List>
