@@ -6,9 +6,17 @@ import axios from "axios";
 
 const TaskList = ({ text, id, status, finish, deleteItem }) => {
   function finished() {
-    const target = { id: id, text: text, status: "FINISHED" };
-    axios.patch("/api/tasks", target);
-    finish(target);
+    let target = { id: id, text: text, status: status };
+    if (target.status === "PENDING") {
+      const result = { id: id, text: text, status: "FINISHED" };
+      axios.patch("/api/tasks", result);
+      finish(result);
+    }
+    if (target.status === "FINISHED") {
+      const result = { id: id, text: text, status: "PENDING" };
+      axios.patch("/api/tasks", result);
+      finish(result);
+    }
   }
 
   function deleteTask() {
