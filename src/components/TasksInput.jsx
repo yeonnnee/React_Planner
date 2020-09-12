@@ -3,8 +3,27 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import { ADD_TASKS } from "../redux/actions";
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+`;
+const Input = styled.input`
+  outline: none;
+  border: none;
+  width: 320px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ad8d92, -5px -5px 15px #e3d8d4,
+    inset -5px -5px 5px #e3d8d4;
+
+  &::placeholder {
+    font-family: "Zilla Slab", serif;
+  }
+`;
 
 const TasksInput = ({ add }) => {
   const [state, setState] = useState({
@@ -26,9 +45,9 @@ const TasksInput = ({ add }) => {
     setState({ tasks: { text: "", id: "" } });
   }
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" value={state.tasks.text} onChange={onChange}></input>
-    </form>
+    <Form onSubmit={onSubmit}>
+      <Input type="text" value={state.tasks.text} onChange={onChange}></Input>
+    </Form>
   );
 };
 
