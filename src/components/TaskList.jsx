@@ -1,21 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { connect } from "react-redux";
-import { DELETE_TASKS, FINISHED_TASKS } from "../redux/actions";
+import { CHANGE_STATUS, DELETE_TASKS } from "../redux/actions";
 import axios from "axios";
 
-const TaskList = ({ text, id, status, finish, deleteItem }) => {
-  function finished() {
+const TaskList = ({ text, id, status, change, deleteItem }) => {
+  function changeStatus() {
     let target = { id: id, text: text, status: status };
     if (target.status === "PENDING") {
       const result = { id: id, text: text, status: "FINISHED" };
       axios.patch("/api/tasks", result);
-      finish(result);
+      change(result);
     }
     if (target.status === "FINISHED") {
       const result = { id: id, text: text, status: "PENDING" };
       axios.patch("/api/tasks", result);
-      finish(result);
+      change(result);
     }
   }
 
@@ -26,7 +26,7 @@ const TaskList = ({ text, id, status, finish, deleteItem }) => {
   }
   return (
     <div>
-      <input type="checkbox" onClick={finished} defaultChecked={false} />
+      <input type="checkbox" onClick={changeStatus} defaultChecked={false} />
       <li>{text}</li>
       <button onClick={deleteTask}>x</button>
     </div>
@@ -35,9 +35,9 @@ const TaskList = ({ text, id, status, finish, deleteItem }) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    finish: (task) => {
+    change: (task) => {
       dispatch({
-        type: FINISHED_TASKS,
+        type: CHANGE_STATUS,
         payload: task,
       });
     },

@@ -3,7 +3,7 @@ import {
   FETCH_FAILED,
   FETCH_START,
   ADD_TASKS,
-  FINISHED_TASKS,
+  CHANGE_STATUS,
   DELETE_TASKS,
 } from "../actions";
 
@@ -49,16 +49,28 @@ const tasksReducer = (state = initialState, action) => {
         isLoading: false,
         pendingList: [...state.pendingList, action.payload],
       };
-    case FINISHED_TASKS: {
-      const filtered_pendingList = state.pendingList.filter(
-        (task) => task.id !== action.payload.id
-      );
-      return {
-        ...state,
-        isLoading: false,
-        pendingList: [...filtered_pendingList],
-        finishedList: [...state.finishedList, action.payload],
-      };
+    case CHANGE_STATUS: {
+      if (action.payload.status === "FINISHED") {
+        const filtered_pendingList = state.pendingList.filter(
+          (task) => task.id !== action.payload.id
+        );
+        return {
+          ...state,
+          isLoading: false,
+          pendingList: [...filtered_pendingList],
+          finishedList: [...state.finishedList, action.payload],
+        };
+      } else {
+        const filtered_FinishedList = state.finishedList.filter(
+          (task) => task.id !== action.payload.id
+        );
+        return {
+          ...state,
+          isLoading: false,
+          pendingList: [...state.pendingList, action.payload],
+          finishedList: [...filtered_FinishedList],
+        };
+      }
     }
     case DELETE_TASKS: {
       const filtered_PendingList = state.pendingList.filter(
