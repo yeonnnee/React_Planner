@@ -1,4 +1,5 @@
 const Task = require("../models/tasksModel");
+const { validationResult } = require("express-validator");
 
 exports.getTasks = (req, res) => {
   const data = Task.fetchAll();
@@ -11,8 +12,13 @@ exports.postTasks = (req, res) => {
   const status = req.body.tasks.status;
   const task = new Task(id, text, status);
 
-  Task.add(task);
-  res.send("Get data successfully");
+  if (!validationResult(req).isEmpty()) {
+    const result = validationResult(req);
+    res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
+  } else {
+    Task.add(task);
+    res.send("Get data successfully");
+  }
 };
 
 exports.patchTasks = (req, res) => {
