@@ -18,7 +18,6 @@ const ListCon = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 50px, 1fr;
-  gap: 10px;
 `;
 const Pending = styled.div``;
 const Finished = styled.div``;
@@ -29,13 +28,18 @@ const Title = styled.span`
   font-family: "Fredericka the Great", cursive;
 `;
 const List = styled.ul`
-  height: 350px;
-  margin-top: 20px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   overflow: auto;
 `;
-
+const Scroll = styled.div`
+  width: 248px;
+`;
+const Wrapper = styled.div`
+  width: 230px;
+  overflow: hidden;
+`;
 const TasksPresenter = (state) => {
   return (
     <>
@@ -45,19 +49,27 @@ const TasksPresenter = (state) => {
         <ListCon>
           <Pending>
             <Title>PENDING</Title>
-            <List>
-              {state.pendingList.map((task, index) => {
-                return <TaskList {...task} key={index} />;
-              })}
-            </List>
+            <Wrapper>
+              <Scroll>
+                <List>
+                  {state.pendingList.map((task, index) => {
+                    return <TaskList {...task} key={index} />;
+                  })}
+                </List>
+              </Scroll>
+            </Wrapper>
           </Pending>
           <Finished>
             <Title>FINISHED</Title>
-            <List>
-              {state.finishedList.map((task, index) => {
-                return <TaskList {...task} key={index} />;
-              })}
-            </List>
+            <Wrapper>
+              <Scroll>
+                <List>
+                  {state.finishedList.map((task, index) => {
+                    return <TaskList {...task} key={index} />;
+                  })}
+                </List>
+              </Scroll>
+            </Wrapper>
           </Finished>
         </ListCon>
       </Container>

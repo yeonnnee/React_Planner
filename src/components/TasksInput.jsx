@@ -61,9 +61,9 @@ const TasksInput = ({ add }) => {
       if (result !== "Get data successfully") {
         return setError({ error: result.error, message: result.msg });
       }
+      add(state.tasks);
+      setState({ tasks: { text: "", id: "", status: "" } });
     }
-    add(state.tasks);
-    setState({ tasks: { text: "", id: "", status: "" } });
   }
   return (
     <>

@@ -18,7 +18,7 @@ const globalStyles = createGlobalStyle`
   }
   #root {
     height: 700px;
-    width: 450px;
+    width: 470px;
     /* background-color: #D4C8BE; */
     background-color: #E2E0DC;
     box-shadow: 5px 5px 15px #baa7a1,  5px 5px 10px #baa7a1,

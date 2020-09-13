@@ -6,9 +6,10 @@ import axios from "axios";
 import styled from "styled-components";
 
 const List = styled.li`
-  padding: 5px 20px;
+  padding: 5px 15px;
   display: grid;
-  grid-template-columns: 20px 1fr 20px;
+  grid-template-columns: 20px 150px 30px;
+  font-size: 15px;
 `;
 
 const CheckBox = styled.div`
@@ -63,7 +64,7 @@ const TaskList = ({ text, id, status, change, deleteItem }) => {
         {status === "PENDING" ? "" : "v"}
       </CheckBox>
       {text}
-      <DelBtn onClick={deleteTask}>x</DelBtn>
+      <DelBtn onClick={deleteTask}>X</DelBtn>
     </List>
   );
 };
