@@ -17,15 +17,24 @@ const List = styled.ul`
 `;
 const Menu = styled.li`
   text-decoration: none;
-  color: ${(props) => (props.current ? "#5a2330" : "#4b4b4b")};
+  color: ${(props) => (props.current ? "#90323d" : "#4b4b4b")};
   &:hover {
-    color: #5a2330;
+    color: #90323d;
   }
 `;
 const SLink = styled(Link)`
   text-decoration: none;
   font-weight: bold;
   font-family: "Zilla Slab", serif;
+  /* &:nth-child(1) {
+    background-color: #55828b;
+  }
+  &:nth-child(2) {
+    background-color: #3b6064;
+  }
+  &:nth-child(3) {
+    background-color: #364958;
+  } */
 `;
 
 export default withRouter(({ location }) => (

@@ -9,6 +9,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use("/api/tasks", taskRoute);
+app.use("/api", taskRoute);
 
 app.listen(3001, () => console.log("hello from the server"));

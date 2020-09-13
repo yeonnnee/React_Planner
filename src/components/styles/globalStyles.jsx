@@ -12,15 +12,18 @@ const globalStyles = createGlobalStyle`
     display: flex;
     justify-content:center;
     align-items:center;
-    background-color: #E2E0DC;
+    /* background-color: #E2E0DC; */
+    background-color: #cfc0bd;
     overflow: hidden
   }
   #root {
     height: 700px;
     width: 450px;
-    background-color: #D4C8BE;
+    /* background-color: #D4C8BE; */
+    background-color: #E2E0DC;
     box-shadow: 5px 5px 15px #baa7a1,  5px 5px 10px #baa7a1,
-    inset -5px -5px 15px #baa7a1;
+    inset -5px -5px 15px #baa7a1, inset 1px 1px 5px #baa7a1;
+    border-radius: 5px;
   }
 `;
 
