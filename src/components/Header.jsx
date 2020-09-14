@@ -39,18 +39,20 @@ const SLink = styled(Link)`
 
 export default withRouter(({ location }) => (
   <>
-    <Container>
-      <List>
-        <SLink to="/">
-          <Menu current={location.pathname === "/"}>Tasks</Menu>
-        </SLink>
-        <SLink to="/monthly">
-          <Menu current={location.pathname === "/monthly"}>Monthly</Menu>
-        </SLink>
-        <SLink to="/record">
-          <Menu current={location.pathname === "/record"}>Record</Menu>
-        </SLink>
-      </List>
-    </Container>
+    {location.pathname === "/" ? null : (
+      <Container>
+        <List>
+          <SLink to="/tasks">
+            <Menu current={location.pathname === "/tasks"}>Tasks</Menu>
+          </SLink>
+          <SLink to="/monthly">
+            <Menu current={location.pathname === "/monthly"}>Monthly</Menu>
+          </SLink>
+          <SLink to="/record">
+            <Menu current={location.pathname === "/record"}>Record</Menu>
+          </SLink>
+        </List>
+      </Container>
+    )}
   </>
 ));
