@@ -39,7 +39,9 @@ const SLink = styled(Link)`
 
 export default withRouter(({ location }) => (
   <>
-    {location.pathname === "/" ? null : (
+    {(location.pathname === "/") |
+    (location.pathname === "/logIn") |
+    (location.pathname === "/sign-up") ? null : (
       <Container>
         <List>
           <SLink to="/tasks">

@@ -10,7 +10,8 @@ const Header = styled.div`
   border-bottom: 1px solid #382933;
 `;
 const Title = styled.div`
-  font-size: 30px;
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 25px;
 `;
 const Describe = styled.div`
   font-size: 13px;
