@@ -1,5 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+
+import Header from "../components/WelcomeMessage";
 
 const FadeIn = keyframes`
 from{
@@ -18,24 +21,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  animation: ${FadeIn} 1.5s linear;
-`;
-const Header = styled.div`
-  width: 80%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: 1px solid #382933;
-`;
-const Title = styled.div`
-  font-size: 30px;
-`;
-const Describe = styled.div`
-  font-size: 13px;
-  margin-top: 20px;
-  line-height: 1.5;
-  text-align: center;
+  animation: ${FadeIn} 1s linear;
 `;
 
 const Section = styled.div`
@@ -50,15 +36,19 @@ const Text = styled.div`
 const Button = styled.div`
   width: 150px;
   height: 40px;
-  border: 1px solid #767c77;
+  border: 1px solid #30475e;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   &:hover {
-    background-color: #9cada4;
+    background-color: #30475e;
     color: white;
   }
+`;
+const SLink = styled(Link)`
+  text-decoration: none;
+  color: #382933;
 `;
 
 const Span = styled.span``;
@@ -66,21 +56,19 @@ const Span = styled.span``;
 const HomePresenter = () => {
   return (
     <Container>
-      <Header>
-        <Title>Welcome to Planner</Title>
-        <Describe>
-          Manage your plan and record your day.
-          <br /> Dream, Plan, Do with our App.
-        </Describe>
-      </Header>
+      <Header />
       <Section>
         <Text>Already have an account?</Text>
-        <Button>Log In</Button>
+        <SLink to="/logIn">
+          <Button>Log In</Button>
+        </SLink>
       </Section>
       <Span>or</Span>
       <Section>
         <Text>create your account</Text>
-        <Button>Sign Up</Button>
+        <SLink to="/sign-up">
+          <Button>Sign Up</Button>
+        </SLink>
       </Section>
     </Container>
   );
