@@ -17,7 +17,13 @@ exports.postSignUp = (req, res) => {
 
   if (!validationResult(req).isEmpty()) {
     const result = validationResult(req);
-    res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
+    console.log(result);
+    // let messages = [];
+    // for (let i = 0; i < result.errors.length; i++) {
+    //   messages.push(result.errors[i].msg);
+    // }
+
+    res.json({ msg: result.errors[0].msg });
   } else {
     User.add(user);
     res.send("Get data successfully");
