@@ -1,4 +1,4 @@
-const Task = require("../models/tasksModel");
+const Task = require("../testModel/tasksModel");
 const { validationResult } = require("express-validator");
 
 exports.getTasks = (req, res) => {

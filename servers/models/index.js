@@ -1,21 +1,20 @@
+const path = require("path");
 const Sequelize = require("sequelize");
 
-const configs = require("../utils/configs");
+const env = process.env.NODE_ENV || "development";
+const config = require(path.join(__dirname, "..", "config", "config.json"))[
+  env
+];
+const db = {};
 
-// const db = {};
 const sequelize = new Sequelize(
-  configs.database,
-  configs.username,
-  configs.password,
-  {
-    dialect: "mysql",
-    host: "localhost",
-  }
+  config.database,
+  config.username,
+  config.password,
+  config
 );
 
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
-// db.User = require("./user");
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-// relationship
-module.exports = sequelize;
+module.exports = db;

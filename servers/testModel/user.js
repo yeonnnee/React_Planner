@@ -1,9 +1,15 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../utils/database");
+const sequelize = require(".");
 
 const User = sequelize.define(
   "user",
   {
+    // no: {
+    //   type: DataTypes.INTEGER(4).UNSIGNED.ZEROFILL,
+    //   autoIncrement: true,
+    //   allowNull: false,
+    //   primarykey: true,
+    // },
     name: {
       type: Sequelize.STRING(10),
       allowNull: false,
