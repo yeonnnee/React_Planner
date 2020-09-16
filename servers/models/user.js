@@ -4,6 +4,12 @@ const sequelize = require("../utils/database");
 const User = sequelize.define(
   "user",
   {
+    no: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
     name: {
       type: Sequelize.STRING(10),
       allowNull: false,
@@ -21,14 +27,10 @@ const User = sequelize.define(
       type: Sequelize.STRING(20),
       allowNull: false,
     },
-    created_at: {
-      type: Sequelize.DATE,
-      allowNull: false,
-      deffaultValue: Sequelize.NOW,
-    },
   },
   {
-    timestamps: false,
+    timestamps: true,
+    paranoid: true,
   }
 );
 
