@@ -7,7 +7,7 @@ router.get("/signUp", signUpCon.getData);
 router.post(
   "/signUp",
   [
-    body("user.id")
+    body("user.userID")
       .trim()
       .isLength({ min: 6 })
       .withMessage("아이디는 6글자 이상의 영문과 숫자로 구성되어야 합니다")
@@ -29,7 +29,7 @@ router.post(
         const result = regex.test(value);
         if (!result) {
           throw new Error(
-            "비밀번호는 영문 대소문자, 숫자, 특수문자를 포함한 8~20자로 입력해주십시오."
+            "비밀번호는 영문 대소문자, 숫자, 특수문자(#?!@$%^&*-)를 포함한 8~20자로 입력해주십시오."
           );
         }
         return true;
@@ -39,7 +39,7 @@ router.post(
         const result = korean.test(value);
         if (result) {
           throw new Error(
-            "비밀번호는 영문 대소문자, 숫자, 특수문자를 포함한 8~20자로 입력해주십시오."
+            "비밀번호는 영문 대소문자, 숫자, 특수문자(#?!@$%^&*-)를 포함한 8~20자로 입력해주십시오."
           );
         }
         return true;
