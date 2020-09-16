@@ -2,7 +2,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 import Header from "../components/WelcomeMessage";
-import Button from "../components/SubmitBtn";
 
 const MoveDown = keyframes`
  from {
@@ -45,8 +44,20 @@ const Input = styled.input`
     font-family: "Fredericka the Great", cursive;
   }
 `;
-
-const SubmitBtn = styled(Button)``;
+const Button = styled.div`
+  width: 150px;
+  height: 40px;
+  border: 1px solid #30475e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Life Savers", cursive;
+  cursor: pointer;
+  &:hover {
+    background-color: #30475e;
+    color: white;
+  }
+`;
 
 const LogInPresenter = () => {
   return (
@@ -56,7 +67,7 @@ const LogInPresenter = () => {
         <Form>
           <Input type="text" placeholder="ID"></Input>
           <Input type="password" placeholder="Password"></Input>
-          <SubmitBtn />
+          <Button>Log In</Button>
         </Form>
       </Section>
     </Container>

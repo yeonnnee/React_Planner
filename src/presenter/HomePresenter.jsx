@@ -36,7 +36,7 @@ const Text = styled.div`
 const Button = styled.div`
   width: 150px;
   height: 40px;
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Life Savers", cursive;
   border: 1px solid #30475e;
   display: flex;
   align-items: center;
