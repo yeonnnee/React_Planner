@@ -4,6 +4,8 @@ import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+// import UserId from "../components/signUp/userId";
+
 const MoveDown = keyframes`
  from {
    transform: translateY(-250px);
@@ -56,7 +58,7 @@ const Input = styled.input`
   width: 60%;
   padding: 10px 20px;
   outline: none;
-  border: none;
+  border: ${(props) => (props.error ? "1px solid red" : "none")};
   border-radius: 5px;
 `;
 const Wrapper = styled.div`
@@ -99,9 +101,13 @@ const SignUpPresenter = () => {
   const [state, setState] = useState({
     user: { name: "", id: "", password: "", confirmPassword: "", email: "" },
   });
+  const [error, setError] = useState({
+    message: "",
+  });
   function onChange(event) {
     const target = event.target.name;
     const value = event.target.value;
+    setError({ message: "" });
     switch (target) {
       case "name": {
         return setState({
@@ -135,6 +141,7 @@ const SignUpPresenter = () => {
     event.preventDefault();
     const res = await axios.post("/api/user/signUp", state);
     console.log(res);
+    setError({ message: res.data.msg });
   }
   return (
     <Container>
@@ -147,7 +154,18 @@ const SignUpPresenter = () => {
             value={state.user.id}
             name="id"
             onChange={onChange}
+            error={
+              error.message !== "" && error.message.includes("아이디는")
+                ? true
+                : false
+            }
           />
+          {error.message !== "" && error.message.includes("아이디는") ? (
+            <Info>{error.message}</Info>
+          ) : (
+            <Info>* 영문 및 숫자로 조합된 6~20자</Info>
+          )}
+
           <Input
             type="password"
             placeholder="Password"
@@ -155,8 +173,18 @@ const SignUpPresenter = () => {
             autocomplete="off"
             name="password"
             onChange={onChange}
+            error={
+              error.message !== "" && error.message.includes("비밀번호는")
+                ? true
+                : false
+            }
           />
-          <Info>* 영문 대소문자, 숫자, 특수문자를 포함한 10자리 이상</Info>
+          {error.message !== "" && error.message.includes("비밀번호는") ? (
+            <Info>{error.message}</Info>
+          ) : (
+            <Info>* 영문 대소문자, 숫자, 특수문자를 포함한 8~20자</Info>
+          )}
+
           <Input
             type="password"
             placeholder="Confirm Password"
@@ -164,21 +192,45 @@ const SignUpPresenter = () => {
             autocomplete="off"
             name="confirmPassword"
             onChange={onChange}
+            error={
+              error.message === "비밀번호가 일치하지 않습니다" ? true : false
+            }
           />
+          {error.message === "비밀번호가 일치하지 않습니다" ? (
+            <Info>{error.message}</Info>
+          ) : null}
           <Input
             type="text"
             placeholder="Name"
             value={state.user.name}
             name="name"
             onChange={onChange}
+            error={
+              error.message === "글자 수가 초과하였습니다." ||
+              error.message.includes("한글로") ||
+              error.message === "유효하지 않은 글자가 포함되어 있습니다."
+                ? true
+                : false
+            }
           />
+          {error.message === "글자 수가 초과하였습니다." ||
+          error.message.includes("한글로") ||
+          error.message === "유효하지 않은 글자가 포함되어 있습니다." ? (
+            <Info>{error.message}</Info>
+          ) : null}
           <Input
             type="email"
             placeholder="Email"
             value={state.user.email}
             name="email"
             onChange={onChange}
+            error={
+              error.message === "유효하지 않은 이메일입니다" ? true : false
+            }
           />
+          {error.message === "유효하지 않은 이메일입니다" ? (
+            <Info>{error.message}</Info>
+          ) : null}
         </Form>
       </Wrapper>
       <Section>
