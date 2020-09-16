@@ -7,11 +7,11 @@ exports.getData = (req, res) => {
   res.json(data);
 };
 
-exports.postSignUp = (req, res) => {
-  const name = req.body.user.name;
-  const userID = req.body.user.userId;
-  const password = req.body.user.password;
-  const email = req.body.user.email;
+exports.postSignUp = async (req, res) => {
+  const name = await req.body.user.name;
+  const userID = await req.body.user.userID;
+  const password = await req.body.user.password;
+  const email = await req.body.user.email;
 
   if (!validationResult(req).isEmpty()) {
     const result = validationResult(req);
