@@ -106,7 +106,13 @@ const SLink = styled(Link)`
 
 const SignUpPresenter = () => {
   const [state, setState] = useState({
-    user: { name: "", id: "", password: "", confirmPassword: "", email: "" },
+    user: {
+      name: "",
+      userID: "",
+      password: "",
+      confirmPassword: "",
+      email: "",
+    },
   });
   const [error, setError] = useState({
     message: "",
@@ -132,9 +138,9 @@ const SignUpPresenter = () => {
           user: { ...state.user, confirmPassword: value },
         });
       }
-      case "id": {
+      case "userID": {
         return setState({
-          user: { ...state.user, id: value },
+          user: { ...state.user, userID: value },
         });
       }
       case "email": {
@@ -148,7 +154,7 @@ const SignUpPresenter = () => {
   async function onSubmit(event) {
     event.preventDefault();
     if (
-      state.user.id === "" ||
+      state.user.userID === "" ||
       state.user.password === "" ||
       state.user.confirmPassword === "" ||
       state.user.name === "" ||
@@ -181,8 +187,8 @@ const SignUpPresenter = () => {
               <Input
                 type="text"
                 placeholder="ID"
-                value={state.user.id}
-                name="id"
+                value={state.user.userID}
+                name="userID"
                 onChange={onChange}
                 error={
                   error.message !== "" && error.message.includes("아이디")
