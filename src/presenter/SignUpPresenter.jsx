@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-// import UserId from "../components/signUp/userId";
+import SuccessSignUp from "../components/SuccessSignUp";
 
 const MoveDown = keyframes`
  from {
@@ -16,7 +16,7 @@ const MoveDown = keyframes`
 `;
 
 const Container = styled.div`
-  height: 60%;
+  height: 70%;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Life Savers", cursive;
   cursor: pointer;
   &:hover {
     background-color: #30475e;
@@ -41,6 +41,7 @@ const Title = styled.span`
   font-size: 25px;
   /* font-family: "Fredericka the Great", cursive; */
   font-family: "Cinzel Decorative", cursive;
+  margin-bottom: 20px;
 `;
 
 const Form = styled.form`
@@ -75,6 +76,12 @@ const Info = styled.div`
   position: relative;
   top: -10px;
 `;
+const Error = styled.div`
+  font-size: 11px;
+  position: relative;
+  top: -10px;
+  color: red;
+`;
 const CancelBtn = styled.div`
   width: 150px;
   height: 40px;
@@ -83,7 +90,7 @@ const CancelBtn = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Life Savers", cursive;
 
   cursor: pointer;
   &:hover {
@@ -104,6 +111,7 @@ const SignUpPresenter = () => {
   const [error, setError] = useState({
     message: "",
   });
+  const [status, setStatus] = useState({ result: "" });
   function onChange(event) {
     const target = event.target.name;
     const value = event.target.value;
@@ -139,107 +147,128 @@ const SignUpPresenter = () => {
 
   async function onSubmit(event) {
     event.preventDefault();
-    const res = await axios.post("/api/user/signUp", state);
-    console.log(res);
-    setError({ message: res.data.msg });
+    if (
+      state.user.id === "" ||
+      state.user.password === "" ||
+      state.user.confirmPassword === "" ||
+      state.user.name === "" ||
+      state.user.email === ""
+    ) {
+      setError({ message: "빈칸 없이 입력해주시기 바랍니다" });
+    } else {
+      const res = await axios.post("/api/user/signUp", state);
+      console.log(res);
+      if (res.data !== "Get data successfully") {
+        setError({ message: res.data.msg });
+        setStatus({ result: "Failed" });
+      } else {
+        setStatus({ result: "Success" });
+      }
+    }
   }
   return (
-    <Container>
-      <Title>Sign Up</Title>
-      <Wrapper>
-        <Form>
-          <Input
-            type="text"
-            placeholder="ID"
-            value={state.user.id}
-            name="id"
-            onChange={onChange}
-            error={
-              error.message !== "" && error.message.includes("아이디는")
-                ? true
-                : false
-            }
-          />
-          {error.message !== "" && error.message.includes("아이디는") ? (
-            <Info>{error.message}</Info>
-          ) : (
-            <Info>* 영문 및 숫자로 조합된 6~20자</Info>
-          )}
+    <>
+      {status.result === "Success" ? (
+        <SuccessSignUp />
+      ) : (
+        <Container>
+          <Title>SignUp</Title>
+          {error.message.includes("빈칸") ? (
+            <Error>빈칸없이 작성해주십시오</Error>
+          ) : null}
+          <Wrapper>
+            <Form>
+              <Input
+                type="text"
+                placeholder="ID"
+                value={state.user.id}
+                name="id"
+                onChange={onChange}
+                error={
+                  error.message !== "" && error.message.includes("아이디")
+                    ? true
+                    : false
+                }
+              />
+              {error.message !== "" && error.message.includes("아이디") ? (
+                <Error>{error.message}</Error>
+              ) : (
+                <Info>* 영문 및 숫자로 조합된 6~20자</Info>
+              )}
 
-          <Input
-            type="password"
-            placeholder="Password"
-            value={state.user.password}
-            autocomplete="off"
-            name="password"
-            onChange={onChange}
-            error={
-              error.message !== "" && error.message.includes("비밀번호는")
-                ? true
-                : false
-            }
-          />
-          {error.message !== "" && error.message.includes("비밀번호는") ? (
-            <Info>{error.message}</Info>
-          ) : (
-            <Info>* 영문 대소문자, 숫자, 특수문자를 포함한 8~20자</Info>
-          )}
+              <Input
+                type="password"
+                placeholder="Password"
+                value={state.user.password}
+                autocomplete="off"
+                name="password"
+                onChange={onChange}
+                error={
+                  error.message !== "" && error.message.includes("비밀번호")
+                    ? true
+                    : false
+                }
+              />
+              {error.message !== "" && error.message.includes("비밀번호") ? (
+                <Error>{error.message}</Error>
+              ) : (
+                <Info>* 영문 대소문자, 숫자, 특수문자를 포함한 8~20자</Info>
+              )}
 
-          <Input
-            type="password"
-            placeholder="Confirm Password"
-            value={state.user.confirmPassword}
-            autocomplete="off"
-            name="confirmPassword"
-            onChange={onChange}
-            error={
-              error.message === "비밀번호가 일치하지 않습니다" ? true : false
-            }
-          />
-          {error.message === "비밀번호가 일치하지 않습니다" ? (
-            <Info>{error.message}</Info>
-          ) : null}
-          <Input
-            type="text"
-            placeholder="Name"
-            value={state.user.name}
-            name="name"
-            onChange={onChange}
-            error={
-              error.message === "글자 수가 초과하였습니다." ||
-              error.message.includes("한글로") ||
-              error.message === "유효하지 않은 글자가 포함되어 있습니다."
-                ? true
-                : false
-            }
-          />
-          {error.message === "글자 수가 초과하였습니다." ||
-          error.message.includes("한글로") ||
-          error.message === "유효하지 않은 글자가 포함되어 있습니다." ? (
-            <Info>{error.message}</Info>
-          ) : null}
-          <Input
-            type="email"
-            placeholder="Email"
-            value={state.user.email}
-            name="email"
-            onChange={onChange}
-            error={
-              error.message === "유효하지 않은 이메일입니다" ? true : false
-            }
-          />
-          {error.message === "유효하지 않은 이메일입니다" ? (
-            <Info>{error.message}</Info>
-          ) : null}
-        </Form>
-      </Wrapper>
-      <Section>
-        <Button onClick={onSubmit}>Submit</Button>
-        <SLink to="/">
-          <CancelBtn>Cancel</CancelBtn>
-        </SLink>
-      </Section>
-    </Container>
+              <Input
+                type="password"
+                placeholder="Confirm Password"
+                value={state.user.confirmPassword}
+                autocomplete="off"
+                name="confirmPassword"
+                onChange={onChange}
+                error={error.message.includes("일치") ? true : false}
+              />
+              {error.message.includes("일치") ? (
+                <Error>{error.message}</Error>
+              ) : null}
+              <Input
+                type="text"
+                placeholder="Name"
+                value={state.user.name}
+                name="name"
+                onChange={onChange}
+                error={
+                  error.message === "글자 수가 초과하였습니다." ||
+                  error.message.includes("한글") ||
+                  error.message === "유효하지 않은 글자가 포함되어 있습니다."
+                    ? true
+                    : false
+                }
+              />
+              {error.message === "글자 수가 초과하였습니다." ||
+              error.message.includes("한글") ||
+              error.message === "유효하지 않은 글자가 포함되어 있습니다." ? (
+                <Error>{error.message}</Error>
+              ) : null}
+              <Input
+                type="email"
+                placeholder="Email"
+                value={state.user.email}
+                name="email"
+                onChange={onChange}
+                error={error.message.includes("이메일") ? true : false}
+              />
+              {error.message.includes("이메일") ? (
+                <Error>{error.message}</Error>
+              ) : null}
+            </Form>
+          </Wrapper>
+          <Section>
+            <Button onClick={onSubmit}>Submit</Button>
+
+            <SLink to="/">
+              <CancelBtn>Cancel</CancelBtn>
+            </SLink>
+          </Section>
+        </Container>
+      )}
+    </>
   );
 };
 
