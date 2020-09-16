@@ -1,4 +1,5 @@
-const User = require("../models/test");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
 exports.getData = (req, res) => {
@@ -8,24 +9,23 @@ exports.getData = (req, res) => {
 
 exports.postSignUp = (req, res) => {
   const name = req.body.user.name;
-  const id = req.body.user.id;
+  const userID = req.body.user.userId;
   const password = req.body.user.password;
-  // const confr = req.body.user.password;
-
   const email = req.body.user.email;
-  const user = new User(name, id, password, email);
 
   if (!validationResult(req).isEmpty()) {
     const result = validationResult(req);
-    console.log(result);
-    // let messages = [];
-    // for (let i = 0; i < result.errors.length; i++) {
-    //   messages.push(result.errors[i].msg);
-    // }
 
     res.json({ msg: result.errors[0].msg });
   } else {
-    User.add(user);
+    const salt = bcrypt.genSaltSync(16);
+    User.create({
+      name: name,
+      userID: userID,
+      password: bcrypt.hashSync(password, salt),
+      email: email,
+    });
+
     res.send("Get data successfully");
   }
 };
