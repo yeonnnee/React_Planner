@@ -4,6 +4,7 @@ const { body } = require("express-validator");
 
 const signUpCon = require("../controllers/signUpCon");
 const User = require("../models/user");
+
 router.get("/signUp", signUpCon.getData);
 router.post(
   "/signUp",

@@ -6,7 +6,7 @@ const MysqlStore = require("express-mysql-session")(session);
 
 const taskRoutes = require("./routes/taskRoutes");
 const userRoutes = require("./routes/userRoutes");
-const sequelize = require("./utils/database");
+const sequelize = require("./models");
 const config = require("./utils/configs");
 
 const app = express();
