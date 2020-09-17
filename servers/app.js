@@ -5,7 +5,7 @@ const session = require("express-session");
 const MysqlStore = require("express-mysql-session")(session);
 
 const taskRoutes = require("./routes/taskRoutes");
-const userRoutes = require("./routes/userRoutes");
+const signUpRoutes = require("./routes/signUpRoutes");
 const sequelize = require("./models");
 const config = require("./utils/configs");
 
@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-app.use("/api/user", userRoutes);
+app.use("/api/user", signUpRoutes);
 app.use("/api", taskRoutes);
 
 const driver = async () => {
