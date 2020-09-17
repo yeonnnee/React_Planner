@@ -2,11 +2,6 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
-exports.getData = (req, res) => {
-  const data = User.fetchAll();
-  res.json(data);
-};
-
 exports.postSignUp = async (req, res) => {
   const name = await req.body.user.name;
   const userID = await req.body.user.userID;
@@ -28,10 +23,4 @@ exports.postSignUp = async (req, res) => {
 
     res.send("Get data successfully");
   }
-};
-
-exports.deleteTasks = (req, res) => {
-  const userId = req.body.id;
-  User.delete(userId);
-  res.send("Delete data successfully");
 };
