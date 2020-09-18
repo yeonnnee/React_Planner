@@ -99,7 +99,7 @@ const SignUp = () => {
           ) : null}
           <Wrapper>
             <Form>
-              <Label for="userID">아이디 :</Label>
+              <Label htmlFor="userID">아이디 :</Label>
               <Input
                 type="text"
                 placeholder="ID"
@@ -120,7 +120,7 @@ const SignUp = () => {
               <Info>* 영문 및 숫자로 조합된 6~20자</Info>
             )}
             <Form>
-              <Label for="password">비밀번호 :</Label>
+              <Label htmlFor="password">비밀번호 :</Label>
               <Input
                 type="password"
                 placeholder="Password"
@@ -142,7 +142,7 @@ const SignUp = () => {
               <Info>* 영문 대소문자, 숫자, 특수문자를 포함한 8~20자</Info>
             )}
             <Form>
-              <Label for="confirmPassword">비밀번호 확인 :</Label>
+              <Label htmlFor="confirmPassword">비밀번호 확인 :</Label>
               <Input
                 type="password"
                 placeholder="Confirm Password"
@@ -158,7 +158,7 @@ const SignUp = () => {
               <Error>{error.message}</Error>
             ) : null}
             <Form>
-              <Label for="name">이름 :</Label>
+              <Label htmlFor="name">이름 :</Label>
               <Input
                 type="text"
                 placeholder="Name"
@@ -181,7 +181,7 @@ const SignUp = () => {
               <Error>{error.message}</Error>
             ) : null}
             <Form>
-              <Label for="email">이메일 :</Label>
+              <Label htmlFor="email">이메일 :</Label>
               <Input
                 type="email"
                 placeholder="Email"
