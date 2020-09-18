@@ -94,7 +94,9 @@ const LogInPresenter = () => {
     });
   }
   async function logIn() {
-    if (state.user.userID !== "" || state.user.password !== "") {
+    if (state.user.userID === "" || state.user.password === "") {
+      setError({ msg: "아이디와 비밀번호를 입력해주시기 바랍니다" });
+    } else {
       const res = await axios.post("/api/user/logIn", state);
       console.log(res);
       if (res.data !== "logged In successfully") {
