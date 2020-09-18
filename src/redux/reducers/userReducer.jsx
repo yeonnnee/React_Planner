@@ -81,6 +81,8 @@ const userReducer = (state = initialState, action) => {
         logIn: true,
         result: "SUCCESS",
       };
+    default:
+      return state;
   }
 };
 
