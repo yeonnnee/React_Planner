@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import axios from "axios";
 
 import Header from "../components/WelcomeMessage";
 
@@ -19,6 +20,16 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-around;
 `;
+const Error = styled.div`
+  width: 100%;
+  font-size: 12px;
+  color: red;
+  display: felx;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
 const Section = styled.div`
   width: 100%;
   height: 300px;
@@ -60,14 +71,56 @@ const Button = styled.div`
 `;
 
 const LogInPresenter = () => {
+  const [state, setState] = useState({ user: { userID: "", password: "" } });
+  const [error, setError] = useState({ msg: "" });
+  function setID(event) {
+    const value = event.target.value;
+    setError({ msg: "" });
+    setState({
+      user: {
+        ...state.user,
+        userID: value,
+      },
+    });
+  }
+  function setPassword(event) {
+    const value = event.target.value;
+    setError({ msg: "" });
+    setState({
+      user: {
+        ...state.user,
+        password: value,
+      },
+    });
+  }
+  async function logIn() {
+    if (state.user.userID !== "" || state.user.password !== "") {
+      const res = await axios.post("/api/user/logIn", state);
+      console.log(res);
+      if (res.data !== "logged In successfully") {
+        setError({ msg: res.data });
+      }
+    }
+  }
   return (
     <Container>
       <Header />
       <Section>
+        <Error>{error.msg}</Error>
         <Form>
-          <Input type="text" placeholder="ID"></Input>
-          <Input type="password" placeholder="Password"></Input>
-          <Button>Log In</Button>
+          <Input
+            type="text"
+            placeholder="ID"
+            onChange={setID}
+            value={state.user.userID}
+          ></Input>
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={setPassword}
+            value={state.user.password}
+          ></Input>
+          <Button onClick={logIn}>Log In</Button>
         </Form>
       </Section>
     </Container>
