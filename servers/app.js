@@ -4,10 +4,11 @@ const cors = require("cors");
 const session = require("express-session");
 const MysqlStore = require("express-mysql-session")(session);
 
-const taskRoutes = require("./routes/taskRoutes");
-const signUpRoutes = require("./routes/signUpRoutes");
 const sequelize = require("./models");
 const config = require("./utils/configs");
+const taskRoutes = require("./routes/taskRoutes");
+const signUpRoutes = require("./routes/signUpRoutes");
+const logInRoutes = require("./routes/logInRoutes");
 
 const app = express();
 sequelize.sync();
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
+//* SESSION *//
 app.use(
   session({
     secret: config.session_secret,
@@ -30,6 +32,8 @@ app.use(
   })
 );
 
+// ROUTES //
+app.use("/api/user", logInRoutes);
 app.use("/api/user", signUpRoutes);
 app.use("/api", taskRoutes);
 
