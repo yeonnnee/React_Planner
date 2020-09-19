@@ -58,7 +58,7 @@ router.post(
     body("confirmPassword")
       .trim()
       .custom((value, { req }) => {
-        if (value !== req.body.user.password) {
+        if (value !== req.body.password) {
           throw new Error("비밀번호가 일치하지 않습니다");
         }
         return true;
@@ -87,7 +87,7 @@ router.post(
       })
       .bail()
       .custom((value) => {
-        const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|핳-힣|캌-킼|핰-힠|캏-킿]/;
+        const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|핳|힣|캌|킼|핰|힠|캏|킿|쿟|쿅|쿜|훃|홓|홐|훜|쿸|큨|흏]/;
         const result = regex.test(value);
         if (result) {
           throw new Error("유효하지 않은 글자가 포함되어 있습니다.");
