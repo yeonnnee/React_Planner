@@ -14,6 +14,7 @@ import {
   Wrapper,
   Button,
 } from "../../presenter/LogInPresenter";
+import Loader from "../../components/Loader";
 
 const LogIn = ({ state, send, setError, success }) => {
   async function logIn() {
@@ -36,6 +37,7 @@ const LogIn = ({ state, send, setError, success }) => {
       <Container>
         <Header />
         <Wrapper>
+          {state.isLoading ? <Loader /> : null}
           <ErrorMessage {...state} />
           <UserID />
           <Password />

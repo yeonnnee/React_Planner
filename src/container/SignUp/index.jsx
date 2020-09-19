@@ -9,6 +9,7 @@ import UserPassword from "./Password";
 import ConfirmPassword from "./ConfirmPW";
 import UserName from "./UserName";
 import UserEmail from "./UserEmail";
+import Loader from "../../components/Loader";
 import {
   Container,
   Button,
@@ -59,7 +60,7 @@ const SignUp = ({ state, send, setError, success }) => {
           {state.error.includes("빈칸") ? (
             <Notice>빈칸없이 작성해주십시오</Notice>
           ) : null}
-          {state.isLoading === true ? <Notice>Loading...</Notice> : null}
+          {state.isLoading ? <Loader /> : null}
           <Wrapper>
             <UserID />
             <UserPassword />
