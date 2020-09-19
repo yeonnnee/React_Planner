@@ -16,7 +16,7 @@ export const initialState = {
 
 const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
-    //////////////////////* FETCH TASKS DATA REDUCER *////////////////
+    //////////////////////* FETCH TASKS DATA  *////////////////
     case FETCH_START:
       return {
         ...state,
@@ -42,7 +42,7 @@ const tasksReducer = (state = initialState, action) => {
         isLoading: false,
         error: "Something went wrong",
       };
-    //////////////////////* TASKS REDUCER *////////////////
+    //////////////////////* CRUD TASKS *////////////////
     case ADD_TASKS:
       return {
         ...state,

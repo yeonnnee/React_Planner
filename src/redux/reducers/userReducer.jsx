@@ -21,7 +21,6 @@ export const initialState = {
   isLoading: false,
   error: "",
   result: "",
-  logIn: false,
 };
 
 const userReducer = (state = initialState, action) => {
