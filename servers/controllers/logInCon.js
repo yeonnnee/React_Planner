@@ -4,13 +4,13 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.postLogIn = async (req, res) => {
-  const userID = await req.body.user.userID;
+  const userID = await req.body.userID;
   const user = await User.findOne({ where: { userID: userID } });
   if (!user) {
     return res.send("존재하지 않는 아이디 입니다");
   }
 
-  const password = await req.body.user.password;
+  const password = await req.body.password;
   const compared_Password = await bcrypt.compare(password, user.password);
   if (compared_Password) {
     req.session.isLoggedIn = true;
