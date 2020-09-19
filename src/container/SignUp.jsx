@@ -36,7 +36,7 @@ const SignUp = ({ state, send, setError, success }) => {
     ) {
       setError("빈칸 없이 입력해주시기 바랍니다");
     } else {
-      const res = await axios.post("/api/user/signUp", state);
+      const res = await axios.post("/api/user/signUp", state.user);
       console.log(res);
       send();
       if (res.data !== "Get data successfully") {
@@ -48,6 +48,7 @@ const SignUp = ({ state, send, setError, success }) => {
   }
   return (
     <>
+      {state.isLoading ? <h1>Loading..</h1> : null}
       {state.result === "SUCCESS" ? (
         <SuccessSignUp />
       ) : (

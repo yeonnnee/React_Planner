@@ -8,7 +8,7 @@ const User = require("../models/user");
 router.post(
   "/signUp",
   [
-    body("user.userID")
+    body("userID")
       .trim()
       .isLength({ min: 6 })
       .withMessage("아이디는 6글자 이상의 영문과 숫자로 구성되어야 합니다")
@@ -29,7 +29,7 @@ router.post(
         }
         return true;
       }),
-    body("user.password")
+    body("password")
       .trim()
       .isLength({ min: 8 })
       .withMessage("비밀번호는 8~20자로 구성되어야 합니다.")
@@ -55,7 +55,7 @@ router.post(
         }
         return true;
       }),
-    body("user.confirmPassword")
+    body("confirmPassword")
       .trim()
       .custom((value, { req }) => {
         if (value !== req.body.user.password) {
@@ -63,7 +63,7 @@ router.post(
         }
         return true;
       }),
-    body("user.name")
+    body("name")
       .trim()
       .isLength({ max: 6 })
       .withMessage("글자 수가 초과하였습니다.")
@@ -87,14 +87,14 @@ router.post(
       })
       .bail()
       .custom((value) => {
-        const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|힣|헿|킼|쿅|쿅|홓|횧|홯|탛|챃|훃|킹|큥|쿙|]/;
+        const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|핳-힣|캌-킼|핰-힠|캏-킿]/;
         const result = regex.test(value);
         if (result) {
           throw new Error("유효하지 않은 글자가 포함되어 있습니다.");
         }
         return true;
       }),
-    body("user.email")
+    body("email")
       .trim()
       .custom((value) => {
         const regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[hanmail|naver|gmail]*.[com|net]{2,3}$/i;

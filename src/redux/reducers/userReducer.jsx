@@ -18,7 +18,7 @@ export const initialState = {
     name: "",
     email: "",
   },
-  isLoading: true,
+  isLoading: false,
   error: "",
   result: "",
   logIn: false,
