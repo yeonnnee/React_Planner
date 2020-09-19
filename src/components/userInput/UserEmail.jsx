@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { SEND_DATA_FAILED, SET_USER_EMAIL } from "../../redux/actions";
 
 import { Form, Input, Label, Error } from "../../presenter/SignUpPresenter";
 
 const UserEmail = ({ state, save, setError }) => {
-  const [email, setEmail] = useState("");
-
   function onChange(event) {
-    const value = event.target.value;
+    const email = event.target.value;
     setError("");
-    setEmail(value);
     save(email);
   }
 
@@ -22,7 +19,7 @@ const UserEmail = ({ state, save, setError }) => {
         <Input
           type="email"
           placeholder="Email"
-          value={email}
+          value={state.user.email}
           id="email"
           onChange={onChange}
           error={state.error.includes("이메일") ? true : false}
