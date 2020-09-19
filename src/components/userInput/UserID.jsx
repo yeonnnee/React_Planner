@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { SEND_DATA_FAILED, SET_USER_ID } from "../../redux/actions";
 
@@ -12,13 +12,10 @@ import {
 } from "../../presenter/SignUpPresenter";
 
 const UserInput = ({ state, save, setError }) => {
-  const [userId, setUserId] = useState("");
-
   function onChange(event) {
-    const value = event.target.value;
+    const userID = event.target.value;
     setError("");
-    setUserId(value);
-    save(userId);
+    save(userID);
   }
 
   return (
@@ -28,7 +25,7 @@ const UserInput = ({ state, save, setError }) => {
         <Input
           type="text"
           placeholder="ID"
-          value={userId}
+          value={state.user.userId}
           id="userID"
           onChange={onChange}
           error={
