@@ -3,36 +3,46 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import UserID from "./SignUp/UserID";
-import Password from "./SignUp/Password";
-import { SEND_DATA, SEND_DATA_FAILED } from "../redux/actions";
-import Header from "../components/WelcomeMessage";
-import { Container, Section, Error, Button } from "../presenter/LogInPresenter";
+import UserID from "./LogID";
+import Password from "./LogInPW";
+import { SEND_DATA, SEND_DATA_FAILED } from "../../redux/actions";
+import Header from "../../components/WelcomeMessage";
+import {
+  Container,
+  Section,
+  Wrapper,
+  Error,
+  Button,
+} from "../../presenter/LogInPresenter";
 
 const LogIn = ({ state, send, setError }) => {
   async function logIn() {
     if (state.user.userID === "" || state.user.password === "") {
-      setError({ msg: "아이디와 비밀번호를 입력해주시기 바랍니다" });
+      setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else {
       send();
-      const user = { userID: state.user.userID, password: state.user.password };
-      const res = await axios.post("/api/user/logIn", user);
+      console.log(state);
+      const res = await axios.post("/api/user/logIn", state.user);
       console.log(res);
       if (res.data !== "logged In successfully") {
-        setError({ msg: res.data });
+        setError(res.data);
       }
     }
   }
   return (
-    <Container>
-      <Header />
-      <Section>
-        <Error>{state.error}</Error>
-        <UserID />
-        <Password />
-        <Button onClick={logIn}>Log In</Button>
-      </Section>
-    </Container>
+    <>
+      <Container>
+        <Header />
+        <Wrapper>
+          <Error>{state.error}</Error>
+          <UserID />
+          <Password />
+        </Wrapper>
+        <Section>
+          <Button onClick={logIn}>Log In</Button>
+        </Section>
+      </Container>
+    </>
   );
 };
 
