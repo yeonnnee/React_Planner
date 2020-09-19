@@ -14,7 +14,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 `;
 export const Error = styled.div`
   width: 100%;
@@ -26,10 +26,15 @@ export const Error = styled.div`
   margin-top: 10px;
 `;
 
-export const Section = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
-  height: 300px;
-  overflow: hidden;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const Section = styled.div`
+  margin-top: 100px;
 `;
 export const Form = styled.div`
   display: flex;
