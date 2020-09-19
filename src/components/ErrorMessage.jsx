@@ -1,25 +1,33 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ErrorMessageSection = styled.div`
-  margin-top: 8px;
-  margin-left: 80px;
   font-size: 12px;
+  width: 100%;
+  margin-top: 10px;
   color: #90323d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SFontAwesomeIcon = styled(FontAwesomeIcon)`
   margin-right: 5px;
 `;
 
-const ErrorMessage = (error) => {
+const ErrorMessage = ({ error }) => {
   return (
-    <ErrorMessageSection>
-      <SFontAwesomeIcon icon={faExclamationCircle} />
-      {error.message}
-    </ErrorMessageSection>
+    <>
+      {error !== "" ? (
+        <ErrorMessageSection>
+          <SFontAwesomeIcon icon={faExclamationCircle} />
+          {error}
+        </ErrorMessageSection>
+      ) : null}
+    </>
   );
 };
 

@@ -7,11 +7,11 @@ import UserID from "./LogID";
 import Password from "./LogInPW";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/actions";
 import Header from "../../components/WelcomeMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 import {
   Container,
   Section,
   Wrapper,
-  Error,
   Button,
 } from "../../presenter/LogInPresenter";
 
@@ -23,6 +23,7 @@ const LogIn = ({ state, send, setError, success }) => {
       send();
       const res = await axios.post("/api/user/logIn", state.user);
       console.log(res);
+
       if (res.data !== "logged In successfully") {
         setError(res.data);
       } else {
@@ -35,7 +36,7 @@ const LogIn = ({ state, send, setError, success }) => {
       <Container>
         <Header />
         <Wrapper>
-          <Error>{state.error}</Error>
+          <ErrorMessage {...state} />
           <UserID />
           <Password />
         </Wrapper>

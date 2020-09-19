@@ -16,15 +16,6 @@ export const Container = styled.div`
   align-items: center;
   /* justify-content: space-around; */
 `;
-export const Error = styled.div`
-  width: 100%;
-  font-size: 12px;
-  color: red;
-  display: felx;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`;
 
 export const Wrapper = styled.div`
   width: 100%;
