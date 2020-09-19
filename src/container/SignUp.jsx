@@ -12,9 +12,9 @@ import {
   Title,
   Wrapper,
   Section,
-  Error,
   CancelBtn,
   SLink,
+  Notice,
 } from "../presenter/SignUpPresenter";
 import SuccessSignUp from "../components/SuccessSignUp";
 import { connect } from "react-redux";
@@ -52,9 +52,9 @@ const SignUp = ({ state, send, setError, success }) => {
         <SuccessSignUp />
       ) : (
         <Container>
-          <Title>SignUp</Title>
+          <Title>Sign Up</Title>
           {state.error.includes("빈칸") ? (
-            <Error>빈칸없이 작성해주십시오</Error>
+            <Notice>빈칸없이 작성해주십시오</Notice>
           ) : null}
           <Wrapper>
             <UserID />

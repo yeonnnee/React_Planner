@@ -1,12 +1,12 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-const MoveDown = keyframes`
+const FadeIn = keyframes`
  from {
-   transform: translateY(-250px);
+   opacity:0
  }
  to{
-   transform: translateY(0);
+  opacity:1
  }
 `;
 
@@ -54,7 +54,6 @@ export const Form = styled.form`
   grid-template-rows: 40px;
   grid-template-columns: 100px 400px;
   gap: 10px;
-  animation: ${MoveDown} 1s linear;
 `;
 
 export const Input = styled.input`
@@ -71,35 +70,12 @@ export const Wrapper = styled.div`
   margin: 20px;
   height: 400px;
   width: 100%;
-  overflow: hidden;
+  animation: ${FadeIn} 1s linear;
 `;
 export const Section = styled.div`
   display: flex;
-  animation: ${MoveDown} 1s linear;
 `;
-export const Info = styled.div`
-  width: 60%;
-  height: 20px;
-  margin: 0 33%;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: -15px;
-  animation: ${MoveDown} 1s linear;
-`;
-export const Error = styled.div`
-  width: 60%;
-  height: 20px;
-  margin: 0 33%;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: -15px;
-  color: red;
-  line-height: 1.5;
-`;
+
 export const CancelBtn = styled.div`
   width: 150px;
   height: 40px;
@@ -120,4 +96,34 @@ export const CancelBtn = styled.div`
 export const SLink = styled(Link)`
   text-decoration: none;
   color: #382933;
+`;
+
+// ERROR //
+export const Info = styled.div`
+  width: 60%;
+  margin: 0 30%;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: -18px;
+`;
+export const Error = styled.div`
+  width: 60%;
+  margin: 0 30%;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: -18px;
+  color: red;
+  line-height: 1.5;
+`;
+export const Notice = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 11px;
 `;
