@@ -78,7 +78,7 @@ const userReducer = (state = initialState, action) => {
           ...state,
           isLoading: false,
           result: "FAILED",
-          error: "에러가 발생했습니다. 잠시 후 다시 실행해주십시오",
+          error: "내부 오류가 발생했습니다. 잠시 후에 다시 시도해주세요",
         };
       }
 
