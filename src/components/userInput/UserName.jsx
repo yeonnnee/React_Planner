@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { SEND_DATA_FAILED, SET_USER_NAME } from "../../redux/actions";
 
 import { Form, Input, Label, Error } from "../../presenter/SignUpPresenter";
 
 const UserName = ({ state, save, setError }) => {
-  const [name, setName] = useState("");
-
   function onChange(event) {
-    const value = event.target.value;
+    const name = event.target.value;
     setError("");
-    setName(value);
     save(name);
   }
 
@@ -22,7 +19,7 @@ const UserName = ({ state, save, setError }) => {
         <Input
           type="text"
           placeholder="Name"
-          value={name}
+          value={state.user.name}
           id="name"
           onChange={onChange}
           error={
