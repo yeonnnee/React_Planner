@@ -2,8 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import TaskList from "../components/TaskList";
-import TasksInput from "../components/TasksInput";
+import TaskList from "../container/Tasks/TaskList";
+import TasksInput from "../container/Tasks/TasksInput";
 
 const Container = styled.div``;
 
