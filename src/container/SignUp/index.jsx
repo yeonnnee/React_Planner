@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import axios from "axios";
-import UserID from "../components/userInput/UserID";
-import UserPassword from "../components/userInput/Password";
-import ConfirmPassword from "../components/userInput/ConfirmPW";
-import UserName from "../components/userInput/UserName";
-import UserEmail from "../components/userInput/UserEmail";
+import UserID from "./UserID";
+import UserPassword from "./Password";
+import ConfirmPassword from "./ConfirmPW";
+import UserName from "./UserName";
+import UserEmail from "./UserEmail";
 import {
   Container,
   Button,
@@ -15,14 +15,14 @@ import {
   CancelBtn,
   SLink,
   Notice,
-} from "../presenter/SignUpPresenter";
-import SuccessSignUp from "../components/SuccessSignUp";
+} from "../../presenter/SignUpPresenter";
+import SuccessSignUp from "../../components/SuccessSignUp";
 import { connect } from "react-redux";
 import {
   SEND_DATA,
   SEND_DATA_FAILED,
   SEND_DATA_SUCCESS,
-} from "../redux/actions";
+} from "../../redux/actions";
 
 const SignUp = ({ state, send, setError, success }) => {
   async function onSubmit(event) {
@@ -36,9 +36,10 @@ const SignUp = ({ state, send, setError, success }) => {
     ) {
       setError("빈칸 없이 입력해주시기 바랍니다");
     } else {
+      send();
       const res = await axios.post("/api/user/signUp", state.user);
       console.log(res);
-      send();
+
       if (res.data !== "Get data successfully") {
         setError(res.data.msg);
       } else {
@@ -48,7 +49,6 @@ const SignUp = ({ state, send, setError, success }) => {
   }
   return (
     <>
-      {state.isLoading ? <h1>Loading..</h1> : null}
       {state.result === "SUCCESS" ? (
         <SuccessSignUp />
       ) : (
@@ -57,6 +57,7 @@ const SignUp = ({ state, send, setError, success }) => {
           {state.error.includes("빈칸") ? (
             <Notice>빈칸없이 작성해주십시오</Notice>
           ) : null}
+          {state.isLoading === true ? <Notice>Loading...</Notice> : null}
           <Wrapper>
             <UserID />
             <UserPassword />

@@ -29,31 +29,26 @@ const userReducer = (state = initialState, action) => {
     case SET_USER_ID:
       return {
         ...state,
-        isLoading: false,
         user: { ...state.user, userID: action.payload },
       };
     case SET_USER_PASSWORD:
       return {
         ...state,
-        isLoading: false,
         user: { ...state.user, password: action.payload },
       };
     case SET_USER_CONFIRMPW:
       return {
         ...state,
-        isLoading: false,
         user: { ...state.user, confirmPassword: action.payload },
       };
     case SET_USER_NAME:
       return {
         ...state,
-        isLoading: false,
         user: { ...state.user, name: action.payload },
       };
     case SET_USER_EMAIL:
       return {
         ...state,
-        isLoading: false,
         user: { ...state.user, email: action.payload },
       };
     case SEND_DATA:
@@ -87,7 +82,6 @@ const userReducer = (state = initialState, action) => {
     case LOG_IN:
       return {
         ...state,
-        isLoading: false,
         logIn: true,
         result: "SUCCESS",
       };
