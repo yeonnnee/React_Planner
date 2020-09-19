@@ -5,8 +5,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { ADD_TASKS } from "../redux/actions";
-import ErrorMessage from "./ErrorMessage";
+import { ADD_TASKS } from "../../redux/actions";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const Form = styled.form`
   display: flex;

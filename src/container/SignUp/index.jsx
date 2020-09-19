@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+
+import SuccessSignUp from "../../components/SuccessSignUp";
 import UserID from "./UserID";
 import UserPassword from "./Password";
 import ConfirmPassword from "./ConfirmPW";
@@ -16,8 +19,7 @@ import {
   SLink,
   Notice,
 } from "../../presenter/SignUpPresenter";
-import SuccessSignUp from "../../components/SuccessSignUp";
-import { connect } from "react-redux";
+
 import {
   SEND_DATA,
   SEND_DATA_FAILED,
