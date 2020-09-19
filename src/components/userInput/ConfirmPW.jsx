@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { SEND_DATA_FAILED, SET_USER_CONFIRMPW } from "../../redux/actions";
 
 import { Form, Input, Label, Error } from "../../presenter/SignUpPresenter";
 
 const ConfirmPassword = ({ state, save, setError }) => {
-  const [confirmPassword, setConfirmPassword] = useState("");
-
   function onChange(event) {
-    const value = event.target.value;
+    const confirmPassword = event.target.value;
     setError("");
-    setConfirmPassword(value);
     save(confirmPassword);
   }
 
@@ -22,7 +19,7 @@ const ConfirmPassword = ({ state, save, setError }) => {
         <Input
           type="password"
           placeholder="Confirm Password"
-          value={confirmPassword}
+          value={state.user.confirmPassword}
           autocomplete="off"
           id="confirmPassword"
           onChange={onChange}
