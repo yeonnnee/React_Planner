@@ -63,7 +63,11 @@ const userReducer = (state = initialState, action) => {
         result: "SUCCESS",
       };
     case SEND_DATA_FAILED:
-      if (action.payload.includes("오") || action.payload.includes("다")) {
+      if (
+        action.payload.includes("오") ||
+        action.payload.includes("다") ||
+        action.payload.includes("")
+      ) {
         return {
           ...state,
           isLoading: false,
