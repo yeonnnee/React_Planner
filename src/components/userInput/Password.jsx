@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { SEND_DATA_FAILED, SET_USER_PASSWORD } from "../../redux/actions";
 
@@ -12,12 +12,9 @@ import {
 } from "../../presenter/SignUpPresenter";
 
 const UserPassword = ({ state, save, setError }) => {
-  const [password, setPassword] = useState("");
-
   function onChange(event) {
-    const value = event.target.value;
+    const password = event.target.value;
     setError("");
-    setPassword(value);
     save(password);
   }
 
@@ -28,7 +25,7 @@ const UserPassword = ({ state, save, setError }) => {
         <Input
           type="password"
           placeholder="Password"
-          value={password}
+          value={state.user.password}
           id="passowrd"
           onChange={onChange}
           error={
