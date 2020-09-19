@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { SEND_DATA_FAILED, SET_USER_ID } from "../../redux/actions";
+import { LOGIN_FAILED, SET_LOGIN_ID } from "../../redux/actions";
 
 export const Form = styled.div`
   display: flex;
@@ -44,16 +44,16 @@ const LogInID = ({ state, save, setError }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.userReducer };
+  return { state: state.logInReducer };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     save: (userID) => {
-      dispatch({ type: SET_USER_ID, payload: userID });
+      dispatch({ type: SET_LOGIN_ID, payload: userID });
     },
     setError: (text) => {
-      dispatch({ type: SEND_DATA_FAILED, payload: text });
+      dispatch({ type: LOGIN_FAILED, payload: text });
     },
   };
 }

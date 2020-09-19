@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import UserID from "./LogID";
 import Password from "./LogInPW";
-import { SEND_DATA, SEND_DATA_FAILED } from "../../redux/actions";
+import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/actions";
 import Header from "../../components/WelcomeMessage";
 import {
   Container,
@@ -15,17 +15,18 @@ import {
   Button,
 } from "../../presenter/LogInPresenter";
 
-const LogIn = ({ state, send, setError }) => {
+const LogIn = ({ state, send, setError, success }) => {
   async function logIn() {
     if (state.user.userID === "" || state.user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else {
       send();
-      console.log(state);
       const res = await axios.post("/api/user/logIn", state.user);
       console.log(res);
       if (res.data !== "logged In successfully") {
         setError(res.data);
+      } else {
+        success();
       }
     }
   }
@@ -47,15 +48,18 @@ const LogIn = ({ state, send, setError }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.userReducer };
+  return { state: state.logInReducer };
 }
 function mapDispatchToProps(dispatch) {
   return {
     send: () => {
-      dispatch({ type: SEND_DATA });
+      dispatch({ type: TRY_LOGIN });
     },
     setError: (error) => {
-      dispatch({ type: SEND_DATA_FAILED, payload: error });
+      dispatch({ type: LOGIN_FAILED, payload: error });
+    },
+    success: () => {
+      dispatch({ type: LOGIN_SUCCESS });
     },
   };
 }

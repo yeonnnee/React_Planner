@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { SEND_DATA_FAILED, SET_USER_PASSWORD } from "../../redux/actions";
+import { LOGIN_FAILED, SET_LOGIN_PASSWORD } from "../../redux/actions";
 import { Form, Input } from "./LogID";
 
 const LogInPW = ({ state, save, setError }) => {
@@ -24,16 +24,16 @@ const LogInPW = ({ state, save, setError }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.userReducer };
+  return { state: state.logInReducer };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     save: (password) => {
-      dispatch({ type: SET_USER_PASSWORD, payload: password });
+      dispatch({ type: SET_LOGIN_PASSWORD, payload: password });
     },
     setError: (text) => {
-      dispatch({ type: SEND_DATA_FAILED, payload: text });
+      dispatch({ type: LOGIN_FAILED, payload: text });
     },
   };
 }
