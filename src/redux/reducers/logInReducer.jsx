@@ -34,7 +34,7 @@ const logInReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case LOGIN_FAILED:
-      if (action.payload.includes("다")) {
+      if (action.payload.includes("다") || action.payload === "") {
         return {
           ...state,
           isLoading: false,
@@ -47,13 +47,14 @@ const logInReducer = (state = initialState, action) => {
           error: "내부 오류가 발생했습니다. 잠시 후에 다시 시도해주세요",
         };
       }
-
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
         logIn: true,
       };
+    default:
+      return state;
   }
 };
 

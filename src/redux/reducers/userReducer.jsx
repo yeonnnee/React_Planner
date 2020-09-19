@@ -1,5 +1,4 @@
 import {
-  LOG_IN,
   SEND_DATA,
   SEND_DATA_FAILED,
   SEND_DATA_SUCCESS,
@@ -65,7 +64,7 @@ const userReducer = (state = initialState, action) => {
       if (
         action.payload.includes("오") ||
         action.payload.includes("다") ||
-        action.payload.includes("")
+        action.payload === ""
       ) {
         return {
           ...state,
@@ -82,12 +81,6 @@ const userReducer = (state = initialState, action) => {
         };
       }
 
-    case LOG_IN:
-      return {
-        ...state,
-        logIn: true,
-        result: "SUCCESS",
-      };
     default:
       return state;
   }
