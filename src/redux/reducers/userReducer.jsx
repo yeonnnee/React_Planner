@@ -68,12 +68,22 @@ const userReducer = (state = initialState, action) => {
         result: "SUCCESS",
       };
     case SEND_DATA_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        result: "FAILED",
-        error: action.payload,
-      };
+      if (action.payload.includes("오") || action.payload.includes("다")) {
+        return {
+          ...state,
+          isLoading: false,
+          result: "FAILED",
+          error: action.payload,
+        };
+      } else {
+        return {
+          ...state,
+          isLoading: false,
+          result: "FAILED",
+          error: "에러가 발생했습니다. 잠시 후 다시 실행해주십시오",
+        };
+      }
+
     case LOG_IN:
       return {
         ...state,
