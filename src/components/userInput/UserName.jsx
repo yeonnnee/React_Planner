@@ -1,37 +1,45 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { SET_USER_NAME } from "../../redux/actions";
+import { SEND_DATA_FAILED, SET_USER_NAME } from "../../redux/actions";
 
-import { Form, Input, Label } from "../../presenter/SignUpPresenter";
+import { Form, Input, Label, Error } from "../../presenter/SignUpPresenter";
 
-const UserName = ({ state, save }) => {
+const UserName = ({ state, save, setError }) => {
   const [name, setName] = useState("");
 
   function onChange(event) {
     const value = event.target.value;
+    setError("");
     setName(value);
     save(name);
   }
 
   return (
-    <Form>
-      <Label htmlFor="name">이름 :</Label>
-      <Input
-        type="text"
-        placeholder="Name"
-        value={state.user.name}
-        id="name"
-        onChange={onChange}
-        error={
-          state.error === "글자 수가 초과하였습니다." ||
-          state.error.includes("한글") ||
-          state.error === "유효하지 않은 글자가 포함되어 있습니다."
-            ? true
-            : false
-        }
-      />
-    </Form>
+    <>
+      <Form>
+        <Label htmlFor="name">이름 :</Label>
+        <Input
+          type="text"
+          placeholder="Name"
+          value={name}
+          id="name"
+          onChange={onChange}
+          error={
+            state.error === "글자 수가 초과하였습니다." ||
+            state.error.includes("한글") ||
+            state.error === "유효하지 않은 글자가 포함되어 있습니다."
+              ? true
+              : false
+          }
+        />
+      </Form>
+      {state.error === "글자 수가 초과하였습니다." ||
+      state.error.includes("한글") ||
+      state.error === "유효하지 않은 글자가 포함되어 있습니다." ? (
+        <Error>{state.error}</Error>
+      ) : null}
+    </>
   );
 };
 
@@ -42,6 +50,9 @@ function mapDispatchToProps(dispatch) {
   return {
     save: (name) => {
       dispatch({ type: SET_USER_NAME, payload: name });
+    },
+    setError: (text) => {
+      dispatch({ type: SEND_DATA_FAILED, payload: text });
     },
   };
 }
