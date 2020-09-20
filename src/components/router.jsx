@@ -8,16 +8,17 @@ import LogIn from "../container/LogIn";
 import SignUp from "../container/SignUp";
 
 import Header from "./Header";
+import PrivateRoute from "./PrivateRoute";
 
 export default () => {
   return (
     <Router>
       <Header />
       <Switch>
+        <PrivateRoute exact path="/tasks" component={Tasks} />
         <Route path="/" exact component={Home} />
         <Route path="/logIn" component={LogIn} />
         <Route path="/sign-up" component={SignUp} />
-        <Route path="/tasks" component={Tasks} />
       </Switch>
     </Router>
   );
