@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { LOGIN_FAILED, SET_LOGIN_PASSWORD } from "../../redux/actions";
+import { LOGIN_FAILED, SET_LOGIN_PASSWORD } from "../../redux/types";
 import { Form, Input } from "./LogID";
 
 const LogInPW = ({ state, save, setError }) => {
@@ -24,7 +24,7 @@ const LogInPW = ({ state, save, setError }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.logInReducer };
+  return { state: state.authReducer };
 }
 
 function mapDispatchToProps(dispatch) {

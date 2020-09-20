@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import UserID from "./LogID";
 import Password from "./LogInPW";
-import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/actions";
+import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 import Header from "../../components/WelcomeMessage";
 import ErrorMessage from "../../components/ErrorMessage";
 import {
@@ -16,7 +16,7 @@ import {
 } from "../../presenter/LogInPresenter";
 import Loader from "../../components/Loader";
 
-const LogIn = ({ state, send, setError, success }) => {
+const LogIn = ({ state, send, setError, success, history }) => {
   async function logIn() {
     if (state.user.userID === "" || state.user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
@@ -29,6 +29,7 @@ const LogIn = ({ state, send, setError, success }) => {
         setError(res.data);
       } else {
         success();
+        history.push("/tasks");
       }
     }
   }
@@ -51,7 +52,7 @@ const LogIn = ({ state, send, setError, success }) => {
 };
 
 function mapStateToProps(state) {
-  return { state: state.logInReducer };
+  return { state: state.authReducer };
 }
 function mapDispatchToProps(dispatch) {
   return {

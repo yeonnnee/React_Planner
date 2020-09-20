@@ -4,19 +4,20 @@ import {
   TRY_LOGIN,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
-} from "../actions";
+} from "../types";
 
 export const initialState = {
   user: {
     userID: "",
     password: "",
   },
+  token: localStorage.getItem("token"),
   isLoading: false,
+  isAuthenticated: false,
   error: "",
-  logIn: false,
 };
 
-const logInReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_ID:
       return {
@@ -34,6 +35,7 @@ const logInReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case LOGIN_FAILED:
+      localStorage.removeItem("token");
       if (action.payload.includes("다") || action.payload === "") {
         return {
           ...state,
@@ -51,11 +53,11 @@ const logInReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        logIn: true,
+        isAuthenticated: true,
       };
     default:
       return state;
   }
 };
 
-export default logInReducer;
+export default authReducer;

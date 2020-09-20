@@ -25,7 +25,7 @@ import {
   SEND_DATA,
   SEND_DATA_FAILED,
   SEND_DATA_SUCCESS,
-} from "../../redux/actions";
+} from "../../redux/types";
 
 const SignUp = ({ state, send, setError, success }) => {
   async function onSubmit(event) {

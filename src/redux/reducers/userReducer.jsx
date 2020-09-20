@@ -7,7 +7,7 @@ import {
   SET_USER_ID,
   SET_USER_NAME,
   SET_USER_PASSWORD,
-} from "../actions";
+} from "../types";
 
 export const initialState = {
   user: {

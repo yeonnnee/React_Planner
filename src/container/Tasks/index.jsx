@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import { FETCH_SUCCESS, FETCH_FAILED, FETCH_START } from "../../redux/actions";
+import { FETCH_SUCCESS, FETCH_FAILED, FETCH_START } from "../../redux/types";
 import TasksPresenter from "../../presenter/TasksPresenter";
 
 const Tasks = ({ state, start, success, failed }) => {

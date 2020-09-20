@@ -5,7 +5,7 @@ import {
   ADD_TASKS,
   CHANGE_STATUS,
   DELETE_TASKS,
-} from "../actions";
+} from "../types";
 
 export const initialState = {
   isLoading: true,

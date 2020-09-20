@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { connect } from "react-redux";
-import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/actions";
+import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/types";
 import axios from "axios";
 import styled from "styled-components";
 

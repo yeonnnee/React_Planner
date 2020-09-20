@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { connect } from "react-redux";
-import { SEND_DATA_FAILED, SET_USER_NAME } from "../../redux/actions";
+import { SEND_DATA_FAILED, SET_USER_NAME } from "../../redux/types";
 
 import { Form, Input, Label, Error } from "../../presenter/SignUpPresenter";
 

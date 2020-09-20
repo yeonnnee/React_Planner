@@ -20,8 +20,8 @@ export const SEND_DATA_SUCCESS = "[SIGN_UP] data saved successfully ";
 export const SEND_DATA_FAILED = "[SIGN_UP] saving data falid ";
 
 /* LOG IN ACTIONS */
-export const SET_LOGIN_ID = "[LOG_IN] set user log-in ID";
-export const SET_LOGIN_PASSWORD = "[LOG_IN] set user log-in PW";
-export const TRY_LOGIN = "[LOG_IN] User log in";
-export const LOGIN_FAILED = "[LOG_IN] failed to log-in";
-export const LOGIN_SUCCESS = "[LOG_IN] Succeed to log-in";
+export const SET_LOGIN_ID = "[AUTH] set user log-in ID";
+export const SET_LOGIN_PASSWORD = "[AUTH] set user log-in PW";
+export const TRY_LOGIN = "[AUTH] User log in";
+export const LOGIN_FAILED = "[AUTH] failed to log-in";
+export const LOGIN_SUCCESS = "[AUTH] Succeed to log-in";
