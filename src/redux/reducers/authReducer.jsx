@@ -11,7 +11,6 @@ export const initialState = {
     userID: "",
     password: "",
   },
-  token: localStorage.getItem("token"),
   isLoading: false,
   isAuthenticated: false,
   error: "",

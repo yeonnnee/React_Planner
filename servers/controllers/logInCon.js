@@ -16,8 +16,9 @@ exports.postLogIn = async (req, res) => {
     req.session.isLoggedIn = true;
     req.session.user = user;
     req.session.save();
+    res.send("logged In successfully");
+    res.session();
   } else {
     return res.send("비밀번호와 아이디가 일치하지 않습니다");
   }
-  res.send("logged In successfully");
 };
