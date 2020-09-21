@@ -2,10 +2,10 @@ import {
   FETCH_SUCCESS,
   FETCH_FAILED,
   FETCH_START,
-  ADD_TASKS,
+  ADD_TASKS_SUCCESS,
+  ADD_TASKS_FAILED,
   CHANGE_STATUS,
   DELETE_TASKS,
-  ADD_TASKS_FAILED,
 } from "../types";
 
 export const initialState = {
@@ -52,7 +52,9 @@ const tasksReducer = (state = initialState, action) => {
         error: action.payload,
       };
     //////////////////////* CRUD TASKS *////////////////
-    case ADD_TASKS:
+
+    case ADD_TASKS_SUCCESS:
+      console.log("payload", action.payload);
       return {
         ...state,
         isLoading: false,

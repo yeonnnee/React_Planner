@@ -5,8 +5,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { ADD_TASKS, ADD_TASKS_FAILED } from "../../redux/types";
-// import ErrorMessage from "../../components/ErrorMessage";
+import { ADD_TASKS_SUCCESS, ADD_TASKS_FAILED } from "../../redux/types";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const Form = styled.form`
   display: flex;
@@ -25,28 +25,32 @@ const Input = styled.input`
   }
 `;
 
-const TasksInput = ({ add, setError }) => {
+const TasksInput = ({ add, setError, error }) => {
   const [state, setState] = useState({
-    tasks: { text: "", id: "", status: "" },
+    tasks: { content: "", id: "", status: "" },
   });
 
   function onChange(event) {
     const value = event.target.value;
     setState({
-      tasks: { text: value, id: uuidv4().toString(), status: "PENDING" },
+      tasks: { content: value, id: uuidv4().toString(), status: "PENDING" },
     });
     setError("");
   }
   async function onSubmit(event) {
     event.preventDefault();
-    if (state.tasks.text !== "") {
-      const res = await axios.post("/api/tasks", state);
+    try {
+      if (state.tasks.content !== "") {
+        const res = await axios.post("/api/tasks", state);
 
-      if (res.data !== "Get data successfully") {
-        return setError(res.data.msg);
+        if (res.data !== "Get data successfully") {
+          setError(res.data.msg);
+        }
+        add(state);
+        setState({ tasks: { content: "", id: "", status: "" } });
       }
-      add(state.tasks);
-      setState({ tasks: { text: "", id: "", status: "" } });
+    } catch (error) {
+      setError("문제가 발생했습니다. 잠시 후 다시 시도해주십시오");
     }
   }
   return (
@@ -54,22 +58,26 @@ const TasksInput = ({ add, setError }) => {
       <Form onSubmit={onSubmit}>
         <Input
           type="text"
-          value={state.tasks.text}
+          value={state.tasks.content}
           onChange={onChange}
           placeholder="Add a Task..."
         />
       </Form>
-      <h1>{state.error}</h1>
+      {error !== "" ? <ErrorMessage {...state} /> : null}
     </>
   );
 };
+
+function mapStateToProps(state) {
+  return { error: state.tasksReducer.error };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     add: (state) => {
       dispatch({
-        type: ADD_TASKS,
-        payload: state,
+        type: ADD_TASKS_SUCCESS,
+        payload: state.tasks,
       });
     },
     setError: (error) => {
@@ -78,4 +86,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(TasksInput);
+export default connect(mapStateToProps, mapDispatchToProps)(TasksInput);
