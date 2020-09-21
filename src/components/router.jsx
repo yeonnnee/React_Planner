@@ -6,14 +6,15 @@ import Tasks from "../container/Tasks";
 import Home from "../container/Home";
 import LogIn from "../container/LogIn";
 import SignUp from "../container/SignUp";
-
 import Header from "./Header";
+import Navigation from "./Navigation";
 import PrivateRoute from "./PrivateRoute";
 
 export default () => {
   return (
     <Router>
       <Header />
+      <Navigation />
       <Switch>
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <Route path="/" exact component={Home} />
