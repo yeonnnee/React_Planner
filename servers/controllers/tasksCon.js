@@ -1,35 +1,58 @@
-const Task = require("../testModel/tasksModel");
+const Task = require("../models/task");
 const { validationResult } = require("express-validator");
 
-exports.getTasks = (req, res) => {
-  const data = Task.fetchAll();
-  res.json(data);
+exports.getTasks = async (req, res) => {
+  try {
+    const tasks = await Task.findAll();
+    res.json(tasks);
+  } catch (error) {
+    res.send(error);
+  }
 };
 
-exports.postTasks = (req, res) => {
-  const text = req.body.tasks.text;
+exports.postTasks = async (req, res) => {
+  const text = await req.body.tasks.text;
   const id = req.body.tasks.id;
   const status = req.body.tasks.status;
-  const task = new Task(id, text, status);
 
   if (!validationResult(req).isEmpty()) {
     const result = validationResult(req);
     res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
   } else {
-    Task.add(task);
+    req.user.createTask({
+      id: id,
+      content: text,
+      status: status,
+    });
     res.send("Get data successfully");
   }
 };
 
-exports.patchTasks = (req, res) => {
-  const id = req.body.id;
-  const status = req.body.status;
-  Task.patch(id, status);
-  res.send("Patch data successfully");
+exports.patchTasks = async (req, res) => {
+  try {
+    const taskId = req.body.id;
+    const updatedStatus = await req.body.status;
+    const task = await Task.findByPk(taskId);
+    await Task.update(
+      {
+        ...task,
+        status: updatedStatus,
+      },
+      { where: { id: taskId } }
+    );
+
+    res.send("Patch data successfully");
+  } catch (error) {
+    res.send("Patching data failed");
+  }
 };
 
-exports.deleteTasks = (req, res) => {
-  const taskId = req.body.id;
-  Task.delete(taskId);
-  res.send("Delete data successfully");
+exports.deleteTasks = async (req, res) => {
+  try {
+    const taskId = req.body.id;
+    await Task.destroy({ where: { id: taskId, userID: req.user.userID } });
+    res.send("Delete data successfully");
+  } catch (error) {
+    res.send("Deleting data failed");
+  }
 };
