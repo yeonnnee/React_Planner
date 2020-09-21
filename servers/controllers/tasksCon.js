@@ -1,30 +1,40 @@
 const Task = require("../models/task");
 const { validationResult } = require("express-validator");
+// const User = require("../models/user");
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.findAll();
-    res.json(tasks);
+    const userID = await req.session.user.userID;
+    const tasks = await Task.findAll({ where: { writer: userID } });
+
+    res.status(200).send(tasks);
   } catch (error) {
-    res.send(error);
+    res.status(500).send(error);
   }
 };
 
 exports.postTasks = async (req, res) => {
-  const text = await req.body.tasks.text;
-  const id = req.body.tasks.id;
-  const status = req.body.tasks.status;
+  try {
+    const user = await req.session.user;
+    const writer = await user.userID;
+    const content = await req.body.tasks.text;
+    const taskId = await req.body.tasks.id;
+    const status = await req.body.tasks.status;
 
-  if (!validationResult(req).isEmpty()) {
-    const result = validationResult(req);
-    res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
-  } else {
-    req.user.createTask({
-      id: id,
-      content: text,
-      status: status,
-    });
-    res.send("Get data successfully");
+    if (!validationResult(req).isEmpty()) {
+      const result = validationResult(req);
+      res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
+    } else {
+      Task.create({
+        id: taskId,
+        writer: writer,
+        content: content,
+        status: status,
+      });
+      res.send("Get data successfully");
+    }
+  } catch (error) {
+    res.send(error);
   }
 };
 
