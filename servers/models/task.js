@@ -7,10 +7,7 @@ const Task = sequelize.define(
     id: {
       type: Sequelize.STRING(36),
       allowNull: false,
-    },
-    writer: {
-      type: Sequelize.STRING(20),
-      allowNull: false,
+      primaryKey: true,
     },
     content: {
       type: Sequelize.STRING(50),
