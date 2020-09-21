@@ -10,10 +10,10 @@ const Tasks = ({ state, start, success, failed }) => {
     start();
     try {
       const fetchData = await axios.get("/api/tasks");
-      const data = await JSON.parse(fetchData.data);
-      success(data);
+
+      success(fetchData.data);
     } catch (error) {
-      failed();
+      failed(error);
     }
   }
 
@@ -40,8 +40,8 @@ function mapDispatchToProps(dispatch) {
     success: (data) => {
       dispatch({ type: FETCH_SUCCESS, payload: data });
     },
-    failed: () => {
-      dispatch({ type: FETCH_FAILED });
+    failed: (error) => {
+      dispatch({ type: FETCH_FAILED, payload: error });
     },
   };
 }
