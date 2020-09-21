@@ -4,6 +4,8 @@ import {
   TRY_LOGIN,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
+  LOG_OUT,
+  LOG_OUT_FAILED,
 } from "../types";
 
 export const initialState = {
@@ -53,6 +55,22 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
+      };
+    case LOG_OUT:
+      return {
+        user: {
+          userID: "",
+          password: "",
+        },
+        isLoading: false,
+        isAuthenticated: false,
+        error: "",
+      };
+    case LOG_OUT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
     default:
       return state;
