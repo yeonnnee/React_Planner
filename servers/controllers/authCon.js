@@ -21,3 +21,12 @@ exports.postLogIn = async (req, res) => {
     return res.send("비밀번호와 아이디가 일치하지 않습니다");
   }
 };
+
+exports.postLogOut = async (req, res) => {
+  try {
+    req.session.destroy();
+    res.send("User logged out");
+  } catch (error) {
+    res.send(error);
+  }
+};
