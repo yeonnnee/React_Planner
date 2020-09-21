@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   width: 230px;
   overflow: hidden;
 `;
-const TasksPresenter = (state) => {
+const TasksPresenter = ({ pendingList, finishedList }) => {
   return (
     <>
       <Header>TO DO LIST</Header>
@@ -52,7 +52,7 @@ const TasksPresenter = (state) => {
             <Wrapper>
               <Scroll>
                 <List>
-                  {state.pendingList.map((task, index) => {
+                  {pendingList.map((task, index) => {
                     return <TaskList {...task} key={index} />;
                   })}
                 </List>
@@ -64,7 +64,7 @@ const TasksPresenter = (state) => {
             <Wrapper>
               <Scroll>
                 <List>
-                  {state.finishedList.map((task, index) => {
+                  {finishedList.map((task, index) => {
                     return <TaskList {...task} key={index} />;
                   })}
                 </List>
