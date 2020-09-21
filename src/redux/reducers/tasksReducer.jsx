@@ -5,6 +5,7 @@ import {
   ADD_TASKS,
   CHANGE_STATUS,
   DELETE_TASKS,
+  ADD_TASKS_FAILED,
 } from "../types";
 
 export const initialState = {
@@ -23,24 +24,32 @@ const tasksReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case FETCH_SUCCESS: {
-      const filtered_PendingList = action.payload.filter(
-        (task) => task.status === "PENDING"
-      );
-      const filtered_FinishedList = action.payload.filter(
-        (task) => task.status === "FINISHED"
-      );
-      return {
-        ...state,
-        isLoading: false,
-        pendingList: [...state.pendingList, ...filtered_PendingList],
-        finishedList: [...state.finishedList, ...filtered_FinishedList],
-      };
+      if (action.payload === []) {
+        return {
+          ...state,
+          isLoading: false,
+        };
+      } else {
+        const filtered_PendingList = action.payload.filter(
+          (task) => task.status === "PENDING"
+        );
+        const filtered_FinishedList = action.payload.filter(
+          (task) => task.status === "FINISHED"
+        );
+
+        return {
+          ...state,
+          isLoading: false,
+          pendingList: [...state.pendingList, ...filtered_PendingList],
+          finishedList: [...state.finishedList, ...filtered_FinishedList],
+        };
+      }
     }
     case FETCH_FAILED:
       return {
         ...state,
         isLoading: false,
-        error: "Something went wrong",
+        error: action.payload,
       };
     //////////////////////* CRUD TASKS *////////////////
     case ADD_TASKS:
@@ -48,6 +57,12 @@ const tasksReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         pendingList: [...state.pendingList, action.payload],
+      };
+    case ADD_TASKS_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
     case CHANGE_STATUS: {
       if (action.payload.status === "FINISHED") {
