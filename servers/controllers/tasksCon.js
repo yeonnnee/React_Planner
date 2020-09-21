@@ -1,6 +1,5 @@
 const Task = require("../models/task");
 const { validationResult } = require("express-validator");
-// const User = require("../models/user");
 
 exports.getTasks = async (req, res) => {
   try {
@@ -17,7 +16,7 @@ exports.postTasks = async (req, res) => {
   try {
     const user = await req.session.user;
     const writer = await user.userID;
-    const content = await req.body.tasks.text;
+    const content = await req.body.tasks.content;
     const taskId = await req.body.tasks.id;
     const status = await req.body.tasks.status;
 
@@ -59,8 +58,8 @@ exports.patchTasks = async (req, res) => {
 
 exports.deleteTasks = async (req, res) => {
   try {
-    const taskId = req.body.id;
-    await Task.destroy({ where: { id: taskId, userID: req.user.userID } });
+    const taskId = await req.body.id;
+    Task.destroy({ where: { id: taskId } });
     res.send("Delete data successfully");
   } catch (error) {
     res.send("Deleting data failed");
