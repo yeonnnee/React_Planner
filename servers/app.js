@@ -35,7 +35,7 @@ app.use(
 );
 
 // ROUTES //
-app.use("/api/user", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/user", signUpRoutes);
 app.use("/api", taskRoutes);
 
