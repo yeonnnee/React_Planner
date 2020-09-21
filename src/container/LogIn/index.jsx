@@ -22,7 +22,7 @@ const LogIn = ({ state, send, setError, success, history }) => {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else {
       send();
-      const res = await axios.post("/api/user/logIn", state.user);
+      const res = await axios.post("/api/auth/logIn", state.user);
       console.log(res);
 
       if (res.data !== "logged In successfully") {
