@@ -1,13 +1,5 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-const MoveDown = keyframes`
- from {
-   transform: translateY(-150px);
- }
- to{
-   transform: translateY(0);
- }
-`;
 export const Container = styled.div`
   height: 60%;
   margin-top: 30px;
@@ -35,7 +27,6 @@ export const Form = styled.div`
   margin-top: 30px;
   width: 100%;
   height: 200px;
-  animation: ${MoveDown} 1s linear;
 `;
 export const Input = styled.input`
   width: 80%;
@@ -44,7 +35,7 @@ export const Input = styled.input`
   outline: none;
   border: none;
   &::placeholder {
-    font-family: "Fredericka the Great", cursive;
+    font-family: "Life Savers", cursive;
   }
 `;
 export const Button = styled.div`
