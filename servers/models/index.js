@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const configs = require("../utils/configs");
+const User = require("./user");
+const Task = require("./task");
 
 const sequelize = new Sequelize(
   configs.database,
@@ -26,5 +28,9 @@ sequelize
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
   });
+
+// Association //
+User.hasMany(Task, { foreignKey: "writer", sourceKey: "userID" });
+Task.belongsTo(User, { foreignKey: "writer", targetKey: "userID" });
 
 module.exports = sequelize;
