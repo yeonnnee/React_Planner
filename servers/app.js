@@ -9,6 +9,8 @@ const config = require("./utils/configs");
 const taskRoutes = require("./routes/taskRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
 const authRoutes = require("./routes/authRoutes");
+const User = require("./models/user");
+const Task = require("./models/task");
 
 const app = express();
 sequelize.sync();
@@ -36,6 +38,10 @@ app.use(
 app.use("/api/user", authRoutes);
 app.use("/api/user", signUpRoutes);
 app.use("/api", taskRoutes);
+
+// Association //
+User.hasMany(Task, { foreignKey: "writer", sourceKey: "userID" });
+Task.belongsTo(User, { foreignKey: "writer", targetKey: "userID" });
 
 const driver = async () => {
   await sequelize.sync();
