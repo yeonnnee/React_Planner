@@ -15,6 +15,6 @@ router.post(
   tasksController.postTasks
 );
 router.patch("/tasks", tasksController.patchTasks);
-router.delete("/tasks", tasksController.deleteTasks);
+router.put("/tasks", tasksController.deleteTasks);
 
 module.exports = router;
