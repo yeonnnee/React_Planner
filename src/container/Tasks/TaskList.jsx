@@ -39,22 +39,22 @@ const DelBtn = styled.button`
   }
 `;
 
-const TaskList = ({ text, id, status, change, deleteItem }) => {
+const TaskList = ({ content, id, status, change, deleteItem }) => {
   function changeStatus() {
     if (status === "PENDING") {
-      const completed = { id: id, text: text, status: "FINISHED" };
+      const completed = { id: id, content: content, status: "FINISHED" };
       axios.patch("/api/tasks", completed);
       change(completed);
     }
     if (status === "FINISHED") {
-      const uncompleted = { id: id, text: text, status: "PENDING" };
+      const uncompleted = { id: id, content: content, status: "PENDING" };
       axios.patch("/api/tasks", uncompleted);
       change(uncompleted);
     }
   }
 
   function deleteTask() {
-    const target = { id: id, text: text, status: status };
+    const target = { id: id, content: content, status: status };
     axios.put("/api/tasks", target);
     deleteItem(target);
   }
@@ -63,7 +63,7 @@ const TaskList = ({ text, id, status, change, deleteItem }) => {
       <CheckBox onClick={changeStatus}>
         {status === "PENDING" ? "" : "v"}
       </CheckBox>
-      {text}
+      {content}
       <DelBtn onClick={deleteTask}>X</DelBtn>
     </List>
   );
