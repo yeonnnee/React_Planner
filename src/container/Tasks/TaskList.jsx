@@ -55,7 +55,7 @@ const TaskList = ({ content, id, status, change, deleteItem }) => {
 
   function deleteTask() {
     const target = { id: id, content: content, status: status };
-    axios.put("/api/tasks", target);
+    axios.delete("/api/tasks", target);
     deleteItem(target);
   }
   return (
