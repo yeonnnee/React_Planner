@@ -8,7 +8,7 @@ const sequelize = require("./models");
 const config = require("./utils/configs");
 const taskRoutes = require("./routes/taskRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
-const logInRoutes = require("./routes/logInRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 sequelize.sync();
@@ -33,7 +33,7 @@ app.use(
 );
 
 // ROUTES //
-app.use("/api/user", logInRoutes);
+app.use("/api/user", authRoutes);
 app.use("/api/user", signUpRoutes);
 app.use("/api", taskRoutes);
 
