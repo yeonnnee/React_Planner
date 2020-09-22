@@ -1,4 +1,10 @@
+/* eslint-disable react/prop-types */
+import React from "react";
 import styled from "styled-components";
+
+import Loader from "../components/Loader";
+import Header from "../components/msg/WelcomeMessage";
+import ErrorMessage from "../components/msg/ErrorMessage";
 
 export const Container = styled.div`
   height: 60%;
@@ -6,7 +12,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-around; */
 `;
 
 export const Wrapper = styled.div`
@@ -23,7 +28,6 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   margin-top: 30px;
   width: 100%;
   height: 200px;
@@ -52,3 +56,48 @@ export const Button = styled.div`
     color: white;
   }
 `;
+
+const LogInPresenter = ({
+  onChange,
+  onClick,
+  isLoading,
+  error,
+  userID,
+  password,
+}) => {
+  return (
+    <>
+      <Container>
+        <Header />
+        <Wrapper>
+          {isLoading ? <Loader /> : null}
+          {error !== "" ? <ErrorMessage error={error} /> : null}
+
+          <Form>
+            <Input
+              type="text"
+              placeholder="ID"
+              name="userID"
+              value={userID}
+              onChange={onChange}
+            />
+          </Form>
+          <Form>
+            <Input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={onChange}
+            />
+          </Form>
+        </Wrapper>
+        <Section>
+          <Button onClick={onClick}>Log In</Button>
+        </Section>
+      </Container>
+    </>
+  );
+};
+
+export default LogInPresenter;

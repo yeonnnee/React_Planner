@@ -1,23 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
+import LogInPresenter from "../../presenter/LogInPresenter";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
-import Loader from "../../components/Loader";
-import Header from "../../components/msg/WelcomeMessage";
-import ErrorMessage from "../../components/msg/ErrorMessage";
-import {
-  Container,
-  Section,
-  Wrapper,
-  Button,
-  Form,
-  Input,
-} from "../../presenter/LogInPresenter";
 
-const LogIn = ({ state, send, setError, success, history }) => {
+const LogIn = ({ setError, send, success, history, state }) => {
   const [user, setUser] = useState({ userID: "", password: "" });
 
   function onChange(event) {
@@ -31,7 +21,6 @@ const LogIn = ({ state, send, setError, success, history }) => {
       setUser({ ...user, password: value });
     }
   }
-
   async function onClick() {
     if (user.userID === "" || user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
@@ -54,37 +43,12 @@ const LogIn = ({ state, send, setError, success, history }) => {
       {state.isAuthenticated ? (
         <Redirect to="/tasks" />
       ) : (
-        <>
-          <Container>
-            <Header />
-            <Wrapper>
-              {state.isLoading ? <Loader /> : null}
-              {state.error !== "" ? <ErrorMessage {...state} /> : null}
-
-              <Form>
-                <Input
-                  type="text"
-                  placeholder="ID"
-                  name="userID"
-                  value={user.userID}
-                  onChange={onChange}
-                />
-              </Form>
-              <Form>
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={user.password}
-                  onChange={onChange}
-                />
-              </Form>
-            </Wrapper>
-            <Section>
-              <Button onClick={onClick}>Log In</Button>
-            </Section>
-          </Container>
-        </>
+        <LogInPresenter
+          {...state}
+          {...user}
+          onClick={onClick}
+          onChange={onChange}
+        />
       )}
     </>
   );
