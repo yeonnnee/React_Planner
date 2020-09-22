@@ -1,13 +1,4 @@
-import {
-  SEND_DATA,
-  SEND_DATA_FAILED,
-  SEND_DATA_SUCCESS,
-  SET_USER_CONFIRMPW,
-  SET_USER_EMAIL,
-  SET_USER_ID,
-  SET_USER_NAME,
-  SET_USER_PASSWORD,
-} from "../types";
+import { SEND_DATA, SEND_DATA_FAILED, SEND_DATA_SUCCESS } from "../types";
 
 export const initialState = {
   user: {
@@ -24,34 +15,17 @@ export const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_ID:
-      return {
-        ...state,
-        user: { ...state.user, userID: action.payload },
-      };
-    case SET_USER_PASSWORD:
-      return {
-        ...state,
-        user: { ...state.user, password: action.payload },
-      };
-    case SET_USER_CONFIRMPW:
-      return {
-        ...state,
-        user: { ...state.user, confirmPassword: action.payload },
-      };
-    case SET_USER_NAME:
-      return {
-        ...state,
-        user: { ...state.user, name: action.payload },
-      };
-    case SET_USER_EMAIL:
-      return {
-        ...state,
-        user: { ...state.user, email: action.payload },
-      };
     case SEND_DATA:
       return {
         ...state,
+        user: {
+          ...state.user,
+          userID: action.payload.userID,
+          password: action.payload.password,
+          confirmPassword: action.payload.confirmPassword,
+          name: action.payload.name,
+          email: action.payload.email,
+        },
         isLoading: true,
       };
     case SEND_DATA_SUCCESS:
