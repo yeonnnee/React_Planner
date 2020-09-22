@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { FETCH_SUCCESS, FETCH_FAILED, FETCH_START } from "../../redux/types";
 import TasksPresenter from "../../presenter/TasksPresenter";
 import Loader from "../../components/Loader";
-import ErrorMessage from "../../components/ErrorMessage";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 
 const Tasks = ({ state, start, success, failed }) => {
   async function fetchData() {

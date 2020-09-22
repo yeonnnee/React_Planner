@@ -36,7 +36,7 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const SuccessSignUp = () => {
+const SuccessMessage = () => {
   return (
     <Container>
       <WelcomeMessage />
@@ -49,4 +49,4 @@ const SuccessSignUp = () => {
   );
 };
 
-export default SuccessSignUp;
+export default SuccessMessage;

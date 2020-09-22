@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import { ADD_TASKS_SUCCESS, ADD_TASKS_FAILED } from "../../redux/types";
-import ErrorMessage from "../../components/ErrorMessage";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 
 const Form = styled.form`
   display: flex;

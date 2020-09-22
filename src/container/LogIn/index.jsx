@@ -6,8 +6,8 @@ import { Redirect } from "react-router-dom";
 
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 import Loader from "../../components/Loader";
-import Header from "../../components/WelcomeMessage";
-import ErrorMessage from "../../components/ErrorMessage";
+import Header from "../../components/msg/WelcomeMessage";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 import {
   Container,
   Section,

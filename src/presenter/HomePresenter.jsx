@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import Header from "../components/WelcomeMessage";
+import Welcome from "../components/msg/WelcomeMessage";
 
 const FadeIn = keyframes`
 from{
@@ -57,7 +57,7 @@ const Span = styled.span``;
 const HomePresenter = () => {
   return (
     <Container>
-      <Header />
+      <Welcome />
       <Section>
         <Text>Already have an account?</Text>
         <SLink to="/logIn">

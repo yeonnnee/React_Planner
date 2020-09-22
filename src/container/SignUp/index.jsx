@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import SuccessSignUp from "../../components/SuccessSignUp";
+import SuccessMessage from "../../components/msg/SuccessMessage";
 import UserID from "./UserID";
 import UserPassword from "./Password";
 import ConfirmPassword from "./ConfirmPW";
@@ -53,7 +53,7 @@ const SignUp = ({ state, send, setError, success }) => {
   return (
     <>
       {state.result === "SUCCESS" ? (
-        <SuccessSignUp />
+        <SuccessMessage />
       ) : (
         <Container>
           <Title>Sign Up</Title>
