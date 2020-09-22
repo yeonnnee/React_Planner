@@ -1,5 +1,11 @@
+/* eslint-disable react/prop-types */
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+
+import SignUpInput from "../container/SignUp/Input";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/msg/ErrorMessage";
 
 const FadeIn = keyframes`
  from {
@@ -10,14 +16,6 @@ const FadeIn = keyframes`
  }
 `;
 
-export const Label = styled.label`
-  font-size: 14px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
 export const Container = styled.div`
   height: 80%;
   margin-top: 30px;
@@ -25,67 +23,31 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const Button = styled.div`
-  width: 150px;
-  height: 40px;
-  border: 1px solid #30475e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Life Savers", cursive;
-  cursor: pointer;
-  &:hover {
-    background-color: #30475e;
-    color: white;
-  }
-`;
+
 export const Title = styled.span`
   font-size: 25px;
-  /* font-family: "Fredericka the Great", cursive; */
   font-family: "Cinzel Decorative", cursive;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
-export const Form = styled.form`
-  height: 60px;
-  width: 100%;
-  margin: 5px 30px;
-  display: grid;
-  grid-template-rows: 40px;
-  grid-template-columns: 100px 400px;
-  gap: 10px;
-`;
-
-export const Input = styled.input`
-  width: 60%;
-  padding: 10px 20px;
-  outline: none;
-  border: ${(props) => (props.error ? "1px solid red" : "none")};
-  border-radius: 5px;
-  &:focus {
-    border: 2px solid #20639b;
-  }
-`;
 export const Wrapper = styled.div`
   margin: 20px;
-  height: 400px;
+  height: 350px;
   width: 100%;
   animation: ${FadeIn} 1s linear;
 `;
 export const Section = styled.div`
   display: flex;
+  font-family: "Life Savers", cursive;
 `;
-
-export const CancelBtn = styled.div`
+export const Button = styled.div`
   width: 150px;
   height: 40px;
+  margin-right: 10px;
   border: 1px solid #30475e;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
-  font-family: "Life Savers", cursive;
-
   cursor: pointer;
   &:hover {
     background-color: #30475e;
@@ -98,32 +60,74 @@ export const SLink = styled(Link)`
   color: #382933;
 `;
 
-// ERROR //
-export const Info = styled.div`
-  width: 60%;
-  margin: 0 30%;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: -18px;
-`;
-export const Error = styled.div`
-  width: 60%;
-  margin: 0 30%;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: -18px;
-  color: red;
-  line-height: 1.5;
-`;
-export const Notice = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: red;
-  font-size: 11px;
-`;
+const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
+  return (
+    <Container>
+      <Title>Sign Up</Title>
+
+      {error.includes("빈칸") ? <ErrorMessage error={error} /> : null}
+      {isLoading ? <Loader /> : null}
+
+      <Wrapper>
+        <SignUpInput
+          type="text"
+          placeholder="ID"
+          value={info.userID}
+          id="아이디"
+          onChange={onChange}
+          error={error !== "" && error.includes("아이디") ? true : false}
+          errorMessage={error}
+        />
+        <SignUpInput
+          type="password"
+          placeholder="Password"
+          value={info.password}
+          id="비밀번호"
+          onChange={onChange}
+          error={error !== "" && error.includes("비밀번호") ? true : false}
+          errorMessage={error}
+        />
+        <SignUpInput
+          type="password"
+          placeholder="Confirm Password"
+          value={info.confirmPassword}
+          id="비밀번호 재확인"
+          onChange={onChange}
+          error={error.includes("일치") ? true : false}
+          errorMessage={error}
+        />
+        <SignUpInput
+          type="text"
+          placeholder="Name"
+          value={info.name}
+          id="이름"
+          onChange={onChange}
+          error={
+            error === "글자 수가 초과하였습니다." ||
+            error.includes("한글") ||
+            error === "유효하지 않은 글자가 포함되어 있습니다."
+              ? true
+              : false
+          }
+          errorMessage={error}
+        />
+        <SignUpInput
+          type="email"
+          placeholder="Email"
+          value={info.email}
+          id="이메일"
+          onChange={onChange}
+          error={error.includes("이메일") ? true : false}
+        />
+      </Wrapper>
+      <Section>
+        <Button onClick={onSubmit}>Submit</Button>
+        <SLink to="/">
+          <Button>Cancel</Button>
+        </SLink>
+      </Section>
+    </Container>
+  );
+};
+
+export default SignUpPresenter;
