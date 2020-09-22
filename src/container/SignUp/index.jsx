@@ -1,25 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
 import SuccessMessage from "../../components/msg/SuccessMessage";
-import UserID from "./UserID";
-import UserPassword from "./Password";
-import ConfirmPassword from "./ConfirmPW";
-import UserName from "./UserName";
-import UserEmail from "./UserEmail";
-import Loader from "../../components/Loader";
-import {
-  Container,
-  Button,
-  Title,
-  Wrapper,
-  Section,
-  CancelBtn,
-  SLink,
-  Notice,
-} from "../../presenter/SignUpPresenter";
+import SignUpPresenter from "../../presenter/SignUpPresenter";
 
 import {
   SEND_DATA,
@@ -28,18 +13,58 @@ import {
 } from "../../redux/types";
 
 const SignUp = ({ state, send, setError, success }) => {
+  const [userInfo, setUserInfo] = useState({
+    info: {
+      userID: "",
+      password: "",
+      confirmPassword: "",
+      name: "",
+      email: "",
+    },
+  });
+  function onChange(event) {
+    const target = event.target.placeholder;
+    switch (target) {
+      case "ID": {
+        const value = event.target.value;
+        return setUserInfo({ info: { ...userInfo.info, userID: value } });
+      }
+      case "Password": {
+        const value = event.target.value;
+        return setUserInfo({ info: { ...userInfo.info, password: value } });
+      }
+      case "Confirm Password": {
+        const value = event.target.value;
+        return setUserInfo({
+          info: { ...userInfo.info, confirmPassword: value },
+        });
+      }
+      case "Name": {
+        const value = event.target.value;
+        return setUserInfo({ info: { ...userInfo.info, name: value } });
+      }
+      case "Email": {
+        const value = event.target.value;
+        return setUserInfo({ info: { ...userInfo.info, email: value } });
+      }
+      default:
+        return userInfo;
+    }
+  }
+
   async function onSubmit(event) {
     event.preventDefault();
+
     if (
-      state.user.userID === "" ||
-      state.user.password === "" ||
-      state.user.confirmPassword === "" ||
-      state.user.name === "" ||
-      state.user.email === ""
+      userInfo.info.userID === "" ||
+      userInfo.info.password === "" ||
+      userInfo.info.confirmPassword === "" ||
+      userInfo.info.name === "" ||
+      userInfo.info.email === ""
     ) {
       setError("빈칸 없이 입력해주시기 바랍니다");
     } else {
-      send();
+      send(userInfo.info);
       const res = await axios.post("/api/user/signUp", state.user);
       console.log(res);
 
@@ -55,26 +80,12 @@ const SignUp = ({ state, send, setError, success }) => {
       {state.result === "SUCCESS" ? (
         <SuccessMessage />
       ) : (
-        <Container>
-          <Title>Sign Up</Title>
-          {state.error.includes("빈칸") ? (
-            <Notice>빈칸없이 작성해주십시오</Notice>
-          ) : null}
-          {state.isLoading ? <Loader /> : null}
-          <Wrapper>
-            <UserID />
-            <UserPassword />
-            <ConfirmPassword />
-            <UserName />
-            <UserEmail />
-          </Wrapper>
-          <Section>
-            <Button onClick={onSubmit}>Submit</Button>
-            <SLink to="/">
-              <CancelBtn>Cancel</CancelBtn>
-            </SLink>
-          </Section>
-        </Container>
+        <SignUpPresenter
+          onSubmit={onSubmit}
+          onChange={onChange}
+          {...state}
+          {...userInfo}
+        />
       )}
     </>
   );
@@ -85,8 +96,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    send: () => {
-      dispatch({ type: SEND_DATA });
+    send: (userInfo) => {
+      dispatch({ type: SEND_DATA, payload: userInfo });
     },
     setError: (error) => {
       dispatch({ type: SEND_DATA_FAILED, payload: error });
