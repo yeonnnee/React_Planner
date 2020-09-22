@@ -15,7 +15,7 @@ const User = sequelize.define(
       allowNull: false,
     },
     userID: {
-      type: Sequelize.STRING(20),
+      type: Sequelize.STRING(10),
       allowNull: false,
       unique: true,
     },
