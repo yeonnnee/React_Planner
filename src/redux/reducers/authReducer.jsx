@@ -7,6 +7,7 @@ import {
 } from "../types";
 
 export const initialState = {
+  user: "",
   isLoading: false,
   isAuthenticated: false,
   error: "",
@@ -36,11 +37,15 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        user: action.payload,
         isLoading: false,
         isAuthenticated: true,
       };
+
     case LOG_OUT:
       return {
+        ...state,
+        user: "",
         isLoading: false,
         isAuthenticated: false,
         error: "",
