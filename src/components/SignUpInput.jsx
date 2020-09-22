@@ -72,10 +72,10 @@ const SignUpInput = ({
         />
       </Form>
       {id === "아이디" ? (
-        <Info>*영문 혹은 영문과 숫자로 조합된 6~20자</Info>
+        <Info>*영문 혹은 영문과 숫자로 조합된 5~10자</Info>
       ) : null}
       {id === "비밀번호" ? (
-        <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~20자</Info>
+        <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~12자</Info>
       ) : null}
       {error ? <Error>{errorMessage}</Error> : null}
     </>
