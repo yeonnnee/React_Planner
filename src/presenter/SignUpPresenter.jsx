@@ -3,7 +3,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import SignUpInput from "../container/SignUp/Input";
+import SignUpInput from "../components/SignUpInput";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/msg/ErrorMessage";
 
@@ -32,7 +32,7 @@ export const Title = styled.span`
 
 export const Wrapper = styled.div`
   margin: 20px;
-  height: 350px;
+  height: 380px;
   width: 100%;
   animation: ${FadeIn} 1s linear;
 `;
