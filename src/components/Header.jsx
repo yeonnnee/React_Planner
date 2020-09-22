@@ -22,10 +22,10 @@ const Button = styled.button`
     color: white;
   }
 `;
-// const User = styled.span`
-//   cursor: pointer;
-//   margin-right: 10px;
-// `;
+const User = styled.span`
+  cursor: pointer;
+  margin-right: 10px;
+`;
 
 const Header = ({ state, setError, logOut }) => {
   async function onClick() {
@@ -40,7 +40,7 @@ const Header = ({ state, setError, logOut }) => {
     <>
       {state.isAuthenticated ? (
         <Container>
-          {/* <User>{state.user.userID}</User> */}
+          <User>{state.user}</User>
           <Button onClick={onClick}>로그아웃</Button>
         </Container>
       ) : null}
