@@ -64,8 +64,8 @@ const SignUp = ({ state, send, setError, success }) => {
     ) {
       setError("빈칸 없이 입력해주시기 바랍니다");
     } else {
-      send(userInfo.info);
-      const res = await axios.post("/api/user/signUp", state.user);
+      send();
+      const res = await axios.post("/api/user/signUp", userInfo.info);
       console.log(res);
 
       if (res.data !== "Get data successfully") {
@@ -96,8 +96,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    send: (userInfo) => {
-      dispatch({ type: SEND_DATA, payload: userInfo });
+    send: () => {
+      dispatch({ type: SEND_DATA });
     },
     setError: (error) => {
       dispatch({ type: SEND_DATA_FAILED, payload: error });
