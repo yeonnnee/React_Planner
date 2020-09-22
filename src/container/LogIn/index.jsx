@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 import Loader from "../../components/Loader";
@@ -31,54 +32,60 @@ const LogIn = ({ state, send, setError, success, history }) => {
     }
   }
 
-  async function logIn() {
+  async function onClick() {
     if (user.userID === "" || user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else {
-      send();
       setError("");
+      send();
       const res = await axios.post("/api/auth/logIn", user);
       console.log(res);
 
       if (res.data !== "logged In successfully") {
         setError(res.data);
       } else {
-        success();
+        success(user.userID);
         history.push("/tasks");
       }
     }
   }
   return (
     <>
-      <Container>
-        <Header />
-        <Wrapper>
-          {state.isLoading ? <Loader /> : null}
-          {state.error !== "" ? <ErrorMessage {...state} /> : null}
+      {state.isAuthenticated ? (
+        <Redirect to="/tasks" />
+      ) : (
+        <>
+          <Container>
+            <Header />
+            <Wrapper>
+              {state.isLoading ? <Loader /> : null}
+              {state.error !== "" ? <ErrorMessage {...state} /> : null}
 
-          <Form>
-            <Input
-              type="text"
-              placeholder="ID"
-              name="userID"
-              value={user.userID}
-              onChange={onChange}
-            />
-          </Form>
-          <Form>
-            <Input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={user.password}
-              onChange={onChange}
-            />
-          </Form>
-        </Wrapper>
-        <Section>
-          <Button onClick={logIn}>Log In</Button>
-        </Section>
-      </Container>
+              <Form>
+                <Input
+                  type="text"
+                  placeholder="ID"
+                  name="userID"
+                  value={user.userID}
+                  onChange={onChange}
+                />
+              </Form>
+              <Form>
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={user.password}
+                  onChange={onChange}
+                />
+              </Form>
+            </Wrapper>
+            <Section>
+              <Button onClick={onClick}>Log In</Button>
+            </Section>
+          </Container>
+        </>
+      )}
     </>
   );
 };
@@ -94,8 +101,8 @@ function mapDispatchToProps(dispatch) {
     setError: (error) => {
       dispatch({ type: LOGIN_FAILED, payload: error });
     },
-    success: () => {
-      dispatch({ type: LOGIN_SUCCESS });
+    success: (user) => {
+      dispatch({ type: LOGIN_SUCCESS, payload: user });
     },
   };
 }
