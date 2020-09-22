@@ -1,13 +1,6 @@
 import { SEND_DATA, SEND_DATA_FAILED, SEND_DATA_SUCCESS } from "../types";
 
 export const initialState = {
-  user: {
-    userID: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    email: "",
-  },
   isLoading: false,
   error: "",
   result: "",
@@ -18,14 +11,6 @@ const userReducer = (state = initialState, action) => {
     case SEND_DATA:
       return {
         ...state,
-        user: {
-          ...state.user,
-          userID: action.payload.userID,
-          password: action.payload.password,
-          confirmPassword: action.payload.confirmPassword,
-          name: action.payload.name,
-          email: action.payload.email,
-        },
         isLoading: true,
       };
     case SEND_DATA_SUCCESS:
