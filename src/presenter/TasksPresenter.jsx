@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import TaskList from "../container/Tasks/TaskList";
-import TasksInput from "../container/Tasks/TasksInput";
+import TasksInput from "../components/TasksInput";
 
 const Container = styled.div``;
 
@@ -40,12 +40,24 @@ const Wrapper = styled.div`
   width: 230px;
   overflow: hidden;
 `;
-const TasksPresenter = ({ pendingList, finishedList }) => {
+const TasksPresenter = ({
+  pendingList,
+  finishedList,
+  onChange,
+  onSubmit,
+  content,
+  error,
+}) => {
   return (
     <>
       <Header>TO DO LIST</Header>
       <Container>
-        <TasksInput />
+        <TasksInput
+          onChange={onChange}
+          onSubmit={onSubmit}
+          {...content}
+          error={error}
+        />
         <ListCon>
           <Pending>
             <Title>PENDING</Title>
