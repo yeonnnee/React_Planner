@@ -20,9 +20,9 @@ const Tasks = ({ state, start, success, failed, add, setError }) => {
   async function fetchData() {
     start();
     try {
-      const fetchData = await axios.get("/api/tasks");
+      const res = await axios.get("/api/tasks");
 
-      success(fetchData.data);
+      success(res.data);
     } catch (error) {
       failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
     }
