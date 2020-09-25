@@ -54,7 +54,6 @@ const tasksReducer = (state = initialState, action) => {
     //////////////////////* CRUD TASKS *////////////////
 
     case ADD_TASKS_SUCCESS:
-      console.log("payload", action.payload);
       return {
         ...state,
         isLoading: false,
