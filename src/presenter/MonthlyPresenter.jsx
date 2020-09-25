@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -19,7 +20,7 @@ const MonthlyCalendar = styled(Calendar)`
 
 const Line = styled.div`
   width: 90%;
-  margin-top: 20px;
+  margin: 10px 0;
   height: 5px;
   border-bottom: 1px solid #30475e;
 `;
@@ -43,11 +44,49 @@ const RecordLink = styled(Link)`
   text-decoration: none;
   align-self: flex-end;
 `;
+
+const SelectedEvent = styled.ul`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Wrapper = styled.div`
+  width: 460px;
+  height: 220px;
+  overflow: hidden;
+`;
+const Scroll = styled.div`
+  width: 480px;
+  height: 200px;
+  overflow: auto;
+`;
+const EventList = styled.ul`
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const List = styled.li`
+  width: 80%;
+  height: 70px;
+  border: 1px solid #30475e;
+`;
+
 const MonthlyPresenter = () => {
+  const [state, setState] = useState({ date: "" });
+
+  // const day = new Date();
+  // const today = day.toString().substring(0, 10);
+  // const plansForToday = plans.filter((plan) => plan.date === today);
+
   const onClickDay = (event) => {
-    const target = event.toString().substring(0, 15);
-    console.log(target);
+    const target = event.toString().substring(0, 10);
+    setState({ date: target });
   };
+  console.log(state);
   return (
     <Container>
       <MonthlyCalendar
@@ -55,10 +94,24 @@ const MonthlyPresenter = () => {
         onClickDay={onClickDay}
         locale="en-US"
       />
-      <Line />
-      <RecordLink to="/monthly">
+
+      <RecordLink to="/add" {...state}>
         <Button>ADD</Button>
       </RecordLink>
+      <Line />
+
+      <SelectedEvent>
+        <List></List>
+      </SelectedEvent>
+      <Line />
+
+      <Wrapper>
+        <Scroll>
+          <EventList>
+            <List></List>
+          </EventList>
+        </Scroll>
+      </Wrapper>
     </Container>
   );
 };
