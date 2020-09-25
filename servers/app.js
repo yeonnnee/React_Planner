@@ -7,7 +7,7 @@ const MysqlStore = require("express-mysql-session")(session);
 const sequelize = require("./models");
 const config = require("./utils/configs");
 const taskRoutes = require("./routes/taskRoutes");
-// const monthlyRoutes = require("./routes/monthlyRoutes");
+const monthlyRoutes = require("./routes/monthlyRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
 const authRoutes = require("./routes/authRoutes");
 const User = require("./models/user");
@@ -40,7 +40,7 @@ app.use(
 // ROUTES //
 app.use("/api/auth", authRoutes);
 app.use("/api/user", signUpRoutes);
-// app.use("/api/monthly", monthlyRoutes);
+app.use("/api/monthly", monthlyRoutes);
 app.use("/api", taskRoutes);
 
 // Association //
