@@ -8,7 +8,7 @@ exports.getTasks = async (req, res) => {
 
     res.status(200).send(tasks);
   } catch (error) {
-    res.status(500).send(error);
+    throw new Error();
   }
 };
 
@@ -22,7 +22,7 @@ exports.postTasks = async (req, res) => {
 
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
-      res.json({ error: "Text Length Problem", msg: result.errors[0].msg });
+      res.status(400).json({ msg: result.errors[0].msg });
     } else {
       Task.create({
         id: taskId,
@@ -30,10 +30,10 @@ exports.postTasks = async (req, res) => {
         content: content,
         status: status,
       });
-      res.send("Get data successfully");
+      res.status(201).json({ msg: "Get data successfully" });
     }
   } catch (error) {
-    res.send(error);
+    throw new Error();
   }
 };
 
@@ -50,9 +50,9 @@ exports.patchTasks = async (req, res) => {
       { where: { id: taskId } }
     );
 
-    res.send("Patch data successfully");
+    res.status(201).json({ msg: "Patch data successfully" });
   } catch (error) {
-    res.send("Patching data failed");
+    throw new Error();
   }
 };
 
@@ -60,8 +60,8 @@ exports.deleteTasks = async (req, res) => {
   try {
     const taskId = await req.body.id;
     Task.destroy({ where: { id: taskId } });
-    res.send("Delete data successfully");
+    res.status(201).json({ msg: "Delete data successfully" });
   } catch (error) {
-    res.send("Deleting data failed");
+    throw new Error();
   }
 };
