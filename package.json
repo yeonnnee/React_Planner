@@ -19,12 +19,7 @@
     "express-mysql-session": "^2.1.4",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
-    "fs": "0.0.1-security",
-    "http-proxy-middleware": "^1.0.5",
     "mysql2": "^2.1.0",
-    "nodemon": "^2.0.4",
-    "npm-run-all": "^4.1.5",
-    "path": "^0.12.7",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",
     "react-dom": "^16.13.1",
@@ -33,7 +28,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "sequelize": "^6.3.5",
     "styled-components": "^5.2.0",
     "styled-reset": "^4.2.3",
@@ -41,9 +35,9 @@
     "uuidv4": "^6.2.3"
   },
   "scripts": {
-    "start": "npm-run-all --parallel start:**",
+    "start": "echo use start:client | start:server",
     "start:client": "react-scripts start",
-    "start:server": "node ./servers/app.js",
+    "start:server": "npx nodemon ./servers/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -65,6 +59,8 @@
   },
   "devDependencies": {
     "eslint": "^6.6.0",
-    "eslint-plugin-react": "^7.20.6"
+    "eslint-plugin-react": "^7.20.6",
+    "http-proxy-middleware": "^1.0.5",
+    "nodemon": "^2.0.4"
   }
 }
