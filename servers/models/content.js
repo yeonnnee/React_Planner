@@ -7,6 +7,7 @@ const Content = sequelize.define(
     id: {
       type: Sequelize.STRING(36),
       allowNull: false,
+      primaryKey: true,
     },
     text: {
       type: Sequelize.STRING(30),
