@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
-
+import React from "react";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
 
-import TasksInput from "../../components/TasksInput";
+import TasksInput from "../components/TasksInput";
 
 const Container = styled.div`
   width: 100%;
@@ -52,48 +50,17 @@ const DelBtn = styled.button`
   }
 `;
 
-const MonthlyAdd = ({ date }) => {
-  const [plans, setPlans] = useState({
-    id: "",
-    date: "",
-    content: [],
-  });
-  const [state, setState] = useState({ monthly: [] });
-  const [content, setContent] = useState({
-    id: "",
-    text: "",
-    error: "",
-  });
-
-  function onChange(event) {
-    const value = event.target.value;
-    setContent({ id: uuidv4().toString(), text: value, error: "" });
-  }
-  function save() {
-    const date = new Date();
-    const today = date.toString().substring(0, 10);
-    setPlans({
-      id: uuidv4().toString(),
-      date: today,
-      content: [...plans.content, ...state.monthly],
-    });
-  }
-
-  function onSubmit(event) {
-    event.preventDefault();
-    setState({ monthly: [...state.monthly, content] });
-    setContent({
-      text: "",
-      error: "",
-    });
-  }
-  function deleteItem() {
-    console.log("plans", plans);
-    console.log("state", state.monthly);
-  }
+const AddMonthlyPresenter = ({
+  onChange,
+  onSubmit,
+  save,
+  deleteItem,
+  plans,
+  content,
+}) => {
   return (
     <Container>
-      <h2>{date}</h2>
+      <h2></h2>
       <TasksInput
         onChange={onChange}
         onSubmit={onSubmit}
@@ -101,7 +68,7 @@ const MonthlyAdd = ({ date }) => {
         error={content.error}
       />
       <ListCon>
-        {state.monthly.map((content, index) => (
+        {plans.monthly.map((content, index) => (
           <List key={index}>
             {content.text}
             <DelBtn onClick={deleteItem}>X</DelBtn>
@@ -113,4 +80,4 @@ const MonthlyAdd = ({ date }) => {
   );
 };
 
-export default MonthlyAdd;
+export default AddMonthlyPresenter;
