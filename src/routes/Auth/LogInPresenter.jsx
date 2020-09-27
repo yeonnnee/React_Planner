@@ -2,9 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Loader from "../components/Loader";
-import Header from "../components/msg/WelcomeMessage";
-import ErrorMessage from "../components/msg/ErrorMessage";
+import Loader from "../../components/Loader";
+import Header from "../../components/msg/WelcomeMessage";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 
 export const Container = styled.div`
   height: 60%;

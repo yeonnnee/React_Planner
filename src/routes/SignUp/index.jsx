@@ -4,7 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import SuccessMessage from "../../components/msg/SuccessMessage";
-import SignUpPresenter from "../../presenter/SignUpPresenter";
+import SignUpPresenter from "./SignUpPresenter";
 import {
   emailValidation,
   passwordValidation,

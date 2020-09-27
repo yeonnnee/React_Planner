@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import Welcome from "../components/msg/WelcomeMessage";
+import Welcome from "../../components/msg/WelcomeMessage";
 
 const FadeIn = keyframes`
 from{

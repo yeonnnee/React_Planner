@@ -3,7 +3,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import HomePresenter from "../presenter/HomePresenter";
+import HomePresenter from "./HomePresenter";
 
 const Home = ({ state }) => {
   return (
