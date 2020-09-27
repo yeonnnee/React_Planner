@@ -7,6 +7,7 @@ const Plan = sequelize.define(
     id: {
       type: Sequelize.STRING(36),
       allowNull: false,
+      primaryKey: true,
     },
     date: {
       type: Sequelize.STRING(16),
