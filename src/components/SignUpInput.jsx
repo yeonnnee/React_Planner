@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Form = styled.form`
+const Form = styled.div`
   height: 60px;
   width: 100%;
   margin: 5px 30px;
@@ -71,9 +71,6 @@ const SignUpInput = ({
           error={error}
         />
       </Form>
-      {!error && id === "아이디" ? (
-        <Info>*영문 혹은 영문과 숫자로 조합된 5~10자</Info>
-      ) : null}
       {!error && id === "비밀번호" ? (
         <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~12자</Info>
       ) : null}
