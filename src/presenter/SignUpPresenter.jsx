@@ -32,7 +32,7 @@ export const Title = styled.span`
 
 export const Wrapper = styled.div`
   margin: 20px;
-  height: 380px;
+  height: 300px;
   width: 100%;
   animation: ${FadeIn} 1s linear;
 `;
@@ -60,7 +60,16 @@ export const SLink = styled(Link)`
   color: #382933;
 `;
 
-const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
+const SignUpPresenter = ({
+  error,
+  isLoading,
+  onSubmit,
+  onChange,
+  email,
+  password,
+  confirmPassword,
+  name,
+}) => {
   return (
     <Container>
       <Title>Sign Up</Title>
@@ -72,15 +81,16 @@ const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
         <SignUpInput
           type="email"
           placeholder="Email"
-          value={info.email}
+          value={email}
           id="이메일"
           onChange={onChange}
           error={error.includes("이메일") ? true : false}
+          errorMessage={error}
         />
         <SignUpInput
           type="password"
           placeholder="Password"
-          value={info.password}
+          value={password}
           id="비밀번호"
           onChange={onChange}
           error={error !== "" && error.includes("비밀번호") ? true : false}
@@ -89,7 +99,7 @@ const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
         <SignUpInput
           type="password"
           placeholder="Confirm Password"
-          value={info.confirmPassword}
+          value={confirmPassword}
           id="비밀번호 재확인"
           onChange={onChange}
           error={error.includes("일치") ? true : false}
@@ -98,11 +108,11 @@ const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
         <SignUpInput
           type="text"
           placeholder="Name"
-          value={info.name}
+          value={name}
           id="이름"
           onChange={onChange}
           error={
-            error === "글자 수가 초과하였습니다." ||
+            error === "글자 수를 초과하였습니다." ||
             error.includes("한글") ||
             error === "유효하지 않은 글자가 포함되어 있습니다."
               ? true
