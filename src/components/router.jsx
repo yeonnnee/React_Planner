@@ -1,10 +1,9 @@
-/* eslint-disable react/display-name */
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Tasks from "../routes/Tasks";
 import Monthly from "../routes/Monthly";
-import AddMonthly from "../routes/Monthly/AddMonthly";
+import AddMonthly from "../routes/AddMonthly";
 import Home from "../routes/Home";
 import LogIn from "../routes/LogIn";
 import SignUp from "../routes/SignUp";
@@ -12,9 +11,9 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 import PrivateRoute from "./PrivateRoute";
 
-export default () => {
+const Router = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Header />
       <Navigation />
       <Switch>
@@ -28,6 +27,8 @@ export default () => {
         {/* <Route path="/" exact component={Monthly} />
         <Route path="/add" component={AddMonthly} /> */}
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 };
+
+export default Router;
