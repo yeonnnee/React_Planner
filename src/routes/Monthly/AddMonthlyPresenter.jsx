@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import TasksInput from "../components/TasksInput";
+import TasksInput from "../Tasks/TasksInput";
 
 const Container = styled.div`
   width: 100%;

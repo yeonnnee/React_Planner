@@ -95,7 +95,7 @@ const MonthlyPresenter = () => {
         locale="en-US"
       />
 
-      <RecordLink to="/add" {...state}>
+      <RecordLink to="/add">
         <Button>ADD</Button>
       </RecordLink>
       <Line />

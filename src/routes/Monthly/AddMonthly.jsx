@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import AddMonthlyPresenter from "../../presenter/AddMonthlyPresenter";
+import AddMonthlyPresenter from "./AddMonthlyPresenter";
 import { CREATE_MONTHLY } from "../../redux/types";
 
 const MonthlyAdd = ({ add, history }) => {

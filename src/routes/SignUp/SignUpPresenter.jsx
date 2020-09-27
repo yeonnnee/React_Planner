@@ -3,9 +3,9 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import SignUpInput from "../components/SignUpInput";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/msg/ErrorMessage";
+import SignUpInput from "./SignUpInput";
+import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 
 const FadeIn = keyframes`
  from {
