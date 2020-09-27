@@ -1,12 +1,12 @@
+const { STRING } = require("sequelize");
 const Sequelize = require("sequelize");
 const sequelize = require("./index");
 
 const User = sequelize.define(
   "user",
   {
-    no: {
-      type: Sequelize.INTEGER,
-      autoIncrement: true,
+    id: {
+      type: STRING(36),
       allowNull: false,
       primaryKey: true,
     },
@@ -14,17 +14,12 @@ const User = sequelize.define(
       type: Sequelize.STRING(10),
       allowNull: false,
     },
-    userID: {
-      type: Sequelize.STRING(10),
+    email: {
+      type: Sequelize.STRING(20),
       allowNull: false,
-      unique: true,
     },
     password: {
       type: Sequelize.STRING(60),
-      allowNull: false,
-    },
-    email: {
-      type: Sequelize.STRING(20),
       allowNull: false,
     },
   },

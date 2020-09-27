@@ -3,8 +3,8 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.postLogIn = async (req, res) => {
-  const userID = await req.body.userID;
-  const user = await User.findOne({ where: { userID: userID } });
+  const userEmail = await req.body.email;
+  const user = await User.findOne({ where: { email: userEmail } });
   if (!user) {
     return res.status(400).json({ msg: "존재하지 않는 아이디 입니다" });
   }
@@ -31,7 +31,7 @@ exports.checkLogin = async (req, res) => {
   const ret = {
     id: user.id,
     name: user.name,
-    eamil: user.email,
+    email: user.email,
   };
 
   res.json({ user: ret });

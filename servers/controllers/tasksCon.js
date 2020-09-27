@@ -3,8 +3,8 @@ const { validationResult } = require("express-validator");
 
 exports.getTasks = async (req, res) => {
   try {
-    const userID = await req.session.user.userID;
-    const tasks = await Task.findAll({ where: { writer: userID } });
+    const user = await req.session.user.email;
+    const tasks = await Task.findAll({ where: { userId: user } });
 
     res.status(200).send(tasks);
   } catch (error) {
@@ -14,8 +14,7 @@ exports.getTasks = async (req, res) => {
 
 exports.postTasks = async (req, res) => {
   try {
-    const user = await req.session.user;
-    const writer = await user.userID;
+    const user = await req.session.user.email;
     const content = await req.body.tasks.content;
     const taskId = await req.body.tasks.id;
     const status = await req.body.tasks.status;
@@ -26,7 +25,7 @@ exports.postTasks = async (req, res) => {
     } else {
       Task.create({
         id: taskId,
-        writer: writer,
+        userId: user,
         content: content,
         status: status,
       });

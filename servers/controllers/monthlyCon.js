@@ -3,8 +3,8 @@ const Content = require("../models/content");
 
 exports.getMonthly = async (req, res) => {
   try {
-    const userID = await req.session.user.userID;
-    const plans = await Plan.findAll({ where: { writer: userID } });
+    const user = await req.session.user.email;
+    const plans = await Plan.findAll({ where: { userId: user } });
     res.status(200).send(plans);
   } catch (error) {
     throw new Error();
