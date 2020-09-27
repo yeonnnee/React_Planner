@@ -8,13 +8,7 @@ const sequelize = new Sequelize(
   {
     dialect: configs.dialect,
     host: configs.host,
-    port: null,
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
+    port: configs.port,
   }
 );
 
