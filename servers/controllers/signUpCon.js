@@ -5,6 +5,7 @@ const { validationResult } = require("express-validator");
 exports.postSignUp = async (req, res) => {
   try {
     const name = await req.body.name;
+    const id = await req.body.id;
     const password = await req.body.password;
     const email = await req.body.email;
 
@@ -15,6 +16,7 @@ exports.postSignUp = async (req, res) => {
     } else {
       const salt = bcrypt.genSaltSync(16);
       User.create({
+        id: id,
         name: name,
         password: bcrypt.hashSync(password, salt),
         email: email,

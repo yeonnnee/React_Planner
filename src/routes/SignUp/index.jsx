@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import SuccessMessage from "../../components/msg/SuccessMessage";
 import SignUpPresenter from "./SignUpPresenter";
@@ -21,6 +22,7 @@ import {
 const SignUp = (signUpProps) => {
   const { state, send, setError, success } = signUpProps;
   const [userInfo, setUserInfo] = useState({
+    id: uuidv4().toString(),
     email: "",
     password: "",
     confirmPassword: "",
@@ -50,7 +52,10 @@ const SignUp = (signUpProps) => {
       case "Email": {
         const value = event.target.value;
         emailValidation(value, setError);
-        return setUserInfo({ ...userInfo, email: value });
+        return setUserInfo({
+          ...userInfo,
+          email: value,
+        });
       }
       default:
         return userInfo;
