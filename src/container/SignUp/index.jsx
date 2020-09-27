@@ -15,20 +15,15 @@ import {
 const SignUp = ({ state, send, setError, success }) => {
   const [userInfo, setUserInfo] = useState({
     info: {
-      userID: "",
+      email: "",
       password: "",
       confirmPassword: "",
       name: "",
-      email: "",
     },
   });
   function onChange(event) {
     const target = event.target.placeholder;
     switch (target) {
-      case "ID": {
-        const value = event.target.value;
-        return setUserInfo({ info: { ...userInfo.info, userID: value } });
-      }
       case "Password": {
         const value = event.target.value;
         return setUserInfo({ info: { ...userInfo.info, password: value } });
@@ -56,11 +51,10 @@ const SignUp = ({ state, send, setError, success }) => {
     event.preventDefault();
 
     if (
-      userInfo.info.userID === "" ||
+      userInfo.info.email === "" ||
       userInfo.info.password === "" ||
       userInfo.info.confirmPassword === "" ||
-      userInfo.info.name === "" ||
-      userInfo.info.email === ""
+      userInfo.info.name === ""
     ) {
       setError("빈칸 없이 입력해주시기 바랍니다");
     } else {

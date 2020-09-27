@@ -62,7 +62,7 @@ const LogInPresenter = ({
   onClick,
   isLoading,
   error,
-  userID,
+  email,
   password,
 }) => {
   return (
@@ -76,9 +76,9 @@ const LogInPresenter = ({
           <Form>
             <Input
               type="text"
-              placeholder="ID"
-              name="userID"
-              value={userID}
+              placeholder="Email"
+              name="email"
+              value={email}
               onChange={onChange}
             />
           </Form>

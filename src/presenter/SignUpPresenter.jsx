@@ -70,13 +70,12 @@ const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
 
       <Wrapper>
         <SignUpInput
-          type="text"
-          placeholder="ID"
-          value={info.userID}
-          id="아이디"
+          type="email"
+          placeholder="Email"
+          value={info.email}
+          id="이메일"
           onChange={onChange}
-          error={error !== "" && error.includes("아이디") ? true : false}
-          errorMessage={error}
+          error={error.includes("이메일") ? true : false}
         />
         <SignUpInput
           type="password"
@@ -110,14 +109,6 @@ const SignUpPresenter = ({ error, isLoading, onSubmit, onChange, info }) => {
               : false
           }
           errorMessage={error}
-        />
-        <SignUpInput
-          type="email"
-          placeholder="Email"
-          value={info.email}
-          id="이메일"
-          onChange={onChange}
-          error={error.includes("이메일") ? true : false}
         />
       </Wrapper>
       <Section>

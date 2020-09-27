@@ -7,14 +7,14 @@ import axios from "axios";
 import LogInPresenter from "../../presenter/LogInPresenter";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 
-const LogIn = ({ setError, send, success, history, state }) => {
-  const [user, setUser] = useState({ userID: "", password: "" });
+const LogIn = ({ setError, send, success, state }) => {
+  const [user, setUser] = useState({ email: "", password: "" });
 
   function onChange(event) {
     const target = event.target;
-    if (target.name === "userID") {
+    if (target.name === "email") {
       const value = target.value;
-      setUser({ ...user, userID: value });
+      setUser({ ...user, email: value });
     }
     if (target.name === "password") {
       const value = target.value;
@@ -22,20 +22,23 @@ const LogIn = ({ setError, send, success, history, state }) => {
     }
   }
   async function onClick() {
-    if (user.userID === "" || user.password === "") {
+    if (user.email === "" || user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
+    } else if (user.password.length > 12) {
+      setError("비밀번호는 8~12자리로 입력해주십시오");
+    } else if (!user.email.includes("@")) {
+      setError("유효하지 않은 이메일입니다");
     } else {
       setError("");
       send();
-      const res = await axios.post("/api/auth/logIn", user);
-      console.log(res);
+    }
+    const res = await axios.post("/api/auth/logIn", user);
+    console.log(res);
 
-      if (res.data !== "logged In successfully") {
-        setError(res.data);
-      } else {
-        success(user.userID);
-        history.push("/tasks");
-      }
+    if (res.data !== "logged In successfully") {
+      setError(res.data);
+    } else {
+      success(user.email.split("@"));
     }
   }
   return (
