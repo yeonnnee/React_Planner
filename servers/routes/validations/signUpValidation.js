@@ -24,9 +24,6 @@ const signUpValidation = [
 
   body("password")
     .trim()
-    .isLength({ min: 8 })
-    .withMessage("비밀번호는 8~12자로 구성되어야 합니다.")
-    .bail()
     .custom((value) => {
       const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
       const result = regex.test(value);
@@ -58,9 +55,6 @@ const signUpValidation = [
     }),
   body("name")
     .trim()
-    .isLength({ max: 6 })
-    .withMessage("글자 수가 초과하였습니다.")
-    .bail()
     .custom((value) => {
       const regex = /[#?!@$%^&*-]/;
       const result = regex.test(value);
