@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 
@@ -21,7 +20,8 @@ const Input = styled.input`
   }
 `;
 
-const TasksInput = ({ content, error, onChange, onSubmit }) => {
+const TasksInput = (tasksInputProps) => {
+  const { content, error, onChange, onSubmit } = tasksInputProps;
   return (
     <>
       <Form onSubmit={onSubmit}>

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
@@ -60,16 +59,17 @@ export const SLink = styled(Link)`
   color: #382933;
 `;
 
-const SignUpPresenter = ({
-  error,
-  isLoading,
-  onSubmit,
-  onChange,
-  email,
-  password,
-  confirmPassword,
-  name,
-}) => {
+const SignUpPresenter = (signUpProps) => {
+  const {
+    error,
+    isLoading,
+    onSubmit,
+    onChange,
+    email,
+    password,
+    confirmPassword,
+    name,
+  } = signUpProps;
   return (
     <Container>
       <Title>Sign Up</Title>

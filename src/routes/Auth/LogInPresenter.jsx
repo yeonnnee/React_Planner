@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 
@@ -57,14 +56,8 @@ export const Button = styled.div`
   }
 `;
 
-const LogInPresenter = ({
-  onChange,
-  onClick,
-  isLoading,
-  error,
-  email,
-  password,
-}) => {
+const LogInPresenter = (logInProps) => {
+  const { onChange, onClick, isLoading, error, email, password } = logInProps;
   return (
     <>
       <Container>

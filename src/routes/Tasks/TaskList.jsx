@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { connect } from "react-redux";
 import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/types";
@@ -39,7 +38,8 @@ const DelBtn = styled.button`
   }
 `;
 
-const TaskList = ({ content, id, status, change, deleteItem }) => {
+const TaskList = (taskListProps) => {
+  const { content, id, status, change, deleteItem } = taskListProps;
   function changeStatus() {
     if (status === "PENDING") {
       const completed = { id: id, content: content, status: "FINISHED" };

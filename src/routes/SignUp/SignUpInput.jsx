@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 
@@ -49,15 +48,16 @@ const Info = styled.div`
   position: relative;
   top: -18px;
 `;
-const SignUpInput = ({
-  onChange,
-  type,
-  placeholder,
-  error,
-  errorMessage,
-  value,
-  id,
-}) => {
+const SignUpInput = (signUpInputProps) => {
+  const {
+    onChange,
+    type,
+    placeholder,
+    error,
+    errorMessage,
+    value,
+    id,
+  } = signUpInputProps;
   return (
     <>
       <Form>

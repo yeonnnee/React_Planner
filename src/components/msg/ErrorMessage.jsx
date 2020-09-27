@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +17,8 @@ const SFontAwesomeIcon = styled(FontAwesomeIcon)`
   margin-right: 5px;
 `;
 
-const ErrorMessage = ({ error }) => {
+const ErrorMessage = (errorProps) => {
+  const { error } = errorProps;
   return (
     <>
       {error !== "" ? (

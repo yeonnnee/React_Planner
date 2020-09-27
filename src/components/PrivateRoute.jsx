@@ -1,11 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Loader from "./Loader";
 
-const PrivateRoute = ({ component: Component, state, ...rest }) => {
+const PrivateRoute = (privateProps) => {
+  const { component: Component, state, ...rest } = privateProps;
+
   return (
     <Route
       {...rest}

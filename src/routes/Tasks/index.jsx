@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -14,7 +13,8 @@ import {
   ADD_TASKS_FAILED,
 } from "../../redux/types";
 
-const Tasks = ({ state, start, success, failed, add, setError }) => {
+const Tasks = (tasksProps) => {
+  const { state, start, success, failed, add, setError } = tasksProps;
   const [tasks, setTasks] = useState({ content: "", id: "", status: "" });
 
   async function fetchData() {

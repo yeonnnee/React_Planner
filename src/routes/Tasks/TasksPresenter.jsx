@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 
@@ -40,14 +39,15 @@ const Wrapper = styled.div`
   width: 230px;
   overflow: hidden;
 `;
-const TasksPresenter = ({
-  pendingList,
-  finishedList,
-  onChange,
-  onSubmit,
-  content,
-  error,
-}) => {
+const TasksPresenter = (tasksProps) => {
+  const {
+    pendingList,
+    finishedList,
+    onChange,
+    onSubmit,
+    content,
+    error,
+  } = tasksProps;
   return (
     <>
       <Header>TO DO LIST</Header>

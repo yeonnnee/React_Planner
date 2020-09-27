@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
@@ -27,9 +26,10 @@ const User = styled.span`
   margin-right: 10px;
 `;
 
-const Header = ({ state, setError, logOut }) => {
+const Header = (headerProps) => {
+  const { state, setError, logOut } = headerProps;
   async function onClick() {
-    const res = await axios.post("/api/auth/logOut");
+    const res = await axios.post(`/api/auth/logOut`);
     if (res.data === "User logged out") {
       logOut();
     } else {

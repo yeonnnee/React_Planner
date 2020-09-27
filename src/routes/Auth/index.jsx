@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -7,7 +6,8 @@ import axios from "axios";
 import LogInPresenter from "../../presenter/LogInPresenter";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 
-const LogIn = ({ setError, send, success, state }) => {
+const LogIn = (logInProps) => {
+  const { setError, send, success, state } = logInProps;
   const [user, setUser] = useState({ email: "", password: "" });
 
   function onChange(event) {

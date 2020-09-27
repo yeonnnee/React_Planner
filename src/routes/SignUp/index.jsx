@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -19,7 +18,8 @@ import {
   SEND_DATA_SUCCESS,
 } from "../../redux/types";
 
-const SignUp = ({ state, send, setError, success }) => {
+const SignUp = (signUpProps) => {
+  const { state, send, setError, success } = signUpProps;
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",

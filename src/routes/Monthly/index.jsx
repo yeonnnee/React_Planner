@@ -1,11 +1,11 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MonthlyPresenter from "./MonthlyPresenter";
 import { connect } from "react-redux";
 import monthlyReducer from "../../redux/reducers/monthlyReducer";
 
-const Monthly = ({ state }) => {
+const Monthly = (monthlyProps) => {
+  const { state } = monthlyProps;
   const [selected, setSelected] = useState();
   async function fetchData() {}
 
