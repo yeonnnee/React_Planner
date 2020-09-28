@@ -11,8 +11,11 @@ exports.postSignUp = async (req, res) => {
 
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
+      const param = result.errors[0].param;
+      const msg = result.errors[0].msg;
+      const error = { param: param, msg: msg };
 
-      res.status(400).json({ msg: result.errors[0].msg });
+      res.status(400).json(error);
     } else {
       const salt = bcrypt.genSaltSync(16);
       User.create({
