@@ -24,20 +24,10 @@ const Input = styled.input`
   border: ${(props) => (props.error ? "1px solid red" : "none")};
   border-radius: 5px;
   &:focus {
-    border: 2px solid #20639b;
+    border: ${(props) => (props.error ? "1px solid red" : "2px solid #20639b")};
   }
 `;
-const Error = styled.div`
-  width: 60%;
-  margin: 0 30%;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  top: -18px;
-  color: red;
-  line-height: 1.5;
-`;
+
 const Info = styled.div`
   width: 60%;
   margin: 0 31%;
@@ -49,15 +39,7 @@ const Info = styled.div`
   top: -18px;
 `;
 const SignUpInput = (signUpInputProps) => {
-  const {
-    onChange,
-    type,
-    placeholder,
-    error,
-    errorMessage,
-    value,
-    id,
-  } = signUpInputProps;
+  const { onChange, type, placeholder, error, value, id } = signUpInputProps;
   return (
     <>
       <Form>
@@ -74,7 +56,6 @@ const SignUpInput = (signUpInputProps) => {
       {!error && id === "비밀번호" ? (
         <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~12자</Info>
       ) : null}
-      {error ? <Error>{errorMessage}</Error> : null}
     </>
   );
 };

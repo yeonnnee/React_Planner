@@ -58,68 +58,74 @@ export const SLink = styled(Link)`
   text-decoration: none;
   color: #382933;
 `;
+const Error = styled.span`
+  position: relative;
+  top: -12px;
+  height: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: red;
+  line-height: 1.5;
+`;
 
 const SignUpPresenter = (signUpProps) => {
   const {
     error,
+    validation,
     isLoading,
     onSubmit,
     onChange,
-    email,
-    password,
-    confirmPassword,
-    name,
+    userInfo,
   } = signUpProps;
   return (
     <Container>
       <Title>Sign Up</Title>
 
-      {error.includes("빈칸") ? <ErrorMessage error={error} /> : null}
+      {error !== "" ? <ErrorMessage error={error} /> : null}
       {isLoading ? <Loader /> : null}
 
       <Wrapper>
         <SignUpInput
           type="email"
           placeholder="Email"
-          value={email}
+          value={userInfo.email}
           id="이메일"
           onChange={onChange}
-          error={error.includes("이메일") ? true : false}
-          errorMessage={error}
+          error={validation.email !== "" ? true : false}
         />
+        <Error>{validation.email}</Error>
+
         <SignUpInput
           type="password"
           placeholder="Password"
-          value={password}
+          value={userInfo.password}
           id="비밀번호"
           onChange={onChange}
-          error={error !== "" && error.includes("비밀번호") ? true : false}
-          errorMessage={error}
+          error={validation.password !== "" ? true : false}
         />
+        <Error>{validation.password}</Error>
+
         <SignUpInput
           type="password"
           placeholder="Confirm Password"
-          value={confirmPassword}
+          value={userInfo.confirmPassword}
           id="비밀번호 재확인"
           onChange={onChange}
-          error={error.includes("일치") ? true : false}
-          errorMessage={error}
+          error={validation.confirmPw !== "" ? true : false}
         />
+        <Error>{validation.confirmPw}</Error>
+
         <SignUpInput
           type="text"
           placeholder="Name"
-          value={name}
+          value={userInfo.name}
           id="이름"
           onChange={onChange}
-          error={
-            error === "글자 수를 초과하였습니다." ||
-            error.includes("한글") ||
-            error === "유효하지 않은 글자가 포함되어 있습니다."
-              ? true
-              : false
-          }
-          errorMessage={error}
+          error={validation.name !== "" ? true : false}
         />
+        <Error>{validation.name}</Error>
       </Wrapper>
       <Section>
         <Button onClick={onSubmit}>Submit</Button>
