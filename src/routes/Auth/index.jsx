@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-import LogInPresenter from "../../presenter/LogInPresenter";
+import LogInPresenter from "./LogInPresenter";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
 
 const LogIn = (logInProps) => {
