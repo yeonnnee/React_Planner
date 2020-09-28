@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 
@@ -37,24 +38,32 @@ const SLink = styled(Link)`
   } */
 `;
 
-export default withRouter(({ location }) => (
-  <>
-    {(location.pathname === "/") |
-    (location.pathname === "/logIn") |
-    (location.pathname === "/sign-up") ? null : (
-      <Container>
-        <List>
-          <SLink to="/tasks">
-            <Menu current={location.pathname === "/tasks"}>Tasks</Menu>
-          </SLink>
-          <SLink to="/monthly">
-            <Menu current={location.pathname === "/monthly"}>Monthly</Menu>
-          </SLink>
-          <SLink to="/record">
-            <Menu current={location.pathname === "/record"}>Record</Menu>
-          </SLink>
-        </List>
-      </Container>
-    )}
-  </>
-));
+const Navigation = withRouter((routerProps) => {
+  const { state, location } = routerProps;
+
+  return (
+    <>
+      {state.isAuthenticated ? (
+        <Container>
+          <List>
+            <SLink to="/tasks">
+              <Menu current={location.pathname === "/tasks"}>Tasks</Menu>
+            </SLink>
+            <SLink to="/monthly">
+              <Menu current={location.pathname === "/monthly"}>Monthly</Menu>
+            </SLink>
+            <SLink to="/record">
+              <Menu current={location.pathname === "/record"}>Record</Menu>
+            </SLink>
+          </List>
+        </Container>
+      ) : null}
+    </>
+  );
+});
+
+function mapStateToProps(state) {
+  return { state: state.authReducer };
+}
+
+export default connect(mapStateToProps)(Navigation);
