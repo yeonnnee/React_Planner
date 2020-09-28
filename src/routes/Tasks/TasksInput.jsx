@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import ErrorMessage from "./msg/ErrorMessage";
+import ErrorMessage from "../../components/msg/ErrorMessage";
 
 const Form = styled.form`
   display: flex;
