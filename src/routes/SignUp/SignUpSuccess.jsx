@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import WelcomeMessage from "./WelcomeMessage";
+import WelcomeMessage from "../../components/msg/WelcomeMessage";
 
 const SLink = styled(Link)`
   text-decoration: none;
@@ -36,7 +36,7 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const SuccessMessage = () => {
+const SignUpSuccess = () => {
   return (
     <Container>
       <WelcomeMessage />
@@ -49,4 +49,4 @@ const SuccessMessage = () => {
   );
 };
 
-export default SuccessMessage;
+export default SignUpSuccess;
