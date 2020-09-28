@@ -1,9 +1,20 @@
-import { SEND_DATA, SEND_DATA_FAILED, SEND_DATA_SUCCESS } from "../types";
+import {
+  SEND_DATA,
+  SEND_DATA_FAILED,
+  SEND_DATA_SUCCESS,
+  VALIDATION_ERROR,
+} from "../types";
 
 export const initialState = {
   isLoading: false,
   error: "",
   result: "",
+  validation: {
+    email: "",
+    password: "",
+    confirmPw: "",
+    name: "",
+  },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -20,25 +31,49 @@ const userReducer = (state = initialState, action) => {
         result: "SUCCESS",
       };
     case SEND_DATA_FAILED:
-      if (
-        action.payload.includes("오") ||
-        action.payload.includes("다") ||
-        action.payload === ""
-      ) {
+      return {
+        ...state,
+        isLoading: false,
+        result: "FAILED",
+        error: action.payload,
+      };
+
+    case VALIDATION_ERROR:
+      if (action.payload.email === "" || action.payload.email) {
         return {
           ...state,
           isLoading: false,
-          result: "FAILED",
-          error: action.payload,
-        };
-      } else {
-        return {
-          ...state,
-          isLoading: false,
-          result: "FAILED",
-          error: "내부 오류가 발생했습니다. 잠시 후에 다시 시도해주세요",
+          validation: { ...state.validation, email: action.payload.email },
         };
       }
+      if (action.payload.password === "" || action.payload.password) {
+        return {
+          ...state,
+          isLoading: false,
+          validation: {
+            ...state.validation,
+            password: action.payload.password,
+          },
+        };
+      }
+      if (action.payload.confirmPw === "" || action.payload.confirmPw) {
+        return {
+          ...state,
+          isLoading: false,
+          validation: {
+            ...state.validation,
+            confirmPw: action.payload.confirmPw,
+          },
+        };
+      }
+      if (action.payload.name === "" || action.payload.name) {
+        return {
+          ...state,
+          isLoading: false,
+          validation: { ...state.validation, name: action.payload.name },
+        };
+      }
+      return { ...state };
 
     default:
       return state;
