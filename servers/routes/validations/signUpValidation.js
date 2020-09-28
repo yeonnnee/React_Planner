@@ -45,14 +45,7 @@ const signUpValidation = [
       }
       return true;
     }),
-  body("confirmPassword")
-    .trim()
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("비밀번호가 일치하지 않습니다");
-      }
-      return true;
-    }),
+
   body("name")
     .trim()
     .custom((value) => {
