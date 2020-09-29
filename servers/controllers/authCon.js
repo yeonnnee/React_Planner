@@ -3,38 +3,51 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.postLogIn = async (req, res) => {
-  const userEmail = await req.body.email;
-  const user = await User.findOne({ where: { email: userEmail } });
-  if (!user) {
-    return res.status(400).json({ msg: "존재하지 않는 아이디 입니다" });
-  }
+  try {
+    const userEmail = await req.body.email;
+    const user = await User.findOne({ where: { email: userEmail } });
+    if (!user) {
+      return res.status(400).json({ msg: "존재하지 않는 이메일 입니다" });
+    }
 
-  const password = await req.body.password;
-  const session = await req.session;
-  const compared_Password = await bcrypt.compare(password, user.password);
-  if (compared_Password) {
-    session.isLoggedIn = true;
-    session.user = user;
-    session.save();
-    res.status(200).json({ msg: "logged In successfully" });
-  } else {
-    return res.status(400).send("아이디와 비밀번호가 일치하지 않습니다");
+    const password = await req.body.password;
+    const session = await req.session;
+    console.log(session);
+    const compared_Password = await bcrypt.compare(password, user.password);
+    if (compared_Password) {
+      session.isLoggedIn = true;
+      session.user = user;
+      session.save();
+      res.status(200).json({ msg: "logged In successfully" });
+    } else {
+      return res
+        .status(400)
+        .json({ msg: "아이디와 비밀번호가 일치하지 않습니다" });
+    }
+  } catch (error) {
+    throw new Error();
   }
 };
 
-exports.checkLogin = async (req, res) => {
-  const user = req.session;
-  if (!user) {
-    res.status(401).json({ msg: "Login needed" });
+exports.checkAuth = async (req, res) => {
+  try {
+    const session = await req.session;
+    console.log(session);
+    const user = session.user;
+    if (!user) {
+      res.status(401).json({ msg: "Login needed" });
+    } else {
+      const ret = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
+
+      res.status(200).json({ user: ret });
+    }
+  } catch (error) {
+    throw new Error();
   }
-
-  const ret = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-  };
-
-  res.json({ user: ret });
 };
 
 exports.postLogOut = async (req, res) => {
