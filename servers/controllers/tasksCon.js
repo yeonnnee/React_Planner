@@ -6,7 +6,7 @@ exports.getTasks = async (req, res) => {
     const user = await req.session.user.email;
     const tasks = await Task.findAll({ where: { userId: user } });
 
-    res.status(200).send(tasks);
+    res.status(200).json({ tasks: tasks });
   } catch (error) {
     throw new Error();
   }
