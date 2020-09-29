@@ -38,6 +38,7 @@ const SignUp = (signUpProps) => {
     name: "",
   });
 
+  /* input 입력시 발생하는 함수 */
   function onChange(event) {
     const target = event.target.placeholder;
 
@@ -75,16 +76,15 @@ const SignUp = (signUpProps) => {
         return userInfo;
     }
   }
+
+  /* validation error가 없을 시 발생하는 함수 */
   async function sendData() {
     try {
       send();
-      const res = await axios.post("/api/user/signUp", userInfo);
-      const result = res.data.msg;
+      await axios.post("/api/user/signUp", userInfo);
 
-      if (result === "Get data successfully") {
-        success();
-        history.push("/sign-up/success");
-      }
+      success();
+      history.push("/sign-up/success");
     } catch (error) {
       // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
       if (error) {
@@ -106,6 +106,8 @@ const SignUp = (signUpProps) => {
       }
     }
   }
+
+  /* submit 버튼 눌렀을때 발생하는 함수 */
   function onSubmit(event) {
     event.preventDefault();
 
@@ -128,6 +130,7 @@ const SignUp = (signUpProps) => {
       sendData();
     }
   }
+  /* cancel버튼 눌렀을 때 발생하는 함수*/
   function onCancel() {
     cancel();
   }
