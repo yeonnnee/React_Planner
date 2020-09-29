@@ -16,10 +16,19 @@ import {
   SEND_DATA_FAILED,
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
+  CANCEL_SIGNUP,
 } from "../../redux/types";
 
 const SignUp = (signUpProps) => {
-  const { state, send, failed, success, setError, history } = signUpProps;
+  const {
+    state,
+    send,
+    failed,
+    success,
+    cancel,
+    setError,
+    history,
+  } = signUpProps;
 
   const [userInfo, setUserInfo] = useState({
     id: uuidv4().toString(),
@@ -89,7 +98,7 @@ const SignUp = (signUpProps) => {
             case "name":
               return setError({ name: res.msg });
             default:
-              failed();
+              failed(res.msg);
           }
         } else {
           console.log(error.response.status);
@@ -101,9 +110,9 @@ const SignUp = (signUpProps) => {
     event.preventDefault();
 
     if (
-      userInfo.email ||
-      userInfo.name ||
-      userInfo.password ||
+      userInfo.email === "" ||
+      userInfo.name === "" ||
+      userInfo.password === "" ||
       userInfo.confirmPassword === ""
     ) {
       return failed("빈칸 없이 입력해주십시오");
@@ -111,19 +120,23 @@ const SignUp = (signUpProps) => {
       failed("");
     }
     if (
-      state.validation.email ||
-      state.validation.pw ||
-      state.validation.confirmPw ||
+      state.validation.email === "" &&
+      state.validation.password === "" &&
+      state.validation.confirmPw === "" &&
       state.validation.name === ""
     ) {
       sendData();
     }
+  }
+  function onCancel() {
+    cancel();
   }
 
   return (
     <SignUpPresenter
       onSubmit={onSubmit}
       onChange={onChange}
+      onCancel={onCancel}
       userInfo={userInfo}
       {...state}
     />
@@ -146,6 +159,9 @@ function mapDispatchToProps(dispatch) {
     },
     setError: (error) => {
       dispatch({ type: VALIDATION_ERROR, payload: error });
+    },
+    cancel: () => {
+      dispatch({ type: CANCEL_SIGNUP });
     },
   };
 }

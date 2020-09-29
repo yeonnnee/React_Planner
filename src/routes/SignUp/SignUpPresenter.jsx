@@ -77,6 +77,7 @@ const SignUpPresenter = (signUpProps) => {
     isLoading,
     onSubmit,
     onChange,
+    onCancel,
     userInfo,
   } = signUpProps;
   return (
@@ -130,7 +131,7 @@ const SignUpPresenter = (signUpProps) => {
       <Section>
         <Button onClick={onSubmit}>Submit</Button>
         <SLink to="/">
-          <Button>Cancel</Button>
+          <Button onClick={onCancel}>Cancel</Button>
         </SLink>
       </Section>
     </Container>

@@ -3,6 +3,7 @@ import {
   SEND_DATA_FAILED,
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
+  CANCEL_SIGNUP,
 } from "../types";
 
 export const initialState = {
@@ -74,7 +75,19 @@ const userReducer = (state = initialState, action) => {
         };
       }
       return { ...state };
-
+    case CANCEL_SIGNUP:
+      return {
+        ...state,
+        isLoading: false,
+        error: "",
+        result: "",
+        validation: {
+          email: "",
+          password: "",
+          confirmPw: "",
+          name: "",
+        },
+      };
     default:
       return state;
   }
