@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -21,26 +21,48 @@ const LogIn = (logInProps) => {
       setUser({ ...user, password: value });
     }
   }
+
+  async function logIn() {
+    try {
+      send();
+      const res = await axios.post("/api/auth/logIn", user);
+      console.log(res);
+      success(user.email.split("@")[0]);
+    } catch (error) {
+      const response = error.response;
+      if (response.status === 400) {
+        setError(response.data.msg);
+      } else {
+        console.log(error);
+      }
+    }
+  }
   async function onClick() {
     if (user.email === "" || user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
-    } else if (user.password.length > 12) {
-      setError("비밀번호는 8~12자리로 입력해주십시오");
+    } else if (user.password.length > 20) {
+      setError("비밀번호는 8~20자리로 입력해주십시오");
     } else if (!user.email.includes("@")) {
       setError("유효하지 않은 이메일입니다");
     } else {
       setError("");
-      send();
-    }
-    const res = await axios.post("/api/auth/logIn", user);
-    console.log(res);
-
-    if (res.data.msg !== "logged In successfully") {
-      setError(res.data.msg);
-    } else {
-      success(user.email.split("@"));
+      logIn();
     }
   }
+
+  async function checkAuth() {
+    try {
+      const res = await axios.get("/api/auth");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
     <>
       {state.isAuthenticated ? (
