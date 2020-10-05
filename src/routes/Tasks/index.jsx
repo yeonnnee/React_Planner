@@ -37,8 +37,7 @@ const Tasks = (tasksProps) => {
     event.preventDefault();
     try {
       if (tasks.content !== "") {
-        const res = await axios.post("/api/tasks", state);
-
+        const res = await axios.post("/api/tasks", tasks);
         if (res.data.msg !== "Get data successfully") {
           setError(res.data.msg);
         }
