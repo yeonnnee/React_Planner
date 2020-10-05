@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { connect } from "react-redux";
+
 import { LOG_OUT, LOG_OUT_FAILED } from "../redux/types";
+import { authApi } from "../api";
 
 const Container = styled.div`
   position: absolute;
@@ -27,13 +28,13 @@ const User = styled.span`
 `;
 
 const Header = (headerProps) => {
-  const { state, setError, logOut } = headerProps;
+  const { state, logOut } = headerProps;
   async function onClick() {
-    const res = await axios.post(`/api/auth/logOut`);
-    if (res.data === "User logged out") {
+    try {
+      await authApi.logOut();
       logOut();
-    } else {
-      setError(res.data);
+    } catch (error) {
+      console.log(error);
     }
   }
   return (
