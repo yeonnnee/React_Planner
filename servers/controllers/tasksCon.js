@@ -15,9 +15,9 @@ exports.getTasks = async (req, res) => {
 exports.postTasks = async (req, res) => {
   try {
     const user = await req.session.user.email;
-    const content = await req.body.tasks.content;
-    const taskId = await req.body.tasks.id;
-    const status = await req.body.tasks.status;
+    const content = await req.body.content;
+    const taskId = await req.body.id;
+    const status = await req.body.status;
 
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
