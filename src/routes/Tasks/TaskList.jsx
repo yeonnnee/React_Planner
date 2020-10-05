@@ -43,21 +43,33 @@ const TaskList = (taskListProps) => {
   const { content, id, status, change, deleteItem } = taskListProps;
   function changeStatus() {
     if (status === "PENDING") {
-      const completed = { id: id, content: content, status: "FINISHED" };
-      taskApi.patchTask(completed);
-      change(completed);
+      try {
+        const completed = { id: id, content: content, status: "FINISHED" };
+        taskApi.patchTask(completed);
+        change(completed);
+      } catch (error) {
+        console.log(error.response);
+      }
     }
     if (status === "FINISHED") {
-      const uncompleted = { id: id, content: content, status: "PENDING" };
-      taskApi.patchTask(uncompleted);
-      change(uncompleted);
+      try {
+        const uncompleted = { id: id, content: content, status: "PENDING" };
+        taskApi.patchTask(uncompleted);
+        change(uncompleted);
+      } catch (error) {
+        console.log(error.response);
+      }
     }
   }
 
   function deleteTask() {
-    const target = { id: id, content: content, status: status };
-    taskApi.deleteTask(target);
-    deleteItem(target);
+    try {
+      const target = { id: id, content: content, status: status };
+      taskApi.deleteTask(target);
+      deleteItem(target);
+    } catch (error) {
+      console.log(error.response);
+    }
   }
   return (
     <List>

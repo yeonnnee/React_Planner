@@ -23,6 +23,7 @@ const Tasks = (tasksProps) => {
       const res = await taskApi.getTasks();
       success(res.data.tasks);
     } catch (error) {
+      console.log(error.response);
       failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
     }
   }
@@ -37,15 +38,18 @@ const Tasks = (tasksProps) => {
     event.preventDefault();
     try {
       if (tasks.content !== "") {
-        const res = await taskApi.postTask(tasks);
-        if (res.data.msg !== "Get data successfully") {
-          setError(res.data.msg);
-        }
+        await taskApi.postTask(tasks);
         add(tasks);
         setTasks({ content: "", id: "", status: "" });
       }
     } catch (error) {
-      setError("문제가 발생했습니다. 잠시 후 다시 시도해주십시오");
+      const res = error.response;
+      if (res.status === 400) {
+        setError(res.data.msg);
+      } else {
+        setError("문제가 발생했습니다. 잠시 후 다시 시도해주십시오");
+        console.log(res);
+      }
     }
   }
 
