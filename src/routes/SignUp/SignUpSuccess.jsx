@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import WelcomeMessage from "../../components/msg/WelcomeMessage";
 
@@ -36,17 +37,28 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const SignUpSuccess = () => {
+const SignUpSuccess = (signUpSuccessProps) => {
+  const { state } = signUpSuccessProps;
   return (
-    <Container>
-      <WelcomeMessage />
-      <Text>Account Successfuly Created</Text>
-      <p>로그인 하시겠습니까?</p>
-      <SLink to="/logIn">
-        <Button>LogIn</Button>
-      </SLink>
-    </Container>
+    <>
+      {state.isAuthenticated ? (
+        <Redirect to="/tasks" />
+      ) : (
+        <Container>
+          <WelcomeMessage />
+          <Text>Account Successfuly Created</Text>
+          <p>로그인 하시겠습니까?</p>
+          <SLink to="/logIn">
+            <Button>LogIn</Button>
+          </SLink>
+        </Container>
+      )}
+    </>
   );
 };
 
-export default SignUpSuccess;
+function mapStateToProps(state) {
+  return { state: state.authReducer };
+}
+
+export default connect(mapStateToProps)(SignUpSuccess);
