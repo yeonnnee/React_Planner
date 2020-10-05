@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+import { taskApi } from "../../api";
 import TasksPresenter from "./TasksPresenter";
 import Loader from "../../components/Loader";
 import {
@@ -20,7 +20,7 @@ const Tasks = (tasksProps) => {
   async function fetchData() {
     start();
     try {
-      const res = await axios.get("/api/tasks");
+      const res = await taskApi.getTasks();
       success(res.data.tasks);
     } catch (error) {
       failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
@@ -37,7 +37,7 @@ const Tasks = (tasksProps) => {
     event.preventDefault();
     try {
       if (tasks.content !== "") {
-        const res = await axios.post("/api/tasks", tasks);
+        const res = await taskApi.postTask(tasks);
         if (res.data.msg !== "Get data successfully") {
           setError(res.data.msg);
         }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+import { signUpApi } from "../../api";
 import SignUpPresenter from "./SignUpPresenter";
 import {
   emailValidation,
@@ -81,7 +81,7 @@ const SignUp = (signUpProps) => {
   async function sendData() {
     try {
       send();
-      await axios.post("/api/user/signUp", userInfo);
+      await signUpApi.signUp(userInfo);
 
       success();
       history.push("/sign-up/success");

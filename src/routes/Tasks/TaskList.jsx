@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/types";
-import axios from "axios";
 import styled from "styled-components";
+
+import { taskApi } from "../../api";
 
 const List = styled.li`
   padding: 5px 15px;
@@ -43,19 +44,19 @@ const TaskList = (taskListProps) => {
   function changeStatus() {
     if (status === "PENDING") {
       const completed = { id: id, content: content, status: "FINISHED" };
-      axios.patch("/api/tasks", completed);
+      taskApi.patchTask(completed);
       change(completed);
     }
     if (status === "FINISHED") {
       const uncompleted = { id: id, content: content, status: "PENDING" };
-      axios.patch("/api/tasks", uncompleted);
+      taskApi.patchTask(uncompleted);
       change(uncompleted);
     }
   }
 
   function deleteTask() {
     const target = { id: id, content: content, status: status };
-    axios.put("/api/tasks", target);
+    taskApi.deleteTask(target);
     deleteItem(target);
   }
   return (

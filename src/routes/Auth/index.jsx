@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 
 import LogInPresenter from "./LogInPresenter";
 import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
+import { authApi } from "../../api";
 
 const LogIn = (logInProps) => {
   const { setError, send, success, state } = logInProps;
@@ -25,7 +25,7 @@ const LogIn = (logInProps) => {
   async function logIn() {
     try {
       send();
-      await axios.post("/api/auth/logIn", user);
+      await authApi.logIn(user);
 
       success(user.email.split("@")[0]);
     } catch (error) {
@@ -52,7 +52,7 @@ const LogIn = (logInProps) => {
 
   async function checkAuth() {
     try {
-      const res = await axios.get("/api/auth");
+      const res = await authApi.checkAuth();
       const user = await res.data.user;
       success(user.email.split("@")[0]);
     } catch (error) {
