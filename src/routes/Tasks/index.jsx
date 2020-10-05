@@ -21,8 +21,7 @@ const Tasks = (tasksProps) => {
     start();
     try {
       const res = await axios.get("/api/tasks");
-
-      success(res.data);
+      success(res.data.tasks);
     } catch (error) {
       failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
     }
@@ -57,13 +56,16 @@ const Tasks = (tasksProps) => {
 
   return (
     <>
-      {state.isLoading ? <Loader /> : null}
-      <TasksPresenter
-        {...state}
-        {...tasks}
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />
+      {state.isLoading ? (
+        <Loader />
+      ) : (
+        <TasksPresenter
+          {...state}
+          {...tasks}
+          onChange={onChange}
+          onSubmit={onSubmit}
+        />
+      )}
     </>
   );
 };
