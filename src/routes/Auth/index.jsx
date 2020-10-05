@@ -25,8 +25,8 @@ const LogIn = (logInProps) => {
   async function logIn() {
     try {
       send();
-      const res = await axios.post("/api/auth/logIn", user);
-      console.log(res);
+      await axios.post("/api/auth/logIn", user);
+
       success(user.email.split("@")[0]);
     } catch (error) {
       const response = error.response;
@@ -53,7 +53,8 @@ const LogIn = (logInProps) => {
   async function checkAuth() {
     try {
       const res = await axios.get("/api/auth");
-      console.log(res);
+      const user = await res.data.user;
+      success(user.email.split("@")[0]);
     } catch (error) {
       console.log(error);
     }
