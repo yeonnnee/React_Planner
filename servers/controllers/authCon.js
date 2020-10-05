@@ -12,8 +12,8 @@ exports.postLogIn = async (req, res) => {
 
     const password = await req.body.password;
     const session = await req.session;
-    console.log(session);
     const compared_Password = await bcrypt.compare(password, user.password);
+
     if (compared_Password) {
       session.isLoggedIn = true;
       session.user = user;
@@ -32,7 +32,6 @@ exports.postLogIn = async (req, res) => {
 exports.checkAuth = async (req, res) => {
   try {
     const session = await req.session;
-    console.log(session);
     const user = session.user;
     if (!user) {
       res.status(401).json({ msg: "Login needed" });
