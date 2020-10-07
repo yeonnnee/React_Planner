@@ -21,10 +21,10 @@ const monthlyReducer = (state = initialState, action) => {
       return { ...state, isLoading: true };
     }
     case FETCH_MONTHLY_SUCCESS: {
-      return { ...state, plans: [...action.payload] };
+      return { ...state, isLoading: false, plans: [...action.payload] };
     }
     case FETCH_MONTHLY_FAILED: {
-      return { ...state, error: action.payload };
+      return { ...state, isLoading: false, error: action.payload };
     }
     case CREATE_MONTHLY: {
       return { ...state, plans: [...state.plans, action.payload] };
