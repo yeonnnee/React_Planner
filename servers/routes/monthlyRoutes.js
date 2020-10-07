@@ -3,5 +3,7 @@ const router = express.Router();
 
 const monthlyController = require("../controllers/monthlyCon");
 
-router.get("/monthly", monthlyController.getPlans);
-router.post("/monthly/add", monthlyController.postPlans);
+router.get("/plan", monthlyController.getMonthly);
+router.post("/plan/add", monthlyController.postMonthly);
+
+module.exports = router;
