@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import MonthlyList from "./MonthlyList";
+import Loader from "../../components/Loader";
 
 const Container = styled.div`
   position: relative;
@@ -20,21 +21,15 @@ const MonthlyCalendar = styled(Calendar)`
   padding: 10px;
 `;
 
-const Line = styled.div`
-  width: 90%;
-  margin: 10px 0;
-  height: 5px;
-  border-bottom: 1px solid #30475e;
-`;
-
-const Button = styled.button`
+const AddLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #30475e;
   width: 80px;
   height: 30px;
-  margin: 5px 23px;
-  outline: none;
   border: 1px solid #30475e;
-  background: none;
-  cursor: pointer;
   font-family: "Life Savers", cursive;
   &:hover {
     background-color: #30475e;
@@ -42,17 +37,14 @@ const Button = styled.button`
   }
 `;
 
-const RecordLink = styled(Link)`
-  text-decoration: none;
-  align-self: flex-end;
-`;
-
 const SelectedMonthly = styled.ul`
-  width: 100%;
+  width: 90%;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid #30475e;
+  border-bottom: 1px solid #30475e;
 `;
 
 const Wrapper = styled.div`
@@ -67,14 +59,17 @@ const Scroll = styled.div`
 `;
 const UnSelectedMonthly = styled.ul`
   height: 230px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-const Text = styled.div``;
+const Text = styled.div`
+  font-family: "Life Savers", cursive;
+`;
 
 const MonthlyPresenter = (monthlyProps) => {
-  const { plans } = monthlyProps;
+  const { plans, isLoading } = monthlyProps;
   const [selectedMonthly, setSelectedMonthly] = useState();
   const [unSelectedMonthly, setUnSelectedMonthly] = useState();
 
@@ -97,29 +92,31 @@ const MonthlyPresenter = (monthlyProps) => {
         locale="en-US"
       />
 
-      <RecordLink to="/monthly/add"></RecordLink>
-      <Line />
-
-      <SelectedMonthly>
-        {selectedMonthly ? (
-          <MonthlyList {...selectedMonthly} />
-        ) : (
-          <Button>ADD</Button>
-        )}
-      </SelectedMonthly>
-      <Line />
-
-      <Wrapper>
-        <Scroll>
-          <UnSelectedMonthly>
-            {unSelectedMonthly ? (
-              <MonthlyList {...unSelectedMonthly} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <SelectedMonthly>
+            {selectedMonthly ? (
+              <MonthlyList {...selectedMonthly} />
             ) : (
-              <Text>Empty</Text>
+              <AddLink to="/monthly/add">ADD</AddLink>
             )}
-          </UnSelectedMonthly>
-        </Scroll>
-      </Wrapper>
+          </SelectedMonthly>
+
+          <Wrapper>
+            <Scroll>
+              <UnSelectedMonthly>
+                {unSelectedMonthly ? (
+                  <MonthlyList {...unSelectedMonthly} />
+                ) : (
+                  <Text>Empty</Text>
+                )}
+              </UnSelectedMonthly>
+            </Scroll>
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 };
