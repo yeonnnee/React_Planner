@@ -9,24 +9,25 @@ import {
 } from "../types";
 
 const initialState = {
-  isLoading: true,
+  isLoading: false,
   error: "",
-  events: [],
+  plans: [],
+  contents: [],
 };
 
 const monthlyReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MONTHLY_START: {
-      return state;
+      return { ...state, isLoading: true };
     }
     case FETCH_MONTHLY_SUCCESS: {
-      return state;
+      return { ...state, plans: [...action.payload] };
     }
     case FETCH_MONTHLY_FAILED: {
-      return state;
+      return { ...state, error: action.payload };
     }
     case CREATE_MONTHLY: {
-      return state;
+      return { ...state, plans: [...state.plans, action.payload] };
     }
     case READ_MONTHLY: {
       return state;
