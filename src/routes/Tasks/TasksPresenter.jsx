@@ -55,7 +55,7 @@ const TasksPresenter = (tasksProps) => {
         <TasksInput
           onChange={onChange}
           onSubmit={onSubmit}
-          {...content}
+          content={content}
           error={error}
         />
         <ListCon>
