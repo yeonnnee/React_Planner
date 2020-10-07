@@ -16,7 +16,7 @@ export const taskApi = {
   deleteTask: (task) => axios.put("api/tasks", task),
 };
 
-export const monthly = {
+export const monthlyApi = {
   getMonthly: () => axios.get("api/monthly/plan"),
   postPlan: () => axios.get("api/monthly/plan/add"),
   planDetail: (id) => axios.get(`api/monthly/plan/${id}`),
