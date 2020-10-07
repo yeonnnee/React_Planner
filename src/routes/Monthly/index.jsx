@@ -1,18 +1,33 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import MonthlyPresenter from "./MonthlyPresenter";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import monthlyReducer from "../../redux/reducers/monthlyReducer";
+
+import { monthlyApi } from "../../api";
+import {
+  FETCH_MONTHLY_FAILED,
+  FETCH_MONTHLY_START,
+  FETCH_MONTHLY_SUCCESS,
+} from "../../redux/types";
+import MonthlyPresenter from "./MonthlyPresenter";
 
 const Monthly = (monthlyProps) => {
-  const { state } = monthlyProps;
-  const [selected, setSelected] = useState();
-  async function fetchData() {}
+  const { state, fetch_monthly, fetch_success, fetch_failed } = monthlyProps;
+  // const [selected, setSelected] = useState();
+
+  async function fetchData() {
+    fetch_monthly();
+    try {
+      const res = await monthlyApi.getMonthly();
+      fetch_success(res.data.monthly);
+    } catch (error) {
+      console.log(error.response);
+      fetch_failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
+    }
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
-  return <MonthlyPresenter {...state} {...selected} />;
+  return <MonthlyPresenter {...state} />;
 };
 
 function mapStateToProps(state) {
@@ -20,7 +35,17 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    fetch_monthly: () => {
+      dispatch({ type: FETCH_MONTHLY_START });
+    },
+    fetch_success: (data) => {
+      dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: data });
+    },
+    fetch_failed: (error) => {
+      dispatch({ type: FETCH_MONTHLY_FAILED, payload: error });
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Monthly);
