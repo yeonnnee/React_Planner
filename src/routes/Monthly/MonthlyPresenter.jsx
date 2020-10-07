@@ -4,11 +4,14 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import MonthlyList from "./MonthlyList";
+
 const Container = styled.div`
+  position: relative;
+  top: -50px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -44,7 +47,7 @@ const RecordLink = styled(Link)`
   align-self: flex-end;
 `;
 
-const SelectedEvent = styled.ul`
+const SelectedMonthly = styled.ul`
   width: 100%;
   height: 100px;
   display: flex;
@@ -62,30 +65,30 @@ const Scroll = styled.div`
   height: 200px;
   overflow: auto;
 `;
-const EventList = styled.ul`
+const UnSelectedMonthly = styled.ul`
   height: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-const List = styled.li`
-  width: 80%;
-  height: 70px;
-  border: 1px solid #30475e;
-`;
+const Text = styled.div``;
 
-const MonthlyPresenter = () => {
-  const [state, setState] = useState({ date: "" });
-
-  // const day = new Date();
-  // const today = day.toString().substring(0, 10);
-  // const plansForToday = plans.filter((plan) => plan.date === today);
+const MonthlyPresenter = (monthlyProps) => {
+  const { plans } = monthlyProps;
+  const [selectedMonthly, setSelectedMonthly] = useState();
+  const [unSelectedMonthly, setUnSelectedMonthly] = useState();
 
   const onClickDay = (event) => {
     const target = event.toString().substring(0, 10);
-    setState({ date: target });
+    const selected_Plan = plans.filter((plan) => {
+      return plan.date === target;
+    });
+    const unSelected_Plan = plans.filter((plan) => {
+      return plan.date !== target;
+    });
+    setSelectedMonthly(selected_Plan);
+    setUnSelectedMonthly(unSelected_Plan);
   };
-  console.log(state);
   return (
     <Container>
       <MonthlyCalendar
@@ -94,21 +97,27 @@ const MonthlyPresenter = () => {
         locale="en-US"
       />
 
-      <RecordLink to="/add">
-        <Button>ADD</Button>
-      </RecordLink>
+      <RecordLink to="/monthly/add"></RecordLink>
       <Line />
 
-      <SelectedEvent>
-        <List></List>
-      </SelectedEvent>
+      <SelectedMonthly>
+        {selectedMonthly ? (
+          <MonthlyList {...selectedMonthly} />
+        ) : (
+          <Button>ADD</Button>
+        )}
+      </SelectedMonthly>
       <Line />
 
       <Wrapper>
         <Scroll>
-          <EventList>
-            <List></List>
-          </EventList>
+          <UnSelectedMonthly>
+            {unSelectedMonthly ? (
+              <MonthlyList {...unSelectedMonthly} />
+            ) : (
+              <Text>Empty</Text>
+            )}
+          </UnSelectedMonthly>
         </Scroll>
       </Wrapper>
     </Container>
