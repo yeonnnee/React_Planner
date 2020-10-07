@@ -4,8 +4,8 @@ const Content = require("../models/content");
 exports.getMonthly = async (req, res) => {
   try {
     const user = await req.session.user.email;
-    const plans = await Plan.findAll({ where: { userId: user } });
-    res.status(200).send(plans);
+    const plans = await Plan.findAll({ where: { writer: user } });
+    res.status(200).json({ monthly: plans });
   } catch (error) {
     throw new Error();
   }
