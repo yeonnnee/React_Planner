@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -69,21 +69,8 @@ const Text = styled.div`
 `;
 
 const MonthlyPresenter = (monthlyProps) => {
-  const { plans, isLoading } = monthlyProps;
-  const [selectedMonthly, setSelectedMonthly] = useState();
-  const [unSelectedMonthly, setUnSelectedMonthly] = useState();
+  const { onClickDay, selected, unSelected, isLoading } = monthlyProps;
 
-  const onClickDay = (event) => {
-    const target = event.toString().substring(0, 10);
-    const selected_Plan = plans.filter((plan) => {
-      return plan.date === target;
-    });
-    const unSelected_Plan = plans.filter((plan) => {
-      return plan.date !== target;
-    });
-    setSelectedMonthly(selected_Plan);
-    setUnSelectedMonthly(unSelected_Plan);
-  };
   return (
     <Container>
       <MonthlyCalendar
@@ -97,18 +84,19 @@ const MonthlyPresenter = (monthlyProps) => {
       ) : (
         <>
           <SelectedMonthly>
-            {selectedMonthly ? (
-              <MonthlyList {...selectedMonthly} />
+            {selected === [] ? (
+              <MonthlyList {...selected} />
             ) : (
               <AddLink to="/monthly/add">ADD</AddLink>
             )}
           </SelectedMonthly>
-
           <Wrapper>
             <Scroll>
               <UnSelectedMonthly>
-                {unSelectedMonthly ? (
-                  <MonthlyList {...unSelectedMonthly} />
+                {unSelected === [] ? (
+                  unSelected.map((plan, index) => {
+                    return <MonthlyList {...plan} key={index} />;
+                  })
                 ) : (
                   <Text>Empty</Text>
                 )}
