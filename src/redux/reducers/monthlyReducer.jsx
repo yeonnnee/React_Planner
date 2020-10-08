@@ -12,6 +12,7 @@ import {
 const initialState = {
   isLoading: false,
   error: "",
+  date: "",
   selected: [],
   unSelected: [],
   plans: [],
@@ -20,20 +21,20 @@ const initialState = {
 const monthlyReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MONTHLY_START: {
-      return { ...state, isLoading: true };
+      const date = new Date().toString();
+      const today = date.substring(0, 10);
+
+      return { ...state, isLoading: true, date: today };
     }
     case FETCH_MONTHLY_SUCCESS: {
-      const date = new Date();
-      const today = date.subString(0, 10);
-
       if (action.payload === []) {
         return { ...state, isLoading: false };
       } else {
         const selected_plan = action.payload.filter(
-          (plan) => plan.date === today
+          (plan) => plan.date === state.date
         );
         const unSelected_plan = action.payload.filter(
-          (plan) => plan.date !== today
+          (plan) => plan.date !== state.date
         );
         return {
           ...state,
@@ -57,6 +58,7 @@ const monthlyReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        date: action.payload,
         selected: [...selected_plan],
         unSelected: [...unSelected_plan],
       };
