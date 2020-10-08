@@ -60,9 +60,8 @@ const Scroll = styled.div`
 const UnSelectedMonthly = styled.ul`
   height: 230px;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  gap: 5px;
 `;
 const Text = styled.div`
   font-family: "Life Savers", cursive;
@@ -70,7 +69,6 @@ const Text = styled.div`
 
 const MonthlyPresenter = (monthlyProps) => {
   const { onClickDay, selected, unSelected, isLoading } = monthlyProps;
-
   return (
     <Container>
       <MonthlyCalendar
@@ -84,8 +82,10 @@ const MonthlyPresenter = (monthlyProps) => {
       ) : (
         <>
           <SelectedMonthly>
-            {selected === [] ? (
-              <MonthlyList {...selected} />
+            {selected.length > 0 ? (
+              selected.map((plan, index) => {
+                return <MonthlyList {...plan} key={index} />;
+              })
             ) : (
               <AddLink to="/add">ADD</AddLink>
             )}
@@ -93,7 +93,7 @@ const MonthlyPresenter = (monthlyProps) => {
           <Wrapper>
             <Scroll>
               <UnSelectedMonthly>
-                {unSelected === [] ? (
+                {unSelected.length > 0 ? (
                   unSelected.map((plan, index) => {
                     return <MonthlyList {...plan} key={index} />;
                   })
