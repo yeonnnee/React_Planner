@@ -75,7 +75,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
         error={content.error}
       />
       <ListCon>
-        {planList.map((content, index) => (
+        {planList.contents.map((content, index) => (
           <List key={index} id={content.id}>
             {content.text}
             <DelBtn onClick={deleteItem}>X</DelBtn>
