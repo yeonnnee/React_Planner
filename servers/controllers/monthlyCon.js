@@ -3,7 +3,7 @@ const Content = require("../models/content");
 
 exports.getMonthly = async (req, res) => {
   try {
-    const user = await req.session.user.email;
+    const user = req.session.user.email;
     const plans = await Plan.findAll({ where: { writer: user } });
     res.status(200).json({ monthly: plans });
   } catch (error) {
@@ -13,24 +13,24 @@ exports.getMonthly = async (req, res) => {
 
 exports.postMonthly = async (req, res) => {
   try {
-    // const user = await req.session.user;
-    // const writer = user.useID;
-    const monthlyId = req.body.id;
+    // Plan 생성 //
+    const user = req.session.user.email;
+    const planId = req.body.id;
     const date = req.body.date;
-    Plan.create({ id: monthlyId, date: date });
-    // res.send("Get data successfully");
-    res.status(201).json({ msg: "Get data successfully" });
-  } catch (error) {
-    throw new Error();
-  }
-};
+    await Plan.create({ id: planId, date: date, writer: user });
 
-exports.postContent = async (req, res) => {
-  try {
-    const id = req.body.id;
-    const text = req.body.text;
-    Content.create({ id: id, text: text });
-    res.status(201).json({ msg: "Create content successfully" });
+    // Content 생성 //
+    const contents = req.body.contents;
+
+    for (const content of contents) {
+      await Content.create({
+        id: content.id,
+        text: content.text,
+        planId: planId,
+      });
+    }
+
+    res.status(201).json({ msg: "Get data successfully" });
   } catch (error) {
     throw new Error();
   }
