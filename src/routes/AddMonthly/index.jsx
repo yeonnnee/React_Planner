@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
+import { monthlyApi } from "../../api";
+import { CREATE_MONTHLY, CREATE_MONTHLY_FAILED } from "../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, select, history } = monthlyAddProps;
+  const { state, select, history, create, failed } = monthlyAddProps;
 
   const [planList, setPlanList] = useState([]);
   const [content, setContent] = useState({
@@ -15,9 +17,16 @@ const MonthlyAdd = (monthlyAddProps) => {
     error: "",
   });
 
-  function save() {
-    // history.push("/monthly");
-    console.log(planList);
+  async function save() {
+    try {
+      const res = await monthlyApi.postPlan(planList);
+      console.log(res);
+      create(planList);
+      history.push("/monthly");
+    } catch (error) {
+      console.log(error);
+      failed();
+    }
   }
 
   function deleteItem(event) {
@@ -67,7 +76,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    create: (plan) => {
+      dispatch({ types: CREATE_MONTHLY, payload: plan });
+    },
+    failed: (error) => {
+      dispatch({ typed: CREATE_MONTHLY_FAILED, payload: error });
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MonthlyAdd);
