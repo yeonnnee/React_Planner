@@ -7,6 +7,7 @@ import {
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
   SELECT_MONTHLY,
+  CREATE_MONTHLY_FAILED,
 } from "../types";
 
 const initialState = {
@@ -65,6 +66,9 @@ const monthlyReducer = (state = initialState, action) => {
     }
     case CREATE_MONTHLY: {
       return { ...state, plans: [...state.plans, action.payload] };
+    }
+    case CREATE_MONTHLY_FAILED: {
+      return { ...state, error: action.payload };
     }
     case READ_MONTHLY: {
       return state;
