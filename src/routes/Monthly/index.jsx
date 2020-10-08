@@ -29,7 +29,6 @@ const Monthly = (monthlyProps) => {
     try {
       const res = await monthlyApi.getMonthly();
       fetch_success(res.data.monthly);
-      console.log(res);
     } catch (error) {
       console.log(error.response);
       fetch_failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
