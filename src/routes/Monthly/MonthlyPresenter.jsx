@@ -87,7 +87,7 @@ const MonthlyPresenter = (monthlyProps) => {
             {selected === [] ? (
               <MonthlyList {...selected} />
             ) : (
-              <AddLink to="/monthly/add">ADD</AddLink>
+              <AddLink to="/add">ADD</AddLink>
             )}
           </SelectedMonthly>
           <Wrapper>

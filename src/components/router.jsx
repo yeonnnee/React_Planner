@@ -24,7 +24,7 @@ const Router = () => {
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
-        <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
+        <PrivateRoute exact path="/add" component={AddMonthly} />
       </Switch>
     </BrowserRouter>
   );
