@@ -11,6 +11,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const Date = styled.div`
+  font-family: "Life Savers", cursive;
+  margin-bottom: 20px;
+`;
+
 const Button = styled.button`
   width: 80px;
   height: 30px;
@@ -50,10 +55,19 @@ const DelBtn = styled.button`
 `;
 
 const AddMonthlyPresenter = (monthlyProps) => {
-  const { onChange, onSubmit, save, deleteItem, plans, content } = monthlyProps;
+  const {
+    onChange,
+    onSubmit,
+    save,
+    date,
+    planList,
+    content,
+    deleteItem,
+  } = monthlyProps;
+
   return (
     <Container>
-      <h2></h2>
+      <Date>{date}</Date>
       <TasksInput
         onChange={onChange}
         onSubmit={onSubmit}
@@ -61,8 +75,8 @@ const AddMonthlyPresenter = (monthlyProps) => {
         error={content.error}
       />
       <ListCon>
-        {plans.monthly.map((content, index) => (
-          <List key={index}>
+        {planList.map((content, index) => (
+          <List key={index} id={content.id}>
             {content.text}
             <DelBtn onClick={deleteItem}>X</DelBtn>
           </List>
