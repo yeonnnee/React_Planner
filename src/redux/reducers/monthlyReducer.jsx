@@ -24,7 +24,6 @@ const monthlyReducer = (state = initialState, action) => {
     case FETCH_MONTHLY_START: {
       const date = new Date().toString();
       const today = date.substring(0, 10);
-
       return { ...state, isLoading: true, date: today };
     }
     case FETCH_MONTHLY_SUCCESS: {
@@ -40,8 +39,8 @@ const monthlyReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
-          selected: [...selected_plan],
-          unSelected: [...unSelected_plan],
+          selected: selected_plan,
+          unSelected: unSelected_plan,
           plans: [...state.plans, ...action.payload],
         };
       }
@@ -60,8 +59,8 @@ const monthlyReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         date: action.payload,
-        selected: [...selected_plan],
-        unSelected: [...unSelected_plan],
+        selected: selected_plan,
+        unSelected: unSelected_plan,
       };
     }
     case CREATE_MONTHLY: {
