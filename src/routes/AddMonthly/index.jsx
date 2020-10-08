@@ -9,11 +9,14 @@ import { CREATE_MONTHLY, CREATE_MONTHLY_FAILED } from "../../redux/types";
 const MonthlyAdd = (monthlyAddProps) => {
   const { state, select, history, create, failed } = monthlyAddProps;
 
-  const [planList, setPlanList] = useState([]);
+  const [planList, setPlanList] = useState({
+    id: "",
+    date: state.date,
+    contents: [],
+  });
   const [content, setContent] = useState({
     id: "",
     text: "",
-    date: "",
     error: "",
   });
 
@@ -31,17 +34,22 @@ const MonthlyAdd = (monthlyAddProps) => {
 
   function deleteItem(event) {
     const target = event.target.parentNode.id;
-    const filteredPlanList = planList.filter((plan) => plan.id !== target);
-    setPlanList([...filteredPlanList]);
+    const filteredPlanList = planList.contents.filter(
+      (plan) => plan.id !== target
+    );
+    setPlanList({ ...planList, contents: [...filteredPlanList] });
   }
 
   function onSubmit(event) {
     event.preventDefault();
     if (content.text !== "") {
-      setPlanList([...planList, content]);
+      setPlanList({
+        ...planList,
+        id: uuidv4().toString(),
+        contents: [...planList.contents, content],
+      });
       setContent({
         text: "",
-        date: "",
         error: "",
       });
     }
@@ -52,7 +60,6 @@ const MonthlyAdd = (monthlyAddProps) => {
     setContent({
       id: uuidv4().toString(),
       text: value,
-      date: state.date,
       error: "",
     });
   }
@@ -78,10 +85,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     create: (plan) => {
-      dispatch({ types: CREATE_MONTHLY, payload: plan });
+      dispatch({ type: CREATE_MONTHLY, payload: plan });
     },
     failed: (error) => {
-      dispatch({ typed: CREATE_MONTHLY_FAILED, payload: error });
+      dispatch({ type: CREATE_MONTHLY_FAILED, payload: error });
     },
   };
 }
