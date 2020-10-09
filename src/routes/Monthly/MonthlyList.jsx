@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
+
+const Container = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+`;
 const List = styled.li`
   width: 100%;
   height: 70px;
@@ -15,12 +24,25 @@ const List = styled.li`
 
 const Title = styled.div``;
 
+const Detail = styled.ul`
+`;
+const Desc = styled.li``;
+
+
 const MonthlyList = (monthlyProps) => {
-  const { date } = monthlyProps;
+  const { date, contents} = monthlyProps;
+
   return (
-    <List>
-      <Title>{date}</Title>
-    </List>
+    <Container>
+      <List>
+        <Title>{date}</Title>
+      </List>
+      <Detail>
+        {contents.map((content, index) => {
+          return<Desc key={index}>{content.text}</Desc>
+        })}
+      </Detail>
+    </Container>
   );
 };
 
