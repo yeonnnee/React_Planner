@@ -7,7 +7,7 @@ export const authApi = {
 };
 
 export const signUpApi = {
-  signUp: (userInfo) => axios.post("api/signUp/user/", userInfo),
+  signUp: (userInfo) => axios.post("api/user/signUp", userInfo),
 };
 export const taskApi = {
   getTasks: () => axios.get("api/tasks"),
