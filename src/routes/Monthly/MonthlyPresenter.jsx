@@ -65,6 +65,8 @@ const UnSelectedMonthly = styled.ul`
 `;
 const Text = styled.div`
   font-family: "Life Savers", cursive;
+  display:flex;
+  justify-content:center;
 `;
 
 const MonthlyPresenter = (monthlyProps) => {
