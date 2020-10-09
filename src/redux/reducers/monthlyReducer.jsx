@@ -60,7 +60,7 @@ const monthlyReducer = (state = initialState, action) => {
         isLoading: false,
         date: action.payload,
         selected: selected_plan,
-        unSelected: unSelected_plan,
+        unSelected: [...unSelected_plan]
       };
     }
     case CREATE_MONTHLY: {
