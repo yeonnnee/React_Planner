@@ -5,7 +5,13 @@ exports.getMonthly = async (req, res) => {
   try {
     const user = req.session.user.email;
     const plans = await Plan.findAll({ where: { writer: user } });
-    res.status(200).json({ monthly: plans });
+
+    for (const plan of plans) {
+      const contents = await Content.findAll({ where: { planId: plan.id } });
+      const monthly = [{ id: plan.id, date: plan.date, contents }];
+
+      res.status(200).json({ monthly: monthly });
+    }
   } catch (error) {
     throw new Error();
   }
