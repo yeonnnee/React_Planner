@@ -4,14 +4,14 @@ const User = require("../models/user");
 
 exports.postLogIn = async (req, res) => {
   try {
-    const userEmail = await req.body.email;
+    const userEmail = req.body.email;
     const user = await User.findOne({ where: { email: userEmail } });
     if (!user) {
       return res.status(400).json({ msg: "존재하지 않는 이메일 입니다" });
     }
 
-    const password = await req.body.password;
-    const session = await req.session;
+    const password = req.body.password;
+    const session = req.session;
     const compared_Password = await bcrypt.compare(password, user.password);
 
     if (compared_Password) {
@@ -29,9 +29,9 @@ exports.postLogIn = async (req, res) => {
   }
 };
 
-exports.checkAuth = async (req, res) => {
+exports.checkAuth = (req, res) => {
   try {
-    const session = await req.session;
+    const session = req.session;
     const user = session.user;
     if (!user) {
       res.status(401).json({ msg: "Login needed" });
@@ -49,7 +49,7 @@ exports.checkAuth = async (req, res) => {
   }
 };
 
-exports.postLogOut = async (req, res) => {
+exports.postLogOut = (req, res) => {
   try {
     req.session.destroy();
     res.status(200).json({ msg: "User logged out" });

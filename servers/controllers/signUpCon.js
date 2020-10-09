@@ -4,10 +4,10 @@ const { validationResult } = require("express-validator");
 
 exports.postSignUp = async (req, res) => {
   try {
-    const name = await req.body.name;
-    const id = await req.body.id;
-    const password = await req.body.password;
-    const email = await req.body.email;
+    const name = req.body.name;
+    const id = req.body.id;
+    const password = req.body.password;
+    const email = req.body.email;
 
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
@@ -18,7 +18,7 @@ exports.postSignUp = async (req, res) => {
       res.status(400).json(error);
     } else {
       const salt = bcrypt.genSaltSync(16);
-      User.create({
+      await User.create({
         id: id,
         name: name,
         password: bcrypt.hashSync(password, salt),
