@@ -40,9 +40,6 @@ const AddLink = styled(Link)`
 const SelectedMonthly = styled.ul`
   width: 90%;
   height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-top: 1px solid #30475e;
   border-bottom: 1px solid #30475e;
 `;
