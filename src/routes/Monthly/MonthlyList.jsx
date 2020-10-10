@@ -21,15 +21,13 @@ const Section = styled.div`
   width: 100%;
   padding: 10px;
   display:none;
-  &:hover {
-    display:block;
-  }
 `;
 
 const List = styled.li`
   width: 100%;
   height: 70px;
   border: 1px solid #30475e;
+  outline:none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,15 +35,13 @@ const List = styled.li`
   background-color: #30475e;
   color: white;
   z-index:1;
-  &:hover ~ ${Section} {
-    display:block;
-    animation: ${SlideDown} 0.5s linear forwards;
+  &:focus ~ ${Section}{
+   display:block;
+   animation: ${SlideDown} 0.5s linear forwards;
   }
 `;
 
 const Title = styled.div``;
-
-
 const Detail = styled.ul`
 `;
 const Desc = styled.li``;
@@ -77,7 +73,7 @@ const MonthlyList = (monthlyProps) => {
 
   return (
     <Container>
-      <List>
+      <List tabIndex="0">
         <Title>{date}</Title>
       </List>
       <Section>
