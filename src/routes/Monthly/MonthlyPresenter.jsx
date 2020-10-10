@@ -42,6 +42,9 @@ const SelectedMonthly = styled.ul`
   height: 100px;
   border-top: 1px solid #30475e;
   border-bottom: 1px solid #30475e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 `;
 
 const Wrapper = styled.div`
