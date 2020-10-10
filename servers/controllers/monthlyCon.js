@@ -10,8 +10,8 @@ exports.getMonthly = async (req, res) => {
     for (const plan of plans) {
       const contents = await Content.findAll({ where: { planId: plan.id } });
       const result = {
-        id: plan.dataValues.id,
-        date: plan.dataValues.date,
+        id: plan.id,
+        date: plan.date,
         contents,
       };
       monthly.push(result);
