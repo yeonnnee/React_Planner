@@ -47,3 +47,23 @@ exports.postMonthly = async (req, res) => {
     throw new Error();
   }
 };
+
+exports.postEditMonthly = async (req, res) => {
+  try {
+    const planId = req.body.id;
+    const updatedContents = req.body.contents;
+    await Content.destroy({ where: { planId: planId } });
+
+    for (const content of updatedContents) {
+      await Content.create({
+        id: content.id,
+        text: content.text,
+        planId: planId,
+      });
+    }
+
+    res.status(201).json({ msg: "Patch Data Successfully" });
+  } catch (error) {
+    throw new Error();
+  }
+};

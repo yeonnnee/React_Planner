@@ -19,5 +19,6 @@ export const taskApi = {
 export const monthlyApi = {
   getMonthly: () => axios.get("api/monthly/plan"),
   postPlan: (plan) => axios.post("api/monthly/plan/add", plan),
-  planDetail: (id) => axios.get(`api/monthly/plan/${id}`),
+  updatePlan: (updatedPlan) =>
+    axios.post(`api/monthly/plan/edit/${updatedPlan.id}`, updatedPlan),
 };
