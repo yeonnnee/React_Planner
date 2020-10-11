@@ -26,7 +26,7 @@ const Router = () => {
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/add" component={AddMonthly} />
-        <PrivateRoute exact path="/edit/:id" component={EditMonthly} />
+        <PrivateRoute exact path="/edit" component={EditMonthly} />
       </Switch>
     </BrowserRouter>
   );
