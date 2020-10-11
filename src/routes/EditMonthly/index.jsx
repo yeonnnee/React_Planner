@@ -7,7 +7,7 @@ import { UPDATE_MONTHLY, FAILED } from "../../redux/types";
 import EditMonthlyPresenter from "./EditMonthlyPresenter";
 
 const EditMonthly = (editProps) => {
-  const { state, failed, update } = editProps;
+  const { state, failed, update, history } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.isEdit.id,
