@@ -2,8 +2,8 @@ import {
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
   FETCH_MONTHLY_FAILED,
+  EDIT_MONTHLY,
   CREATE_MONTHLY,
-  READ_MONTHLY,
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
   SELECT_MONTHLY,
@@ -16,6 +16,7 @@ const initialState = {
   date: "",
   selected: [],
   unSelected: [],
+  isEdit: "",
   plans: [],
 };
 
@@ -60,7 +61,7 @@ const monthlyReducer = (state = initialState, action) => {
         isLoading: false,
         date: action.payload,
         selected: selected_plan,
-        unSelected: [...unSelected_plan]
+        unSelected: [...unSelected_plan],
       };
     }
     case CREATE_MONTHLY: {
@@ -69,8 +70,9 @@ const monthlyReducer = (state = initialState, action) => {
     case CREATE_MONTHLY_FAILED: {
       return { ...state, error: action.payload };
     }
-    case READ_MONTHLY: {
-      return state;
+    case EDIT_MONTHLY: {
+      const target = state.plans.find((plan) => plan.id === action.payload);
+      return { ...state, isEdit: target };
     }
     case UPDATE_MONTHLY: {
       return state;
