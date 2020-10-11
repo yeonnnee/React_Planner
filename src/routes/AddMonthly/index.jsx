@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
 import { monthlyApi } from "../../api";
-import { CREATE_MONTHLY, CREATE_MONTHLY_FAILED } from "../../redux/types";
+import { CREATE_MONTHLY, FAILED } from "../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
   const { state, history, create, failed } = monthlyAddProps;
@@ -22,13 +22,11 @@ const MonthlyAdd = (monthlyAddProps) => {
 
   async function save() {
     try {
-      const res = await monthlyApi.postPlan(planList);
-      console.log(res);
+      await monthlyApi.postPlan(planList);
       create(planList);
       history.push("/monthly");
     } catch (error) {
-      console.log(error);
-      failed();
+      failed(error);
     }
   }
 
@@ -87,7 +85,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
     },
     failed: (error) => {
-      dispatch({ type: CREATE_MONTHLY_FAILED, payload: error });
+      dispatch({ type: FAILED, payload: error });
     },
   };
 }

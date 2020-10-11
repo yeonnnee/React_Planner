@@ -5,7 +5,7 @@ import { monthlyApi } from "../../api";
 import MonthlyPresenter from "./MonthlyPresenter";
 import {
   EDIT_MONTHLY,
-  FETCH_MONTHLY_FAILED,
+  FAILED,
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
   SELECT_MONTHLY,
@@ -68,7 +68,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: data });
     },
     fetch_failed: (error) => {
-      dispatch({ type: FETCH_MONTHLY_FAILED, payload: error });
+      dispatch({ type: FAILED, payload: error });
     },
     select: (date) => {
       dispatch({ type: SELECT_MONTHLY, payload: date });
