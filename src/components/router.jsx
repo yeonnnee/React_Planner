@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Tasks from "../routes/Tasks";
 import Monthly from "../routes/Monthly";
 import AddMonthly from "../routes/AddMonthly";
+import EditMonthly from "../routes/EditMonthly";
 import Home from "../routes/Home";
 import LogIn from "../routes/Auth";
 import SignUp from "../routes/SignUp";
@@ -25,6 +26,7 @@ const Router = () => {
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/add" component={AddMonthly} />
+        <PrivateRoute exact path="/edit/:id" component={EditMonthly} />
       </Switch>
     </BrowserRouter>
   );
