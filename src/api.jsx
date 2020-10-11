@@ -21,4 +21,5 @@ export const monthlyApi = {
   postPlan: (plan) => axios.post("api/monthly/plan/add", plan),
   updatePlan: (updatedPlan) =>
     axios.post(`api/monthly/plan/edit/${updatedPlan.id}`, updatedPlan),
+  deletePlan: (plan) => axios.post(`api/monthly/plan/${plan.id}`, plan),
 };

@@ -92,7 +92,9 @@ const MonthlyList = (monthlyProps) => {
               Edit
             </Btn>
           </EditLink>
-          <Btn onClick={onDelete}>Delete</Btn>
+          <Btn onClick={onDelete} id={date}>
+            Delete
+          </Btn>
         </BtnSection>
       </Section>
     </Container>

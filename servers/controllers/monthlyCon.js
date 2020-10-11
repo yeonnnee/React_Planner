@@ -67,3 +67,15 @@ exports.postEditMonthly = async (req, res) => {
     throw new Error();
   }
 };
+
+exports.postDeleteMonthly = async (req, res) => {
+  try {
+    const planId = req.body.id;
+    await Content.destroy({ where: { planId: planId } });
+    await Plan.destroy({ where: { id: planId } });
+
+    res.status(201).json({ msg: "Delete Data Successfully" });
+  } catch (erorr) {
+    throw new Error();
+  }
+};
