@@ -42,9 +42,9 @@ const SelectedMonthly = styled.ul`
   height: 100px;
   border-top: 1px solid #30475e;
   border-bottom: 1px solid #30475e;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Wrapper = styled.div`
@@ -65,12 +65,19 @@ const UnSelectedMonthly = styled.ul`
 `;
 const Text = styled.div`
   font-family: "Life Savers", cursive;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
 `;
 
 const MonthlyPresenter = (monthlyProps) => {
-  const { onClickDay, selected, unSelected, isLoading } = monthlyProps;
+  const {
+    onClickDay,
+    selected,
+    unSelected,
+    isLoading,
+    onDelete,
+    onEdit,
+  } = monthlyProps;
   return (
     <Container>
       <MonthlyCalendar
@@ -86,7 +93,14 @@ const MonthlyPresenter = (monthlyProps) => {
           <SelectedMonthly>
             {selected.length > 0 ? (
               selected.map((plan, index) => {
-                return <MonthlyList {...plan} key={index} />;
+                return (
+                  <MonthlyList
+                    {...plan}
+                    key={index}
+                    onDelete={onDelete}
+                    onEdit={onEdit}
+                  />
+                );
               })
             ) : (
               <AddLink to="/add">ADD</AddLink>
@@ -97,7 +111,14 @@ const MonthlyPresenter = (monthlyProps) => {
               <UnSelectedMonthly>
                 {unSelected.length > 0 ? (
                   unSelected.map((plan, index) => {
-                    return <MonthlyList {...plan} key={index} />;
+                    return (
+                      <MonthlyList
+                        {...plan}
+                        key={index}
+                        onDelete={onDelete}
+                        onEdit={onEdit}
+                      />
+                    );
                   })
                 ) : (
                   <Text>Empty</Text>
