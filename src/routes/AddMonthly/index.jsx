@@ -7,7 +7,7 @@ import { monthlyApi } from "../../api";
 import { CREATE_MONTHLY, CREATE_MONTHLY_FAILED } from "../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, select, history, create, failed } = monthlyAddProps;
+  const { state, history, create, failed } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
     id: "",
@@ -70,7 +70,6 @@ const MonthlyAdd = (monthlyAddProps) => {
       onSubmit={onSubmit}
       deleteItem={deleteItem}
       save={save}
-      select={select}
       planList={planList}
       content={content}
       {...state}
