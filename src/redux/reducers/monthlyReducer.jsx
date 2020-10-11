@@ -1,13 +1,12 @@
 import {
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
-  FETCH_MONTHLY_FAILED,
+  FAILED,
   EDIT_MONTHLY,
   CREATE_MONTHLY,
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
   SELECT_MONTHLY,
-  CREATE_MONTHLY_FAILED,
 } from "../types";
 
 const initialState = {
@@ -46,7 +45,7 @@ const monthlyReducer = (state = initialState, action) => {
         };
       }
     }
-    case FETCH_MONTHLY_FAILED: {
+    case FAILED: {
       return { ...state, isLoading: false, error: action.payload };
     }
     case SELECT_MONTHLY: {
@@ -67,15 +66,16 @@ const monthlyReducer = (state = initialState, action) => {
     case CREATE_MONTHLY: {
       return { ...state, plans: [...state.plans, action.payload] };
     }
-    case CREATE_MONTHLY_FAILED: {
-      return { ...state, error: action.payload };
-    }
+
     case EDIT_MONTHLY: {
       const target = state.plans.find((plan) => plan.id === action.payload);
-      return { ...state, isEdit: target };
+      const filteredPlans = state.plans.filter(
+        (plan) => plan.id !== action.payload
+      );
+      return { ...state, isEdit: target, plans: filteredPlans };
     }
     case UPDATE_MONTHLY: {
-      return state;
+      return { ...state, plans: [...state.plans, action.payload] };
     }
     case DELETE_MONTHLY: {
       return state;

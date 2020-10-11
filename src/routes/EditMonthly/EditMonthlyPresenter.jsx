@@ -3,8 +3,8 @@ import React from "react";
 import EditMonthlyForm from "../AddMonthly/AddMonthlyPresenter";
 
 const EditMonthlyPresenter = (editProps) => {
-  const { onChange, onSubmit, deleteItem, planList, content } = editProps;
-  console.log("planLsit", planList);
+  const { onChange, onSubmit, deleteItem, planList, content, save } = editProps;
+
   return (
     <EditMonthlyForm
       onChange={onChange}
@@ -12,6 +12,7 @@ const EditMonthlyPresenter = (editProps) => {
       deleteItem={deleteItem}
       planList={planList}
       content={content}
+      save={save}
     />
   );
 };

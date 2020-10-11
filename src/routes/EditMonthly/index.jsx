@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { monthlyApi } from "../../api";
+import { UPDATE_MONTHLY, FAILED } from "../../redux/types";
 
 import EditMonthlyPresenter from "./EditMonthlyPresenter";
 
 const EditMonthly = (editProps) => {
-  const { state } = editProps;
+  const { state, failed, update } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.isEdit.id,
@@ -17,6 +19,16 @@ const EditMonthly = (editProps) => {
     text: "",
     error: "",
   });
+
+  async function save() {
+    try {
+      await monthlyApi.updatePlan(planList);
+      update(planList);
+      history.push("/monthly");
+    } catch (error) {
+      failed(error);
+    }
+  }
 
   function deleteItem(event) {
     const target = event.target.parentNode.id;
@@ -56,6 +68,7 @@ const EditMonthly = (editProps) => {
       deleteItem={deleteItem}
       planList={planList}
       content={content}
+      save={save}
     />
   );
 };
@@ -63,6 +76,15 @@ const EditMonthly = (editProps) => {
 function mapStateToProps(state) {
   return { state: state.monthlyReducer };
 }
-// function mapDispatchToProps(dispatch) { return }
+function mapDispatchToProps(dispatch) {
+  return {
+    update: (updatedPlan) => {
+      dispatch({ type: UPDATE_MONTHLY, payload: updatedPlan });
+    },
+    failed: (error) => {
+      dispatch({ type: FAILED, payload: error });
+    },
+  };
+}
 
-export default connect(mapStateToProps)(EditMonthly);
+export default connect(mapStateToProps, mapDispatchToProps)(EditMonthly);
