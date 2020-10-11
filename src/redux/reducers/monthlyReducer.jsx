@@ -41,7 +41,7 @@ const monthlyReducer = (state = initialState, action) => {
           isLoading: false,
           selected: selected_plan,
           unSelected: unSelected_plan,
-          plans: [...state.plans, ...action.payload],
+          plans: [...action.payload],
         };
       }
     }
@@ -60,7 +60,7 @@ const monthlyReducer = (state = initialState, action) => {
         isLoading: false,
         date: action.payload,
         selected: selected_plan,
-        unSelected: [...unSelected_plan],
+        unSelected: unSelected_plan,
       };
     }
     case CREATE_MONTHLY: {
@@ -78,7 +78,21 @@ const monthlyReducer = (state = initialState, action) => {
       return { ...state, plans: [...state.plans, action.payload] };
     }
     case DELETE_MONTHLY: {
-      return state;
+      const filtered_selected = state.selected.filter(
+        (plan) => plan.id !== action.payload.id
+      );
+      const filtered_unSelected = state.unSelected.filter(
+        (plan) => plan.id !== action.payload.id
+      );
+      const filteredPlans = state.plans.filter(
+        (plan) => plan.id !== action.payload.id
+      );
+      return {
+        ...state,
+        selected: filtered_selected,
+        unSelected: filtered_unSelected,
+        plans: filteredPlans,
+      };
     }
     default:
       return state;
