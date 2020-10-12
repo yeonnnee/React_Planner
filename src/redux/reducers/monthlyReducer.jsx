@@ -36,6 +36,11 @@ const monthlyReducer = (state = initialState, action) => {
         const unSelected_plan = action.payload.filter(
           (plan) => plan.date !== state.date
         );
+        unSelected_plan.sort(function (a, b) {
+          const day1 = a.date.substring(9, 10);
+          const day2 = b.date.substring(9, 10);
+          return +day1 - +day2;
+        });
         return {
           ...state,
           isLoading: false,
@@ -55,6 +60,12 @@ const monthlyReducer = (state = initialState, action) => {
       const unSelected_plan = state.plans.filter(
         (plan) => plan.date !== action.payload
       );
+      unSelected_plan.sort(function (a, b) {
+        const day1 = a.date.substring(9, 10);
+        const day2 = b.date.substring(9, 10);
+        return +day1 - +day2;
+      });
+
       return {
         ...state,
         isLoading: false,
