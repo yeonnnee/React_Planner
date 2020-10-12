@@ -7,11 +7,13 @@ import {
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
   SELECT_MONTHLY,
+  CHANGE_MONTHLY,
 } from "../types";
 
 const initialState = {
   isLoading: false,
   error: "",
+  monthYear: "",
   date: "",
   selected: [],
   unSelected: [],
@@ -23,7 +25,7 @@ const monthlyReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MONTHLY_START: {
       const date = new Date().toString();
-      const today = date.substring(0, 10);
+      const today = date.substring(0, 15);
       return { ...state, isLoading: true, date: today };
     }
     case FETCH_MONTHLY_SUCCESS: {
@@ -33,9 +35,17 @@ const monthlyReducer = (state = initialState, action) => {
         const selected_plan = action.payload.filter(
           (plan) => plan.date === state.date
         );
-        const unSelected_plan = action.payload.filter(
-          (plan) => plan.date !== state.date
-        );
+        const unSelected_plan = action.payload.filter((plan) => {
+          const selectedDate = state.date.split(" ");
+          const planDate = plan.date.split(" ");
+
+          return (
+            plan.date !== state.date &&
+            planDate[1] === selectedDate[1] &&
+            planDate[3] === selectedDate[3]
+          );
+        });
+
         unSelected_plan.sort(function (a, b) {
           const day1 = a.date.substring(9, 10);
           const day2 = b.date.substring(9, 10);
@@ -57,9 +67,16 @@ const monthlyReducer = (state = initialState, action) => {
       const selected_plan = state.plans.filter(
         (plan) => plan.date === action.payload
       );
-      const unSelected_plan = state.plans.filter(
-        (plan) => plan.date !== action.payload
-      );
+      const unSelected_plan = state.plans.filter((plan) => {
+        const selectedDate = action.payload.split(" ");
+        const planDate = plan.date.split(" ");
+
+        return (
+          plan.date !== action.payload &&
+          planDate[1] === selectedDate[1] &&
+          planDate[3] === selectedDate[3]
+        );
+      });
       unSelected_plan.sort(function (a, b) {
         const day1 = a.date.substring(9, 10);
         const day2 = b.date.substring(9, 10);
@@ -104,6 +121,9 @@ const monthlyReducer = (state = initialState, action) => {
         unSelected: filtered_unSelected,
         plans: filteredPlans,
       };
+    }
+    case CHANGE_MONTHLY: {
+      return state;
     }
     default:
       return state;
