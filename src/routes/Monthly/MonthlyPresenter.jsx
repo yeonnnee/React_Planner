@@ -1,11 +1,10 @@
 import React from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import MonthlyList from "./MonthlyList";
 import Loader from "../../components/Loader";
+import Calendar from "./Calendar";
 
 const Container = styled.div`
   position: relative;
@@ -14,11 +13,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const MonthlyCalendar = styled(Calendar)`
-  width: 100%;
-  padding: 10px;
 `;
 
 const AddLink = styled(Link)`
@@ -70,22 +64,11 @@ const Text = styled.div`
 `;
 
 const MonthlyPresenter = (monthlyProps) => {
-  const {
-    onClickDay,
-    selected,
-    unSelected,
-    isLoading,
-    onDelete,
-    onEdit,
-  } = monthlyProps;
+  const { selected, unSelected, isLoading, onDelete, onEdit } = monthlyProps;
+
   return (
     <Container>
-      <MonthlyCalendar
-        calendarType={"US"}
-        onClickDay={onClickDay}
-        locale="en-US"
-      />
-
+      <Calendar />
       {isLoading ? (
         <Loader />
       ) : (
