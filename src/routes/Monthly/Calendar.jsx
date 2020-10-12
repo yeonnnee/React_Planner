@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -13,41 +13,39 @@ const MonthlyCalendar = styled(ReactCalendar)`
 
 const Calendar = (calendarProps) => {
   const { select, change } = calendarProps;
+  const [state, setState] = useState(0);
 
   const onClickDay = (event) => {
     const target = event.toString().substring(0, 15);
-    console.log(event.toString().substring(0, 15));
     select(target);
   };
-
-  function getMonthYear() {
-    const monthSection = document.querySelector(
+  function reload() {
+    setState(state + 1);
+  }
+  async function getMonthYear() {
+    const monthSection = await document.querySelector(
       ".react-calendar__navigation__label__labelText"
     );
-    const monthYear = monthSection.textContent;
-    console.log(monthYear);
+    const monthYear = await monthSection.textContent;
     change(monthYear);
   }
 
-  function calendarInit() {
+  function init() {
     const nextBtn = document.querySelector(
       ".react-calendar__navigation__next-button"
     );
     const preBtn = document.querySelector(
       ".react-calendar__navigation__prev-button"
     );
-    nextBtn.addEventListener("click", getMonthYear);
-    preBtn.addEventListener("click", getMonthYear);
+    nextBtn.onclick = () => reload();
+    preBtn.onclick = () => reload();
   }
 
   useEffect(() => {
-    const monthSection = document.querySelector(
-      ".react-calendar__navigation__label__labelText"
-    );
-    const monthYear = monthSection.textContent;
-    console.log(monthYear);
-    calendarInit();
-  }, []);
+    getMonthYear();
+    init();
+    return () => setState(0);
+  }, [state]);
 
   return (
     <MonthlyCalendar
