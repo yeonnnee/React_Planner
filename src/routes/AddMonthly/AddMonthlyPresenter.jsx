@@ -67,7 +67,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
 
   return (
     <Container>
-      <Date>{date}</Date>
+      <Date>{date.substring(0, 10)}</Date>
       <TasksInput
         onChange={onChange}
         onSubmit={onSubmit}

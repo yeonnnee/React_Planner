@@ -78,7 +78,7 @@ const MonthlyList = (monthlyProps) => {
   return (
     <Container>
       <List tabIndex="0">
-        <Title>{date}</Title>
+        <Title>{date.substring(0, 10)}</Title>
       </List>
       <Section>
         <Detail>
