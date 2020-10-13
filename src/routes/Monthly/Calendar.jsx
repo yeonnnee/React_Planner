@@ -13,14 +13,14 @@ const MonthlyCalendar = styled(ReactCalendar)`
 
 const Calendar = (calendarProps) => {
   const { select, change } = calendarProps;
-  const [state, setState] = useState(0);
+  const [clicked, setClicked] = useState(0);
 
   const onClickDay = (event) => {
     const target = event.toString().substring(0, 15);
     select(target);
   };
   function reload() {
-    setState(state + 1);
+    setClicked(clicked + 1);
   }
   async function getMonthYear() {
     const monthSection = await document.querySelector(
@@ -31,26 +31,35 @@ const Calendar = (calendarProps) => {
   }
 
   function init() {
-    const nextBtn = document.querySelector(
+    const nextMonth = document.querySelector(
       ".react-calendar__navigation__next-button"
     );
-    const preBtn = document.querySelector(
+    const nextYear = document.querySelector(
+      ".react-calendar__navigation__next2-button"
+    );
+    const preYear = document.querySelector(
+      ".react-calendar__navigation__prev2-button"
+    );
+    const preMonth = document.querySelector(
       ".react-calendar__navigation__prev-button"
     );
-    nextBtn.onclick = () => reload();
-    preBtn.onclick = () => reload();
+    nextMonth.onclick = () => reload();
+    nextYear.onclick = () => reload();
+    preMonth.onclick = () => reload();
+    preYear.onclick = () => reload();
   }
 
   useEffect(() => {
     getMonthYear();
     init();
-    return () => setState(0);
-  }, [state]);
+    return () => setClicked(0);
+  }, [clicked]);
 
   return (
     <MonthlyCalendar
       calendarType={"US"}
       onClickDay={onClickDay}
+      onClickMonth={reload}
       locale="en-US"
     />
   );
