@@ -20,6 +20,7 @@ const Container = styled.div`
 
 const Section = styled.div`
   width: 100%;
+  height: 100%;
   padding: 10px;
   display: none;
   &:hover {
@@ -35,7 +36,8 @@ const List = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 18px;
   background-color: #30475e;
   color: white;
   z-index: 1;
@@ -44,15 +46,26 @@ const List = styled.li`
     animation: ${SlideDown} 0.5s linear forwards;
   }
 `;
-
+const Header = styled.div`
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 10px;
+`;
 const Title = styled.div``;
-const Detail = styled.ul``;
-const Desc = styled.li``;
+const Detail = styled.ul`
+  font-family: "Rajdhani", sans-serif;
+`;
+const Desc = styled.li`
+  margin-left: 20px;
+  list-style: square;
+`;
 const BtnSection = styled.div`
   width: 100%;
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   margin-top: 20px;
 `;
 
@@ -64,7 +77,8 @@ const Btn = styled.button`
   outline: none;
   border: 1px solid #30475e;
   margin-right: 10px;
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: bold;
   cursor: pointer;
   &:hover {
     background-color: #30475e;
@@ -82,6 +96,7 @@ const MonthlyList = (monthlyProps) => {
       </List>
       <Section>
         <Detail>
+          <Header>Description</Header>
           {contents.map((content, index) => {
             return <Desc key={index}>{content.text}</Desc>;
           })}

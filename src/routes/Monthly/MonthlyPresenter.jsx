@@ -24,7 +24,7 @@ const AddLink = styled(Link)`
   width: 80px;
   height: 30px;
   border: 1px solid #30475e;
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
   &:hover {
     background-color: #30475e;
     color: white;
@@ -43,16 +43,16 @@ const SelectedMonthly = styled.ul`
 
 const Wrapper = styled.div`
   width: 460px;
-  height: 220px;
+  height: 240px;
   overflow: hidden;
 `;
 const Scroll = styled.div`
   width: 480px;
-  height: 200px;
+  height: 230px;
   overflow: auto;
 `;
 const UnSelectedMonthly = styled.ul`
-  height: 230px;
+  height: 250px;
   padding: 20px;
   display: grid;
   gap: 5px;
