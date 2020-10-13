@@ -38,12 +38,19 @@ const List = styled.li`
   justify-content: center;
   font-family: "Rajdhani", sans-serif;
   font-size: 18px;
-  background-color: #30475e;
-  color: white;
+  background-color: #4b5d67;
+  color: #c2b0ad;
   z-index: 1;
+  &:hover {
+    background-color: #374851;
+  }
+  &:focus {
+    background-color: #374851;
+  }
   &:focus ~ ${Section} {
     display: block;
     animation: ${SlideDown} 0.5s linear forwards;
+    background-color: #e8e8e8;
   }
 `;
 const Header = styled.div`

@@ -10,7 +10,7 @@ const Header = styled.div`
   display: felx;
   justify-content: center;
   position: relative;
-  top: -20px;
+  margin: 20px;
   font-family: "Fredericka the Great", cursive;
 `;
 const ListCon = styled.div`

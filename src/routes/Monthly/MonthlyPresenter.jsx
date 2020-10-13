@@ -8,7 +8,7 @@ import Calendar from "./Calendar";
 
 const Container = styled.div`
   position: relative;
-  top: -50px;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ const AddLink = styled(Link)`
   font-family: "Rajdhani", sans-serif;
   &:hover {
     background-color: #30475e;
-    color: white;
+    color: #c2b0ad;
   }
 `;
 
