@@ -25,13 +25,6 @@ const List = styled.ul`
   align-items: center;
   justify-content: space-around;
 `;
-
-const UserSection = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-`;
 const Menu = styled.li`
   text-decoration: none;
   color: ${(props) => (props.current ? "#4d3e3e" : "#835858")};
@@ -45,15 +38,88 @@ const SLink = styled(Link)`
   font-family: "Zilla Slab", serif;
 `;
 
+const UserSection = styled.div`
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  position: absolute;
+  border-radius: 10px;
+  right: 20px;
+  top: 80px;
+  background-color: #e2e0dc;
+  box-shadow: 5px 5px 15px #baa7a1, 5px 5px 10px #baa7a1,
+    inset -5px -5px 15px #baa7a1, inset 1px 1px 5px #baa7a1;
+  border-radius: 5px;
+  display: none;
+`;
+const DropDownList = styled.button`
+  width: 90%;
+  height: 50px;
+  border-top: 1px solid #baa7a1;
+  border-bottom: 1px solid #baa7a1;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  &:hover {
+    background-color: #ffff;
+  }
+`;
+
+const LogOutBtn = styled.button`
+  width: 90%;
+  height: 50px;
+  outline: none;
+  border-bottom: 1px solid #baa7a1;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  &:hover {
+    background-color: #ffff;
+  }
+`;
+
 const Button = styled.button`
-  width: 100px;
-  height: 40px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
   outline: none;
   font-family: "Life Savers", cursive;
+  font-size: 15px;
   border: 1px solid #30475e;
   &:hover {
     background-color: #30475e;
     color: white;
+  }
+  &:focus ~ ${UserSection} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Pic = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  margin-top: 10px;
+  box-shadow: 5px 5px 15px #baa7a1, 5px 5px 10px #baa7a1,
+    inset -5px -5px 15px #baa7a1, inset 1px 1px 5px #baa7a1;
+  background-color: wheat;
+`;
+const User = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+const Info = styled.div`
+  margin-bottom: 8px;
+  &:nth-child(2) {
+    font-size: 12px;
   }
 `;
 const Title = styled.div`
@@ -66,13 +132,11 @@ const Title = styled.div`
   justify-content: center;
   font-size: 30px;
 `;
-const User = styled.span`
-  cursor: pointer;
-  margin-right: 10px;
-`;
 
 const Header = withRouter((headerProps) => {
   const { state, logOut, location } = headerProps;
+  const owner = state.user.split("@")[0];
+  const userName = `${state.name.split("")[1]}${state.name.split("")[2]}`;
   async function onClick() {
     try {
       await authApi.logOut();
@@ -85,7 +149,7 @@ const Header = withRouter((headerProps) => {
     <>
       {state.isAuthenticated ? (
         <>
-          <Title>{state.user}`s Planner</Title>
+          <Title>{owner}`s Planner</Title>
           <Container>
             <List>
               <SLink to="/tasks">
@@ -99,9 +163,15 @@ const Header = withRouter((headerProps) => {
               </SLink>
             </List>
           </Container>
+          <Button>{userName}</Button>
           <UserSection>
-            <User>{state.user}</User>
-            <Button onClick={onClick}>로그아웃</Button>
+            <Pic></Pic>
+            <User>
+              <Info>{state.name}</Info>
+              <Info>{state.user}</Info>
+            </User>
+            <DropDownList>계정관리</DropDownList>
+            <LogOutBtn onClick={onClick}>로그아웃</LogOutBtn>
           </UserSection>
         </>
       ) : null}
