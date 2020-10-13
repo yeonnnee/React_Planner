@@ -10,14 +10,12 @@ import LogIn from "../routes/Auth";
 import SignUp from "../routes/SignUp";
 import SignUpSuccess from "../routes/SignUp/SignUpSuccess";
 import Header from "./Header";
-import Navigation from "./Navigation";
 import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Navigation />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/logIn" component={LogIn} />
