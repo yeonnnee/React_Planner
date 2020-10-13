@@ -26,12 +26,10 @@ const LogIn = (logInProps) => {
     try {
       send();
       await authApi.logIn(user);
-
-      success(user.email.split("@")[0]);
+      checkAuth();
     } catch (error) {
-      const response = error.response;
-      if (response.status === 400) {
-        setError(response.data.msg);
+      if (error.response.status === 400) {
+        setError(error.response.data.msg);
       } else {
         console.log(error);
       }
@@ -54,9 +52,13 @@ const LogIn = (logInProps) => {
     try {
       const res = await authApi.checkAuth();
       const user = await res.data.user;
-      success(user.email.split("@")[0]);
+      success({ user: user.email, name: user.name });
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        setError("");
+      } else {
+        console.log(error);
+      }
     }
   }
 

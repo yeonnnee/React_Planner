@@ -8,6 +8,7 @@ import {
 
 export const initialState = {
   user: "",
+  name: "",
   isLoading: false,
   isAuthenticated: false,
   error: "",
@@ -30,7 +31,8 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        name: action.payload.name,
         isLoading: false,
         isAuthenticated: true,
       };
@@ -39,6 +41,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: "",
+        name: "",
         isLoading: false,
         isAuthenticated: false,
         error: "",
