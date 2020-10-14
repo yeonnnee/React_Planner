@@ -40,8 +40,8 @@ const tasksReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
-          pendingList: [...state.pendingList, ...filtered_PendingList],
-          finishedList: [...state.finishedList, ...filtered_FinishedList],
+          pendingList: [...filtered_PendingList],
+          finishedList: [...filtered_FinishedList],
         };
       }
     }
