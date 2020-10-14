@@ -51,8 +51,9 @@ const monthlyReducer = (state = initialState, action) => {
 
         // SORTED BY DATE //
         unSelected_plan.sort(function (a, b) {
-          const day1 = a.date.substring(9, 10);
-          const day2 = b.date.substring(9, 10);
+          const day1 = a.date.split(" ")[2];
+          const day2 = b.date.split(" ")[2];
+
           return +day1 - +day2;
         });
         return {
@@ -87,8 +88,9 @@ const monthlyReducer = (state = initialState, action) => {
       });
       // SORTED BY DATE //
       unSelected_plan.sort(function (a, b) {
-        const day1 = a.date.substring(9, 10);
-        const day2 = b.date.substring(9, 10);
+        const day1 = a.date.split(" ")[2];
+        const day2 = b.date.split(" ")[2];
+
         return +day1 - +day2;
       });
 
@@ -152,8 +154,8 @@ const monthlyReducer = (state = initialState, action) => {
       });
       // SORTED BY DATE //
       unSelected_plan.sort(function (a, b) {
-        const day1 = a.date.substring(9, 10);
-        const day2 = b.date.substring(9, 10);
+        const day1 = a.date.split(" ")[2];
+        const day2 = b.date.split(" ")[2];
         return +day1 - +day2;
       });
       return {
