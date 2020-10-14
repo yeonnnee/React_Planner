@@ -10,6 +10,7 @@ const EditMonthlyPresenter = (editProps) => {
     planList,
     content,
     save,
+    cancel,
     date,
   } = editProps;
 
@@ -22,6 +23,7 @@ const EditMonthlyPresenter = (editProps) => {
       content={content}
       save={save}
       date={date}
+      cancel={cancel}
     />
   );
 };

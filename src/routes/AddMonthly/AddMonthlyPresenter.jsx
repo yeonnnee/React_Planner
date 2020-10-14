@@ -20,7 +20,7 @@ const Date = styled.div`
 const Button = styled.button`
   width: 80px;
   height: 30px;
-  margin: 5px 23px;
+  margin-right: 5px;
   outline: none;
   border: 1px solid #30475e;
   background: none;
@@ -54,6 +54,14 @@ const DelBtn = styled.button`
     color: #5a2330;
   }
 `;
+const BtnContainer = styled.div`
+  width: 100%;
+  height: 30px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
 
 const AddMonthlyPresenter = (monthlyProps) => {
   const {
@@ -61,6 +69,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
     onSubmit,
     save,
     date,
+    cancel,
     planList,
     content,
     deleteItem,
@@ -83,7 +92,10 @@ const AddMonthlyPresenter = (monthlyProps) => {
           </List>
         ))}
       </ListCon>
-      <Button onClick={save}>Save</Button>
+      <BtnContainer>
+        <Button onClick={save}>Save</Button>
+        <Button onClick={cancel}>Cancel</Button>
+      </BtnContainer>
     </Container>
   );
 };

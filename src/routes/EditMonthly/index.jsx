@@ -20,6 +20,10 @@ const EditMonthly = (editProps) => {
     error: "",
   });
 
+  function cancel() {
+    history.push("/monthly");
+  }
+
   async function save() {
     try {
       await monthlyApi.updatePlan(planList);
@@ -69,6 +73,7 @@ const EditMonthly = (editProps) => {
       planList={planList}
       content={content}
       save={save}
+      cancel={cancel}
       date={planList.date}
     />
   );

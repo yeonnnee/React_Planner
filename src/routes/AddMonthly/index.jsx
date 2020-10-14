@@ -19,7 +19,9 @@ const MonthlyAdd = (monthlyAddProps) => {
     text: "",
     error: "",
   });
-
+  function cancel() {
+    history.push("/monthly");
+  }
   async function save() {
     try {
       await monthlyApi.postPlan(planList);
@@ -70,6 +72,7 @@ const MonthlyAdd = (monthlyAddProps) => {
       save={save}
       planList={planList}
       content={content}
+      cancel={cancel}
       {...state}
     />
   );
