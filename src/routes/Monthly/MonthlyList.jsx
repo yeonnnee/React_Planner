@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const Section = styled.div`
   width: 100%;
-  height: 100%;
+  height: 150px;
   padding: 10px;
   display: none;
   &:hover {
@@ -60,11 +60,21 @@ const Header = styled.div`
   margin-bottom: 10px;
 `;
 const Title = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 70px;
+  overflow: hidden;
+`;
+const Scroll = styled.div`
+  width: 110%;
+  height: 60px;
+  overflow: auto;
+`;
 const Detail = styled.ul`
   font-family: "Rajdhani", sans-serif;
 `;
 const Desc = styled.li`
-  margin-left: 20px;
+  margin-left: 30px;
   list-style: square;
 `;
 const BtnSection = styled.div`
@@ -72,8 +82,8 @@ const BtnSection = styled.div`
   height: 40px;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 5px;
 `;
 
 const EditLink = styled(Link)``;
@@ -104,10 +114,15 @@ const MonthlyList = (monthlyProps) => {
       <Section>
         <Detail>
           <Header>Description</Header>
-          {contents.map((content, index) => {
-            return <Desc key={index}>{content.text}</Desc>;
-          })}
+          <Wrapper>
+            <Scroll>
+              {contents.map((content, index) => {
+                return <Desc key={index}>{content.text}</Desc>;
+              })}
+            </Scroll>
+          </Wrapper>
         </Detail>
+
         <BtnSection>
           <EditLink to={`/edit`}>
             <Btn onClick={onEdit} id={id}>

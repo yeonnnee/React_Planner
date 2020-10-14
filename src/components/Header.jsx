@@ -51,6 +51,12 @@ const UserSection = styled.div`
     inset -5px -5px 15px #baa7a1, inset 1px 1px 5px #baa7a1;
   border-radius: 5px;
   display: none;
+  &:hover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
 `;
 const DropDownList = styled.button`
   width: 90%;
@@ -136,7 +142,7 @@ const Title = styled.div`
 const Header = withRouter((headerProps) => {
   const { state, logOut, location } = headerProps;
   const owner = state.user.split("@")[0];
-  const userName = `${state.name.split("")[1]}${state.name.split("")[2]}`;
+
   async function onClick() {
     try {
       await authApi.logOut();
@@ -163,7 +169,7 @@ const Header = withRouter((headerProps) => {
               </SLink>
             </List>
           </Container>
-          <Button>{userName}</Button>
+          <Button>{state.name}</Button>
           <UserSection>
             <Pic></Pic>
             <User>

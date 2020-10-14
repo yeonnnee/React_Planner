@@ -69,6 +69,7 @@ const EditMonthly = (editProps) => {
       planList={planList}
       content={content}
       save={save}
+      date={planList.date}
     />
   );
 };

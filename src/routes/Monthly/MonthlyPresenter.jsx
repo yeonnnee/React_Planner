@@ -8,7 +8,7 @@ import Calendar from "./Calendar";
 
 const Container = styled.div`
   position: relative;
-
+  top: -30px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -30,29 +30,43 @@ const AddLink = styled(Link)`
     color: #c2b0ad;
   }
 `;
-
-const SelectedMonthly = styled.ul`
+const AddSection = styled.div`
   width: 90%;
+  padding: 14px;
   height: 100px;
-  border-top: 1px solid #30475e;
-  border-bottom: 1px solid #30475e;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid #30475e;
+  border-bottom: 1px solid #30475e;
 `;
-
 const Wrapper = styled.div`
   width: 460px;
-  height: 240px;
+  height: 250px;
   overflow: hidden;
 `;
+const SelectedMonthly = styled.ul`
+  width: 90%;
+  padding: 14px;
+  height: 100px;
+  border-top: 1px solid #30475e;
+  border-bottom: 1px solid #30475e;
+  display: grid;
+  &:focus-within {
+    height: 250px;
+  }
+  &:focus-within ~ ${Wrapper} {
+    display: none;
+  }
+`;
+
 const Scroll = styled.div`
   width: 480px;
-  height: 230px;
+  height: 240px;
   overflow: auto;
 `;
 const UnSelectedMonthly = styled.ul`
-  height: 250px;
+  height: 260px;
   padding: 20px;
   display: grid;
   gap: 5px;
@@ -73,22 +87,20 @@ const MonthlyPresenter = (monthlyProps) => {
         <Loader />
       ) : (
         <>
-          <SelectedMonthly>
-            {selected.length > 0 ? (
-              selected.map((plan, index) => {
-                return (
-                  <MonthlyList
-                    {...plan}
-                    key={index}
-                    onDelete={onDelete}
-                    onEdit={onEdit}
-                  />
-                );
-              })
-            ) : (
+          {selected.length > 0 ? (
+            selected.map((plan, index) => {
+              return (
+                <SelectedMonthly key={index}>
+                  <MonthlyList {...plan} onDelete={onDelete} onEdit={onEdit} />
+                </SelectedMonthly>
+              );
+            })
+          ) : (
+            <AddSection>
               <AddLink to="/add">ADD</AddLink>
-            )}
-          </SelectedMonthly>
+            </AddSection>
+          )}
+
           <Wrapper>
             <Scroll>
               <UnSelectedMonthly>

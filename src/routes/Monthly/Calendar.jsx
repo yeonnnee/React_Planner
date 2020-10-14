@@ -29,6 +29,27 @@ const Calendar = (calendarProps) => {
     const monthYear = await monthSection.textContent;
     change(monthYear);
   }
+  // const onStatus = () => {
+  //   const numberTile = document.querySelectorAll(
+  //     ".react-calendar__month-view__days__day"
+  //   );
+  //   console.log(state);
+  //   const monthYear = state.monthYear.split(" ");
+  //   const year = monthYear[1];
+  //   const month = monthYear[0];
+  //   const date = state.plans.map((plan) => plan.date.split(" ")[2]);
+
+  //   console.log("year", year);
+  //   console.log("month", month);
+  //   console.log("date", date);
+  //   let number = [];
+  //   for (let i = 0; i < numberTile.length; i++) {
+  //     const abbr = numberTile[i].childNodes[0];
+  //     const calendarDate = abbr.textContent;
+  //     const matchedDate = date.find((number) => number === calendarDate);
+  //     console.log(matchedDate);
+  //   }
+  // };
 
   function init() {
     const nextMonth = document.querySelector(
