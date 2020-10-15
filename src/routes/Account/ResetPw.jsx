@@ -1,6 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const ResetPw = () => {
-  return <h1>Reset</h1>;
+import CheckUser from "./CheckUser";
+
+const ResetPw = (resetPwProps) => {
+  const { state, user } = resetPwProps;
+
+  return <>{state.check ? <h1>Reset</h1> : <CheckUser {...user} />}</>;
 };
-export default ResetPw;
+function mapStateToProps(state) {
+  return { state: state.accountReducer, user: state.authReducer };
+}
+// function mapDispatchToProps(dispatch) {}
+export default connect(mapStateToProps)(ResetPw);
