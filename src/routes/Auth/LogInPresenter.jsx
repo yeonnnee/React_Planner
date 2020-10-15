@@ -40,6 +40,9 @@ export const Input = styled.input`
   &::placeholder {
     font-family: "Life Savers", cursive;
   }
+  &:focus {
+    border: 1px solid #baa7a1;
+  }
 `;
 export const Button = styled.div`
   width: 150px;
@@ -53,6 +56,9 @@ export const Button = styled.div`
   &:hover {
     background-color: #30475e;
     color: white;
+  }
+  &:focus {
+    border: 1px solid #baa7a1;
   }
 `;
 
