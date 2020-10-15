@@ -39,7 +39,7 @@ const LogIn = (logInProps) => {
     if (user.email === "" || user.password === "") {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else if (user.password.length > 20) {
-      setError("비밀번호는 8~20자리로 입력해주십시오");
+      setError("비밀번호는 8~12자리로 입력해주십시오");
     } else if (!user.email.includes("@")) {
       setError("유효하지 않은 이메일입니다");
     } else {
