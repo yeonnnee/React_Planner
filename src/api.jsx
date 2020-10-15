@@ -23,3 +23,9 @@ export const monthlyApi = {
     axios.post(`api/monthly/plan/edit/${updatedPlan.id}`, updatedPlan),
   deletePlan: (plan) => axios.post(`api/monthly/plan/${plan.id}`, plan),
 };
+
+export const accountApi = {
+  checkUser: (password) => axios.post("api/account/checkUser", password),
+  patchPW: (password) => axios.patch("api/account/change/password", password),
+  deleteAccount: () => axios.post("api/account/deleteAccount"),
+};
