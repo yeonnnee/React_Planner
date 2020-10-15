@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const DeleteAccount = () => {
-  return <h1>Hello</h1>;
+import CheckUser from "./CheckUser";
+
+const DeleteAccount = (deleteAccountProps) => {
+  const { state, user } = deleteAccountProps;
+  return <>{state.check ? <h1>Hello</h1> : <CheckUser {...user} />}</>;
 };
-export default DeleteAccount;
+function mapStateToProps(state) {
+  return { state: state.accountReducer, user: state.authReducer };
+}
+// function mapDispatchToProps(dispatch) {}
+export default connect(mapStateToProps)(DeleteAccount);
