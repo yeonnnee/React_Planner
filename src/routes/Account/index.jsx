@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import AccountPresenter from "./AccountPresenter";
-import { LOG_OUT, LOG_OUT_FAILED } from "../../redux/types";
+import {
+  LOG_OUT,
+  LOG_OUT_FAILED,
+  RESET_CHECK_USER_RECORD,
+} from "../../redux/types";
 
 const Account = (accountProps) => {
-  const { logOut, state } = accountProps;
+  const { logOut, state, reset } = accountProps;
+
+  useEffect(() => {
+    reset();
+  });
   return <AccountPresenter logOut={logOut} state={state} />;
 };
 
@@ -19,6 +27,9 @@ function mapDispatchToProps(dispatch) {
     },
     setError: (error) => {
       dispatch({ type: LOG_OUT_FAILED, payload: error });
+    },
+    reset: () => {
+      dispatch({ type: RESET_CHECK_USER_RECORD });
     },
   };
 }
