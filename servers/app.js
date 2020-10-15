@@ -34,10 +34,12 @@ const taskRoutes = require("./routes/taskRoutes");
 const monthlyRoutes = require("./routes/monthlyRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
 const authRoutes = require("./routes/authRoutes");
+const accountRoutes = require("./routes/accountRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", signUpRoutes);
 app.use("/api/monthly", monthlyRoutes);
+app.use("/api/Account", accountRoutes);
 app.use("/api", taskRoutes);
 
 // Association //
