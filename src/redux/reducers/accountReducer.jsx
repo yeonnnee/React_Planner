@@ -64,6 +64,12 @@ const accountReducer = (state = initialState, action) => {
     case UPDATE_PASSWORD_SUCCESS: {
       return { ...state, isLoading: false, result: "UPDATED" };
     }
+    case DELETE_ACCOUNT: {
+      return { ...state, isLoading: true };
+    }
+    case DELETE_ACCOUNT_SUCCESS: {
+      return { ...state, isLoading: false, result: "DELETED" };
+    }
     default:
       return state;
   }
