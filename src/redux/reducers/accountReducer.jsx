@@ -1,12 +1,17 @@
 import {
-  CHECK_USER,
-  CHECK_USER_SUCCESS,
-  RESET_CHECK_USER_RECORD,
-  CHECK_USER_FAILED,
+  CHECK_VERIFICATION,
+  CHECK_VERIFICATION_SUCCESS,
+  RESET_VERIFICATION_RECORD,
+  CHECK_VERIFICATION_FAILED,
+  ACCOUNT_ERROR,
+  UPDATE_PASSWORD,
+  UPDATE_PASSWORD_SUCCESS,
+  DELETE_ACCOUNT,
+  DELETE_ACCOUNT_SUCCESS,
 } from "../types";
 
 export const initialState = {
-  check: false,
+  verification: false,
   confirmPassword: "",
   updatedPassword: "",
   confirmUpdatedPassword: "",
@@ -17,17 +22,17 @@ export const initialState = {
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
-    case RESET_CHECK_USER_RECORD: {
-      return { ...state, check: false };
+    case RESET_VERIFICATION_RECORD: {
+      return { ...state, verification: false };
     }
-    case CHECK_USER: {
+    case CHECK_VERIFICATION: {
       return { ...state, isLoading: true };
     }
-    case CHECK_USER_SUCCESS: {
-      return { ...state, isLoading: false, check: true };
+    case CHECK_VERIFICATION_SUCCESS: {
+      return { ...state, isLoading: false, verification: true };
     }
-    case CHECK_USER_FAILED: {
-      return { ...state, check: false, isLoading: false };
+    case CHECK_VERIFICATION_FAILED: {
+      return { ...state, verification: false, isLoading: false };
     }
     default:
       return state;
