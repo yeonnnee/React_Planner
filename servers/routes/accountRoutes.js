@@ -6,6 +6,6 @@ const accountValidation = require("./validations/accountValidation");
 
 router.patch("/change/password", accountValidation, accountCon.patchPassword);
 router.post("/delete", accountCon.postDeleteAccount);
-router.post("/checkUser", accountCon.postCheckUser);
+router.post("/verification", accountCon.postVerification);
 
 module.exports = router;
