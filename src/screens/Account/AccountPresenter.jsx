@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { authApi } from "../../api";
-
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -113,15 +111,8 @@ const Info = styled.div`
   }
 `;
 const AccountPresenter = (accountProps) => {
-  const { logOut, state } = accountProps;
-  async function onClick() {
-    try {
-      await authApi.logOut();
-      logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const { state, onClick } = accountProps;
+
   return (
     <Container>
       <Header>

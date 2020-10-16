@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
+import { authApi } from "../../api";
 import AccountPresenter from "./AccountPresenter";
 import {
   LOG_OUT,
@@ -11,10 +12,18 @@ import {
 const Account = (accountProps) => {
   const { logOut, state, reset } = accountProps;
 
+  async function onClick() {
+    try {
+      await authApi.logOut();
+      logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     reset();
   });
-  return <AccountPresenter logOut={logOut} state={state} />;
+  return <AccountPresenter state={state} onClick={onClick} />;
 };
 
 function mapStateToProps(state) {
