@@ -4,6 +4,7 @@ import {
   LOGIN_SUCCESS,
   LOG_OUT,
   LOG_OUT_FAILED,
+  DELETE_ACCOUNT_SUCCESS,
 } from "../types";
 
 export const initialState = {
@@ -52,6 +53,16 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
+    case DELETE_ACCOUNT_SUCCESS: {
+      return {
+        ...state,
+        user: "",
+        name: "",
+        isLoading: false,
+        isAuthenticated: false,
+        error: "",
+      };
+    }
     default:
       return state;
   }
