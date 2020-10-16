@@ -7,7 +7,7 @@ import AddMonthly from "../screens/AddMonthly";
 import EditMonthly from "../screens/EditMonthly";
 import Home from "../screens/Home";
 import Account from "../screens/Account";
-import ResetPw from "../screens/Account/ResetPw.jsx";
+import ResetPw from "../screens/Account/ResetPw";
 import DeleteAccount from "../screens/Account/DeleteAccount";
 import LogIn from "../screens/Auth";
 import SignUp from "../screens/SignUp";
