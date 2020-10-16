@@ -28,7 +28,7 @@ exports.patchPassword = async (req, res) => {
     const userEmail = req.session.user.email;
     const user = await User.findOne({ where: { email: userEmail } });
 
-    const updatedPassword = req.body.password;
+    const updatedPassword = req.body.updatedPassword;
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
       const param = result.errors[0].param;
@@ -42,7 +42,7 @@ exports.patchPassword = async (req, res) => {
         { ...user, password: bcrypt.hashSync(updatedPassword, salt) },
         { where: { email: userEmail } }
       );
-      res.status(201).json({ msg: "Password has changed successfully" });
+      res.status(201).json({ msg: "Password has been changed successfully" });
     }
   } catch (error) {
     throw new Error();
