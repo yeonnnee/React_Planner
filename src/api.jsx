@@ -27,5 +27,5 @@ export const monthlyApi = {
 export const accountApi = {
   verification: (password) => axios.post("api/account/verification", password),
   patchPW: (password) => axios.patch("api/account/change/password", password),
-  deleteAccount: () => axios.post("api/account/deleteAccount"),
+  deleteAccount: (data) => axios.post("api/account/delete", data),
 };
