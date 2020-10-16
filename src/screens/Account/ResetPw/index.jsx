@@ -3,20 +3,21 @@ import { connect } from "react-redux";
 
 import Verification from "../Verification";
 import ResetPwPresenter from "./ResetPwPresenter";
-import { accountApi } from "../../../api";
+import { accountApi, authApi } from "../../../api";
 import {
   passwordValidation,
   confirmPw_validation,
 } from "../../SignUp/validation";
 
 import {
+  LOG_OUT,
   UPDATE_PASSWORD,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_VALIDATION_ERROR,
 } from "../../../redux/types";
 
 const ResetPw = (resetPwProps) => {
-  const { state, user, setError, update, updated } = resetPwProps;
+  const { state, user, setError, update, updated, logOut } = resetPwProps;
   const [newPassword, setNewPassword] = useState({
     password: "",
     confirmPw: "",
@@ -36,6 +37,14 @@ const ResetPw = (resetPwProps) => {
       return setNewPassword({ ...newPassword, confirmPw: value });
     }
   }
+  async function resetAuth() {
+    try {
+      await authApi.logOut();
+      logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async function updateData() {
     try {
       update();
@@ -43,6 +52,7 @@ const ResetPw = (resetPwProps) => {
         updatedPassword: newPassword.password,
       });
       updated();
+      resetAuth();
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 400) {
@@ -83,6 +93,9 @@ function mapDispatchToProps(dispatch) {
     },
     updated: () => {
       dispatch({ type: UPDATE_PASSWORD_SUCCESS });
+    },
+    logOut: () => {
+      dispatch({ type: LOG_OUT });
     },
   };
 }
