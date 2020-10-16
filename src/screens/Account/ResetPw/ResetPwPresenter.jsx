@@ -15,6 +15,9 @@ const Text = styled.div`
   font-size: 18px;
   margin-bottom: 30px;
 `;
+const Section = styled.div`
+  margin-bottom: 20px;
+`;
 
 const Error = styled.div`
   position: relative;
@@ -48,7 +51,11 @@ const ResetPwPresenter = (resetPwProps) => {
   return (
     <Container>
       <Text>비밀번호 변경</Text>
-      {state.isLoading ? <Loader /> : null}
+      {state.isLoading ? (
+        <Section>
+          <Loader />
+        </Section>
+      ) : null}
       <Input
         type="password"
         placeholder="Password"
