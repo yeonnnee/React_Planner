@@ -3,7 +3,7 @@ import {
   CHECK_VERIFICATION_SUCCESS,
   RESET_VERIFICATION_RECORD,
   CHECK_VERIFICATION_FAILED,
-  ACCOUNT_ERROR,
+  UPDATE_PASSWORD_VALIDATION_ERROR,
   UPDATE_PASSWORD,
   UPDATE_PASSWORD_SUCCESS,
   DELETE_ACCOUNT,
@@ -12,9 +12,10 @@ import {
 
 export const initialState = {
   verification: false,
-  confirmPassword: "",
-  updatedPassword: "",
-  confirmUpdatedPassword: "",
+  validation: {
+    confirmPassword: "",
+    updatedPassword: "",
+  },
   isLoading: false,
   error: "",
   result: "",
@@ -33,6 +34,35 @@ const accountReducer = (state = initialState, action) => {
     }
     case CHECK_VERIFICATION_FAILED: {
       return { ...state, verification: false, isLoading: false };
+    }
+    case UPDATE_PASSWORD_VALIDATION_ERROR: {
+      if (action.payload.password === "" || action.payload.password) {
+        return {
+          ...state,
+          isLoading: false,
+          validation: {
+            ...state.validation,
+            updatedPassword: action.payload.password,
+          },
+        };
+      }
+      if (action.payload.confirmPw === "" || action.payload.confirmPw) {
+        return {
+          ...state,
+          isLoading: false,
+          validation: {
+            ...state.validation,
+            confirmPassword: action.payload.confirmPw,
+          },
+        };
+      }
+      return { ...state };
+    }
+    case UPDATE_PASSWORD: {
+      return { ...state, isLoading: true };
+    }
+    case UPDATE_PASSWORD_SUCCESS: {
+      return { ...state, isLoading: false, result: "UPDATED" };
     }
     default:
       return state;
