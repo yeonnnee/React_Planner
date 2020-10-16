@@ -134,7 +134,6 @@ const AccountPresenter = (accountProps) => {
             <UserIconBody />
           </Pic>
         </Frame>
-
         <User>
           <Info>{state.name}</Info>
           <Info>{state.user}</Info>
@@ -145,7 +144,6 @@ const AccountPresenter = (accountProps) => {
         <AccountLink to="/delete-account">
           <DropDownList>계정삭제</DropDownList>
         </AccountLink>
-
         <LogOutBtn onClick={onClick}>로그아웃</LogOutBtn>
       </UserSection>
     </Container>

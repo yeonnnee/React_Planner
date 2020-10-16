@@ -1,11 +1,12 @@
 import React from "react";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
-import CheckUser from "./CheckUser";
+import Verification from "./Verification";
 
 const DeleteAccount = (deleteAccountProps) => {
   const { state, user } = deleteAccountProps;
-  return <>{state.check ? <h1>Hello</h1> : <CheckUser {...user} />}</>;
+  return <h1>hello</h1>;
 };
 function mapStateToProps(state) {
   return { state: state.accountReducer, user: state.authReducer };

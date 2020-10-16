@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Tasks from "../routes/Tasks";
-import Monthly from "../routes/Monthly";
-import AddMonthly from "../routes/AddMonthly";
-import EditMonthly from "../routes/EditMonthly";
-import Home from "../routes/Home";
-import Account from "../routes/Account";
-import ResetPw from "../routes/Account/ResetPw.jsx";
-import DeleteAccount from "../routes/Account/DeleteAccount";
-import LogIn from "../routes/Auth";
-import SignUp from "../routes/SignUp";
-import SignUpSuccess from "../routes/SignUp/SignUpSuccess";
+import Tasks from "../screens/Tasks";
+import Monthly from "../screens/Monthly";
+import AddMonthly from "../screens/AddMonthly";
+import EditMonthly from "../screens/EditMonthly";
+import Home from "../screens/Home";
+import Account from "../screens/Account";
+import ResetPw from "../screens/Account/ResetPw.jsx";
+import DeleteAccount from "../screens/Account/DeleteAccount";
+import LogIn from "../screens/Auth";
+import SignUp from "../screens/SignUp";
+import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
 import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
 

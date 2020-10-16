@@ -5,7 +5,7 @@ import AccountPresenter from "./AccountPresenter";
 import {
   LOG_OUT,
   LOG_OUT_FAILED,
-  RESET_CHECK_USER_RECORD,
+  RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
 
 const Account = (accountProps) => {
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: LOG_OUT_FAILED, payload: error });
     },
     reset: () => {
-      dispatch({ type: RESET_CHECK_USER_RECORD });
+      dispatch({ type: RESET_VERIFICATION_RECORD });
     },
   };
 }
