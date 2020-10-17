@@ -15,10 +15,10 @@ const DeleteAccount = (deleteAccountProps) => {
     const target = event.target;
     const value = target.value;
 
-    if (value.length > 12) {
+    if (value.length > 16) {
       setValue({
         password: value,
-        error: "비밀번호는 8~12자리로 입력해주십시오",
+        error: "비밀번호는 8~16자리로 입력해주십시오",
       });
     } else {
       setValue({ password: value, error: "" });

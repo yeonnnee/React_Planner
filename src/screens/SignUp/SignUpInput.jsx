@@ -54,7 +54,7 @@ const SignUpInput = (signUpInputProps) => {
         />
       </Form>
       {!error && id === "비밀번호" ? (
-        <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~12자</Info>
+        <Info>*영문 대소문자, 숫자, 특수문자를 포함한 8~16자</Info>
       ) : null}
     </>
   );

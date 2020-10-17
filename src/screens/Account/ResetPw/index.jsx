@@ -49,6 +49,7 @@ const ResetPw = (resetPwProps) => {
     try {
       update();
       await accountApi.patchPW({
+        user: user.user,
         updatedPassword: newPassword.password,
       });
       updated();
