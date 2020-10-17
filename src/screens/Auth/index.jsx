@@ -3,11 +3,16 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import LogInPresenter from "./LogInPresenter";
-import { TRY_LOGIN, LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
+import {
+  TRY_LOGIN,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  RESET_VERIFICATION_RECORD,
+} from "../../redux/types";
 import { authApi } from "../../api";
 
 const LogIn = (logInProps) => {
-  const { setError, send, success, state } = logInProps;
+  const { setError, send, success, state, resetRecord } = logInProps;
   const [user, setUser] = useState({ email: "", password: "" });
 
   function onChange(event) {
@@ -64,6 +69,7 @@ const LogIn = (logInProps) => {
 
   useEffect(() => {
     checkAuth();
+    resetRecord();
   }, []);
 
   return (
@@ -95,6 +101,9 @@ function mapDispatchToProps(dispatch) {
     },
     success: (user) => {
       dispatch({ type: LOGIN_SUCCESS, payload: user });
+    },
+    resetRecord: () => {
+      dispatch({ type: RESET_VERIFICATION_RECORD });
     },
   };
 }

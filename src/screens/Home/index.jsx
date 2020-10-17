@@ -4,10 +4,14 @@ import { connect } from "react-redux";
 
 import { authApi } from "../../api";
 import HomePresenter from "./HomePresenter";
-import { LOGIN_FAILED, LOGIN_SUCCESS } from "../../redux/types";
+import {
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  RESET_VERIFICATION_RECORD,
+} from "../../redux/types";
 
 const Home = (homeProps) => {
-  const { state, setError, success } = homeProps;
+  const { state, setError, success, resetRecord } = homeProps;
 
   async function checkAuth() {
     try {
@@ -25,6 +29,7 @@ const Home = (homeProps) => {
 
   useEffect(() => {
     checkAuth();
+    resetRecord();
   }, []);
 
   return (
@@ -43,6 +48,9 @@ function mapDispatchToProps(dispatch) {
     },
     success: (user) => {
       dispatch({ type: LOGIN_SUCCESS, payload: user });
+    },
+    resetRecord: () => {
+      dispatch({ type: RESET_VERIFICATION_RECORD });
     },
   };
 }
