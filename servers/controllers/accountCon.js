@@ -24,11 +24,24 @@ exports.postVerification = async (req, res) => {
     throw new Error();
   }
 };
+exports.postVerifyEmail = async (req, res) => {
+  try {
+    const userEmail = req.body.email;
+    const user = await User.findOne({ where: { email: userEmail } });
+    if (!user) {
+      return res.status(400).json({ msg: "존재하지 않는 이메일입니다" });
+    } else {
+      return res.status(200).json({ msg: "check user existed" });
+    }
+  } catch (error) {
+    throw new Error();
+  }
+};
+
 exports.patchPassword = async (req, res) => {
   try {
-    const userEmail = req.session.user.email;
+    const userEmail = req.body.user;
     const user = await User.findOne({ where: { email: userEmail } });
-
     const updatedPassword = req.body.updatedPassword;
     if (!validationResult(req).isEmpty()) {
       const result = validationResult(req);
