@@ -10,6 +10,7 @@ import Account from "../screens/Account";
 import ResetPw from "../screens/Account/ResetPw";
 import DeleteAccount from "../screens/Account/DeleteAccount";
 import LogIn from "../screens/Auth";
+import FindPassword from "../screens/FindPassword";
 import SignUp from "../screens/SignUp";
 import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
 import Header from "./Header";
@@ -22,6 +23,7 @@ const Router = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/logIn" component={LogIn} />
+        <Route path="/find-password" component={FindPassword} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
