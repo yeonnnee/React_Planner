@@ -16,7 +16,14 @@ const UserVerification = (UserVerificationProps) => {
   const onChange = (event) => {
     const target = event.target;
     const value = target.value;
-    setValue({ password: value, error: "" });
+    if (value.length > 12) {
+      setValue({
+        password: value,
+        error: "비밀번호는 8~12자리로 입력해주십시오",
+      });
+    } else {
+      setValue({ password: value, error: "" });
+    }
   };
   async function checkPw() {
     try {
@@ -34,8 +41,6 @@ const UserVerification = (UserVerificationProps) => {
   const onClick = () => {
     if (value.password === "") {
       setValue({ ...value, error: "비밀번호를 입력해주시기 바랍니다" });
-    } else if (value.password.length > 20) {
-      setValue({ ...value, error: "비밀번호는 8~12자리로 입력해주십시오" });
     } else {
       setValue({ ...value, error: "" });
       checkPw();

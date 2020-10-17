@@ -11,6 +11,8 @@ export const emailValidation = (val, setError) => {
 export const passwordValidation = (val, setError) => {
   if (val.length < 8) {
     setError({ password: "비밀번호는 8~12자로 작성해주십시오." });
+  } else if (val.length > 12) {
+    setError({ password: "비밀번호는 8~12자로 작성해주십시오." });
   } else {
     setError({ password: "" });
   }
