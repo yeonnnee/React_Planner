@@ -47,9 +47,12 @@ const User = require("./models/user");
 const Task = require("./models/task");
 const Plan = require("./models/plan");
 const Content = require("./models/content");
+const Reason = require("./models/reason");
 
 User.hasMany(Task, { foreignKey: "userId", sourceKey: "email" });
+User.hasOne(Reason, { foreignKey: "account", sourceKey: "email" });
 User.hasMany(Plan, { foreignKey: "writer", sourceKey: "email" });
+Reason.belongsTo(User);
 Task.belongsTo(User, { foreignKey: "userId", targetKey: "email" });
 Plan.belongsTo(User, { foreignKey: "writer", targetKey: "email" });
 Plan.hasMany(Content, { foreignKey: "planId", sourceKey: "id" });
