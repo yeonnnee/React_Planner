@@ -28,4 +28,7 @@ export const accountApi = {
   verification: (password) => axios.post("api/account/verification", password),
   patchPW: (password) => axios.patch("api/account/change/password", password),
   deleteAccount: (data) => axios.post("api/account/delete", data),
+  findPassword: (data) =>
+    axios.post("api/account/find-password/verification", data),
+  resetPW: (data) => axios.patch("api/account/find-password/setPassword", data),
 };
