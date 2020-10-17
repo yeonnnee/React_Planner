@@ -1,4 +1,3 @@
-const { STRING } = require("sequelize");
 const Sequelize = require("sequelize");
 const sequelize = require("./index");
 
@@ -6,7 +5,7 @@ const User = sequelize.define(
   "user",
   {
     id: {
-      type: STRING(36),
+      type: Sequelize.STRING(36),
       allowNull: false,
       primaryKey: true,
     },
