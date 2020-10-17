@@ -36,7 +36,6 @@ const Text = styled.div`
 const Button = styled.div`
   width: 150px;
   height: 40px;
-  font-family: "Life Savers", cursive;
   border: 1px solid #30475e;
   display: flex;
   align-items: center;
@@ -61,14 +60,14 @@ const HomePresenter = () => {
       <Section>
         <Text>Already have an account?</Text>
         <SLink to="/logIn">
-          <Button>Log In</Button>
+          <Button>로그인</Button>
         </SLink>
       </Section>
       <Span>or</Span>
       <Section>
         <Text>create your account</Text>
         <SLink to="/sign-up">
-          <Button>Sign Up</Button>
+          <Button>회원가입</Button>
         </SLink>
       </Section>
     </Container>
