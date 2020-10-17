@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Loader from "../../components/Loader";
 import Header from "../../components/msg/WelcomeMessage";
@@ -12,7 +13,20 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
+export const PasswordLink = styled(Link)`
+  text-decoration: none;
+  font-size: 13px;
+  margin-top: 7px;
+  align-self: flex-end;
+  padding-right: 54px;
+  color: rgb(148, 30, 30);
+`;
+export const SignUpLink = styled(Link)`
+  text-decoration: none;
+  font-size: 12px;
+  margin-top: 7px;
+  color: #391b1b;
+`;
 export const Wrapper = styled.div`
   width: 100%;
   height: 100px;
@@ -51,7 +65,7 @@ export const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Life Savers", cursive;
+
   cursor: pointer;
   &:hover {
     background-color: #30475e;
@@ -90,10 +104,12 @@ const LogInPresenter = (logInProps) => {
               onChange={onChange}
             />
           </Form>
+          <PasswordLink to="/find-password">Forgot password?</PasswordLink>
         </Wrapper>
         <Section>
-          <Button onClick={onClick}>Log In</Button>
+          <Button onClick={onClick}>로그인</Button>
         </Section>
+        <SignUpLink to="/sign-up">Create Planner Account</SignUpLink>
       </Container>
     </>
   );
