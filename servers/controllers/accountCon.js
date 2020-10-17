@@ -51,21 +51,32 @@ exports.patchPassword = async (req, res) => {
 
 exports.postDeleteAccount = async (req, res) => {
   try {
-    const user = req.session.user.email;
-    const tasks = await Task.findAll({ where: { userId: user } });
-    const plans = await Plan.findAll({ where: { writer: user } });
+    const userEmail = req.session.user.email;
 
-    if (tasks) {
-      await Task.destroy({ where: { userId: user } });
-    }
-    if (plans) {
-      for (const plan of plans) {
-        await Content.destroy({ where: { planId: plan.id } });
-        await Plan.destroy({ where: { id: plan.id } });
+    // 비밀번호 확인
+    const user = await User.findOne({ where: { email: userEmail } });
+    const password = req.body.password;
+    const compared_password = await bcrypt.compare(password, user.password);
+    // 비밀번호 일치시 데이터 삭제
+    if (compared_password) {
+      // task 리스트 삭제
+      await Task.destroy({ where: { userId: userEmail } });
+      // plan 과 content 삭제
+      const plans = await Plan.findAll({ where: { writer: userEmail } });
+      if (plans) {
+        for (const plan of plans) {
+          await Content.destroy({ where: { planId: plan.id } });
+          await Plan.destroy({ where: { id: plan.id } });
+        }
       }
+      // 계정 삭제
+      await User.destroy({ where: { email: userEmail } });
+      // 세션 삭제
+      req.session.destroy();
+      res.status(201).json({ msg: "Account has been deleted successfully" });
+    } else {
+      res.status(400).json({ msg: "비밀번호가 일치하지 않습니다." });
     }
-    await User.destroy({ where: { email: user } });
-    res.status(201).json({ msg: "Account has been deleted successfully" });
   } catch (error) {
     throw new Error();
   }
