@@ -5,6 +5,7 @@ const Content = require("../models/content");
 const Plan = require("../models/plan");
 const Task = require("../models/task");
 const User = require("../models/user");
+const Reason = require("../models/reason");
 
 exports.postVerification = async (req, res) => {
   try {
@@ -69,6 +70,11 @@ exports.postDeleteAccount = async (req, res) => {
           await Plan.destroy({ where: { id: plan.id } });
         }
       }
+      // 사유 저장
+      await Reason.create({
+        deleteReason: req.body.reason,
+        account: userEmail,
+      });
       // 계정 삭제
       await User.destroy({ where: { email: userEmail } });
       // 세션 삭제
