@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../../../components/Loader";
 
 import {
   Container,
@@ -23,6 +24,7 @@ const DeleteAccountPresenter = (deleteAccountProps) => {
     onClick,
     onSelect,
     passwordError,
+    isLoading,
     error,
   } = deleteAccountProps;
   return (
@@ -61,6 +63,7 @@ const DeleteAccountPresenter = (deleteAccountProps) => {
         가입할 수 없습니다.
       </Notice>
       <Button onClick={onClick}>내 계정 영구 삭제</Button>
+      {isLoading ? <Loader /> : null}
     </Container>
   );
 };
