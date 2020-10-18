@@ -2,15 +2,7 @@ import React from "react";
 
 import ErrorMessage from "../../../components/msg/ErrorMessage";
 import Loader from "../../../components/Loader";
-import {
-  Container,
-  Header,
-  Email,
-  Text,
-  Form,
-  Input,
-  Button,
-} from "./VerificationStyle";
+import { Container, Header, Email, Text, Form, Input, Button } from "./styles";
 
 const VerificationPresenter = (verificationProps) => {
   const { user, state, onChange, onClick, value } = verificationProps;

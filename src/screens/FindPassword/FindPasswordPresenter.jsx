@@ -1,42 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 
 import Error from "../../components/msg/ErrorMessage";
 import Loader from "../../components/Loader";
-
-const Container = styled.div`
-  width: 100%;
-  height: 300px;
-  margin-top: 45px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const Title = styled.div`
-  font-size: 20px;
-`;
-const Text = styled.div`
-  font-size: 13px;
-  margin-top: 20px;
-`;
-
-const Form = styled.form`
-  margin-top: 30px;
-`;
-const Input = styled.input`
-  outline: none;
-  width: 350px;
-  padding: 10px 20px;
-`;
-const Section = styled.div`
-  margin-top: 30px;
-`;
-const Button = styled.button`
-  width: 100px;
-  height: 30px;
-  margin-right: 10px;
-  outline: none;
-`;
+import { Container, Title, Text, Form, Input, Section, Button } from "./styles";
 
 const FindPasswordPresenter = (findPwProps) => {
   const { state, user, onChange, onClick, onCancel } = findPwProps;

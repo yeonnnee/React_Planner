@@ -1,8 +1,8 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-const SlideDown = keyframes`
+// Monthly List
+export const SlideDown = keyframes`
   from {
     transform: translateY(-30px)
   } 
@@ -11,14 +11,14 @@ const SlideDown = keyframes`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const Section = styled.div`
+export const Section = styled.div`
   width: 100%;
   height: 150px;
   padding: 10px;
@@ -28,7 +28,7 @@ const Section = styled.div`
   }
 `;
 
-const List = styled.li`
+export const List = styled.li`
   width: 100%;
   height: 70px;
   border: 1px solid #30475e;
@@ -53,31 +53,31 @@ const List = styled.li`
     background-color: #e8e8e8;
   }
 `;
-const Header = styled.div`
+export const Header = styled.div`
   width: 100%;
   height: 20px;
   border-bottom: 1px solid grey;
   margin-bottom: 10px;
 `;
-const Title = styled.div``;
-const Wrapper = styled.div`
+export const Title = styled.div``;
+export const Wrapper = styled.div`
   width: 100%;
   height: 70px;
   overflow: hidden;
 `;
-const Scroll = styled.div`
+export const Scroll = styled.div`
   width: 110%;
   height: 60px;
   overflow: auto;
 `;
-const Detail = styled.ul`
+export const Detail = styled.ul`
   font-family: "Rajdhani", sans-serif;
 `;
-const Desc = styled.li`
+export const Desc = styled.li`
   margin-left: 30px;
   list-style: square;
 `;
-const BtnSection = styled.div`
+export const BtnSection = styled.div`
   width: 100%;
   height: 40px;
   display: flex;
@@ -86,8 +86,8 @@ const BtnSection = styled.div`
   margin-bottom: 5px;
 `;
 
-const EditLink = styled(Link)``;
-const Btn = styled.button`
+export const EditLink = styled(Link)``;
+export const Btn = styled.button`
   width: 100px;
   height: 30px;
   border-radius: 20px;
@@ -102,40 +102,3 @@ const Btn = styled.button`
     color: white;
   }
 `;
-
-const MonthlyList = (monthlyProps) => {
-  const { date, contents, id, onDelete, onEdit } = monthlyProps;
-
-  return (
-    <Container>
-      <List tabIndex="0">
-        <Title>{date.substring(0, 10)}</Title>
-      </List>
-      <Section>
-        <Detail>
-          <Header>Description</Header>
-          <Wrapper>
-            <Scroll>
-              {contents.map((content, index) => {
-                return <Desc key={index}>{content.text}</Desc>;
-              })}
-            </Scroll>
-          </Wrapper>
-        </Detail>
-
-        <BtnSection>
-          <EditLink to={`/edit`}>
-            <Btn onClick={onEdit} id={id}>
-              Edit
-            </Btn>
-          </EditLink>
-          <Btn onClick={onDelete} id={date}>
-            Delete
-          </Btn>
-        </BtnSection>
-      </Section>
-    </Container>
-  );
-};
-
-export default MonthlyList;

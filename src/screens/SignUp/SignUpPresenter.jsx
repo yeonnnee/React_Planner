@@ -1,74 +1,17 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
 
 import SignUpInput from "./SignUpInput";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/msg/ErrorMessage";
-
-const FadeIn = keyframes`
- from {
-   opacity:0
- }
- to{
-  opacity:1
- }
-`;
-
-export const Container = styled.div`
-  height: 80%;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Title = styled.span`
-  font-size: 25px;
-  font-family: "Cinzel Decorative", cursive;
-  margin: 20px 0;
-`;
-
-export const Wrapper = styled.div`
-  margin: 20px;
-  height: 300px;
-  width: 100%;
-  animation: ${FadeIn} 1s linear;
-`;
-export const Section = styled.div`
-  display: flex;
-  font-family: "Life Savers", cursive;
-`;
-export const Button = styled.div`
-  width: 150px;
-  height: 40px;
-  margin-right: 10px;
-  border: 1px solid #30475e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    background-color: #30475e;
-    color: white;
-  }
-`;
-
-export const SLink = styled(Link)`
-  text-decoration: none;
-  color: #382933;
-`;
-const Error = styled.span`
-  position: relative;
-  top: -12px;
-  height: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: red;
-  line-height: 1.5;
-`;
+import {
+  Container,
+  Title,
+  Wrapper,
+  Section,
+  Button,
+  SLink,
+  Error,
+} from "./styles";
 
 const SignUpPresenter = (signUpProps) => {
   const {

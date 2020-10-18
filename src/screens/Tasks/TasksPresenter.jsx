@@ -1,44 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 
 import TaskList from "./TaskList";
 import TasksInput from "./TasksInput";
+import {
+  Container,
+  Header,
+  ListCon,
+  Title,
+  Pending,
+  Finished,
+  List,
+  Scroll,
+  Wrapper,
+} from "./styles";
 
-const Container = styled.div``;
-
-const Header = styled.div`
-  display: felx;
-  justify-content: center;
-  position: relative;
-  margin: 20px;
-  font-family: "Fredericka the Great", cursive;
-`;
-const ListCon = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 50px, 1fr;
-`;
-const Pending = styled.div``;
-const Finished = styled.div``;
-const Title = styled.span`
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-  font-family: "Fredericka the Great", cursive;
-`;
-const List = styled.ul`
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-`;
-const Scroll = styled.div`
-  width: 248px;
-`;
-const Wrapper = styled.div`
-  width: 230px;
-  overflow: hidden;
-`;
 const TasksPresenter = (tasksProps) => {
   const {
     pendingList,
