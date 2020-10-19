@@ -36,9 +36,15 @@ const DeleteAccount = (deleteAccountProps) => {
       deleted();
       history.push("/");
     } catch (error) {
-      console.log(error.response);
-      if (error.response.status === 400) {
+      const status = error.response.status;
+      if (status === 400) {
         setValue({ ...value, error: error.response.data.msg });
+      } else if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
       }
     }
   };

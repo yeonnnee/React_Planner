@@ -49,6 +49,7 @@ const FindPassword = (findPasswordProps) => {
       return setNewPassword({ ...newPassword, confirmPw: value });
     }
   }
+
   async function updatePw() {
     try {
       update();
@@ -59,9 +60,15 @@ const FindPassword = (findPasswordProps) => {
       updated();
       history.push("/logIn");
     } catch (error) {
-      console.log(error.response);
-      if (error.response.status === 400) {
+      const status = error.response.status;
+      if (status === 400) {
         setError({ password: error.response.data.msg });
+      } else if (status === 504) {
+        history.push(504);
+      } else if (status === 500) {
+        history.push(500);
+      } else {
+        return;
       }
     }
   }
@@ -77,11 +84,16 @@ const FindPassword = (findPasswordProps) => {
       await accountApi.findPassword({ email: user.email });
       verifiedUser();
     } catch (error) {
-      if (error.response.status === 400) {
+      const status = error.response.status;
+      failed();
+      if (status === 400) {
         setUser({ ...user.email, error: error.response.data.msg });
-        failed();
+      } else if (status === 504) {
+        history.push(504);
+      } else if (status === 500) {
+        history.push(500);
       } else {
-        console.log(error);
+        return;
       }
     }
   }

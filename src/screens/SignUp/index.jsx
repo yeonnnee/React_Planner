@@ -87,22 +87,23 @@ const SignUp = (signUpProps) => {
       history.push("/sign-up/success");
     } catch (error) {
       // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
-      if (error) {
-        if (error.response.status === 400) {
-          const res = error.response.data;
-          switch (res.param) {
-            case "email":
-              return setError({ email: res.msg });
-            case "password":
-              return setError({ password: res.msg });
-            case "name":
-              return setError({ name: res.msg });
-            default:
-              failed(res.msg);
-          }
-        } else {
-          console.log(error.response.status);
+      const status = error.response.status;
+      if (status === 400) {
+        const res = error.response.data;
+        switch (res.param) {
+          case "email":
+            return setError({ email: res.msg });
+          case "password":
+            return setError({ password: res.msg });
+          case "name":
+            return setError({ name: res.msg });
+          default:
+            failed(res.msg);
         }
+      } else if (status === 504) {
+        history.push(504);
+      } else if (status === 500) {
+        history.push(500);
       }
     }
   }
@@ -112,24 +113,25 @@ const SignUp = (signUpProps) => {
     event.preventDefault();
 
     if (
-      userInfo.email === "" ||
-      userInfo.name === "" ||
-      userInfo.password === "" ||
-      userInfo.confirmPassword === ""
+      !userInfo.email ||
+      !userInfo.name ||
+      !userInfo.password ||
+      !userInfo.confirmPassword
     ) {
       return failed("빈칸 없이 입력해주십시오");
     } else {
       failed("");
     }
     if (
-      state.validation.email === "" &&
-      state.validation.password === "" &&
-      state.validation.confirmPw === "" &&
-      state.validation.name === ""
+      !state.validation.email &&
+      !state.validation.password &&
+      !state.validation.confirmPw &&
+      !state.validation.name
     ) {
       sendData();
     }
   }
+
   /* cancel버튼 눌렀을 때 발생하는 함수*/
   function onCancel() {
     cancel();
@@ -140,8 +142,7 @@ const SignUp = (signUpProps) => {
       onSubmit={onSubmit}
       onChange={onChange}
       onCancel={onCancel}
-      userInfo={userInfo}
-      {...state}
+      state={state}
     />
   );
 };

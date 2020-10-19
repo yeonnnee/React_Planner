@@ -10,12 +10,43 @@ import {
   RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
 import { authApi } from "../../api";
-import GatewayError from "../../components/msg/GatewayError";
-import ServerError from "../../components/msg/ServerError";
 
 const LogIn = (logInProps) => {
-  const { setError, send, success, state, resetRecord } = logInProps;
+  const { setError, send, success, state, resetRecord, history } = logInProps;
   const [user, setUser] = useState({ email: "", password: "" });
+
+  // 로그인 버튼 클릭 후 VALIDATION ERROR 없을 시 실행되는 함수
+  async function logIn() {
+    try {
+      send();
+      await authApi.logIn(user);
+      checkAuth();
+    } catch (error) {
+      const status = error.response.status;
+      const msg = error.response.data.msg;
+
+      if (status === 400) {
+        setError(msg);
+      } else if (status === 504) {
+        history.push("/504");
+      } else if (status === 500) {
+        history.push("/500");
+      }
+    }
+  }
+  // 로그인 버튼 눌렀을때 실행되는 함수
+  async function onClick() {
+    if (!user.name || !user.password) {
+      setError("아이디와 비밀번호를 입력해주시기 바랍니다");
+    } else if (user.password.length > 16) {
+      setError("비밀번호는 8~16자리로 입력해주십시오");
+    } else if (!user.email.includes("@")) {
+      setError("유효하지 않은 이메일입니다");
+    } else {
+      setError("");
+      logIn();
+    }
+  }
 
   // input 입력값 저장
   function onChange(event) {
@@ -31,43 +62,6 @@ const LogIn = (logInProps) => {
     }
   }
 
-  // 로그인 버튼 클릭 후 VALIDATION ERROR 없을 시 실행되는 함수
-  async function logIn() {
-    try {
-      send();
-      await authApi.logIn(user);
-      checkAuth();
-    } catch (error) {
-      const status = error.response.status;
-      const msg = error.response.data.msg;
-
-      if (status === 400) {
-        setError({ status: status, msg: msg });
-      } else if (status === 504) {
-        setError({ status: status, msg: "" });
-      } else if (status === 500) {
-        setError({ status: status, msg: "" });
-      }
-    }
-  }
-
-  // 로그인 버튼 눌렀을때 실행되는 함수
-  async function onClick() {
-    if (user.email === "" || user.password === "") {
-      setError({
-        status: "",
-        msg: "아이디와 비밀번호를 입력해주시기 바랍니다",
-      });
-    } else if (user.password.length > 16) {
-      setError({ status: "", msg: "비밀번호는 8~16자리로 입력해주십시오" });
-    } else if (!user.email.includes("@")) {
-      setError({ status: "", msg: "유효하지 않은 이메일입니다" });
-    } else {
-      setError({ status: "", msg: "" });
-      logIn();
-    }
-  }
-
   // 페이지 render시 실행되는 함수
   async function checkAuth() {
     try {
@@ -78,13 +72,13 @@ const LogIn = (logInProps) => {
       const status = error.response.status;
 
       if (status === 401) {
-        setError({ status: status, msg: "" });
+        setError("");
       } else if (status === 400) {
         setError(error.response.data.msg);
       } else if (status === 504) {
-        setError({ status: status, msg: "" });
+        history.push(504);
       } else if (status === 500) {
-        setError({ status: status, msg: "" });
+        history.push(500);
       }
     }
   }
@@ -98,10 +92,6 @@ const LogIn = (logInProps) => {
     <>
       {state.isAuthenticated ? (
         <Redirect to="/tasks" />
-      ) : state.error.status === 500 ? (
-        <ServerError />
-      ) : state.error.status === 504 ? (
-        <GatewayError />
       ) : (
         <LogInPresenter {...state} onClick={onClick} onChange={onChange} />
       )}

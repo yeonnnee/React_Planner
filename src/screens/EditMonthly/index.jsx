@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { monthlyApi } from "../../api";
-import { UPDATE_MONTHLY, FAILED } from "../../redux/types";
 
+import { monthlyApi } from "../../api";
+import { UPDATE_MONTHLY } from "../../redux/types";
 import EditMonthlyPresenter from "./EditMonthlyPresenter";
 
 const EditMonthly = (editProps) => {
-  const { state, failed, update, history } = editProps;
+  const { state, update, history } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.isEdit.id,
@@ -30,7 +30,14 @@ const EditMonthly = (editProps) => {
       update(planList);
       history.push("/monthly");
     } catch (error) {
-      failed(error);
+      const status = error.response.status;
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
+      }
     }
   }
 
@@ -44,7 +51,7 @@ const EditMonthly = (editProps) => {
 
   function onSubmit(event) {
     event.preventDefault();
-    if (content.text !== "") {
+    if (content.text) {
       setPlanList({
         ...planList,
         contents: [...planList.contents, content],
@@ -86,9 +93,6 @@ function mapDispatchToProps(dispatch) {
   return {
     update: (updatedPlan) => {
       dispatch({ type: UPDATE_MONTHLY, payload: updatedPlan });
-    },
-    failed: (error) => {
-      dispatch({ type: FAILED, payload: error });
     },
   };
 }

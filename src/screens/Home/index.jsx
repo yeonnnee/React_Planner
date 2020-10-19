@@ -9,11 +9,9 @@ import {
   LOGIN_SUCCESS,
   RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
-import GatewayError from "../../components/msg/GatewayError";
-import ServerError from "../../components/msg/ServerError";
 
 const Home = (homeProps) => {
-  const { state, setError, success, resetRecord } = homeProps;
+  const { state, setError, success, resetRecord, history } = homeProps;
 
   // 페이지 render시 실행되는 함수
   async function checkAuth() {
@@ -25,13 +23,15 @@ const Home = (homeProps) => {
       const status = error.response.status;
 
       if (status === 401) {
-        setError({ status: status, msg: "" });
+        setError("");
       } else if (status === 400) {
         setError(error.response.data.msg);
       } else if (status === 504) {
-        setError({ status: status, msg: "" });
+        history.push("/504");
       } else if (status === 500) {
-        setError({ status: status, msg: "" });
+        history.push("/500");
+      } else {
+        return;
       }
     }
   }
@@ -42,17 +42,7 @@ const Home = (homeProps) => {
   }, []);
 
   return (
-    <>
-      {state.isAuthenticated ? (
-        <Redirect to="/tasks" />
-      ) : state.error.status === 500 ? (
-        <ServerError />
-      ) : state.error.status === 504 ? (
-        <GatewayError />
-      ) : (
-        <HomePresenter />
-      )}
-    </>
+    <>{state.isAuthenticated ? <Redirect to="/tasks" /> : <HomePresenter />}</>
   );
 };
 

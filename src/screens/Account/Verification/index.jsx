@@ -10,7 +10,14 @@ import {
 import VerificationPresenter from "./VerificationPresenter";
 
 const UserVerification = (UserVerificationProps) => {
-  const { user, state, comparePw, success, failed } = UserVerificationProps;
+  const {
+    user,
+    state,
+    comparePw,
+    success,
+    failed,
+    history,
+  } = UserVerificationProps;
   const [value, setValue] = useState({ password: "", error: "" });
 
   const onChange = (event) => {
@@ -32,9 +39,15 @@ const UserVerification = (UserVerificationProps) => {
       success();
     } catch (error) {
       failed();
-      console.log("error", error.response);
-      if (error.response.status === 400) {
+      const status = error.response.status;
+      if (status === 400) {
         setValue({ ...state, error: error.response.data.msg });
+      } else if (status === 504) {
+        history.push(504);
+      } else if (status === 500) {
+        history.push(500);
+      } else {
+        return;
       }
     }
   }

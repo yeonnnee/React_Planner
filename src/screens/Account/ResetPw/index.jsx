@@ -17,7 +17,15 @@ import {
 } from "../../../redux/types";
 
 const ResetPw = (resetPwProps) => {
-  const { state, user, setError, update, updated, logOut } = resetPwProps;
+  const {
+    state,
+    user,
+    setError,
+    update,
+    updated,
+    logOut,
+    history,
+  } = resetPwProps;
   const [newPassword, setNewPassword] = useState({
     password: "",
     confirmPw: "",
@@ -42,7 +50,14 @@ const ResetPw = (resetPwProps) => {
       await authApi.logOut();
       logOut();
     } catch (error) {
-      console.log(error);
+      const status = error.response.status;
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
+      }
     }
   }
   async function updateData() {
@@ -55,17 +70,23 @@ const ResetPw = (resetPwProps) => {
       updated();
       resetAuth();
     } catch (error) {
-      console.log(error.response);
-      if (error.response.status === 400) {
+      const status = error.response.status;
+      if (status === 400) {
         setError({ password: error.response.data.msg });
+      } else if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
       }
     }
   }
   function onClick() {
     if (
-      state.validation.updatedPassword === "" &&
-      state.validation.confirmPassword === "" &&
-      newPassword.password !== ""
+      !state.validation.updatedPassword &&
+      !state.validation.confirmPassword &&
+      newPassword.password
     ) {
       updateData();
     }

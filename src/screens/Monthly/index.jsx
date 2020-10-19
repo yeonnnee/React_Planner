@@ -6,7 +6,6 @@ import MonthlyPresenter from "./MonthlyPresenter";
 import {
   DELETE_MONTHLY,
   EDIT_MONTHLY,
-  FAILED,
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
 } from "../../redux/types";
@@ -16,9 +15,9 @@ const Monthly = (monthlyProps) => {
     state,
     fetch_monthly,
     fetch_success,
-    failed,
     edit,
     deletePlan,
+    history,
   } = monthlyProps;
 
   const onDelete = async (event) => {
@@ -28,7 +27,14 @@ const Monthly = (monthlyProps) => {
       await monthlyApi.deletePlan(target);
       deletePlan(target);
     } catch (error) {
-      failed(error);
+      const status = error.response.status;
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
+      }
     }
   };
   const onEdit = (event) => {
@@ -42,7 +48,14 @@ const Monthly = (monthlyProps) => {
       const res = await monthlyApi.getMonthly();
       fetch_success(res.data.monthly);
     } catch (error) {
-      failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
+      const status = error.response.status;
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      } else {
+        return;
+      }
     }
   }
 
@@ -65,9 +78,7 @@ function mapDispatchToProps(dispatch) {
     fetch_success: (data) => {
       dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: data });
     },
-    failed: (error) => {
-      dispatch({ type: FAILED, payload: error });
-    },
+
     edit: (id) => {
       dispatch({ type: EDIT_MONTHLY, payload: id });
     },

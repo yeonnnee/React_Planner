@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
 import { monthlyApi } from "../../api";
-import { CREATE_MONTHLY, FAILED } from "../../redux/types";
+import { CREATE_MONTHLY } from "../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, history, create, failed } = monthlyAddProps;
+  const { state, history, create } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
     id: "",
@@ -28,7 +28,14 @@ const MonthlyAdd = (monthlyAddProps) => {
       create(planList);
       history.push("/monthly");
     } catch (error) {
-      failed(error);
+      const status = error.response.status;
+      if (status === 504) {
+        history.push(504);
+      } else if (status === 500) {
+        history.push(500);
+      } else {
+        return;
+      }
     }
   }
 
@@ -86,9 +93,6 @@ function mapDispatchToProps(dispatch) {
   return {
     create: (plan) => {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
-    },
-    failed: (error) => {
-      dispatch({ type: FAILED, payload: error });
     },
   };
 }
