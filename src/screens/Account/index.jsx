@@ -5,7 +5,7 @@ import { authApi } from "../../api";
 import AccountPresenter from "./AccountPresenter";
 import {
   LOG_OUT,
-  LOG_OUT_FAILED,
+  AUTH_ERROR,
   RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
 
@@ -35,7 +35,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: LOG_OUT });
     },
     setError: (error) => {
-      dispatch({ type: LOG_OUT_FAILED, payload: error });
+      dispatch({ type: AUTH_ERROR, payload: error });
     },
     reset: () => {
       dispatch({ type: RESET_VERIFICATION_RECORD });

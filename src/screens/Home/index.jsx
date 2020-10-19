@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { authApi } from "../../api";
 import HomePresenter from "./HomePresenter";
 import {
-  LOGIN_FAILED,
+  AUTH_ERROR,
   LOGIN_SUCCESS,
   RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setError: (error) => {
-      dispatch({ type: LOGIN_FAILED, payload: error });
+      dispatch({ type: AUTH_ERROR, payload: error });
     },
     success: (user) => {
       dispatch({ type: LOGIN_SUCCESS, payload: user });
