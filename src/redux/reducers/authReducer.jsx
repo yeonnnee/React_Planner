@@ -11,7 +11,7 @@ export const initialState = {
   name: "",
   isLoading: false,
   isAuthenticated: false,
-  error: { status: "", msg: "" },
+  error: "",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -38,13 +38,13 @@ const authReducer = (state = initialState, action) => {
         name: "",
         isLoading: false,
         isAuthenticated: false,
-        error: { status: "", msg: "" },
+        error: "",
       };
     case AUTH_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: { status: action.payload.status, msg: action.payload.msg },
+        error: action.payload,
       };
     case DELETE_ACCOUNT_SUCCESS: {
       return {
@@ -53,7 +53,7 @@ const authReducer = (state = initialState, action) => {
         name: "",
         isLoading: false,
         isAuthenticated: false,
-        error: { status: "", msg: "" },
+        error: "",
       };
     }
     default:
