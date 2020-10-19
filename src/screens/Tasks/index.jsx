@@ -14,7 +14,7 @@ import {
 } from "../../redux/types";
 
 const Tasks = (tasksProps) => {
-  const { state, start, success, failed, add, setError } = tasksProps;
+  const { state, start, success, add, failed, setError, history } = tasksProps;
   const [tasks, setTasks] = useState({ content: "", id: "", status: "" });
 
   async function fetchData() {
@@ -23,8 +23,16 @@ const Tasks = (tasksProps) => {
       const res = await taskApi.getTasks();
       success(res.data.tasks);
     } catch (error) {
-      console.log(error.response);
-      failed("문제가 발생하였습니다. 잠시 후 다시 시도해주십시오");
+      const status = error.response.status;
+      if (status === 500) {
+        failed();
+        history.push("/500");
+      } else if (status === 504) {
+        failed();
+        history.push("/504");
+      } else {
+        return failed();
+      }
     }
   }
 
@@ -37,7 +45,7 @@ const Tasks = (tasksProps) => {
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      if (tasks.content !== "") {
+      if (tasks.content) {
         await taskApi.postTask(tasks);
         add(tasks);
         setTasks({ content: "", id: "", status: "" });
@@ -46,9 +54,12 @@ const Tasks = (tasksProps) => {
       const res = error.response;
       if (res.status === 400) {
         setError(res.data.msg);
+      } else if (res.status === 504) {
+        history.push(504);
+      } else if (res.status === 500) {
+        history.push(500);
       } else {
-        setError("문제가 발생했습니다. 잠시 후 다시 시도해주십시오");
-        console.log(res);
+        return;
       }
     }
   }
@@ -85,8 +96,8 @@ function mapDispatchToProps(dispatch) {
     success: (data) => {
       dispatch({ type: FETCH_SUCCESS, payload: data });
     },
-    failed: (error) => {
-      dispatch({ type: FETCH_FAILED, payload: error });
+    failed: () => {
+      dispatch({ type: FETCH_FAILED });
     },
     add: (tasks) => {
       dispatch({

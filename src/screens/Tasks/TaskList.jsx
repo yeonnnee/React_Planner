@@ -6,16 +6,23 @@ import { taskApi } from "../../api";
 import { ListItem, CheckBox, DelBtn } from "./styles";
 
 const TaskList = (taskListProps) => {
-  const { content, id, status, change, deleteItem } = taskListProps;
+  const { content, id, status, change, deleteItem, history } = taskListProps;
 
-  function changeStatus() {
+  async function changeStatus() {
     if (status === "PENDING") {
       try {
         const completed = { id: id, content: content, status: "FINISHED" };
-        taskApi.patchTask(completed);
+        await taskApi.patchTask(completed);
         change(completed);
       } catch (error) {
-        console.log(error.response);
+        const res = error.response;
+        if (res.status === 500) {
+          history.push("/500");
+        } else if (res.status === 504) {
+          history.push("/504");
+        } else {
+          return;
+        }
       }
     }
     if (status === "FINISHED") {
@@ -24,7 +31,14 @@ const TaskList = (taskListProps) => {
         taskApi.patchTask(uncompleted);
         change(uncompleted);
       } catch (error) {
-        console.log(error.response);
+        const res = error.response;
+        if (res.status === 500) {
+          history.push("/500");
+        } else if (res.status === 504) {
+          history.push("/504");
+        } else {
+          return;
+        }
       }
     }
   }
@@ -35,7 +49,14 @@ const TaskList = (taskListProps) => {
       taskApi.deleteTask(target);
       deleteItem(target);
     } catch (error) {
-      console.log(error.response);
+      const res = error.response;
+      if (res.status === 500) {
+        history.push("/500");
+      } else if (res.status === 504) {
+        history.push("/504");
+      } else {
+        return;
+      }
     }
   }
   return (
