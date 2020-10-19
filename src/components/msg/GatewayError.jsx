@@ -7,7 +7,7 @@ const Text = styled.div`
   font-weight: bold;
   margin-top: 20px;
   margin-left: 20px;
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Piazzolla", serif;
 `;
 const GatewayError = () => {
   return (

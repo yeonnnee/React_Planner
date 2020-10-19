@@ -22,7 +22,7 @@ const Blink = keyframes`
 const Container = styled.div`
   width: 100%;
   font-size: 15px;
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
