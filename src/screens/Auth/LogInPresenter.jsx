@@ -15,21 +15,20 @@ import {
 } from "./styles";
 
 const LogInPresenter = (logInProps) => {
-  const { onChange, onClick, isLoading, error, email, password } = logInProps;
+  const { onChange, onClick, isLoading, error } = logInProps;
   return (
     <>
       <Container>
         <Header />
         <Wrapper>
           {isLoading ? <Loader /> : null}
-          {error !== "" ? <ErrorMessage error={error} /> : null}
+          {error.msg ? <ErrorMessage error={error.msg} /> : null}
 
           <Form>
             <Input
               type="text"
               placeholder="Email"
               name="email"
-              value={email}
               onChange={onChange}
             />
           </Form>
@@ -38,7 +37,6 @@ const LogInPresenter = (logInProps) => {
               type="password"
               placeholder="Password"
               name="password"
-              value={password}
               onChange={onChange}
             />
           </Form>

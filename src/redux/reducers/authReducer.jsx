@@ -1,9 +1,8 @@
 import {
   TRY_LOGIN,
-  LOGIN_FAILED,
   LOGIN_SUCCESS,
   LOG_OUT,
-  LOG_OUT_FAILED,
+  AUTH_ERROR,
   DELETE_ACCOUNT_SUCCESS,
 } from "../types";
 
@@ -12,7 +11,7 @@ export const initialState = {
   name: "",
   isLoading: false,
   isAuthenticated: false,
-  error: "",
+  error: { status: "", msg: "" },
 };
 
 const authReducer = (state = initialState, action) => {
@@ -21,12 +20,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-      };
-    case LOGIN_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
       };
 
     case LOGIN_SUCCESS:
@@ -45,13 +38,13 @@ const authReducer = (state = initialState, action) => {
         name: "",
         isLoading: false,
         isAuthenticated: false,
-        error: "",
+        error: { status: "", msg: "" },
       };
-    case LOG_OUT_FAILED:
+    case AUTH_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        error: { status: action.payload.status, msg: action.payload.msg },
       };
     case DELETE_ACCOUNT_SUCCESS: {
       return {
@@ -60,7 +53,7 @@ const authReducer = (state = initialState, action) => {
         name: "",
         isLoading: false,
         isAuthenticated: false,
-        error: "",
+        error: { status: "", msg: "" },
       };
     }
     default:
