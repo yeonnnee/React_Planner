@@ -19,9 +19,9 @@ const ResetPwPresenter = (resetPwProps) => {
         placeholder="Password"
         id="새 비밀번호"
         onChange={onChange}
-        error={state.validation.updatedPassword !== "" ? true : false}
+        error={state.validation.updatedPassword ? true : false}
       />
-      {state.validation.updatedPassword !== "" ? (
+      {state.validation.updatedPassword ? (
         <Error>{state.validation.updatedPassword}</Error>
       ) : null}
 
@@ -30,9 +30,9 @@ const ResetPwPresenter = (resetPwProps) => {
         placeholder="Confirm Password"
         id="비밀번호 재입력"
         onChange={onChange}
-        error={state.validation.confirmPassword !== "" ? true : false}
+        error={state.validation.confirmPassword ? true : false}
       />
-      {state.validation.confirmPassword !== "" ? (
+      {state.validation.confirmPassword ? (
         <Error>{state.validation.confirmPassword}</Error>
       ) : null}
 

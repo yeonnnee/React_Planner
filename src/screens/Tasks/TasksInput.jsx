@@ -32,7 +32,7 @@ const TasksInput = (tasksInputProps) => {
           placeholder="Add a Task..."
         />
       </Form>
-      {error !== "" ? <ErrorMessage error={error} /> : null}
+      {error ? <ErrorMessage error={error} /> : null}
     </>
   );
 };
