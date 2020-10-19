@@ -1,7 +1,6 @@
 import {
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
-  FAILED,
   EDIT_MONTHLY,
   CREATE_MONTHLY,
   UPDATE_MONTHLY,
@@ -64,11 +63,6 @@ const monthlyReducer = (state = initialState, action) => {
           plans: [...action.payload],
         };
       }
-    }
-
-    //* ACTIVE WHEN ERRORS HAPPEN *//
-    case FAILED: {
-      return { ...state, isLoading: false, error: action.payload };
     }
 
     //* ACTIVE WHEN DATE SELECTED *//
