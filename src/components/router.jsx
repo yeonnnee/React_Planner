@@ -15,6 +15,7 @@ import SignUp from "../screens/SignUp";
 import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
 import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "./msg/NotFound";
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <PrivateRoute exact path="/account" component={Account} />
         <PrivateRoute exact path="/reset-password" component={ResetPw} />
         <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
