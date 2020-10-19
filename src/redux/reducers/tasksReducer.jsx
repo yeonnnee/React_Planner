@@ -49,7 +49,6 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
       };
     //////////////////////* CRUD TASKS *////////////////
 
