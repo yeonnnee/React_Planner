@@ -31,10 +31,12 @@ const EditMonthly = (editProps) => {
       history.push("/monthly");
     } catch (error) {
       const status = error.response.status;
-      if (status === 500) {
-        history.push("/500");
-      } else if (status === 504) {
+      if (status === 504) {
         history.push("/504");
+      } else if (status === 500) {
+        history.push("/500");
+      } else if (status === 400) {
+        history.push("/error");
       } else {
         return;
       }
@@ -51,7 +53,7 @@ const EditMonthly = (editProps) => {
 
   function onSubmit(event) {
     event.preventDefault();
-    if (content.text) {
+    if (content.text && !content.error) {
       setPlanList({
         ...planList,
         contents: [...planList.contents, content],
@@ -65,11 +67,19 @@ const EditMonthly = (editProps) => {
 
   function onChange(event) {
     const value = event.target.value;
-    setContent({
-      id: uuidv4().toString(),
-      text: value,
-      error: "",
-    });
+    if (value.length > 30) {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        error: "30자 이내로 작성해 주십시오",
+      });
+    } else {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        error: "",
+      });
+    }
   }
 
   return (
