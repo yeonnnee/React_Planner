@@ -27,26 +27,31 @@ const AddMonthlyPresenter = (monthlyProps) => {
 
   return (
     <Container>
-      <Date>{date.substring(0, 10)}</Date>
-      {isLoading ? <Loader /> : null}
-      <TasksInput
-        onChange={onChange}
-        onSubmit={onSubmit}
-        content={content.text}
-        error={content.error}
-      />
-      <ListCon>
-        {planList.contents.map((content, index) => (
-          <List key={index} id={content.id}>
-            {content.text}
-            <DelBtn onClick={deleteItem}>X</DelBtn>
-          </List>
-        ))}
-      </ListCon>
-      <Section>
-        <Button onClick={save}>Save</Button>
-        <Button onClick={cancel}>Cancel</Button>
-      </Section>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Date>{date.substring(0, 10)}</Date>
+          <TasksInput
+            onChange={onChange}
+            onSubmit={onSubmit}
+            content={content.text}
+            error={content.error}
+          />
+          <ListCon>
+            {planList.contents.map((content, index) => (
+              <List key={index} id={content.id}>
+                {content.text}
+                <DelBtn onClick={deleteItem}>X</DelBtn>
+              </List>
+            ))}
+          </ListCon>
+          <Section>
+            <Button onClick={save}>Save</Button>
+            <Button onClick={cancel}>Cancel</Button>
+          </Section>
+        </>
+      )}
     </Container>
   );
 };
