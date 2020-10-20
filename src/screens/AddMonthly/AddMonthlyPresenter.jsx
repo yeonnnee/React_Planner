@@ -1,5 +1,6 @@
 import React from "react";
 
+import Loader from "../../components/Loader";
 import TasksInput from "../Tasks/TasksInput";
 import {
   Container,
@@ -21,11 +22,13 @@ const AddMonthlyPresenter = (monthlyProps) => {
     planList,
     content,
     deleteItem,
+    isLoading,
   } = monthlyProps;
 
   return (
     <Container>
       <Date>{date.substring(0, 10)}</Date>
+      {isLoading ? <Loader /> : null}
       <TasksInput
         onChange={onChange}
         onSubmit={onSubmit}

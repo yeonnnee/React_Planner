@@ -7,6 +7,7 @@ import {
   DELETE_MONTHLY,
   SELECT_MONTHLY,
   CHANGE_MONTHLY,
+  SAVE_MONTHLY,
 } from "../types";
 
 const initialState = {
@@ -95,6 +96,9 @@ const monthlyReducer = (state = initialState, action) => {
         selected: selected_plan,
         unSelected: unSelected_plan,
       };
+    }
+    case SAVE_MONTHLY: {
+      return { ...state, isLoading: true };
     }
 
     //* ACTIVE MONTHLY CREATED *//
