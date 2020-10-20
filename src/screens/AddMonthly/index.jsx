@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
 import { monthlyApi } from "../../api";
-import { CREATE_MONTHLY } from "../../redux/types";
+import { CREATE_MONTHLY, SAVE_MONTHLY } from "../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, history, create } = monthlyAddProps;
+  const { state, history, create, saveMonthly } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
     id: "",
@@ -24,15 +24,18 @@ const MonthlyAdd = (monthlyAddProps) => {
   }
   async function save() {
     try {
+      saveMonthly();
       await monthlyApi.postPlan(planList);
       create(planList);
       history.push("/monthly");
     } catch (error) {
       const status = error.response.status;
       if (status === 504) {
-        history.push(504);
+        history.push("/504");
       } else if (status === 500) {
-        history.push(500);
+        history.push("/500");
+      } else if (status === 400) {
+        history.push("/error");
       } else {
         return;
       }
@@ -49,7 +52,7 @@ const MonthlyAdd = (monthlyAddProps) => {
 
   function onSubmit(event) {
     event.preventDefault();
-    if (content.text !== "") {
+    if (content.text && !content.error) {
       setPlanList({
         ...planList,
         id: uuidv4().toString(),
@@ -64,11 +67,19 @@ const MonthlyAdd = (monthlyAddProps) => {
 
   function onChange(event) {
     const value = event.target.value;
-    setContent({
-      id: uuidv4().toString(),
-      text: value,
-      error: "",
-    });
+    if (value.length > 30) {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        error: "30자 이내로 작성해 주십시오",
+      });
+    } else {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        error: "",
+      });
+    }
   }
 
   return (
@@ -91,6 +102,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    saveMonthly: () => {
+      dispatch({ type: SAVE_MONTHLY });
+    },
     create: (plan) => {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
     },

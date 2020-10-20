@@ -18,6 +18,7 @@ import PrivateRoute from "./PrivateRoute";
 import NotFound from "./msg/NotFound";
 import GatewayError from "./msg/GatewayError";
 import ServerError from "./msg/ServerError";
+import ErrorPage from "./msg/ErrorPage";
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <Route path="/504" component={GatewayError} />
         <Route path="/500" component={ServerError} />
+        <Route path="/error" component={ErrorPage} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/add" component={AddMonthly} />
