@@ -36,7 +36,7 @@ const LogIn = (logInProps) => {
   }
   // 로그인 버튼 눌렀을때 실행되는 함수
   async function onClick() {
-    if (!user.name || !user.password) {
+    if (!user.email || !user.password) {
       setError("아이디와 비밀번호를 입력해주시기 바랍니다");
     } else if (user.password.length > 16) {
       setError("비밀번호는 8~16자리로 입력해주십시오");
