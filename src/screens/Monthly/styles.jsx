@@ -63,8 +63,6 @@ export const Scroll = styled.div`
 export const UnSelectedMonthly = styled.ul`
   height: 260px;
   padding: 20px;
-  display: grid;
-  gap: 5px;
 `;
 export const Text = styled.div`
   font-family: "Life Savers", cursive;

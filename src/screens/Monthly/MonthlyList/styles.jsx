@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // Monthly List
 export const SlideDown = keyframes`
   from {
-    transform: translateY(-30px)
+    transform: translateY(-50px)
   } 
   to{
     transform: translateY(0);
@@ -31,6 +31,7 @@ export const Section = styled.div`
 export const List = styled.li`
   width: 100%;
   height: 70px;
+  margin: 5px 0;
   border: 1px solid #30475e;
   outline: none;
   display: flex;
@@ -74,8 +75,9 @@ export const Detail = styled.ul`
   font-family: "Rajdhani", sans-serif;
 `;
 export const Desc = styled.li`
-  margin-left: 30px;
+  margin: 5px 0 0 30px;
   list-style: square;
+  width: 80%;
 `;
 export const BtnSection = styled.div`
   width: 100%;
