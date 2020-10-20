@@ -12,6 +12,7 @@ const EditMonthlyPresenter = (editProps) => {
     save,
     cancel,
     date,
+    state,
   } = editProps;
 
   return (
@@ -24,6 +25,7 @@ const EditMonthlyPresenter = (editProps) => {
       save={save}
       date={date}
       cancel={cancel}
+      isLoading={state.isLoading}
     />
   );
 };
