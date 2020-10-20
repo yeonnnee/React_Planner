@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { monthlyApi } from "../../api";
-import { UPDATE_MONTHLY } from "../../redux/types";
+import { SAVE_MONTHLY, UPDATE_MONTHLY } from "../../redux/types";
 import EditMonthlyPresenter from "./EditMonthlyPresenter";
 
 const EditMonthly = (editProps) => {
-  const { state, update, history } = editProps;
+  const { state, update, history, saveMonthly } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.isEdit.id,
@@ -26,6 +26,7 @@ const EditMonthly = (editProps) => {
 
   async function save() {
     try {
+      saveMonthly();
       await monthlyApi.updatePlan(planList);
       update(planList);
       history.push("/monthly");
@@ -92,6 +93,7 @@ const EditMonthly = (editProps) => {
       save={save}
       cancel={cancel}
       date={planList.date}
+      state={state}
     />
   );
 };
@@ -101,6 +103,9 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
+    saveMonthly: () => {
+      dispatch({ type: SAVE_MONTHLY });
+    },
     update: (updatedPlan) => {
       dispatch({ type: UPDATE_MONTHLY, payload: updatedPlan });
     },
