@@ -22,7 +22,7 @@ const LogInPresenter = (logInProps) => {
         <Header />
         <Wrapper>
           {isLoading ? <Loader /> : null}
-          {error.msg ? <ErrorMessage error={error.msg} /> : null}
+          {error ? <ErrorMessage error={error} /> : null}
 
           <Form>
             <Input
