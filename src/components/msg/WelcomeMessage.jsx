@@ -8,6 +8,11 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid #382933;
+  @media only screen and (max-width: 640px) {
+    width: 90%;
+    padding: 0;
+    padding-bottom: 20px;
+  }
 `;
 const Title = styled.div`
   font-family: "Cinzel Decorative", cursive;

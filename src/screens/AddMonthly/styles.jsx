@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Date = styled.div`
   font-family: "Life Savers", cursive;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const Button = styled.button`

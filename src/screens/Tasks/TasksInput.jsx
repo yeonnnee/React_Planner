@@ -18,6 +18,9 @@ const Input = styled.input`
   &::placeholder {
     font-family: "Zilla Slab", serif;
   }
+  @media only screen and (max-width: 640px) {
+    width: 300px;
+  }
 `;
 
 const TasksInput = (tasksInputProps) => {

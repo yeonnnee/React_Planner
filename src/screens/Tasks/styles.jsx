@@ -14,6 +14,10 @@ export const ListItem = styled.li`
   display: grid;
   grid-template-columns: 20px 150px 30px;
   font-size: 15px;
+
+  @media only screen and (max-width: 640px) {
+    grid-template-columns: 20px 100px 30px;
+  }
 `;
 
 export const CheckBox = styled.div`
@@ -58,6 +62,10 @@ export const ListCon = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 50px, 1fr;
+
+  @media only screen and (max-width: 640px) {
+    grid-template-columns: repeat(2, 180px);
+  }
 `;
 export const Pending = styled.div``;
 export const Finished = styled.div``;

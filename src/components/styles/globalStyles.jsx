@@ -23,6 +23,18 @@ const globalStyles = createGlobalStyle`
     inset -5px -5px 15px #baa7a1, inset 1px 1px 5px #baa7a1;
     border-radius: 5px;
   }
+
+
+@media only screen and (max-width: 640px) {
+    #root {
+    height: 520px;
+    width: 350px;
+  }
+}
+
+
+
+
 `;
 
 export default globalStyles;

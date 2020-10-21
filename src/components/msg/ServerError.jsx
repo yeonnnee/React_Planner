@@ -16,12 +16,19 @@ const Status = styled.div`
 `;
 const Title = styled.div`
   font-size: 35px;
+  @media only screen and (max-width: 640px) {
+    font-size: 28px;
+  }
 `;
 const Text = styled.div`
   font-size: 15px;
   margin-top: 20px;
   width: 450px;
   line-height: 1.5;
+  @media only screen and (max-width: 640px) {
+    width: 330px;
+    font-size: 13px;
+  }
 `;
 
 const ServerError = () => {

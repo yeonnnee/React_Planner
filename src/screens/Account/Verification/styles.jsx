@@ -10,6 +10,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 640px) {
+    margin-left: 35px;
+  }
 `;
 export const Header = styled.div`
   font-size: 20px;

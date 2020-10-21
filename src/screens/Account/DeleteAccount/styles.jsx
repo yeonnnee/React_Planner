@@ -22,10 +22,16 @@ export const Section = styled.div`
 export const Question = styled.span`
   font-size: 14px;
   font-weight: bold;
+  @media only screen and (max-width: 640px) {
+    margin-top: 20px;
+  }
 `;
 export const Select = styled.select`
   margin-left: 10px;
   padding: 5px;
+  @media only screen and (max-width: 640px) {
+    margin: 10px 0;
+  }
 `;
 export const Option = styled.option``;
 export const Form = styled.form`
@@ -57,6 +63,10 @@ export const Notice = styled.div`
   font-size: 13px;
   border-bottom: 1px solid #efefef;
   line-height: 1.5;
+
+  @media only screen and (max-width: 640px) {
+    margin-right: 15px;
+  }
 `;
 export const Error = styled.span`
   color: red;
@@ -73,4 +83,8 @@ export const Button = styled.button`
   height: 30px;
   margin-top: 20px;
   background: linear-gradient(to left top, #b71540, #eb5757);
+
+  @media only screen and (max-width: 640px) {
+    margin-top: 10px;
+  }
 `;

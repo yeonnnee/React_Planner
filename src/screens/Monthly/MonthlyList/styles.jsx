@@ -25,6 +25,8 @@ export const Section = styled.div`
   display: none;
   &:hover {
     display: block;
+    background-color: #e8e8e8;
+    z-index: 1;
   }
 `;
 

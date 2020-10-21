@@ -11,6 +11,9 @@ const Container = styled.div`
 `;
 const Title = styled.div`
   font-size: 35px;
+  @media only screen and (max-width: 640px) {
+    font-size: 28px;
+  }
 `;
 const Status = styled.div`
   font-size: 15px;
@@ -18,6 +21,10 @@ const Status = styled.div`
 `;
 const Text = styled.div`
   margin-top: 20px;
+  @media only screen and (max-width: 640px) {
+    width: 330px;
+    font-size: 13px;
+  }
 `;
 
 const ErrorPage = () => {

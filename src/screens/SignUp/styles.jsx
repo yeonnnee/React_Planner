@@ -22,6 +22,10 @@ export const Title = styled.span`
   font-size: 25px;
   font-family: "Cinzel Decorative", cursive;
   margin: 20px 0;
+
+  @media only screen and (max-width: 640px) {
+    margin: 0;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -43,6 +47,11 @@ export const Button = styled.button`
   &:hover {
     background-color: #30475e;
     color: white;
+  }
+  @media only screen and (max-width: 640px) {
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
   }
 `;
 
@@ -84,6 +93,9 @@ export const Form = styled.div`
   grid-template-rows: 40px;
   grid-template-columns: 105px 400px;
   gap: 10px;
+  @media only screen and (max-width: 640px) {
+    margin: 5px 0;
+  }
 `;
 export const Label = styled.label`
   font-size: 13px;
@@ -91,6 +103,9 @@ export const Label = styled.label`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  @media only screen and (max-width: 640px) {
+    font-size: 12px;
+  }
 `;
 export const Input = styled.input`
   width: 60%;
@@ -100,6 +115,9 @@ export const Input = styled.input`
   border-radius: 5px;
   &:focus {
     border: ${(props) => (props.error ? "1px solid red" : "2px solid #20639b")};
+  }
+  @media only screen and (max-width: 640px) {
+    width: 50%;
   }
 `;
 
