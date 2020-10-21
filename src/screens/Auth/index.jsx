@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -63,11 +63,10 @@ const LogIn = (logInProps) => {
   }
 
   // 페이지 render시 실행되는 함수
-  async function checkAuth() {
+  const checkAuth = useCallback(async () => {
     try {
       const res = await authApi.checkAuth();
-      const user = await res.data.user;
-      success({ user: user.email, name: user.name });
+      success({ user: res.data.user.email, name: res.data.user.name });
     } catch (error) {
       const status = error.response.status;
 
@@ -81,12 +80,12 @@ const LogIn = (logInProps) => {
         history.push(500);
       }
     }
-  }
+  }, [success, setError, history]);
 
   useEffect(() => {
     checkAuth();
     resetRecord();
-  }, []);
+  }, [checkAuth, resetRecord]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,7 +17,7 @@ const Tasks = (tasksProps) => {
   const { state, start, success, add, failed, setError, history } = tasksProps;
   const [tasks, setTasks] = useState({ content: "", id: "", status: "" });
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     start();
     try {
       const res = await taskApi.getTasks();
@@ -34,7 +34,7 @@ const Tasks = (tasksProps) => {
         return failed();
       }
     }
-  }
+  }, [start, success, failed, history]);
 
   function onChange(event) {
     const value = event.target.value;
@@ -66,7 +66,7 @@ const Tasks = (tasksProps) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 
 import { monthlyApi } from "../../api";
@@ -42,7 +42,7 @@ const Monthly = (monthlyProps) => {
     edit(target);
   };
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     fetch_monthly();
     try {
       const res = await monthlyApi.getMonthly();
@@ -57,11 +57,11 @@ const Monthly = (monthlyProps) => {
         return;
       }
     }
-  }
+  }, [fetch_monthly, fetch_success, history]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return <MonthlyPresenter {...state} onDelete={onDelete} onEdit={onEdit} />;
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -19,39 +19,20 @@ const Calendar = (calendarProps) => {
     const target = event.toString().substring(0, 15);
     select(target);
   };
-  function reload() {
+
+  const reload = useCallback(() => {
     setClicked(clicked + 1);
-  }
-  async function getMonthYear() {
+  }, [clicked]);
+
+  const getMonthYear = useCallback(async () => {
     const monthSection = await document.querySelector(
       ".react-calendar__navigation__label__labelText"
     );
     const monthYear = await monthSection.textContent;
     change(monthYear);
-  }
-  // const onStatus = () => {
-  //   const numberTile = document.querySelectorAll(
-  //     ".react-calendar__month-view__days__day"
-  //   );
-  //   console.log(state);
-  //   const monthYear = state.monthYear.split(" ");
-  //   const year = monthYear[1];
-  //   const month = monthYear[0];
-  //   const date = state.plans.map((plan) => plan.date.split(" ")[2]);
+  }, [change]);
 
-  //   console.log("year", year);
-  //   console.log("month", month);
-  //   console.log("date", date);
-  //   let number = [];
-  //   for (let i = 0; i < numberTile.length; i++) {
-  //     const abbr = numberTile[i].childNodes[0];
-  //     const calendarDate = abbr.textContent;
-  //     const matchedDate = date.find((number) => number === calendarDate);
-  //     console.log(matchedDate);
-  //   }
-  // };
-
-  function init() {
+  const init = useCallback(() => {
     const nextMonth = document.querySelector(
       ".react-calendar__navigation__next-button"
     );
@@ -68,13 +49,12 @@ const Calendar = (calendarProps) => {
     nextYear.onclick = () => reload();
     preMonth.onclick = () => reload();
     preYear.onclick = () => reload();
-  }
+  }, [reload]);
 
   useEffect(() => {
     getMonthYear();
     init();
-    return () => setClicked(0);
-  }, [clicked]);
+  }, [getMonthYear, init]);
 
   return (
     <MonthlyCalendar

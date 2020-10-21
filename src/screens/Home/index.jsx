@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -14,7 +14,7 @@ const Home = (homeProps) => {
   const { state, setError, success, resetRecord, history } = homeProps;
 
   // 페이지 render시 실행되는 함수
-  async function checkAuth() {
+  const checkAuth = useCallback(async () => {
     try {
       const res = await authApi.checkAuth();
       const user = await res.data.user;
@@ -34,12 +34,12 @@ const Home = (homeProps) => {
         return;
       }
     }
-  }
+  }, [success, setError, history]);
 
   useEffect(() => {
     checkAuth();
     resetRecord();
-  }, []);
+  }, [resetRecord, checkAuth]);
 
   return (
     <>{state.isAuthenticated ? <Redirect to="/tasks" /> : <HomePresenter />}</>
