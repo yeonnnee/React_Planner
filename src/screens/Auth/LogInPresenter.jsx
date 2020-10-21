@@ -34,6 +34,7 @@ const LogInPresenter = (logInProps) => {
           </Form>
           <Form>
             <Input
+              autoComplete="off"
               type="password"
               placeholder="Password"
               name="password"
