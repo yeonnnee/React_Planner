@@ -19,6 +19,7 @@ import NotFound from "./msg/NotFound";
 import GatewayError from "./msg/GatewayError";
 import ServerError from "./msg/ServerError";
 import ErrorPage from "./msg/ErrorPage";
+import Footer from "./Footer";
 
 const Router = () => {
   return (
@@ -42,6 +43,7 @@ const Router = () => {
         <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 };
