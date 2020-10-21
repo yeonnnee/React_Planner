@@ -18,7 +18,6 @@ export const initialState = {
   },
   isLoading: false,
   error: "",
-  result: "",
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -62,13 +61,13 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, isLoading: true };
     }
     case UPDATE_PASSWORD_SUCCESS: {
-      return { ...state, isLoading: false, result: "UPDATED" };
+      return { ...state, isLoading: false, verification: false };
     }
     case DELETE_ACCOUNT: {
       return { ...state, isLoading: true };
     }
     case DELETE_ACCOUNT_SUCCESS: {
-      return { ...state, isLoading: false, result: "DELETED" };
+      return { ...state, isLoading: false, verification: false };
     }
     default:
       return state;
