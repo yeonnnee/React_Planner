@@ -18,6 +18,7 @@ const initialState = {
   selected: [],
   unSelected: [],
   isEdit: "",
+  deleted: "",
   plans: [],
 };
 
@@ -122,6 +123,9 @@ const monthlyReducer = (state = initialState, action) => {
 
     //* ACTIVE WHEN MONTHLY DELETED *//
     case DELETE_MONTHLY: {
+      const deletedItem = state.plans.find(
+        (plan) => plan.id === action.payload.id
+      );
       const filtered_selected = state.selected.filter(
         (plan) => plan.id !== action.payload.id
       );
@@ -136,6 +140,7 @@ const monthlyReducer = (state = initialState, action) => {
         selected: filtered_selected,
         unSelected: filtered_unSelected,
         plans: filteredPlans,
+        deleted: deletedItem.date,
       };
     }
 
