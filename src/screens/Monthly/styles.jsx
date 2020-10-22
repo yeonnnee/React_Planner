@@ -15,15 +15,13 @@ export const AddLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #30475e;
+  background-color: #30475e;
+  color: #feca57;
   width: 80px;
   height: 30px;
   border: 1px solid #30475e;
+  border-radius: 3px;
   font-family: "Rajdhani", sans-serif;
-  &:hover {
-    background-color: #30475e;
-    color: #c2b0ad;
-  }
 `;
 export const AddSection = styled.div`
   width: 90%;
