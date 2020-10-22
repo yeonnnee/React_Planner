@@ -48,15 +48,23 @@ const Calendar = (calendarProps) => {
       const planDate = plan.date.split(" ");
       return planDate[1] === month.substring(0, 3) && planDate[3] === year;
     });
-    const targets = plans.map((plan) => plan.date.split(" ")[2]);
+    const targets = plans.map((plan) => {
+      const number = plan.date.split(" ")[2];
+      if (number.split("")[0] === "0") {
+        return number.split("")[1];
+      } else {
+        return number;
+      }
+    });
 
     for (let i = 0; i < targets.length; i++) {
       const date = targets[i];
       const abbr = await document.querySelector(
         `[aria-label= "${month} ${date}, ${year}" ]`
       );
-      abbr.style.padding = "7px";
-      abbr.style.borderRadius = "20px";
+
+      abbr.style.padding = "5px 13px";
+      abbr.style.borderRadius = "25px";
       abbr.style.backgroundColor = "#AD8D92";
     }
   }, [state.monthYear, state.plans]);
