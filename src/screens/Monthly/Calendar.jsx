@@ -38,24 +38,17 @@ const Calendar = (calendarProps) => {
       const deletedAbbr = await document.querySelector(
         `[aria-label= "${month} ${deletedItem_Date}, ${year}" ]`
       );
-
-      deletedAbbr.style.padding = "";
-      deletedAbbr.style.borderRadius = "";
-      deletedAbbr.style.backgroundColor = "";
+      if (deletedAbbr) {
+        const dateBtn = deletedAbbr.parentNode;
+        dateBtn.style.border = "";
+        // deletedAbbr.style.padding = "";
+        // deletedAbbr.style.borderRadius = "";
+        // deletedAbbr.style.backgroundColor = "";
+      }
     }
   }, [state.deleted, state.monthYear]);
 
-  // plans 있는 날짜 표시하는 함수
-  const markingDate = useCallback(async () => {
-    const monthYear = state.monthYear.split(" ");
-    const year = monthYear[1];
-    const month = monthYear[0];
-
-    const plans = state.plans.filter((plan) => {
-      const planDate = plan.date.split(" ");
-      return planDate[1] === month.substring(0, 3) && planDate[3] === year;
-    });
-
+  const markingDate = useCallback((plans, month, year) => {
     const targets = plans.map((plan) => {
       const number = plan.date.split(" ")[2];
       if (number.split("")[0] === "0") {
@@ -67,15 +60,39 @@ const Calendar = (calendarProps) => {
 
     for (let i = 0; i < targets.length; i++) {
       const date = targets[i];
-      const abbr = await document.querySelector(
+      const abbr = document.querySelector(
         `[aria-label= "${month} ${date}, ${year}" ]`
       );
-
-      abbr.style.padding = "5px 13px";
-      abbr.style.borderRadius = "25px";
-      abbr.style.backgroundColor = "#AD8D92";
+      if (abbr) {
+        const dateBtn = abbr.parentNode;
+        dateBtn.style.border = "1px solid #AD8D92";
+        // const div = document.createElement("div");
+        // div.style.width = "10px";
+        // div.style.height = "3px";
+        // div.style.backgroundColor = "yellow";
+        // div.style.position = "relative";
+        // div.style.top = "-16px";
+        // div.style.right = "-40px";
+        // dateBtn.appendChild(div);
+        // abbr.style.padding = "5px 13px";
+        // abbr.style.borderRadius = "25px";
+        // abbr.style.backgroundColor = "#AD8D92";
+      }
     }
-  }, [state.monthYear, state.plans]);
+  }, []);
+
+  // plans 있는 날짜 표시하는 함수
+  const getPlans = useCallback(() => {
+    const monthYear = state.monthYear.split(" ");
+    const year = monthYear[1];
+    const month = monthYear[0];
+
+    const plans = state.plans.filter((plan) => {
+      const planDate = plan.date.split(" ");
+      return planDate[1] === month.substring(0, 3) && planDate[3] === year;
+    });
+    markingDate(plans, month, year);
+  }, [state.monthYear, state.plans, markingDate]);
 
   // 날짜 선택 시 실행되는 함수
   const onClickDay = (event) => {
@@ -114,10 +131,10 @@ const Calendar = (calendarProps) => {
 
   useEffect(() => {
     getMonthYear();
-    markingDate();
+    getPlans();
     removeMark();
     init();
-  }, [getMonthYear, init, markingDate, removeMark]);
+  }, [getMonthYear, init, getPlans, removeMark]);
 
   return (
     <MonthlyCalendar
