@@ -12,25 +12,13 @@ const MonthlyCalendar = styled(ReactCalendar)`
 `;
 
 const Calendar = (calendarProps) => {
-  const { select, change } = calendarProps;
+  const { select, change, state } = calendarProps;
   const [clicked, setClicked] = useState(0);
 
   const onClickDay = (event) => {
     const target = event.toString().substring(0, 15);
     select(target);
   };
-
-  const reload = useCallback(() => {
-    setClicked(clicked + 1);
-  }, [clicked]);
-
-  const getMonthYear = useCallback(async () => {
-    const monthSection = await document.querySelector(
-      ".react-calendar__navigation__label__labelText"
-    );
-    const monthYear = await monthSection.textContent;
-    change(monthYear);
-  }, [change]);
 
   const init = useCallback(() => {
     const nextMonth = document.querySelector(
@@ -45,22 +33,53 @@ const Calendar = (calendarProps) => {
     const preMonth = document.querySelector(
       ".react-calendar__navigation__prev-button"
     );
-    nextMonth.onclick = () => reload();
-    nextYear.onclick = () => reload();
-    preMonth.onclick = () => reload();
-    preYear.onclick = () => reload();
-  }, [reload]);
+    nextMonth.onclick = () => setClicked(clicked + 1);
+    nextYear.onclick = () => setClicked(clicked + 1);
+    preMonth.onclick = () => setClicked(clicked + 1);
+    preYear.onclick = () => setClicked(clicked + 1);
+  }, [clicked]);
+
+  const onStatus = useCallback(async () => {
+    const monthYear = state.monthYear.split(" ");
+    const year = monthYear[1];
+    const month = monthYear[0];
+
+    const plans = state.plans.filter((plan) => {
+      const planDate = plan.date.split(" ");
+      return planDate[1] === month.substring(0, 3) && planDate[3] === year;
+    });
+    const targets = plans.map((plan) => plan.date.split(" ")[2]);
+
+    for (let i = 0; i < targets.length; i++) {
+      const date = targets[i];
+      const abbr = await document.querySelector(
+        `[aria-label= "${month} ${date}, ${year}" ]`
+      );
+      abbr.style.padding = "7px";
+      abbr.style.borderRadius = "20px";
+      abbr.style.backgroundColor = "#AD8D92";
+    }
+  }, [state.monthYear, state.plans]);
+
+  const getMonthYear = useCallback(async () => {
+    const monthSection = await document.querySelector(
+      ".react-calendar__navigation__label__labelText"
+    );
+    const monthYear = await monthSection.textContent;
+    change(monthYear);
+  }, [change]);
 
   useEffect(() => {
     getMonthYear();
+    onStatus();
     init();
-  }, [getMonthYear, init]);
+  }, [getMonthYear, init, onStatus]);
 
   return (
     <MonthlyCalendar
       calendarType={"US"}
       onClickDay={onClickDay}
-      onClickMonth={reload}
+      onClickMonth={init}
       locale="en-US"
     />
   );
