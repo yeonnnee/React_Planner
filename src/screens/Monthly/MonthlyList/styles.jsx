@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // Monthly List
 export const SlideDown = keyframes`
   from {
-    transform: translateY(-50px)
+    transform: translateY(-30px)
   } 
   to{
     transform: translateY(0);
