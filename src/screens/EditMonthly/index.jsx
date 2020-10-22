@@ -26,10 +26,14 @@ const EditMonthly = (editProps) => {
 
   async function save() {
     try {
-      saveMonthly();
-      await monthlyApi.updatePlan(planList);
-      update(planList);
-      history.push("/monthly");
+      if (planList.contents.length > 0) {
+        saveMonthly();
+        await monthlyApi.updatePlan(planList);
+        update(planList);
+        history.push("/monthly");
+      } else {
+        setContent({ ...content, error: "내용을 입력해주십시오" });
+      }
     } catch (error) {
       const status = error.response.status;
       if (status === 504) {
