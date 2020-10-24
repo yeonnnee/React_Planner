@@ -5,6 +5,7 @@ import userReducer from "./userReducer";
 import authReducer from "./authReducer";
 import monthlyReducer from "./monthlyReducer";
 import accountReducer from "./accountReducer";
+import challengeReducer from "./challengeReducer";
 
 const rootReducer = combineReducers({
   tasksReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   authReducer,
   monthlyReducer,
   accountReducer,
+  challengeReducer,
 });
 
 export default rootReducer;
