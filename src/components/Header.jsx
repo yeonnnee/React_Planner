@@ -63,6 +63,11 @@ const Header = withRouter((headerProps) => {
               <SLink to="/monthly">
                 <Menu current={location.pathname === "/monthly"}>Monthly</Menu>
               </SLink>
+              <SLink to="/challenge">
+                <Menu current={location.pathname === "/challenge"}>
+                  Challenge
+                </Menu>
+              </SLink>
               <SLink to="/account">
                 <Menu current={location.pathname === "/account"}>Account</Menu>
               </SLink>

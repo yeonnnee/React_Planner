@@ -20,6 +20,7 @@ import GatewayError from "./msg/GatewayError";
 import ServerError from "./msg/ServerError";
 import ErrorPage from "./msg/ErrorPage";
 import Footer from "./Footer";
+import Challenge from "../screens/Challenge";
 
 const Router = () => {
   return (
@@ -38,6 +39,7 @@ const Router = () => {
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/add" component={AddMonthly} />
         <PrivateRoute exact path="/edit" component={EditMonthly} />
+        <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/account" component={Account} />
         <PrivateRoute exact path="/reset-password" component={ResetPw} />
         <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
