@@ -14,6 +14,7 @@ import {
   List,
   Button,
   Text,
+  SLink,
 } from "./styles";
 
 const ChallengePresenter = (challengePresenterProps) => {
@@ -21,7 +22,6 @@ const ChallengePresenter = (challengePresenterProps) => {
   const [option, setOption] = useState();
 
   const filter = (event) => {
-    console.log(event.target.value);
     setOption(event.target.value);
   };
 
@@ -65,7 +65,9 @@ const ChallengePresenter = (challengePresenterProps) => {
           )}
         </Scroll>
       </Wrapper>
-      <Button>Enroll</Button>
+      <SLink to="/enroll">
+        <Button>Enroll</Button>
+      </SLink>
     </Container>
   );
 };

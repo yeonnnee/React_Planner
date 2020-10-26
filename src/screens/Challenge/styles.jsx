@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
@@ -109,3 +110,4 @@ export const Text = styled.div`
   font-family: "Jaldi", sans-serif;
   letter-spacing: 1.5px;
 `;
+export const SLink = styled(Link)``;
