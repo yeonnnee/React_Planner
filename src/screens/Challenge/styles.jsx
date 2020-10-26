@@ -104,3 +104,8 @@ export const Option = styled.option`
   background-color: rgb(65, 25, 25);
   color: wheat;
 `;
+
+export const Text = styled.div`
+  font-family: "Jaldi", sans-serif;
+  letter-spacing: 1.5px;
+`;
