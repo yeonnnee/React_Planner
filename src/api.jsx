@@ -32,3 +32,7 @@ export const accountApi = {
     axios.post("api/account/find-password/verification", data),
   resetPW: (data) => axios.patch("api/account/find-password/setPassword", data),
 };
+
+export const challengeApi = {
+  getChallenges: () => axios.get("api/challenge"),
+};
