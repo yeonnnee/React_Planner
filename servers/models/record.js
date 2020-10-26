@@ -5,6 +5,7 @@ const Record = sequelize.define("records", {
   id: {
     type: Sequelize.STRING(36),
     allowNull: false,
+    primaryKey: true,
   },
   status: {
     type: Sequelize.STRING(7),
