@@ -4,6 +4,7 @@ import {
   FETCH_CHALLENGE,
   FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
+  SELECT_CHALLENGE,
 } from "../types";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   enrolled: [],
   finished: [],
   challenges: [],
+  selected: "",
 };
 
 const challengeReducer = (state = initialState, action) => {
@@ -45,6 +47,13 @@ const challengeReducer = (state = initialState, action) => {
     }
     case ENROLLED_CHALLENGE_SUCCESS:
       return { ...state, isLoading: false };
+    case SELECT_CHALLENGE: {
+      const selected = state.challenges.filter(
+        (challenge) => challenge.id === action.payload
+      );
+      return { ...state, selected: selected[0] };
+    }
+
     default:
       return state;
   }

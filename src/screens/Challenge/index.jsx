@@ -5,6 +5,7 @@ import {
   FETCH_CHALLENGE,
   FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
+  SELECT_CHALLENGE,
 } from "../../redux/types";
 
 import ChallengePresenter from "./ChallengePresenter";
@@ -13,10 +14,15 @@ const Challenge = (challengeProps) => {
   const {
     state,
     history,
+    select,
     fetchStart,
     fetch_success,
     fetch_failed,
   } = challengeProps;
+
+  const selectList = (event) => {
+    select(event.target.id);
+  };
 
   const fetchData = useCallback(async () => {
     fetchStart();
@@ -39,7 +45,7 @@ const Challenge = (challengeProps) => {
     fetchData();
   }, [fetchData]);
 
-  return <ChallengePresenter state={state} />;
+  return <ChallengePresenter state={state} selectList={selectList} />;
 };
 
 function mapStateToProps(state) {
@@ -55,6 +61,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetch_failed: () => {
       dispatch({ type: FETCH_CHALLENGE_FAIELD });
+    },
+    select: (id) => {
+      dispatch({ type: SELECT_CHALLENGE, payload: id });
     },
   };
 }
