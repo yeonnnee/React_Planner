@@ -32,6 +32,7 @@ export const ListItem = styled.li`
   height: 60px;
   font-family: "Jaldi", sans-serif;
   letter-spacing: 1.5px;
+  cursor: pointer;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -110,4 +111,7 @@ export const Text = styled.div`
   font-family: "Jaldi", sans-serif;
   letter-spacing: 1.5px;
 `;
-export const SLink = styled(Link)``;
+export const SLink = styled(Link)`
+  text-decoration: none;
+  color: rgb(65, 25, 25);
+`;
