@@ -18,7 +18,7 @@ import {
 } from "./styles";
 
 const ChallengePresenter = (challengePresenterProps) => {
-  const { state } = challengePresenterProps;
+  const { state, selectList } = challengePresenterProps;
   const [option, setOption] = useState("all");
 
   const filter = (event) => {
@@ -46,15 +46,33 @@ const ChallengePresenter = (challengePresenterProps) => {
             <List>
               {option === "finished" && state.finished.length > 0 ? (
                 state.finished.map((list, index) => {
-                  return <ChallengeList {...list} key={index} />;
+                  return (
+                    <ChallengeList
+                      {...list}
+                      key={index}
+                      selectList={selectList}
+                    />
+                  );
                 })
               ) : option === "inProgress" && state.enrolled.length > 0 ? (
                 state.enrolled.map((list, index) => {
-                  return <ChallengeList {...list} key={index} />;
+                  return (
+                    <ChallengeList
+                      {...list}
+                      key={index}
+                      selectList={selectList}
+                    />
+                  );
                 })
               ) : option === "all" && state.challenges.length > 0 ? (
                 state.challenges.map((list, index) => {
-                  return <ChallengeList {...list} key={index} />;
+                  return (
+                    <ChallengeList
+                      {...list}
+                      key={index}
+                      selectList={selectList}
+                    />
+                  );
                 })
               ) : (
                 <Text>Nothing</Text>
