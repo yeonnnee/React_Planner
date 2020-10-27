@@ -19,7 +19,7 @@ import {
 
 const ChallengePresenter = (challengePresenterProps) => {
   const { state } = challengePresenterProps;
-  const [option, setOption] = useState();
+  const [option, setOption] = useState("all");
 
   const filter = (event) => {
     setOption(event.target.value);
@@ -44,20 +44,18 @@ const ChallengePresenter = (challengePresenterProps) => {
             <Loader />
           ) : (
             <List>
-              {state.challenges.length > 0 ? (
-                option === "finished" ? (
-                  state.finished.map((list, index) => {
-                    return <ChallengeList {...list} key={index} />;
-                  })
-                ) : option === "inProgress" ? (
-                  state.enrolled.map((list, index) => {
-                    return <ChallengeList {...list} key={index} />;
-                  })
-                ) : (
-                  state.challenges.map((list, index) => {
-                    return <ChallengeList {...list} key={index} />;
-                  })
-                )
+              {option === "finished" && state.finished.length > 0 ? (
+                state.finished.map((list, index) => {
+                  return <ChallengeList {...list} key={index} />;
+                })
+              ) : option === "inProgress" && state.enrolled.length > 0 ? (
+                state.enrolled.map((list, index) => {
+                  return <ChallengeList {...list} key={index} />;
+                })
+              ) : option === "all" && state.challenges.length > 0 ? (
+                state.challenges.map((list, index) => {
+                  return <ChallengeList {...list} key={index} />;
+                })
               ) : (
                 <Text>Nothing</Text>
               )}

@@ -34,6 +34,8 @@ export const Form = styled.form`
 export const Input = styled.input`
   padding: 5px 10px;
   outline: none;
+  border: ${(props) =>
+    props.error ? "2px solid #90323d" : "1px solid rgb(65, 25, 25)"};
 `;
 export const Button = styled.button`
   outline: none;
