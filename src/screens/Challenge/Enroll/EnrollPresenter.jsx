@@ -1,5 +1,7 @@
 import React from "react";
 
+import Loader from "../../../components/Loader";
+import Error from "../../../components/msg/ErrorMessage";
 import {
   Container,
   Header,
@@ -13,13 +15,22 @@ import {
   Button,
 } from "./styles";
 
-const EnrollPresenter = () => {
+const EnrollPresenter = (enrollPresenterProps) => {
+  const {
+    getTitle,
+    error,
+    onSubmit,
+    onClick,
+    isLoading,
+  } = enrollPresenterProps;
+
   return (
     <Container>
       <Header>
         <Tag>Enroll</Tag>
         <Title>Challenge</Title>
       </Header>
+      {isLoading ? <Loader /> : null}
       <Section>
         <Text>주제를 등록하는 다음 날 부터 한달 동안 챌린지가 진행됩니다.</Text>
         <Text>챌린지를 등록하고 매일 도전과제를 성공여부를 체크해보세요</Text>
@@ -29,10 +40,15 @@ const EnrollPresenter = () => {
         </Example>
       </Section>
 
-      <Form>
-        <Input placeholder="예) 하루에 한 시간 운동하기"></Input>
+      <Form onSubmit={onSubmit}>
+        <Input
+          placeholder="예) 하루에 한 시간 운동하기"
+          error={error ? true : false}
+          onChange={getTitle}
+        ></Input>
+        {error ? <Error error={error} /> : null}
       </Form>
-      <Button>등록하기</Button>
+      <Button onClick={onClick}>등록하기</Button>
     </Container>
   );
 };

@@ -1,4 +1,6 @@
 import {
+  ENROLLED_CHALLENGE,
+  ENROLLED_CHALLENGE_SUCCESS,
   FETCH_CHALLENGE,
   FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
@@ -29,7 +31,7 @@ const challengeReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
-          porceeding: enrolledList,
+          enrolled: enrolledList,
           finished: finishedList,
           challenges: [...action.payload],
         };
@@ -38,6 +40,11 @@ const challengeReducer = (state = initialState, action) => {
     case FETCH_CHALLENGE_FAIELD: {
       return { ...state, isLoading: false };
     }
+    case ENROLLED_CHALLENGE: {
+      return { ...state, isLoading: true };
+    }
+    case ENROLLED_CHALLENGE_SUCCESS:
+      return { ...state, isLoading: false };
     default:
       return state;
   }
