@@ -22,6 +22,7 @@ import ErrorPage from "./msg/ErrorPage";
 import Footer from "./Footer";
 import Challenge from "../screens/Challenge";
 import Enroll from "../screens/Challenge/Enroll";
+import Record from "../screens/Challenge/Record";
 
 const Router = () => {
   return (
@@ -42,6 +43,7 @@ const Router = () => {
         <PrivateRoute exact path="/edit" component={EditMonthly} />
         <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/enroll" component={Enroll} />
+        <PrivateRoute exact path="/:id" component={Record} />
         <PrivateRoute exact path="/account" component={Account} />
         <PrivateRoute exact path="/reset-password" component={ResetPw} />
         <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
