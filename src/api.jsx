@@ -35,4 +35,5 @@ export const accountApi = {
 
 export const challengeApi = {
   getChallenges: () => axios.get("api/challenge"),
+  postChallenge: (data) => axios.post("api/challenge/enrolled", data),
 };
