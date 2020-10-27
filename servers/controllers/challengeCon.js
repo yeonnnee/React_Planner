@@ -11,8 +11,6 @@ exports.getChallenge = async (req, res) => {
         { where: { challenger: user } },
         { transaction: t }
       );
-      const date = new Date();
-      const today = date.toString().substring(0, 15);
 
       let challengeList = [];
 
@@ -20,12 +18,13 @@ exports.getChallenge = async (req, res) => {
         const records = await Record.findAll({
           where: { challengeTitle: challenge.title },
         });
-        const record = await records.filter((list) => list.date === today);
+
         const result = {
           id: challenge.id,
           title: challenge.title,
           status: challenge.status,
-          record: record,
+          achievement: challenge.achievement,
+          record: records,
         };
         challengeList.push(result);
       }
