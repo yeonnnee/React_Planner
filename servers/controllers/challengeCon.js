@@ -73,3 +73,26 @@ exports.postChallenge = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.patchChallenge = async (req, res) => {
+  try {
+    const challengeId = req.body.id;
+    const challenge = await Challenge.findByPk(challengeId);
+    const records = await Record.findAll({
+      where: { challengeTitle: challenge.title },
+    });
+    const success = records.filter((record) => record.status === "CHECKED");
+    const percentage = (success.length / 30) * 100;
+    await Challenge.update(
+      {
+        ...challenge,
+        status: "FINISHED",
+        achievement: Math.round(percentage) + "%",
+      },
+      { where: { id: challengeId } }
+    );
+    res.status(201).json({ msg: "Patch data successfully" });
+  } catch (error) {
+    throw new Error();
+  }
+};
