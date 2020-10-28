@@ -49,10 +49,7 @@ const challengeReducer = (state = initialState, action) => {
     case ENROLLED_CHALLENGE_SUCCESS:
       return { ...state, isLoading: false };
     case SELECT_CHALLENGE: {
-      const selected = state.challenges.filter(
-        (challenge) => challenge.id === action.payload
-      );
-      return { ...state, selected: selected[0] };
+      return { ...state, isLoading: false, selected: action.payload };
     }
     case UPDATE_RECORD: {
       const targetIndex = +action.payload.day.split("-")[1] - 1;

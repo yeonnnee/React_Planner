@@ -28,9 +28,7 @@ const Record = (recordProps) => {
     }
   };
 
-  return (
-    <RecordPresenter selected={state.selected} checkedList={checkedList} />
-  );
+  return <RecordPresenter state={state} checkedList={checkedList} />;
 };
 
 function mapStateToProps(state) {

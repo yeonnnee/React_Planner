@@ -20,15 +20,27 @@ const Challenge = (challengeProps) => {
     fetch_failed,
   } = challengeProps;
 
-  const selectList = (event) => {
-    select(event.target.id);
+  const selectList = async (event) => {
+    fetchStart();
+    try {
+      const challengeId = event.target.id;
+      const res = await challengeApi.getChallengeRecord({ id: challengeId });
+      select(res.data.challenge);
+    } catch (error) {
+      const status = error.response.status;
+      fetch_failed();
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      }
+    }
   };
 
   const fetchData = useCallback(async () => {
     fetchStart();
     try {
       const res = await challengeApi.getChallenges();
-      console.log(res.data);
       fetch_success(res.data.challenges);
     } catch (error) {
       const status = error.response.status;
