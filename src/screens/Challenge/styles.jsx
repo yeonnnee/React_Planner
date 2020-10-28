@@ -12,19 +12,30 @@ export const Wrapper = styled.div`
   width: 460px;
   height: 480px;
   overflow: hidden;
-  margin-left: 20px;
-  margin-top: 20px;
+  margin: 20px 20px 0 10px;
+  @media only screen and (max-width: 640px) {
+    width: 340px;
+    height: 330px;
+    margin: 20px 20px 0 5px;
+  }
 `;
 export const Scroll = styled.div`
   width: 480px;
   height: 490px;
   overflow: auto;
+  @media only screen and (max-width: 640px) {
+    width: 350px;
+    height: 340px;
+  }
 `;
 export const List = styled.ul`
   height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    height: 350px;
+  }
 `;
 
 export const Button = styled.button`

@@ -11,7 +11,8 @@ const Container = styled.div`
   justify-content: center;
   font-family: "Rajdhani", sans-serif;
   @media only screen and (max-width: 640px) {
-    bottom: 120px;
+    position: relative;
+    bottom: -34px;
   }
 `;
 

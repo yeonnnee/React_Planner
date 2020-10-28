@@ -19,6 +19,9 @@ export const Title = styled.div`
   font-family: "Cinzel Decorative", cursive;
   letter-spacing: 1.5px;
   color: rgb(65, 25, 25);
+  @media only screen and (max-width: 640px) {
+    font-size: 30px;
+  }
 `;
 export const Tag = styled.span`
   margin-bottom: 5px;
@@ -27,6 +30,9 @@ export const Tag = styled.span`
 `;
 export const Section = styled.div`
   margin-top: 20px;
+  @media only screen and (max-width: 640px) {
+    padding: 0 20px;
+  }
 `;
 export const Form = styled.form`
   margin: 20px 0;
@@ -54,9 +60,16 @@ export const Text = styled.div`
     margin-top: 30px;
     font-size: 13px;
   }
+  @media only screen and (max-width: 640px) {
+    font-size: 13px;
+    margin-top: 10px;
+  }
 `;
 export const Example = styled.div`
   font-size: 12px;
   line-height: 2;
   color: rgb(65, 25, 25);
+  @media only screen and (max-width: 640px) {
+    font-size: 11px;
+  }
 `;

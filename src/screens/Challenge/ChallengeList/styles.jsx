@@ -20,6 +20,9 @@ export const ListItem = styled.li`
   &:hover {
     background-color: #e9e3e3;
   }
+  @media only screen and (max-width: 640px) {
+    width: 300px;
+  }
 `;
 
 export const Icon = styled(FontAwesomeIcon)`

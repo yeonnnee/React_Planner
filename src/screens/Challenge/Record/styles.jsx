@@ -8,6 +8,9 @@ export const Title = styled.div`
   margin: 0 20px;
   text-align: center;
   line-height: 1.5;
+  @media only screen and (max-width: 640px) {
+    font-size: 25px;
+  }
 `;
 export const Grid = styled.div`
   width: 100%;
@@ -17,6 +20,11 @@ export const Grid = styled.div`
   padding: 0 20px;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  @media only screen and (max-width: 640px) {
+    width: 300px;
+    height: 300px;
+    padding: 0 10px;
+  }
 `;
 export const Table = styled.div`
   width: 75px;
@@ -24,6 +32,10 @@ export const Table = styled.div`
   border: 1px solid black;
   display: grid;
   grid-template-rows: 20px 60px;
+  @media only screen and (max-width: 640px) {
+    width: 55px;
+    height: 60px;
+  }
 `;
 export const Day = styled.div`
   display: flex;
