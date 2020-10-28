@@ -119,19 +119,46 @@ exports.patchRecord = async (req, res) => {
 exports.getChallengeRecord = async (req, res) => {
   try {
     const challengeId = req.body.id;
-    const challenge = await Challenge.findByPk(challengeId);
-    const challengeRecord = await Record.findAll({
-      where: { challengeTitle: challenge.title },
-    });
-    const result = {
-      id: challenge.id,
-      title: challenge.title,
-      status: challenge.status,
-      achievement: challenge.achievement,
-      record: challengeRecord,
-    };
 
-    res.status(200).json({ challenge: result });
+    await sequelize.transaction(async (t) => {
+      const challenge = await Challenge.findByPk(challengeId);
+      const challengeRecord = await Record.findAll(
+        {
+          where: { challengeTitle: challenge.title },
+        },
+        { transaction: t }
+      );
+      const result = {
+        id: challenge.id,
+        title: challenge.title,
+        status: challenge.status,
+        achievement: challenge.achievement,
+        record: challengeRecord,
+      };
+
+      res.status(200).json({ challenge: result });
+    });
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+exports.deleteChallenge = async (req, res) => {
+  try {
+    const challengeId = req.body.id;
+
+    await sequelize.transaction(async (t) => {
+      const challenge = await Challenge.findByPk(challengeId);
+      await Challenge.destroy(
+        { where: { id: challengeId } },
+        { transaction: t }
+      );
+      await Record.destroy(
+        { where: { challengeTitle: challenge.title } },
+        { transaction: t }
+      );
+      await res.status(201).json({ msg: "Deleted challenge successfully" });
+    });
   } catch (error) {
     throw new Error();
   }

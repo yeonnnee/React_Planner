@@ -39,4 +39,5 @@ export const challengeApi = {
   postChallenge: (data) => axios.post("api/challenge/enrolled", data),
   updateStatus: (id) => axios.patch("api/challenge/update", id),
   checkDay: (target) => axios.patch("api/challenge/check", target),
+  deleteChallenge: (target) => axios.post("api/challenge/delete", target),
 };

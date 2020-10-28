@@ -6,6 +6,7 @@ const challengeCon = require("../controllers/challengeCon");
 router.get("/", challengeCon.getChallenge);
 router.post("/record", challengeCon.getChallengeRecord);
 router.post("/enrolled", challengeCon.postChallenge);
+router.post("/delete", challengeCon.deleteChallenge);
 router.patch("/update", challengeCon.patchChallenge);
 router.patch("/check", challengeCon.patchRecord);
 
