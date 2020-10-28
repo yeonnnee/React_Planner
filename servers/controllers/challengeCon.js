@@ -115,3 +115,24 @@ exports.patchRecord = async (req, res) => {
     throw new Error();
   }
 };
+
+exports.getChallengeRecord = async (req, res) => {
+  try {
+    const challengeId = req.body.id;
+    const challenge = await Challenge.findByPk(challengeId);
+    const challengeRecord = await Record.findAll({
+      where: { challengeTitle: challenge.title },
+    });
+    const result = {
+      id: challenge.id,
+      title: challenge.title,
+      status: challenge.status,
+      achievement: challenge.achievement,
+      record: challengeRecord,
+    };
+
+    res.status(200).json({ challenge: result });
+  } catch (error) {
+    throw new Error();
+  }
+};
