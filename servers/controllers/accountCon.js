@@ -7,6 +7,8 @@ const Plan = require("../models/plan");
 const Task = require("../models/task");
 const User = require("../models/user");
 const Reason = require("../models/reason");
+const Challenge = require("../models/challenge");
+const Record = require("../models/record");
 
 exports.postVerification = async (req, res) => {
   try {
@@ -76,14 +78,16 @@ exports.postDeleteAccount = async (req, res) => {
       );
       const password = req.body.password;
       const compared_password = await bcrypt.compare(password, user.password);
+
       // 비밀번호 일치시 데이터 삭제
       if (compared_password) {
-        // task 리스트 삭제
+        //* task 리스트 삭제 *//
         await Task.destroy(
           { where: { userId: userEmail } },
           { transaction: t }
         );
-        // plan 과 content 삭제
+
+        //* plan && content 삭제 *//
         const plans = await Plan.findAll(
           { where: { writer: userEmail } },
           { transaction: t }
@@ -97,14 +101,39 @@ exports.postDeleteAccount = async (req, res) => {
             await Plan.destroy({ where: { id: plan.id } }, { transaction: t });
           }
         }
-        // 사유 저장
-        await Reason.create({
-          deleteReason: req.body.reason,
-          account: userEmail,
-        });
-        // 계정 삭제
+
+        //* Challenge && Record 삭제 *//
+        const challenges = await Challenge.findAll(
+          {
+            where: { challenger: userEmail },
+          },
+          { transaction: t }
+        );
+        if (challenges) {
+          for (const challenge of challenges) {
+            await Record.destroy(
+              {
+                where: { challengeTitle: challenge.title },
+              },
+              { transaction: t }
+            );
+            await Challenge.destroy(
+              { where: { id: challenge.id } },
+              { transaction: t }
+            );
+          }
+        }
+        //* 사유 저장 *//
+        await Reason.create(
+          {
+            deleteReason: req.body.reason,
+            account: userEmail,
+          },
+          { transaction: t }
+        );
+        //* 계정 삭제 *//
         await User.destroy({ where: { email: userEmail } }, { transaction: t });
-        // 세션 삭제
+        //* 세션 삭제 *//
         req.session.destroy();
         res.status(201).json({ msg: "Account has been deleted successfully" });
       } else {
