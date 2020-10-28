@@ -4,9 +4,8 @@ const Record = require("../models/record");
 
 exports.getChallenge = async (req, res) => {
   try {
-    const user = req.session.user.email;
-
     await sequelize.transaction(async (t) => {
+      const user = req.session.user.email;
       const challenges = await Challenge.findAll(
         { where: { challenger: user } },
         { transaction: t }
@@ -15,9 +14,12 @@ exports.getChallenge = async (req, res) => {
       let challengeList = [];
 
       for (const challenge of challenges) {
-        const records = await Record.findAll({
-          where: { challengeTitle: challenge.title },
-        });
+        const records = await Record.findAll(
+          {
+            where: { challengeTitle: challenge.title },
+          },
+          { transaction: t }
+        );
 
         const result = {
           id: challenge.id,
@@ -37,11 +39,10 @@ exports.getChallenge = async (req, res) => {
 
 exports.postChallenge = async (req, res) => {
   try {
-    const user = req.session.user.email;
-    const title = req.body.title;
-    const id = req.body.id;
-
     await sequelize.transaction(async (t) => {
+      const user = req.session.user.email;
+      const title = req.body.title;
+      const id = req.body.id;
       await Challenge.create(
         {
           id: id,
@@ -76,22 +77,28 @@ exports.postChallenge = async (req, res) => {
 
 exports.patchChallenge = async (req, res) => {
   try {
-    const challengeId = req.body.id;
-    const challenge = await Challenge.findByPk(challengeId);
-    const records = await Record.findAll({
-      where: { challengeTitle: challenge.title },
+    await sequelize.transaction(async (t) => {
+      const challengeId = req.body.id;
+      const challenge = await Challenge.findByPk(challengeId);
+      const records = await Record.findAll(
+        {
+          where: { challengeTitle: challenge.title },
+        },
+        { transaction: t }
+      );
+      const success = records.filter((record) => record.status === "CHECKED");
+      const percentage = (success.length / 30) * 100;
+      await Challenge.update(
+        {
+          ...challenge,
+          status: "FINISHED",
+          achievement: Math.round(percentage) + "%",
+        },
+        { where: { id: challengeId } },
+        { transaction: t }
+      );
+      res.status(201).json({ msg: "Patch data successfully" });
     });
-    const success = records.filter((record) => record.status === "CHECKED");
-    const percentage = (success.length / 30) * 100;
-    await Challenge.update(
-      {
-        ...challenge,
-        status: "FINISHED",
-        achievement: Math.round(percentage) + "%",
-      },
-      { where: { id: challengeId } }
-    );
-    res.status(201).json({ msg: "Patch data successfully" });
   } catch (error) {
     throw new Error();
   }
@@ -99,18 +106,21 @@ exports.patchChallenge = async (req, res) => {
 
 exports.patchRecord = async (req, res) => {
   try {
-    const recordId = req.body.record;
-    const record = await Record.findByPk(recordId);
-    await Record.update(
-      {
-        ...record,
-        status: "CHECKED",
-      },
-      { where: { id: recordId } }
-    );
-    const result = await Record.findByPk(recordId);
+    await sequelize.transaction(async (t) => {
+      const recordId = req.body.record;
+      const record = await Record.findByPk(recordId);
+      await Record.update(
+        {
+          ...record,
+          status: "CHECKED",
+        },
+        { where: { id: recordId } },
+        { transaction: t }
+      );
+      const result = await Record.findByPk(recordId);
 
-    res.status(201).json({ updatedRecord: result });
+      res.status(201).json({ updatedRecord: result });
+    });
   } catch (error) {
     throw new Error();
   }
@@ -118,9 +128,8 @@ exports.patchRecord = async (req, res) => {
 
 exports.getChallengeRecord = async (req, res) => {
   try {
-    const challengeId = req.body.id;
-
     await sequelize.transaction(async (t) => {
+      const challengeId = req.body.id;
       const challenge = await Challenge.findByPk(challengeId);
       const challengeRecord = await Record.findAll(
         {
@@ -145,9 +154,8 @@ exports.getChallengeRecord = async (req, res) => {
 
 exports.deleteChallenge = async (req, res) => {
   try {
-    const challengeId = req.body.id;
-
     await sequelize.transaction(async (t) => {
+      const challengeId = req.body.id;
       const challenge = await Challenge.findByPk(challengeId);
       await Challenge.destroy(
         { where: { id: challengeId } },

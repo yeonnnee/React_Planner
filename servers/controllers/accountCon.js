@@ -68,9 +68,8 @@ exports.patchPassword = async (req, res) => {
 
 exports.postDeleteAccount = async (req, res) => {
   try {
-    const userEmail = req.session.user.email;
-
     await sequelize.transaction(async (t) => {
+      const userEmail = req.session.user.email;
       // 비밀번호 확인
       const user = await User.findOne(
         { where: { email: userEmail } },

@@ -1,5 +1,6 @@
 const Task = require("../models/task");
 const { validationResult } = require("express-validator");
+const sequelize = require("../models");
 
 exports.getTasks = async (req, res) => {
   try {
@@ -38,18 +39,21 @@ exports.postTasks = async (req, res) => {
 
 exports.patchTasks = async (req, res) => {
   try {
-    const taskId = req.body.id;
-    const updatedStatus = req.body.status;
-    const task = await Task.findByPk(taskId);
-    await Task.update(
-      {
-        ...task,
-        status: updatedStatus,
-      },
-      { where: { id: taskId } }
-    );
+    sequelize.transaction(async (t) => {
+      const taskId = req.body.id;
+      const updatedStatus = req.body.status;
+      const task = await Task.findByPk(taskId);
+      await Task.update(
+        {
+          ...task,
+          status: updatedStatus,
+        },
+        { where: { id: taskId } },
+        { transaction: t }
+      );
 
-    res.status(201).json({ msg: "Patch data successfully" });
+      res.status(201).json({ msg: "Patch data successfully" });
+    });
   } catch (error) {
     throw new Error();
   }
