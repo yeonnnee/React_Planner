@@ -15,11 +15,11 @@ const Enroll = (enrollProps) => {
 
   const getTitle = (event) => {
     const value = event.target.value;
-    if (value.length > 20) {
+    if (value.length > 15) {
       setChallenge({
         id: "",
         title: value,
-        error: "20자 이내로 작성해주십시오",
+        error: "15자 이내로 작성해주십시오",
       });
     } else {
       setChallenge({ id: uuidv4().toString(), title: value, error: "" });
