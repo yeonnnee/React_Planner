@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import Loader from "../../../components/Loader";
 import { Header, Tag } from "../Enroll/styles";
 import { Button } from "../styles";
 
@@ -57,37 +58,47 @@ const Stamp = styled.div`
 `;
 
 const RecordPresenter = (recordPresenterProps) => {
-  const { selected, checkedList } = recordPresenterProps;
+  const { state, checkedList } = recordPresenterProps;
   const day = new Date();
   const today = day.toString().substring(0, 15);
 
   return (
     <Container>
-      <Header>
-        <Tag>Challenge</Tag>
-        <Title>{selected.title}</Title>
-      </Header>
-      <Grid>
-        {selected.record.map((list, index) => {
-          return (
-            <Table key={index}>
-              <Day>{list.day}</Day>
-              <CheckSection>
-                {list.status ? (
-                  <Stamp>성공!</Stamp>
-                ) : today === list.date ? (
-                  <CheckBtn id={list.id} onClick={checkedList}>
-                    Check!
-                  </CheckBtn>
-                ) : null}
-              </CheckSection>
-            </Table>
-          );
-        })}
-      </Grid>
-      <Section>
-        <Button>포기할래요..</Button>
-      </Section>
+      {state.isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header>
+            <Tag>Challenge</Tag>
+            <Title>{state.selected.title}</Title>
+          </Header>
+          <Grid>
+            {state.selected.record.map((list, index) => {
+              return (
+                <Table key={index}>
+                  <Day>{list.day}</Day>
+                  <CheckSection>
+                    {list.status ? (
+                      <Stamp>성공!</Stamp>
+                    ) : today === list.date ? (
+                      <CheckBtn id={list.id} onClick={checkedList}>
+                        Check!
+                      </CheckBtn>
+                    ) : null}
+                  </CheckSection>
+                </Table>
+              );
+            })}
+          </Grid>
+          <Section>
+            {state.selected.status === "FINISHED" ? (
+              <Button>Delete</Button>
+            ) : (
+              <Button>포기할래요..</Button>
+            )}
+          </Section>
+        </>
+      )}
     </Container>
   );
 };
