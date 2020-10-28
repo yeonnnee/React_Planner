@@ -51,11 +51,19 @@ export const Percentage = styled.div`
   justify-content: center;
   border-radius: 25px;
   border: 1px solid grey;
+  @media only screen and (max-width: 640px) {
+    border: none;
+    height: 20px;
+    width: 20px;
+  }
 `;
 export const Name = styled.div`
   font-size: 10px;
   opacity: 0.6;
   margin-right: 5px;
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 export const Achieve = styled.div`
   width: 100px;
@@ -64,6 +72,9 @@ export const Achieve = styled.div`
   justify-content: center;
   position: relative;
   right: -20px;
+  @media only screen and (max-width: 640px) {
+    width: 20px;
+  }
 `;
 export const SLink = styled(Link)`
   text-decoration: none;

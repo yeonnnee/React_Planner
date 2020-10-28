@@ -39,6 +39,7 @@ const ChallengeList = (challengeListProps) => {
   };
 
   // 진행 날짜 표시
+
   const today = new Date();
   const date = today.toString().substring(0, 15);
   const challengeDay = record.filter((list) => list.date === date);
@@ -61,7 +62,7 @@ const ChallengeList = (challengeListProps) => {
           </Title>
           {status === "ENROLLED" && challengeDay.length > 0 ? (
             <Status onClick={selectList} id={id}>
-              In Progress / `${challengeDay.day}`
+              In Progress / {challengeDay[0].day}
             </Status>
           ) : status === "ENROLLED" && challengeDay.length === 0 ? (
             <Status onClick={selectList} id={id}>

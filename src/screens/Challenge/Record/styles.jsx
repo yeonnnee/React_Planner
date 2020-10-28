@@ -24,6 +24,7 @@ export const Grid = styled.div`
     width: 300px;
     height: 300px;
     padding: 0 10px;
+    margin: 10px 0;
   }
 `;
 export const Table = styled.div`
@@ -34,7 +35,7 @@ export const Table = styled.div`
   grid-template-rows: 20px 60px;
   @media only screen and (max-width: 640px) {
     width: 55px;
-    height: 60px;
+    height: 65px;
   }
 `;
 export const Day = styled.div`
@@ -49,7 +50,13 @@ export const CheckSection = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const CheckBtn = styled.button``;
+export const CheckBtn = styled.button`
+  @media only screen and (max-width: 640px) {
+    width: 50px;
+    margin-bottom: 15px;
+    padding: 0 2px 0 0;
+  }
+`;
 export const Section = styled.div`
   width: 100%;
   display: flex;
@@ -61,4 +68,10 @@ export const Stamp = styled.div`
   border: 1px solid #c23616;
   padding: 5px 3px;
   transform: rotate(-40deg);
+
+  @media only screen and (max-width: 640px) {
+    font-size: 13px;
+    margin-bottom: 15px;
+    transform: rotate(-30deg);
+  }
 `;
