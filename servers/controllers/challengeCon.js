@@ -70,7 +70,7 @@ exports.postChallenge = async (req, res) => {
       res.status(201).json({ msg: "Enrolled challenge successfully" });
     });
   } catch (error) {
-    console.log(error);
+    throw new Error();
   }
 };
 
@@ -101,14 +101,16 @@ exports.patchRecord = async (req, res) => {
   try {
     const recordId = req.body.record;
     const record = await Record.findByPk(recordId);
-    const updatedRecord = await Record.update(
+    await Record.update(
       {
         ...record,
         status: "CHECKED",
       },
       { where: { id: recordId } }
     );
-    res.status(201).json({ updatedRecord: updatedRecord });
+    const result = await Record.findByPk(recordId);
+
+    res.status(201).json({ updatedRecord: result });
   } catch (error) {
     throw new Error();
   }
