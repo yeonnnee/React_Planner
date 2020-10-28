@@ -58,7 +58,7 @@ const Stamp = styled.div`
 `;
 
 const RecordPresenter = (recordPresenterProps) => {
-  const { state, checkedList } = recordPresenterProps;
+  const { state, checkedList, deleteChallenge } = recordPresenterProps;
   const day = new Date();
   const today = day.toString().substring(0, 15);
 
@@ -92,9 +92,13 @@ const RecordPresenter = (recordPresenterProps) => {
           </Grid>
           <Section>
             {state.selected.status === "FINISHED" ? (
-              <Button>Delete</Button>
+              <Button onClick={deleteChallenge} id={state.selected.id}>
+                Delete
+              </Button>
             ) : (
-              <Button>포기할래요..</Button>
+              <Button onClick={deleteChallenge} id={state.selected.id}>
+                포기할래요..
+              </Button>
             )}
           </Section>
         </>

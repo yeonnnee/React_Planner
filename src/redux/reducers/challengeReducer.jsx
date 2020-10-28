@@ -6,6 +6,7 @@ import {
   FETCH_CHALLENGE_SUCCESS,
   SELECT_CHALLENGE,
   UPDATE_RECORD,
+  DELETE_CHALLENGE,
 } from "../types";
 
 const initialState = {
@@ -64,6 +65,8 @@ const challengeReducer = (state = initialState, action) => {
         },
       };
     }
+    case DELETE_CHALLENGE:
+      return { ...state, selected: "" };
     default:
       return state;
   }

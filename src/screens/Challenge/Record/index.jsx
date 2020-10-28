@@ -1,13 +1,29 @@
 import React from "react";
 import { connect } from "react-redux";
 import { challengeApi } from "../../../api";
-import { UPDATE_RECORD } from "../../../redux/types";
+import { DELETE_CHALLENGE, UPDATE_RECORD } from "../../../redux/types";
 
 import RecordPresenter from "./RecordPresenter";
 
 const Record = (recordProps) => {
-  const { state, location, history, updateRecord } = recordProps;
+  const { state, location, history, updateRecord, deleteItem } = recordProps;
 
+  const deleteChallenge = async (event) => {
+    try {
+      const challengeId = event.target.id;
+      await challengeApi.deleteChallenge({ id: challengeId });
+      history.push("/challenge");
+      deleteItem();
+    } catch (error) {
+      const status = error.response.status;
+
+      if (status === 500) {
+        history.push("/500");
+      } else if (status === 504) {
+        history.push("/504");
+      }
+    }
+  };
   const checkedList = async (event) => {
     try {
       const challengeId = location.pathname.split("/")[1];
@@ -28,7 +44,13 @@ const Record = (recordProps) => {
     }
   };
 
-  return <RecordPresenter state={state} checkedList={checkedList} />;
+  return (
+    <RecordPresenter
+      state={state}
+      checkedList={checkedList}
+      deleteChallenge={deleteChallenge}
+    />
+  );
 };
 
 function mapStateToProps(state) {
@@ -39,6 +61,9 @@ function mapDispatchToProps(dispatch) {
   return {
     updateRecord: (data) => {
       dispatch({ type: UPDATE_RECORD, payload: data });
+    },
+    deleteItem: () => {
+      dispatch({ type: DELETE_CHALLENGE });
     },
   };
 }
