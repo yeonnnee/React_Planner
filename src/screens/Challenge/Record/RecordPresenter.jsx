@@ -48,9 +48,16 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const Stamp = styled.div`
+  color: #c23616;
+  font-family: "Do Hyeon", sans-serif;
+  border: 1px solid #c23616;
+  padding: 5px 3px;
+  transform: rotate(-40deg);
+`;
 
 const RecordPresenter = (recordPresenterProps) => {
-  const { selected } = recordPresenterProps;
+  const { selected, checkedList } = recordPresenterProps;
   const day = new Date();
   const today = day.toString().substring(0, 15);
 
@@ -66,7 +73,13 @@ const RecordPresenter = (recordPresenterProps) => {
             <Table key={index}>
               <Day>{list.day}</Day>
               <CheckSection>
-                {today === list.date ? <CheckBtn>Check!</CheckBtn> : null}
+                {list.status ? (
+                  <Stamp>성공!</Stamp>
+                ) : today === list.date ? (
+                  <CheckBtn id={list.id} onClick={checkedList}>
+                    Check!
+                  </CheckBtn>
+                ) : null}
               </CheckSection>
             </Table>
           );

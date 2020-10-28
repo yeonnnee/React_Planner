@@ -5,6 +5,7 @@ import {
   FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
   SELECT_CHALLENGE,
+  UPDATE_RECORD,
 } from "../types";
 
 const initialState = {
@@ -53,7 +54,19 @@ const challengeReducer = (state = initialState, action) => {
       );
       return { ...state, selected: selected[0] };
     }
+    case UPDATE_RECORD: {
+      const targetIndex = +action.payload.day.split("-")[1] - 1;
+      const updatedRecord = [...state.selected.record];
+      updatedRecord.splice(targetIndex, 1, action.payload);
 
+      return {
+        ...state,
+        selected: {
+          ...state.selected,
+          record: updatedRecord,
+        },
+      };
+    }
     default:
       return state;
   }
