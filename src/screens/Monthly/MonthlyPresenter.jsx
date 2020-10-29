@@ -15,7 +15,7 @@ import {
 } from "./styles";
 
 const MonthlyPresenter = (monthlyProps) => {
-  const { selected, unSelected, isLoading, onDelete, onEdit } = monthlyProps;
+  const { selected, unSelected, isLoading, onConfirm, onEdit } = monthlyProps;
 
   return (
     <Container>
@@ -28,7 +28,11 @@ const MonthlyPresenter = (monthlyProps) => {
             selected.map((plan, index) => {
               return (
                 <SelectedMonthly key={index}>
-                  <MonthlyList {...plan} onDelete={onDelete} onEdit={onEdit} />
+                  <MonthlyList
+                    {...plan}
+                    onConfirm={onConfirm}
+                    onEdit={onEdit}
+                  />
                 </SelectedMonthly>
               );
             })
@@ -47,7 +51,7 @@ const MonthlyPresenter = (monthlyProps) => {
                       <MonthlyList
                         {...plan}
                         key={index}
-                        onDelete={onDelete}
+                        onConfirm={onConfirm}
                         onEdit={onEdit}
                       />
                     );

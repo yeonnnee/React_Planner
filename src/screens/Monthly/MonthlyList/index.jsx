@@ -16,7 +16,7 @@ import {
 } from "./styles";
 
 const MonthlyList = (monthlyProps) => {
-  const { date, contents, id, onDelete, onEdit } = monthlyProps;
+  const { date, contents, id, onConfirm, onEdit } = monthlyProps;
 
   return (
     <Container>
@@ -41,7 +41,7 @@ const MonthlyList = (monthlyProps) => {
               Edit
             </Btn>
           </EditLink>
-          <Btn onClick={onDelete} id={date}>
+          <Btn onClick={onConfirm} id={date}>
             Delete
           </Btn>
         </BtnSection>

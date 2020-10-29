@@ -37,6 +37,13 @@ const Monthly = (monthlyProps) => {
       }
     }
   };
+
+  const onConfirm = (event) => {
+    alert("정말로 삭제하시겠습니까?");
+    if (alert) {
+      onDelete(event);
+    }
+  };
   const onEdit = (event) => {
     const target = event.target.id;
     edit(target);
@@ -63,7 +70,7 @@ const Monthly = (monthlyProps) => {
     fetchData();
   }, [fetchData]);
 
-  return <MonthlyPresenter {...state} onDelete={onDelete} onEdit={onEdit} />;
+  return <MonthlyPresenter {...state} onEdit={onEdit} onConfirm={onConfirm} />;
 };
 
 function mapStateToProps(state) {

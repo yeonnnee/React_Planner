@@ -85,4 +85,5 @@ export const Text = styled.div`
   font-family: "Life Savers", cursive;
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 `;
