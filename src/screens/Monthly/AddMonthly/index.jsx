@@ -3,11 +3,17 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
+import GatewayError from "../../../components/msg/GatewayError";
+import ServerError from "../../../components/msg/ServerError";
 import { monthlyApi } from "../../../api";
-import { CREATE_MONTHLY, SAVE_MONTHLY } from "../../../redux/types";
+import {
+  CREATE_MONTHLY,
+  SAVE_MONTHLY,
+  MONTHLY_ERROR,
+} from "../../../redux/types";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, history, create, saveMonthly } = monthlyAddProps;
+  const { state, history, create, saveMonthly, setError } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
     id: "",
@@ -35,11 +41,9 @@ const MonthlyAdd = (monthlyAddProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else if (status === 500) {
-        history.push("/500");
-      } else if (status === 400) {
-        history.push("/error");
+        setError("500");
       } else {
         return;
       }
@@ -87,16 +91,24 @@ const MonthlyAdd = (monthlyAddProps) => {
   }
 
   return (
-    <AddMonthlyPresenter
-      onChange={onChange}
-      onSubmit={onSubmit}
-      deleteItem={deleteItem}
-      save={save}
-      planList={planList}
-      content={content}
-      cancel={cancel}
-      {...state}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <AddMonthlyPresenter
+          onChange={onChange}
+          onSubmit={onSubmit}
+          deleteItem={deleteItem}
+          save={save}
+          planList={planList}
+          content={content}
+          cancel={cancel}
+          {...state}
+        />
+      )}
+    </>
   );
 };
 
@@ -111,6 +123,9 @@ function mapDispatchToProps(dispatch) {
     },
     create: (plan) => {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
+    },
+    setError: (error) => {
+      dispatch({ type: MONTHLY_ERROR, payload: error });
     },
   };
 }

@@ -7,6 +7,7 @@ import {
   SELECT_CHALLENGE,
   UPDATE_RECORD,
   DELETE_CHALLENGE,
+  CHALLENGE_ERROR,
 } from "../types";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   finished: [],
   challenges: [],
   selected: "",
+  error: "",
 };
 
 const challengeReducer = (state = initialState, action) => {
@@ -67,6 +69,9 @@ const challengeReducer = (state = initialState, action) => {
     }
     case DELETE_CHALLENGE:
       return { ...state, selected: "" };
+    case CHALLENGE_ERROR: {
+      return { ...state, isLoading: false, error: action.payload };
+    }
     default:
       return state;
   }

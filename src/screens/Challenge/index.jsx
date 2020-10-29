@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import { challengeApi } from "../../api";
+import GatewayError from "../../components/msg/GatewayError";
+import ServerError from "../../components/msg/ServerError";
 import {
+  CHALLENGE_ERROR,
   FETCH_CHALLENGE,
   FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
@@ -18,6 +21,7 @@ const Challenge = (challengeProps) => {
     fetchStart,
     fetch_success,
     fetch_failed,
+    setError,
   } = challengeProps;
 
   const selectList = async (event) => {
@@ -30,9 +34,9 @@ const Challenge = (challengeProps) => {
       const status = error.response.status;
       fetch_failed();
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   };
@@ -46,9 +50,9 @@ const Challenge = (challengeProps) => {
       const status = error.response.status;
       fetch_failed();
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   }, [fetchStart, fetch_success, fetch_failed, history]);
@@ -57,7 +61,17 @@ const Challenge = (challengeProps) => {
     fetchData();
   }, [fetchData]);
 
-  return <ChallengePresenter state={state} selectList={selectList} />;
+  return (
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <ChallengePresenter state={state} selectList={selectList} />
+      )}
+    </>
+  );
 };
 
 function mapStateToProps(state) {
@@ -76,6 +90,9 @@ function mapDispatchToProps(dispatch) {
     },
     select: (id) => {
       dispatch({ type: SELECT_CHALLENGE, payload: id });
+    },
+    setError: (error) => {
+      dispatch({ type: CHALLENGE_ERROR, payload: error });
     },
   };
 }

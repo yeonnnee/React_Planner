@@ -8,6 +8,7 @@ import {
   SELECT_MONTHLY,
   CHANGE_MONTHLY,
   SAVE_MONTHLY,
+  MONTHLY_ERROR,
 } from "../types";
 
 const initialState = {
@@ -24,6 +25,13 @@ const initialState = {
 
 const monthlyReducer = (state = initialState, action) => {
   switch (action.type) {
+    case MONTHLY_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    }
     //* FETCH DATA ACTION *//
     case FETCH_MONTHLY_START: {
       const date = new Date().toString();

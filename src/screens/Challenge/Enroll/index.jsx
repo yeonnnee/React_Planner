@@ -7,10 +7,13 @@ import EnrollPresenter from "./EnrollPresenter";
 import {
   ENROLLED_CHALLENGE,
   ENROLLED_CHALLENGE_SUCCESS,
+  CHALLENGE_ERROR,
 } from "../../../redux/types";
+import ServerError from "../../../components/msg/ServerError";
+import GatewayError from "../../../components/msg/GatewayError";
 
 const Enroll = (enrollProps) => {
-  const { history, state, save, success } = enrollProps;
+  const { history, state, save, success, setError } = enrollProps;
   const [challenge, setChallenge] = useState({ id: "", title: "", error: "" });
 
   const getTitle = (event) => {
@@ -39,21 +42,29 @@ const Enroll = (enrollProps) => {
       }
     } catch (error) {
       if (error.response.status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (error.response.status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   };
 
   return (
-    <EnrollPresenter
-      getTitle={getTitle}
-      error={challenge.error}
-      onSubmit={onSubmit}
-      onClick={onClick}
-      {...state}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <EnrollPresenter
+          getTitle={getTitle}
+          error={challenge.error}
+          onSubmit={onSubmit}
+          onClick={onClick}
+          {...state}
+        />
+      )}
+    </>
   );
 };
 
@@ -67,6 +78,9 @@ function mapDispatchToProps(dispatch) {
     },
     success: () => {
       return dispatch({ type: ENROLLED_CHALLENGE_SUCCESS });
+    },
+    setError: (error) => {
+      return dispatch({ type: CHALLENGE_ERROR, payload: error });
     },
   };
 }

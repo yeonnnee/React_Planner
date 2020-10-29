@@ -1,6 +1,8 @@
 import React from "react";
 
 import Loader from "../../../components/Loader";
+import GatewayError from "../../../components/msg/GatewayError";
+import ServerError from "../../../components/msg/ServerError";
 import { Header, Tag } from "../Enroll/styles";
 import { Button } from "../styles";
 import {
@@ -24,6 +26,10 @@ const RecordPresenter = (recordPresenterProps) => {
     <Container>
       {state.isLoading ? (
         <Loader />
+      ) : state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
       ) : (
         <>
           <Header>

@@ -3,11 +3,17 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { monthlyApi } from "../../../api";
-import { SAVE_MONTHLY, UPDATE_MONTHLY } from "../../../redux/types";
+import GatewayError from "../../../components/msg/GatewayError";
+import ServerError from "../../../components/msg/ServerError";
 import EditMonthlyPresenter from "./EditMonthlyPresenter";
+import {
+  SAVE_MONTHLY,
+  UPDATE_MONTHLY,
+  MONTHLY_ERROR,
+} from "../../../redux/types";
 
 const EditMonthly = (editProps) => {
-  const { state, update, history, saveMonthly } = editProps;
+  const { state, update, history, saveMonthly, setError } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.isEdit.id,
@@ -37,11 +43,9 @@ const EditMonthly = (editProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else if (status === 500) {
-        history.push("/500");
-      } else if (status === 400) {
-        history.push("/error");
+        setError("500");
       } else {
         return;
       }
@@ -88,17 +92,25 @@ const EditMonthly = (editProps) => {
   }
 
   return (
-    <EditMonthlyPresenter
-      onChange={onChange}
-      onSubmit={onSubmit}
-      deleteItem={deleteItem}
-      planList={planList}
-      content={content}
-      save={save}
-      cancel={cancel}
-      date={planList.date}
-      state={state}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <EditMonthlyPresenter
+          onChange={onChange}
+          onSubmit={onSubmit}
+          deleteItem={deleteItem}
+          planList={planList}
+          content={content}
+          save={save}
+          cancel={cancel}
+          date={planList.date}
+          state={state}
+        />
+      )}
+    </>
   );
 };
 
@@ -112,6 +124,9 @@ function mapDispatchToProps(dispatch) {
     },
     update: (updatedPlan) => {
       dispatch({ type: UPDATE_MONTHLY, payload: updatedPlan });
+    },
+    setError: (error) => {
+      dispatch({ type: MONTHLY_ERROR, payload: error });
     },
   };
 }

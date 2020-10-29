@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 
 import { monthlyApi } from "../../api";
 import MonthlyPresenter from "./MonthlyPresenter";
+import ServerError from "../../components/msg/ServerError";
+import GatewayError from "../../components/msg/GatewayError";
 import {
   DELETE_MONTHLY,
   EDIT_MONTHLY,
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
+  MONTHLY_ERROR,
 } from "../../redux/types";
 
 const Monthly = (monthlyProps) => {
@@ -18,6 +21,7 @@ const Monthly = (monthlyProps) => {
     edit,
     deletePlan,
     history,
+    setError,
   } = monthlyProps;
 
   const onDelete = async (event) => {
@@ -29,9 +33,9 @@ const Monthly = (monthlyProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else {
         return;
       }
@@ -57,9 +61,9 @@ const Monthly = (monthlyProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else {
         return;
       }
@@ -70,7 +74,17 @@ const Monthly = (monthlyProps) => {
     fetchData();
   }, [fetchData]);
 
-  return <MonthlyPresenter {...state} onEdit={onEdit} onConfirm={onConfirm} />;
+  return (
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <MonthlyPresenter {...state} onEdit={onEdit} onConfirm={onConfirm} />
+      )}
+    </>
+  );
 };
 
 function mapStateToProps(state) {
@@ -85,7 +99,9 @@ function mapDispatchToProps(dispatch) {
     fetch_success: (data) => {
       dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: data });
     },
-
+    setError: (error) => {
+      dispatch({ type: MONTHLY_ERROR, payload: error });
+    },
     edit: (id) => {
       dispatch({ type: EDIT_MONTHLY, payload: id });
     },

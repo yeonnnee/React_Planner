@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -13,6 +14,7 @@ import {
   Achieve,
 } from "./styles";
 import { challengeApi } from "../../../api";
+import { CHALLENGE_ERROR } from "../../../redux/types";
 
 const ChallengeList = (challengeListProps) => {
   const {
@@ -22,7 +24,7 @@ const ChallengeList = (challengeListProps) => {
     achievement,
     id,
     selectList,
-    history,
+    setError,
   } = challengeListProps;
 
   const updateStatus = async () => {
@@ -31,9 +33,9 @@ const ChallengeList = (challengeListProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   };
@@ -92,4 +94,15 @@ const ChallengeList = (challengeListProps) => {
   );
 };
 
-export default ChallengeList;
+function mapStateToProps(state) {
+  return { state: state.challengeReducer };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    setError: (error) => {
+      dispatch({ type: CHALLENGE_ERROR, payload: error });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeList);

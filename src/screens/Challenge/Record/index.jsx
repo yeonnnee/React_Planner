@@ -1,12 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import { challengeApi } from "../../../api";
-import { DELETE_CHALLENGE, UPDATE_RECORD } from "../../../redux/types";
+import GatewayError from "../../../components/msg/GatewayError";
+import ServerError from "../../../components/msg/ServerError";
+import {
+  CHALLENGE_ERROR,
+  DELETE_CHALLENGE,
+  UPDATE_RECORD,
+} from "../../../redux/types";
 
 import RecordPresenter from "./RecordPresenter";
 
 const Record = (recordProps) => {
-  const { state, location, history, updateRecord, deleteItem } = recordProps;
+  const {
+    state,
+    location,
+    history,
+    updateRecord,
+    deleteItem,
+    setError,
+  } = recordProps;
 
   const deleteChallenge = async (event) => {
     try {
@@ -18,9 +32,9 @@ const Record = (recordProps) => {
       const status = error.response.status;
 
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   };
@@ -43,19 +57,27 @@ const Record = (recordProps) => {
       const status = error.response.status;
 
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       }
     }
   };
 
   return (
-    <RecordPresenter
-      state={state}
-      checkedList={checkedList}
-      onConfirm={onConfirm}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <RecordPresenter
+          state={state}
+          checkedList={checkedList}
+          onConfirm={onConfirm}
+        />
+      )}
+    </>
   );
 };
 
@@ -70,6 +92,9 @@ function mapDispatchToProps(dispatch) {
     },
     deleteItem: () => {
       dispatch({ type: DELETE_CHALLENGE });
+    },
+    setError: (error) => {
+      dispatch({ type: CHALLENGE_ERROR, payload: error });
     },
   };
 }
