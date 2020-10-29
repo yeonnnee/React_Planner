@@ -24,6 +24,12 @@ const Record = (recordProps) => {
       }
     }
   };
+  const onConfirm = (event) => {
+    alert("정말로 삭제하시겠습니까?");
+    if (alert) {
+      deleteChallenge(event);
+    }
+  };
   const checkedList = async (event) => {
     try {
       const challengeId = location.pathname.split("/")[1];
@@ -48,7 +54,7 @@ const Record = (recordProps) => {
     <RecordPresenter
       state={state}
       checkedList={checkedList}
-      deleteChallenge={deleteChallenge}
+      onConfirm={onConfirm}
     />
   );
 };

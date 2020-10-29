@@ -16,7 +16,7 @@ import {
 } from "./styles";
 
 const RecordPresenter = (recordPresenterProps) => {
-  const { state, checkedList, deleteChallenge } = recordPresenterProps;
+  const { state, checkedList, onConfirm } = recordPresenterProps;
   const day = new Date();
   const today = day.toString().substring(0, 15);
 
@@ -50,11 +50,11 @@ const RecordPresenter = (recordPresenterProps) => {
           </Grid>
           <Section>
             {state.selected.status === "FINISHED" ? (
-              <Button onClick={deleteChallenge} id={state.selected.id}>
+              <Button onClick={onConfirm} id={state.selected.id}>
                 Delete
               </Button>
             ) : (
-              <Button onClick={deleteChallenge} id={state.selected.id}>
+              <Button onClick={onConfirm} id={state.selected.id}>
                 포기할래요..
               </Button>
             )}
