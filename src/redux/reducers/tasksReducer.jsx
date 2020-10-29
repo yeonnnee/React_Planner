@@ -1,15 +1,14 @@
 import {
   FETCH_SUCCESS,
-  FETCH_FAILED,
   FETCH_START,
-  ADD_TASKS_SUCCESS,
-  ADD_TASKS_FAILED,
+  ADD_TASKS,
+  TASKS_ERROR,
   CHANGE_STATUS,
   DELETE_TASKS,
 } from "../types";
 
 export const initialState = {
-  isLoading: true,
+  isLoading: false,
   error: "",
   pendingList: [],
   finishedList: [],
@@ -40,25 +39,20 @@ const tasksReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
-          pendingList: [...filtered_PendingList],
-          finishedList: [...filtered_FinishedList],
+          pendingList: filtered_PendingList,
+          finishedList: filtered_FinishedList,
         };
       }
     }
-    case FETCH_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-      };
+
     //////////////////////* CRUD TASKS *////////////////
 
-    case ADD_TASKS_SUCCESS:
+    case ADD_TASKS:
       return {
         ...state,
-        isLoading: false,
         pendingList: [...state.pendingList, action.payload],
       };
-    case ADD_TASKS_FAILED:
+    case TASKS_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -71,8 +65,7 @@ const tasksReducer = (state = initialState, action) => {
         );
         return {
           ...state,
-          isLoading: false,
-          pendingList: [...filtered_pendingList],
+          pendingList: filtered_pendingList,
           finishedList: [...state.finishedList, action.payload],
         };
       } else {
@@ -81,9 +74,8 @@ const tasksReducer = (state = initialState, action) => {
         );
         return {
           ...state,
-          isLoading: false,
           pendingList: [...state.pendingList, action.payload],
-          finishedList: [...filtered_FinishedList],
+          finishedList: filtered_FinishedList,
         };
       }
     }
@@ -96,9 +88,8 @@ const tasksReducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        isLoading: false,
-        pendingList: [...filtered_PendingList],
-        finishedList: [...filtered_FinishedList],
+        pendingList: filtered_PendingList,
+        finishedList: filtered_FinishedList,
       };
     }
     default:
