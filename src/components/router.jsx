@@ -16,8 +16,6 @@ import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
 import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./msg/NotFound";
-import GatewayError from "./msg/GatewayError";
-import ServerError from "./msg/ServerError";
 import ErrorPage from "./msg/ErrorPage";
 import Footer from "./Footer";
 import Challenge from "../screens/Challenge";
@@ -34,8 +32,6 @@ const Router = () => {
         <Route path="/find-password" component={FindPassword} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-up/success" component={SignUpSuccess} />
-        <Route path="/504" component={GatewayError} />
-        <Route path="/500" component={ServerError} />
         <Route path="/error" component={ErrorPage} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
