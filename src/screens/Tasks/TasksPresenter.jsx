@@ -15,14 +15,7 @@ import {
 } from "./styles";
 
 const TasksPresenter = (tasksProps) => {
-  const {
-    pendingList,
-    finishedList,
-    onChange,
-    onSubmit,
-    content,
-    error,
-  } = tasksProps;
+  const { state, onChange, onSubmit, tasks } = tasksProps;
   return (
     <>
       <Header>TO DO LIST</Header>
@@ -30,8 +23,8 @@ const TasksPresenter = (tasksProps) => {
         <TasksInput
           onChange={onChange}
           onSubmit={onSubmit}
-          content={content}
-          error={error}
+          content={tasks.content}
+          error={tasks.error}
         />
         <ListCon>
           <Pending>
@@ -39,7 +32,7 @@ const TasksPresenter = (tasksProps) => {
             <Wrapper>
               <Scroll>
                 <List>
-                  {pendingList.map((task, index) => {
+                  {state.pendingList.map((task, index) => {
                     return <TaskList {...task} key={index} />;
                   })}
                 </List>
@@ -51,7 +44,7 @@ const TasksPresenter = (tasksProps) => {
             <Wrapper>
               <Scroll>
                 <List>
-                  {finishedList.map((task, index) => {
+                  {state.finishedList.map((task, index) => {
                     return <TaskList {...task} key={index} />;
                   })}
                 </List>

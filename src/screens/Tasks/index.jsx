@@ -5,17 +5,23 @@ import { v4 as uuidv4 } from "uuid";
 import { taskApi } from "../../api";
 import TasksPresenter from "./TasksPresenter";
 import Loader from "../../components/Loader";
+import ServerError from "../../components/msg/ServerError";
+import GatewayError from "../../components/msg/GatewayError";
 import {
   FETCH_SUCCESS,
-  FETCH_FAILED,
   FETCH_START,
-  ADD_TASKS_SUCCESS,
-  ADD_TASKS_FAILED,
+  ADD_TASKS,
+  TASKS_ERROR,
 } from "../../redux/types";
 
 const Tasks = (tasksProps) => {
-  const { state, start, success, add, failed, setError, history } = tasksProps;
-  const [tasks, setTasks] = useState({ content: "", id: "", status: "" });
+  const { state, start, success, add, setError } = tasksProps;
+  const [tasks, setTasks] = useState({
+    content: "",
+    id: "",
+    status: "",
+    error: "",
+  });
 
   const fetchData = useCallback(async () => {
     start();
@@ -25,39 +31,48 @@ const Tasks = (tasksProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        failed();
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        failed();
-        history.push("/504");
+        setError("504");
       } else {
-        return failed();
+        return;
       }
     }
-  }, [start, success, failed, history]);
+  }, [start, success, setError]);
 
   function onChange(event) {
     const value = event.target.value;
-    setTasks({ content: value, id: uuidv4().toString(), status: "PENDING" });
-    setError("");
+    if (value.length > 20) {
+      setTasks({
+        content: value,
+        id: uuidv4().toString(),
+        status: "PENDING",
+        error: "입력 가능한 글자수를 초과하였습니다 (20자 내외)",
+      });
+    } else {
+      setTasks({
+        content: value,
+        id: uuidv4().toString(),
+        status: "PENDING",
+        error: "",
+      });
+    }
   }
 
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      if (tasks.content) {
+      if (tasks.content && !tasks.error) {
         await taskApi.postTask(tasks);
         add(tasks);
-        setTasks({ content: "", id: "", status: "" });
+        setTasks({ content: "", id: "", status: "", error: "" });
       }
     } catch (error) {
       const res = error.response;
-      if (res.status === 400) {
-        setError(res.data.msg);
-      } else if (res.status === 504) {
-        history.push(504);
+      if (res.status === 504) {
+        setError("504");
       } else if (res.status === 500) {
-        history.push(500);
+        setError("500");
       } else {
         return;
       }
@@ -72,10 +87,14 @@ const Tasks = (tasksProps) => {
     <>
       {state.isLoading ? (
         <Loader />
+      ) : state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
       ) : (
         <TasksPresenter
-          {...state}
-          {...tasks}
+          state={state}
+          tasks={tasks}
           onChange={onChange}
           onSubmit={onSubmit}
         />
@@ -96,17 +115,15 @@ function mapDispatchToProps(dispatch) {
     success: (data) => {
       dispatch({ type: FETCH_SUCCESS, payload: data });
     },
-    failed: () => {
-      dispatch({ type: FETCH_FAILED });
-    },
+
     add: (tasks) => {
       dispatch({
-        type: ADD_TASKS_SUCCESS,
+        type: ADD_TASKS,
         payload: tasks,
       });
     },
     setError: (error) => {
-      dispatch({ type: ADD_TASKS_FAILED, payload: error });
+      dispatch({ type: TASKS_ERROR, payload: error });
     },
   };
 }
