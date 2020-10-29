@@ -1,7 +1,7 @@
 import React from "react";
 
-import Loader from "../../components/Loader";
-import TasksInput from "../Tasks/TasksInput";
+import Loader from "../../../components/Loader";
+import TasksInput from "../../Tasks/TasksInput";
 import {
   Container,
   ListCon,

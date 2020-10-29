@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Tasks from "../screens/Tasks";
 import Monthly from "../screens/Monthly";
-import AddMonthly from "../screens/AddMonthly";
-import EditMonthly from "../screens/EditMonthly";
+import AddMonthly from "../screens/Monthly/AddMonthly";
+import EditMonthly from "../screens/Monthly/EditMonthly";
 import Home from "../screens/Home";
 import Account from "../screens/Account";
 import ResetPw from "../screens/Account/ResetPw";

@@ -2,34 +2,32 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { monthlyApi } from "../../api";
-import { SAVE_MONTHLY, UPDATE_MONTHLY } from "../../redux/types";
-import EditMonthlyPresenter from "./EditMonthlyPresenter";
+import AddMonthlyPresenter from "./AddMonthlyPresenter";
+import { monthlyApi } from "../../../api";
+import { CREATE_MONTHLY, SAVE_MONTHLY } from "../../../redux/types";
 
-const EditMonthly = (editProps) => {
-  const { state, update, history, saveMonthly } = editProps;
+const MonthlyAdd = (monthlyAddProps) => {
+  const { state, history, create, saveMonthly } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
-    id: state.isEdit.id,
-    date: state.isEdit.date,
-    contents: state.isEdit.contents,
+    id: "",
+    date: state.date,
+    contents: [],
   });
   const [content, setContent] = useState({
     id: "",
     text: "",
     error: "",
   });
-
   function cancel() {
     history.push("/monthly");
   }
-
   async function save() {
     try {
       if (planList.contents.length > 0) {
         saveMonthly();
-        await monthlyApi.updatePlan(planList);
-        update(planList);
+        await monthlyApi.postPlan(planList);
+        create(planList);
         history.push("/monthly");
       } else {
         setContent({ ...content, error: "내용을 입력해주십시오" });
@@ -61,6 +59,7 @@ const EditMonthly = (editProps) => {
     if (content.text && !content.error) {
       setPlanList({
         ...planList,
+        id: uuidv4().toString(),
         contents: [...planList.contents, content],
       });
       setContent({
@@ -88,16 +87,15 @@ const EditMonthly = (editProps) => {
   }
 
   return (
-    <EditMonthlyPresenter
+    <AddMonthlyPresenter
       onChange={onChange}
       onSubmit={onSubmit}
       deleteItem={deleteItem}
+      save={save}
       planList={planList}
       content={content}
-      save={save}
       cancel={cancel}
-      date={planList.date}
-      state={state}
+      {...state}
     />
   );
 };
@@ -105,15 +103,16 @@ const EditMonthly = (editProps) => {
 function mapStateToProps(state) {
   return { state: state.monthlyReducer };
 }
+
 function mapDispatchToProps(dispatch) {
   return {
     saveMonthly: () => {
       dispatch({ type: SAVE_MONTHLY });
     },
-    update: (updatedPlan) => {
-      dispatch({ type: UPDATE_MONTHLY, payload: updatedPlan });
+    create: (plan) => {
+      dispatch({ type: CREATE_MONTHLY, payload: plan });
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditMonthly);
+export default connect(mapStateToProps, mapDispatchToProps)(MonthlyAdd);
