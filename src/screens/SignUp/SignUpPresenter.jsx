@@ -19,7 +19,9 @@ const SignUpPresenter = (signUpProps) => {
     <Container>
       <Title>Sign Up</Title>
 
-      {state.error ? <ErrorMessage error={state.error} /> : null}
+      {state.error !== "500" && state.error !== "504" ? (
+        <ErrorMessage error={state.error} />
+      ) : null}
       {state.isLoading ? <Loader /> : null}
 
       <Wrapper>

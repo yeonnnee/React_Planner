@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { signUpApi } from "../../api";
 import SignUpPresenter from "./SignUpPresenter";
+import GatewayError from "../../components/msg/GatewayError";
+import ServerError from "../../components/msg/ServerError";
 import {
   emailValidation,
   passwordValidation,
@@ -13,7 +15,7 @@ import {
 
 import {
   SEND_DATA,
-  SEND_DATA_FAILED,
+  SIGNUP_ERROR,
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
   CANCEL_SIGNUP,
@@ -23,10 +25,10 @@ const SignUp = (signUpProps) => {
   const {
     state,
     send,
-    failed,
+    setError,
     success,
     cancel,
-    setError,
+    setValidaionError,
     history,
   } = signUpProps;
 
@@ -45,13 +47,13 @@ const SignUp = (signUpProps) => {
     switch (target) {
       case "Password": {
         const value = event.target.value;
-        passwordValidation(value, setError);
+        passwordValidation(value, setValidaionError);
         return setUserInfo({ ...userInfo, password: value });
       }
 
       case "Confirm Password": {
         const value = event.target.value;
-        confirmPw_validation(value, userInfo.password, setError);
+        confirmPw_validation(value, userInfo.password, setValidaionError);
         return setUserInfo({
           ...userInfo,
           confirmPassword: value,
@@ -60,13 +62,13 @@ const SignUp = (signUpProps) => {
 
       case "Name": {
         const value = event.target.value;
-        nameValidation(value, setError);
+        nameValidation(value, setValidaionError);
         return setUserInfo({ ...userInfo, name: value });
       }
 
       case "Email": {
         const value = event.target.value;
-        emailValidation(value, setError);
+        emailValidation(value, setValidaionError);
         return setUserInfo({
           ...userInfo,
           email: value,
@@ -92,18 +94,18 @@ const SignUp = (signUpProps) => {
         const res = error.response.data;
         switch (res.param) {
           case "email":
-            return setError({ email: res.msg });
+            return setValidaionError({ email: res.msg });
           case "password":
-            return setError({ password: res.msg });
+            return setValidaionError({ password: res.msg });
           case "name":
-            return setError({ name: res.msg });
+            return setValidaionError({ name: res.msg });
           default:
-            failed(res.msg);
+            setError("");
         }
       } else if (status === 504) {
-        history.push(504);
+        setError("504");
       } else if (status === 500) {
-        history.push(500);
+        setError("500");
       }
     }
   }
@@ -118,9 +120,9 @@ const SignUp = (signUpProps) => {
       !userInfo.password ||
       !userInfo.confirmPassword
     ) {
-      return failed("빈칸 없이 입력해주십시오");
+      return setError("빈칸 없이 입력해주십시오");
     } else {
-      failed("");
+      setError("");
     }
     if (
       !state.validation.email &&
@@ -138,12 +140,20 @@ const SignUp = (signUpProps) => {
   }
 
   return (
-    <SignUpPresenter
-      onSubmit={onSubmit}
-      onChange={onChange}
-      onCancel={onCancel}
-      state={state}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <SignUpPresenter
+          onSubmit={onSubmit}
+          onChange={onChange}
+          onCancel={onCancel}
+          state={state}
+        />
+      )}
+    </>
   );
 };
 
@@ -155,13 +165,13 @@ function mapDispatchToProps(dispatch) {
     send: () => {
       dispatch({ type: SEND_DATA });
     },
-    failed: (error) => {
-      dispatch({ type: SEND_DATA_FAILED, payload: error });
+    setError: (error) => {
+      dispatch({ type: SIGNUP_ERROR, payload: error });
     },
     success: () => {
       dispatch({ type: SEND_DATA_SUCCESS });
     },
-    setError: (error) => {
+    setValidaionError: (error) => {
       dispatch({ type: VALIDATION_ERROR, payload: error });
     },
     cancel: () => {

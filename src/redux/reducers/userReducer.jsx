@@ -1,6 +1,6 @@
 import {
   SEND_DATA,
-  SEND_DATA_FAILED,
+  SIGNUP_ERROR,
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
   CANCEL_SIGNUP,
@@ -31,7 +31,7 @@ const userReducer = (state = initialState, action) => {
         isLoading: false,
         result: "SUCCESS",
       };
-    case SEND_DATA_FAILED:
+    case SIGNUP_ERROR:
       return {
         ...state,
         isLoading: false,
