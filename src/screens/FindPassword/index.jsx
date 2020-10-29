@@ -7,25 +7,26 @@ import ResetPw from "../Account/ResetPw/ResetPwPresenter";
 import { accountApi } from "../../api";
 import { passwordValidation, confirmPw_validation } from "../SignUp/validation";
 import FindPasswordPresenter from "./FindPasswordPresenter";
+import ServerError from "../../components/msg/ServerError";
+import GatewayError from "../../components/msg/GatewayError";
+
 import {
+  LOADING,
   CHECK_VERIFICATION,
-  CHECK_VERIFICATION_FAILED,
-  CHECK_VERIFICATION_SUCCESS,
-  UPDATE_PASSWORD,
-  UPDATE_PASSWORD_SUCCESS,
+  RESET_VERIFICATION_RECORD,
   UPDATE_PASSWORD_VALIDATION_ERROR,
+  ACCOUNT_ERROR,
 } from "../../redux/types";
 
 const FindPassword = (findPasswordProps) => {
   const {
     state,
     history,
-    checkEmail,
     verifiedUser,
-    failed,
-    setError,
-    update,
+    setValidationError,
+    loading,
     updated,
+    setError,
   } = findPasswordProps;
 
   const [user, setUser] = useState({ email: "", error: "" });
@@ -40,19 +41,19 @@ const FindPassword = (findPasswordProps) => {
 
     if (target === "Password") {
       const value = event.target.value;
-      passwordValidation(value, setError);
+      passwordValidation(value, setValidationError);
       return setNewPassword({ ...newPassword, password: value });
     }
     if (target === "Confirm Password") {
       const value = event.target.value;
-      confirmPw_validation(value, newPassword.password, setError);
+      confirmPw_validation(value, newPassword.password, setValidationError);
       return setNewPassword({ ...newPassword, confirmPw: value });
     }
   }
 
   async function updatePw() {
     try {
-      update();
+      loading();
       await accountApi.patchPW({
         user: user.email,
         updatedPassword: newPassword.password,
@@ -62,11 +63,11 @@ const FindPassword = (findPasswordProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 400) {
-        setError({ password: error.response.data.msg });
+        setValidationError({ password: error.response.data.msg });
       } else if (status === 504) {
-        history.push(504);
+        setError("504");
       } else if (status === 500) {
-        history.push(500);
+        setError("500");
       } else {
         return;
       }
@@ -80,18 +81,17 @@ const FindPassword = (findPasswordProps) => {
   }
   async function verify() {
     try {
-      checkEmail();
+      loading();
       await accountApi.findPassword({ email: user.email });
       verifiedUser();
     } catch (error) {
       const status = error.response.status;
-      failed();
       if (status === 400) {
         setUser({ ...user.email, error: error.response.data.msg });
       } else if (status === 504) {
-        history.push(504);
+        setError("504");
       } else if (status === 500) {
-        history.push(500);
+        setError("500");
       } else {
         return;
       }
@@ -114,7 +114,11 @@ const FindPassword = (findPasswordProps) => {
 
   return (
     <>
-      {!state.verification ? (
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : !state.verification ? (
         <FindPasswordPresenter
           state={state}
           user={user}
@@ -134,23 +138,20 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    checkEmail: () => {
-      dispatch({ type: CHECK_VERIFICATION });
+    loading: () => {
+      dispatch({ type: LOADING });
     },
     verifiedUser: () => {
-      dispatch({ type: CHECK_VERIFICATION_SUCCESS });
+      dispatch({ type: CHECK_VERIFICATION });
     },
-    failed: () => {
-      dispatch({ type: CHECK_VERIFICATION_FAILED });
-    },
-    setError: (error) => {
+    setValidationError: (error) => {
       dispatch({ type: UPDATE_PASSWORD_VALIDATION_ERROR, payload: error });
     },
-    update: () => {
-      dispatch({ type: UPDATE_PASSWORD });
-    },
     updated: () => {
-      dispatch({ type: UPDATE_PASSWORD_SUCCESS });
+      dispatch({ type: RESET_VERIFICATION_RECORD });
+    },
+    setError: (error) => {
+      dispatch({ type: ACCOUNT_ERROR, payload: error });
     },
   };
 }

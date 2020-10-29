@@ -4,10 +4,23 @@ import { connect } from "react-redux";
 
 import DeleteAccountPresenter from "./DeletAccountPresenter";
 import { accountApi } from "../../../api";
-import { DELETE_ACCOUNT, DELETE_ACCOUNT_SUCCESS } from "../../../redux/types";
+import ServerError from "../../../components/msg/ServerError";
+import GatewayError from "../../../components/msg/GatewayError";
+import {
+  LOADING,
+  LOG_OUT,
+  RESET_VERIFICATION_RECORD,
+} from "../../../redux/types";
 
 const DeleteAccount = (deleteAccountProps) => {
-  const { state, user, history, sendData, deleted } = deleteAccountProps;
+  const {
+    state,
+    user,
+    logOut,
+    sendData,
+    deleted,
+    setError,
+  } = deleteAccountProps;
   const [value, setValue] = useState({ password: "", error: "" });
   const [optionVal, setOptionVal] = useState({ reason: "", error: "" });
 
@@ -34,15 +47,15 @@ const DeleteAccount = (deleteAccountProps) => {
       const data = { password: value.password, reason: optionVal.reason };
       await accountApi.deleteAccount(data);
       deleted();
-      history.push("/");
+      logOut();
     } catch (error) {
       const status = error.response.status;
       if (status === 400) {
         setValue({ ...value, error: error.response.data.msg });
       } else if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else {
         return;
       }
@@ -59,15 +72,23 @@ const DeleteAccount = (deleteAccountProps) => {
     }
   };
   return (
-    <DeleteAccountPresenter
-      {...user}
-      {...state}
-      onChange={onChange}
-      onSelect={onSelect}
-      onClick={onClick}
-      passwordError={value.error}
-      error={optionVal.error}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <DeleteAccountPresenter
+          {...user}
+          {...state}
+          onChange={onChange}
+          onSelect={onSelect}
+          onClick={onClick}
+          passwordError={value.error}
+          error={optionVal.error}
+        />
+      )}
+    </>
   );
 };
 function mapStateToProps(state) {
@@ -76,10 +97,13 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     sendData: () => {
-      return dispatch({ type: DELETE_ACCOUNT });
+      return dispatch({ type: LOADING });
     },
     deleted: () => {
-      return dispatch({ type: DELETE_ACCOUNT_SUCCESS });
+      return dispatch({ type: RESET_VERIFICATION_RECORD });
+    },
+    logOut: () => {
+      return dispatch({ type: LOG_OUT });
     },
   };
 }

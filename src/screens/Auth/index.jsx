@@ -10,10 +10,12 @@ import {
   RESET_VERIFICATION_RECORD,
 } from "../../redux/types";
 import { authApi } from "../../api";
+import ServerError from "../../components/msg/ServerError";
+import GatewayError from "../../components/msg/GatewayError";
 
 const LogIn = (logInProps) => {
-  const { setError, send, success, state, resetRecord, history } = logInProps;
-  const [user, setUser] = useState({ email: "", password: "" });
+  const { setError, send, success, state, resetRecord } = logInProps;
+  const [user, setUser] = useState({ email: "", password: "", error: "" });
 
   // 로그인 버튼 클릭 후 VALIDATION ERROR 없을 시 실행되는 함수
   async function logIn() {
@@ -26,24 +28,24 @@ const LogIn = (logInProps) => {
       const msg = error.response.data.msg;
 
       if (status === 400) {
-        setError(msg);
+        setUser({ ...user, error: msg });
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else if (status === 500) {
-        history.push("/500");
+        setError("500");
       }
     }
   }
   // 로그인 버튼 눌렀을때 실행되는 함수
   async function onClick() {
     if (!user.email || !user.password) {
-      setError("아이디와 비밀번호를 입력해주시기 바랍니다");
+      setUser({ ...user, error: "아이디와 비밀번호를 입력해주시기 바랍니다" });
     } else if (user.password.length > 16) {
-      setError("비밀번호는 8~16자리로 입력해주십시오");
+      setUser({ ...user, error: "비밀번호는 8~16자리로 입력해주십시오" });
     } else if (!user.email.includes("@")) {
-      setError("유효하지 않은 이메일입니다");
+      setUser({ ...user, error: "유효하지 않은 이메일입니다" });
     } else {
-      setError("");
+      setUser("");
       logIn();
     }
   }
@@ -71,16 +73,14 @@ const LogIn = (logInProps) => {
       const status = error.response.status;
 
       if (status === 401) {
-        setError("");
-      } else if (status === 400) {
-        setError(error.response.data.msg);
+        setUser({ email: "", password: "", error: "" });
       } else if (status === 504) {
-        history.push(504);
+        setError("504");
       } else if (status === 500) {
-        history.push(500);
+        setError("500");
       }
     }
-  }, [success, setError, history]);
+  }, [success, setUser, setError]);
 
   useEffect(() => {
     checkAuth();
@@ -89,10 +89,19 @@ const LogIn = (logInProps) => {
 
   return (
     <>
-      {state.isAuthenticated ? (
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : state.isAuthenticated ? (
         <Redirect to="/tasks" />
       ) : (
-        <LogInPresenter {...state} onClick={onClick} onChange={onChange} />
+        <LogInPresenter
+          state={state}
+          user={user}
+          onClick={onClick}
+          onChange={onChange}
+        />
       )}
     </>
   );

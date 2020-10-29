@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { accountApi } from "../../../api";
-import {
-  CHECK_VERIFICATION_FAILED,
-  CHECK_VERIFICATION,
-  CHECK_VERIFICATION_SUCCESS,
-} from "../../../redux/types";
+import GatewayError from "../../../components/msg/GatewayError";
+import ServerError from "../../../components/msg/ServerError";
 import VerificationPresenter from "./VerificationPresenter";
+import {
+  CHECK_VERIFICATION,
+  LOADING,
+  RESET_VERIFICATION_RECORD,
+  ACCOUNT_ERROR,
+} from "../../../redux/types";
 
 const UserVerification = (UserVerificationProps) => {
   const {
@@ -16,7 +19,7 @@ const UserVerification = (UserVerificationProps) => {
     comparePw,
     success,
     failed,
-    history,
+    setError,
   } = UserVerificationProps;
   const [value, setValue] = useState({ password: "", error: "" });
 
@@ -43,9 +46,9 @@ const UserVerification = (UserVerificationProps) => {
       if (status === 400) {
         setValue({ ...state, error: error.response.data.msg });
       } else if (status === 504) {
-        history.push(504);
+        setError("504");
       } else if (status === 500) {
-        history.push(500);
+        setError("500");
       } else {
         return;
       }
@@ -61,13 +64,21 @@ const UserVerification = (UserVerificationProps) => {
   };
 
   return (
-    <VerificationPresenter
-      onClick={onClick}
-      onChange={onChange}
-      user={user}
-      state={state}
-      value={value}
-    />
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : (
+        <VerificationPresenter
+          onClick={onClick}
+          onChange={onChange}
+          user={user}
+          state={state}
+          value={value}
+        />
+      )}
+    </>
   );
 };
 
@@ -77,13 +88,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     comparePw: () => {
-      dispatch({ type: CHECK_VERIFICATION });
+      dispatch({ type: LOADING });
     },
     success: () => {
-      dispatch({ type: CHECK_VERIFICATION_SUCCESS });
+      dispatch({ type: CHECK_VERIFICATION });
     },
     failed: () => {
-      dispatch({ type: CHECK_VERIFICATION_FAILED });
+      dispatch({ type: RESET_VERIFICATION_RECORD });
+    },
+    setError: (error) => {
+      dispatch({ type: ACCOUNT_ERROR, payload: error });
     },
   };
 }

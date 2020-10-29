@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { authApi } from "../../api";
 import HomePresenter from "./HomePresenter";
+import ServerError from "../../components/msg/ServerError";
+import GatewayError from "../../components/msg/GatewayError";
 import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
@@ -11,7 +13,7 @@ import {
 } from "../../redux/types";
 
 const Home = (homeProps) => {
-  const { state, setError, success, resetRecord, history } = homeProps;
+  const { state, setError, success, resetRecord } = homeProps;
 
   // 페이지 render시 실행되는 함수
   const checkAuth = useCallback(async () => {
@@ -24,17 +26,15 @@ const Home = (homeProps) => {
 
       if (status === 401) {
         setError("");
-      } else if (status === 400) {
-        setError(error.response.data.msg);
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else {
         return;
       }
     }
-  }, [success, setError, history]);
+  }, [success, setError]);
 
   useEffect(() => {
     checkAuth();
@@ -42,7 +42,17 @@ const Home = (homeProps) => {
   }, [resetRecord, checkAuth]);
 
   return (
-    <>{state.isAuthenticated ? <Redirect to="/tasks" /> : <HomePresenter />}</>
+    <>
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : state.isAuthenticated ? (
+        <Redirect to="/tasks" />
+      ) : (
+        <HomePresenter />
+      )}
+    </>
   );
 };
 

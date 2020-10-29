@@ -15,14 +15,14 @@ import {
 } from "./styles";
 
 const LogInPresenter = (logInProps) => {
-  const { onChange, onClick, isLoading, error } = logInProps;
+  const { onChange, onClick, state, user } = logInProps;
   return (
     <>
       <Container>
         <Header />
         <Wrapper>
-          {isLoading ? <Loader /> : null}
-          {error ? <ErrorMessage error={error} /> : null}
+          {state.isLoading ? <Loader /> : null}
+          {user.error ? <ErrorMessage error={user.error} /> : null}
 
           <Form>
             <Input

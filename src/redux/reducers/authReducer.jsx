@@ -1,10 +1,4 @@
-import {
-  TRY_LOGIN,
-  LOGIN_SUCCESS,
-  LOG_OUT,
-  AUTH_ERROR,
-  DELETE_ACCOUNT_SUCCESS,
-} from "../types";
+import { TRY_LOGIN, LOGIN_SUCCESS, LOG_OUT, AUTH_ERROR } from "../types";
 
 export const initialState = {
   user: "",
@@ -46,16 +40,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
-    case DELETE_ACCOUNT_SUCCESS: {
-      return {
-        ...state,
-        user: "",
-        name: "",
-        isLoading: false,
-        isAuthenticated: false,
-        error: "",
-      };
-    }
+
     default:
       return state;
   }

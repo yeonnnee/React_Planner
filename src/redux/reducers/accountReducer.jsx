@@ -1,13 +1,9 @@
 import {
+  LOADING,
   CHECK_VERIFICATION,
-  CHECK_VERIFICATION_SUCCESS,
   RESET_VERIFICATION_RECORD,
-  CHECK_VERIFICATION_FAILED,
   UPDATE_PASSWORD_VALIDATION_ERROR,
-  UPDATE_PASSWORD,
-  UPDATE_PASSWORD_SUCCESS,
-  DELETE_ACCOUNT,
-  DELETE_ACCOUNT_SUCCESS,
+  ACCOUNT_ERROR,
 } from "../types";
 
 export const initialState = {
@@ -23,16 +19,20 @@ export const initialState = {
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_VERIFICATION_RECORD: {
-      return { ...state, verification: false };
+      return { ...state, verification: false, isLoading: false };
     }
-    case CHECK_VERIFICATION: {
+    case LOADING: {
       return { ...state, isLoading: true };
     }
-    case CHECK_VERIFICATION_SUCCESS: {
-      return { ...state, isLoading: false, verification: true };
+    case ACCOUNT_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     }
-    case CHECK_VERIFICATION_FAILED: {
-      return { ...state, verification: false, isLoading: false };
+    case CHECK_VERIFICATION: {
+      return { ...state, isLoading: false, verification: true };
     }
     case UPDATE_PASSWORD_VALIDATION_ERROR: {
       if (action.payload.password === "" || action.payload.password) {
@@ -55,19 +55,7 @@ const accountReducer = (state = initialState, action) => {
           },
         };
       }
-      return { ...state };
-    }
-    case UPDATE_PASSWORD: {
-      return { ...state, isLoading: true };
-    }
-    case UPDATE_PASSWORD_SUCCESS: {
-      return { ...state, isLoading: false, verification: false };
-    }
-    case DELETE_ACCOUNT: {
-      return { ...state, isLoading: true };
-    }
-    case DELETE_ACCOUNT_SUCCESS: {
-      return { ...state, isLoading: false, verification: false };
+      return state;
     }
     default:
       return state;

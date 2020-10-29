@@ -4,15 +4,18 @@ import { connect } from "react-redux";
 import Verification from "../Verification";
 import ResetPwPresenter from "./ResetPwPresenter";
 import { accountApi, authApi } from "../../../api";
+import ServerError from "../../../components/msg/ServerError";
+import GatewayError from "../../../components/msg/GatewayError";
 import {
   passwordValidation,
   confirmPw_validation,
 } from "../../SignUp/validation";
 
 import {
+  ACCOUNT_ERROR,
+  LOADING,
   LOG_OUT,
-  UPDATE_PASSWORD,
-  UPDATE_PASSWORD_SUCCESS,
+  RESET_VERIFICATION_RECORD,
   UPDATE_PASSWORD_VALIDATION_ERROR,
 } from "../../../redux/types";
 
@@ -20,11 +23,11 @@ const ResetPw = (resetPwProps) => {
   const {
     state,
     user,
+    setValidationError,
     setError,
-    update,
+    loading,
     updated,
     logOut,
-    history,
   } = resetPwProps;
   const [newPassword, setNewPassword] = useState({
     password: "",
@@ -36,12 +39,12 @@ const ResetPw = (resetPwProps) => {
 
     if (target === "Password") {
       const value = event.target.value;
-      passwordValidation(value, setError);
+      passwordValidation(value, setValidationError);
       return setNewPassword({ ...newPassword, password: value });
     }
     if (target === "Confirm Password") {
       const value = event.target.value;
-      confirmPw_validation(value, newPassword.password, setError);
+      confirmPw_validation(value, newPassword.password, setValidationError);
       return setNewPassword({ ...newPassword, confirmPw: value });
     }
   }
@@ -52,9 +55,9 @@ const ResetPw = (resetPwProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else {
         return;
       }
@@ -62,7 +65,7 @@ const ResetPw = (resetPwProps) => {
   }
   async function updateData() {
     try {
-      update();
+      loading();
       await accountApi.patchPW({
         user: user.user,
         updatedPassword: newPassword.password,
@@ -72,11 +75,11 @@ const ResetPw = (resetPwProps) => {
     } catch (error) {
       const status = error.response.status;
       if (status === 400) {
-        setError({ password: error.response.data.msg });
+        setValidationError({ password: error.response.data.msg });
       } else if (status === 500) {
-        history.push("/500");
+        setError("500");
       } else if (status === 504) {
-        history.push("/504");
+        setError("504");
       } else {
         return;
       }
@@ -94,7 +97,11 @@ const ResetPw = (resetPwProps) => {
 
   return (
     <>
-      {state.verification ? (
+      {state.error === "500" ? (
+        <ServerError />
+      ) : state.error === "504" ? (
+        <GatewayError />
+      ) : state.verification ? (
         <ResetPwPresenter onChange={onChange} state={state} onClick={onClick} />
       ) : (
         <Verification {...user} />
@@ -107,17 +114,20 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    setError: (error) => {
+    setValidationError: (error) => {
       dispatch({ type: UPDATE_PASSWORD_VALIDATION_ERROR, payload: error });
     },
-    update: () => {
-      dispatch({ type: UPDATE_PASSWORD });
+    loading: () => {
+      dispatch({ type: LOADING });
     },
     updated: () => {
-      dispatch({ type: UPDATE_PASSWORD_SUCCESS });
+      dispatch({ type: RESET_VERIFICATION_RECORD });
     },
     logOut: () => {
       dispatch({ type: LOG_OUT });
+    },
+    setError: (error) => {
+      dispatch({ type: ACCOUNT_ERROR, payload: error });
     },
   };
 }
