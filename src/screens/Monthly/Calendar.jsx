@@ -32,23 +32,28 @@ const Calendar = (calendarProps) => {
 
     if (state.deleted) {
       const deletedItem_Date = state.deleted.split(" ")[2];
+      let deletedAbbr;
       if (deletedItem_Date.split("")[0] === "0") {
-        return deletedItem_Date.split("")[1];
+        const deletedItem_Date_SingleNum = deletedItem_Date.split("")[1];
+        deletedAbbr = await document.querySelector(
+          `[aria-label= "${month} ${deletedItem_Date_SingleNum}, ${year}" ]`
+        );
+      } else {
+        deletedAbbr = await document.querySelector(
+          `[aria-label= "${month} ${deletedItem_Date}, ${year}" ]`
+        );
       }
-      const deletedAbbr = await document.querySelector(
-        `[aria-label= "${month} ${deletedItem_Date}, ${year}" ]`
-      );
+
       if (deletedAbbr) {
-        const dateBtn = deletedAbbr.parentNode;
-        dateBtn.style.border = "";
-        // deletedAbbr.style.padding = "";
-        // deletedAbbr.style.borderRadius = "";
-        // deletedAbbr.style.backgroundColor = "";
+        deletedAbbr.style.padding = "";
+        deletedAbbr.style.borderRadius = "";
+        deletedAbbr.style.backgroundColor = "";
       }
     }
   }, [state.deleted, state.monthYear]);
 
-  const markingDate = useCallback((plans, month, year) => {
+  // plan 생성 시 달력에 마킹하는 함수
+  const markingDate = useCallback(async (plans, month, year) => {
     const targets = plans.map((plan) => {
       const number = plan.date.split(" ")[2];
       if (number.split("")[0] === "0") {
@@ -63,20 +68,15 @@ const Calendar = (calendarProps) => {
       const abbr = document.querySelector(
         `[aria-label= "${month} ${date}, ${year}" ]`
       );
-      if (abbr) {
-        const dateBtn = abbr.parentNode;
-        dateBtn.style.border = "1px solid #AD8D92";
-        // const div = document.createElement("div");
-        // div.style.width = "10px";
-        // div.style.height = "3px";
-        // div.style.backgroundColor = "yellow";
-        // div.style.position = "relative";
-        // div.style.top = "-16px";
-        // div.style.right = "-40px";
-        // dateBtn.appendChild(div);
-        // abbr.style.padding = "5px 13px";
-        // abbr.style.borderRadius = "25px";
-        // abbr.style.backgroundColor = "#AD8D92";
+      const dateNum = await abbr.textContent;
+      if (dateNum.length === 2) {
+        abbr.style.borderRadius = "25px";
+        abbr.style.padding = "4px";
+        abbr.style.backgroundColor = "#BAA7A1";
+      } else {
+        abbr.style.borderRadius = "25px";
+        abbr.style.padding = "3px 7px";
+        abbr.style.backgroundColor = "#BAA7A1";
       }
     }
   }, []);
