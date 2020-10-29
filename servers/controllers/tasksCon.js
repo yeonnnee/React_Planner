@@ -1,5 +1,4 @@
 const Task = require("../models/task");
-const { validationResult } = require("express-validator");
 const sequelize = require("../models");
 
 exports.getTasks = async (req, res) => {
@@ -20,18 +19,13 @@ exports.postTasks = async (req, res) => {
     const taskId = req.body.id;
     const status = req.body.status;
 
-    if (!validationResult(req).isEmpty()) {
-      const result = validationResult(req);
-      res.status(400).json({ msg: result.errors[0].msg });
-    } else {
-      await Task.create({
-        id: taskId,
-        userId: user,
-        content: content,
-        status: status,
-      });
-      res.status(201).json({ msg: "Get data successfully" });
-    }
+    await Task.create({
+      id: taskId,
+      userId: user,
+      content: content,
+      status: status,
+    });
+    res.status(201).json({ msg: "Get data successfully" });
   } catch (error) {
     throw new Error();
   }
