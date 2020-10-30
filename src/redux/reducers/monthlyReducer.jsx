@@ -9,6 +9,7 @@ import {
   CHANGE_MONTHLY,
   SAVE_MONTHLY,
   MONTHLY_ERROR,
+  GET_DETAILED,
 } from "../types";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   date: "",
   selected: [],
   unSelected: [],
+  detail: [],
   isEdit: "",
   deleted: "",
   plans: [],
@@ -173,6 +175,13 @@ const monthlyReducer = (state = initialState, action) => {
         ...state,
         monthYear: action.payload,
         unSelected: unSelected_plan,
+      };
+    }
+    case GET_DETAILED: {
+      return {
+        ...state,
+        isLoading: false,
+        detail: action.payload,
       };
     }
     default:

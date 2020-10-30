@@ -6,11 +6,10 @@ import MonthlyPresenter from "./MonthlyPresenter";
 import ServerError from "../../components/msg/ServerError";
 import GatewayError from "../../components/msg/GatewayError";
 import {
-  DELETE_MONTHLY,
-  EDIT_MONTHLY,
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
   MONTHLY_ERROR,
+  GET_DETAILED,
 } from "../../redux/types";
 
 const Monthly = (monthlyProps) => {
@@ -18,18 +17,16 @@ const Monthly = (monthlyProps) => {
     state,
     fetch_monthly,
     fetch_success,
-    edit,
-    deletePlan,
-    history,
     setError,
+    getDetailed,
   } = monthlyProps;
 
-  const onDelete = async (event) => {
+  const seeDetail = async (event) => {
     try {
-      const date = event.target.id;
-      const target = state.plans.find((plan) => plan.date === date);
-      await monthlyApi.deletePlan(target);
-      deletePlan(target);
+      fetch_monthly();
+      const planId = event.target.id;
+      const res = await monthlyApi.getDetail(planId);
+      getDetailed(res.data.monthly);
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
@@ -41,18 +38,6 @@ const Monthly = (monthlyProps) => {
       }
     }
   };
-
-  const onConfirm = (event) => {
-    alert("정말로 삭제하시겠습니까?");
-    if (alert) {
-      onDelete(event);
-    }
-  };
-  const onEdit = (event) => {
-    const target = event.target.id;
-    edit(target);
-  };
-
   const fetchData = useCallback(async () => {
     fetch_monthly();
     try {
@@ -68,7 +53,7 @@ const Monthly = (monthlyProps) => {
         return;
       }
     }
-  }, [fetch_monthly, fetch_success, history]);
+  }, [fetch_monthly, fetch_success]);
 
   useEffect(() => {
     fetchData();
@@ -81,7 +66,7 @@ const Monthly = (monthlyProps) => {
       ) : state.error === "504" ? (
         <GatewayError />
       ) : (
-        <MonthlyPresenter {...state} onEdit={onEdit} onConfirm={onConfirm} />
+        <MonthlyPresenter {...state} seeDetail={seeDetail} />
       )}
     </>
   );
@@ -102,11 +87,8 @@ function mapDispatchToProps(dispatch) {
     setError: (error) => {
       dispatch({ type: MONTHLY_ERROR, payload: error });
     },
-    edit: (id) => {
-      dispatch({ type: EDIT_MONTHLY, payload: id });
-    },
-    deletePlan: (plan) => {
-      dispatch({ type: DELETE_MONTHLY, payload: plan });
+    getDetailed: (data) => {
+      dispatch({ type: GET_DETAILED, payload: data });
     },
   };
 }
