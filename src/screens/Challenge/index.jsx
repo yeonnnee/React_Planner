@@ -28,7 +28,7 @@ const Challenge = (challengeProps) => {
     fetchStart();
     try {
       const challengeId = event.target.id;
-      const res = await challengeApi.getChallengeRecord({ id: challengeId });
+      const res = await challengeApi.getChallengeRecord(challengeId);
       select(res.data.challenge);
     } catch (error) {
       const status = error.response.status;
