@@ -24,7 +24,7 @@ export const Scroll = styled.div`
   height: 490px;
   overflow: auto;
   @media only screen and (max-width: 640px) {
-    width: 350px;
+    width: 370px;
     height: 340px;
   }
 `;
@@ -35,6 +35,8 @@ export const List = styled.ul`
   align-items: center;
   @media only screen and (max-width: 640px) {
     height: 350px;
+    margin-right: 10px;
+    margin-top: 5px;
   }
 `;
 
