@@ -21,7 +21,8 @@ export const monthlyApi = {
   postPlan: (plan) => axios.post("/api/monthly/plan/add", plan),
   updatePlan: (updatedPlan) =>
     axios.post(`/api/monthly/plan/edit/${updatedPlan.id}`, updatedPlan),
-  deletePlan: (plan) => axios.post(`api/monthly/plan/${plan.id}`, plan),
+  deletePlan: (plan) => axios.post(`/api/monthly/plan/${plan.id}`, plan),
+  getDetail: (planId) => axios.get(`/api/monthly/detail/${planId}`),
 };
 
 export const accountApi = {
@@ -36,7 +37,7 @@ export const accountApi = {
 
 export const challengeApi = {
   getChallenges: () => axios.get("api/challenge"),
-  getChallengeRecord: (id) => axios.post("/api/challenge/record", id),
+  getChallengeRecord: (id) => axios.get(`/api/challenge/record/${id}`),
   postChallenge: (data) => axios.post("/api/challenge/enrolled", data),
   updateStatus: (id) => axios.patch("api/challenge/update", id),
   checkDay: (target) => axios.patch("api/challenge/check", target),

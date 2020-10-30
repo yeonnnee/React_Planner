@@ -4,29 +4,10 @@ const sequelize = require("../models");
 
 exports.getMonthly = async (req, res) => {
   try {
-    await sequelize.transaction(async (t) => {
-      const user = req.session.user.email;
-      const plans = await Plan.findAll(
-        { where: { writer: user } },
-        { transaction: t }
-      );
-      let monthly = [];
+    const user = req.session.user.email;
+    const plans = await Plan.findAll({ where: { writer: user } });
 
-      for (const plan of plans) {
-        const contents = await Content.findAll(
-          { where: { planId: plan.id } },
-          { transaction: t }
-        );
-        const result = {
-          id: plan.id,
-          date: plan.date,
-          contents,
-        };
-        monthly.push(result);
-      }
-
-      res.status(200).json({ monthly: monthly });
-    });
+    res.status(200).json({ monthly: plans });
   } catch (error) {
     if (error.name === "SequelizeDatabaseError") {
       res.status(400).json({ msg: "Something went wrong" });
@@ -35,7 +16,30 @@ exports.getMonthly = async (req, res) => {
     }
   }
 };
+exports.getDetail = async (req, res) => {
+  try {
+    await sequelize.transaction(async (t) => {
+      const planId = req.params.planId;
+      const plan = await Plan.findByPk(planId);
 
+      const contents = await Content.findAll(
+        {
+          where: { planId: planId },
+        },
+        { transaction: t }
+      );
+      const result = {
+        id: plan.id,
+        date: plan.date,
+        contents,
+      };
+
+      res.status(200).json({ monthly: result });
+    });
+  } catch (error) {
+    throw new Error();
+  }
+};
 exports.postMonthly = async (req, res) => {
   try {
     await sequelize.transaction(async (t) => {
