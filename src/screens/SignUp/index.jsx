@@ -28,7 +28,7 @@ const SignUp = (signUpProps) => {
     setError,
     success,
     cancel,
-    setValidaionError,
+    setValidationError,
     history,
   } = signUpProps;
 
@@ -47,13 +47,13 @@ const SignUp = (signUpProps) => {
     switch (target) {
       case "Password": {
         const value = event.target.value;
-        passwordValidation(value, setValidaionError);
+        passwordValidation(value, setValidationError);
         return setUserInfo({ ...userInfo, password: value });
       }
 
       case "Confirm Password": {
         const value = event.target.value;
-        confirmPw_validation(value, userInfo.password, setValidaionError);
+        confirmPw_validation(value, userInfo.password, setValidationError);
         return setUserInfo({
           ...userInfo,
           confirmPassword: value,
@@ -62,13 +62,13 @@ const SignUp = (signUpProps) => {
 
       case "Name": {
         const value = event.target.value;
-        nameValidation(value, setValidaionError);
+        nameValidation(value, setValidationError);
         return setUserInfo({ ...userInfo, name: value });
       }
 
       case "Email": {
         const value = event.target.value;
-        emailValidation(value, setValidaionError);
+        emailValidation(value, setValidationError);
         return setUserInfo({
           ...userInfo,
           email: value,
@@ -94,11 +94,11 @@ const SignUp = (signUpProps) => {
         const res = error.response.data;
         switch (res.param) {
           case "email":
-            return setValidaionError({ email: res.msg });
+            return setValidationError({ email: res.msg });
           case "password":
-            return setValidaionError({ password: res.msg });
+            return setValidationError({ password: res.msg });
           case "name":
-            return setValidaionError({ name: res.msg });
+            return setValidationError({ name: res.msg });
           default:
             setError("");
         }
@@ -136,6 +136,7 @@ const SignUp = (signUpProps) => {
 
   /* cancel버튼 눌렀을 때 발생하는 함수*/
   function onCancel() {
+    history.push("/");
     cancel();
   }
 
@@ -171,7 +172,7 @@ function mapDispatchToProps(dispatch) {
     success: () => {
       dispatch({ type: SEND_DATA_SUCCESS });
     },
-    setValidaionError: (error) => {
+    setValidationError: (error) => {
       dispatch({ type: VALIDATION_ERROR, payload: error });
     },
     cancel: () => {
