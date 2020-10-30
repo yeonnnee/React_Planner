@@ -3,15 +3,7 @@ import React from "react";
 import SignUpInput from "./SignUpInput";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/msg/ErrorMessage";
-import {
-  Container,
-  Title,
-  Wrapper,
-  Section,
-  Button,
-  SLink,
-  Error,
-} from "./styles";
+import { Container, Title, Wrapper, Section, Button, Error } from "./styles";
 
 const SignUpPresenter = (signUpProps) => {
   const { state, onSubmit, onChange, onCancel } = signUpProps;
@@ -63,9 +55,7 @@ const SignUpPresenter = (signUpProps) => {
       </Wrapper>
       <Section>
         <Button onClick={onSubmit}>Submit</Button>
-        <SLink to="/">
-          <Button onClick={onCancel}>Cancel</Button>
-        </SLink>
+        <Button onClick={onCancel}>Cancel</Button>
       </Section>
     </Container>
   );
