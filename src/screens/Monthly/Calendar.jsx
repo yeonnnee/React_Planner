@@ -53,7 +53,7 @@ const Calendar = (calendarProps) => {
   }, [state.deleted, state.monthYear]);
 
   // plan 생성 시 달력에 마킹하는 함수
-  const markingDate = useCallback(async (plans, month, year) => {
+  const markingDate = useCallback((plans, month, year) => {
     const targets = plans.map((plan) => {
       const number = plan.date.split(" ")[2];
       if (number.split("")[0] === "0") {
@@ -68,7 +68,7 @@ const Calendar = (calendarProps) => {
       const abbr = document.querySelector(
         `[aria-label= "${month} ${date}, ${year}" ]`
       );
-      const dateNum = await abbr.textContent;
+      const dateNum = abbr.textContent;
       if (dateNum.length === 2) {
         abbr.style.borderRadius = "25px";
         abbr.style.padding = "4px";
@@ -91,6 +91,7 @@ const Calendar = (calendarProps) => {
       const planDate = plan.date.split(" ");
       return planDate[1] === month.substring(0, 3) && planDate[3] === year;
     });
+
     markingDate(plans, month, year);
   }, [state.monthYear, state.plans, markingDate]);
 
