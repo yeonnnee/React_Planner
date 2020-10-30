@@ -129,7 +129,7 @@ exports.patchRecord = async (req, res) => {
 exports.getChallengeRecord = async (req, res) => {
   try {
     await sequelize.transaction(async (t) => {
-      const challengeId = req.body.id;
+      const challengeId = req.params.id;
       const challenge = await Challenge.findByPk(challengeId);
       const challengeRecord = await Record.findAll(
         {
