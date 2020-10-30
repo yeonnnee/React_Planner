@@ -7,6 +7,9 @@ export const List = styled.ul`
   display: flex;
   flex-direction: column;
   overflow: auto;
+  @media only screen and (max-width: 640px) {
+    height: 290px;
+  }
 `;
 
 export const ListItem = styled.li`

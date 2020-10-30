@@ -13,6 +13,8 @@ export const Container = styled.div`
 
   @media only screen and (max-width: 640px) {
     margin-left: 35px;
+    margin-top: 50px;
+    margin-bottom: 80px;
   }
 `;
 export const Header = styled.div`

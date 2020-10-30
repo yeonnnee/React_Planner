@@ -6,6 +6,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  @media only screen and (max-width: 640px) {
+    margin-bottom: 100px;
+  }
 `;
 export const Text = styled.div`
   font-size: 18px;
@@ -27,6 +30,9 @@ export const Error = styled.div`
   font-size: 12px;
   color: red;
   line-height: 1.5;
+  @media only screen and (max-width: 640px) {
+    top: -17px;
+  }
 `;
 export const Button = styled.button`
   outline: none;

@@ -4,10 +4,16 @@ export const Container = styled.div`
   width: 90%;
   height: 450px;
   margin-left: 30px;
+  @media only screen and (max-width: 640px) {
+    height: 430px;
+  }
 `;
 export const Header = styled.div`
   font-size: 20px;
   margin-bottom: 25px;
+  @media only screen and (max-width: 640px) {
+    margin-bottom: 10px;
+  }
 `;
 export const Text = styled.div`
   font-size: 13px;

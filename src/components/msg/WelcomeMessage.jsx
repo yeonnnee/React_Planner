@@ -17,6 +17,9 @@ const Header = styled.div`
 const Title = styled.div`
   font-family: "Cinzel Decorative", cursive;
   font-size: 25px;
+  @media only screen and (max-width: 640px) {
+    font-size: 23px;
+  }
 `;
 const Describe = styled.div`
   font-size: 13px;
@@ -28,7 +31,7 @@ const Describe = styled.div`
 const WelcomeMessage = () => {
   return (
     <Header>
-      <Title>Welcome to Planner</Title>
+      <Title>Welcome to Y Planner</Title>
       <Describe>
         Manage your plan and record your day.
         <br /> Dream, Plan, Do with our App.

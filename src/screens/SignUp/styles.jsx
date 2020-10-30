@@ -16,16 +16,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    height: 95%;
+    position: relative;
+    top: -20px;
+  }
 `;
 
 export const Title = styled.span`
   font-size: 25px;
   font-family: "Cinzel Decorative", cursive;
   margin: 20px 0;
-
-  @media only screen and (max-width: 640px) {
-    margin: 0;
-  }
 `;
 
 export const Wrapper = styled.div`
@@ -33,10 +34,17 @@ export const Wrapper = styled.div`
   height: 300px;
   width: 100%;
   animation: ${FadeIn} 1s linear;
+  @media only screen and (max-width: 640px) {
+    margin-top: 0;
+  }
 `;
 export const Section = styled.div`
   display: flex;
   font-family: "Life Savers", cursive;
+  @media only screen and (max-width: 640px) {
+    height: 40px;
+    margin-top: 75px;
+  }
 `;
 export const Button = styled.button`
   width: 150px;
@@ -51,7 +59,6 @@ export const Button = styled.button`
   @media only screen and (max-width: 640px) {
     width: 100px;
     height: 30px;
-    margin-top: 5px;
   }
 `;
 
@@ -69,6 +76,9 @@ export const Error = styled.span`
   font-size: 12px;
   color: red;
   line-height: 1.5;
+  @media only screen and (max-width: 640px) {
+    top: -8px;
+  }
 `;
 
 // SIGN-UP SUCCESS
@@ -94,7 +104,11 @@ export const Form = styled.div`
   grid-template-columns: 105px 400px;
   gap: 10px;
   @media only screen and (max-width: 640px) {
-    margin: 5px 0;
+    margin: 0 0 7px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80px;
   }
 `;
 export const Label = styled.label`
@@ -104,7 +118,9 @@ export const Label = styled.label`
   align-items: center;
   justify-content: flex-end;
   @media only screen and (max-width: 640px) {
-    font-size: 12px;
+    width: 80%;
+    justify-content: flex-start;
+    height: 20px;
   }
 `;
 export const Input = styled.input`
@@ -117,7 +133,8 @@ export const Input = styled.input`
     border: ${(props) => (props.error ? "1px solid red" : "2px solid #20639b")};
   }
   @media only screen and (max-width: 640px) {
-    width: 50%;
+    width: 80%;
+    padding: 13px 20px;
   }
 `;
 
@@ -130,4 +147,9 @@ export const Info = styled.div`
   align-items: center;
   position: relative;
   top: -18px;
+  @media only screen and (max-width: 640px) {
+    width: 80%;
+    top: -13px;
+    margin-left: 40px;
+  }
 `;

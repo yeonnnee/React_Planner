@@ -6,6 +6,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    height: 430px;
+    margin-top: 0;
+  }
 `;
 
 export const Header = styled.div`

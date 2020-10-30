@@ -19,12 +19,22 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-around;
   animation: ${FadeIn} 1s linear;
+  @media only screen and (max-width: 640px) {
+    height: 95%;
+    margin-top: 0;
+    justify-content: center;
+    position: relative;
+    top: -20px;
+  }
 `;
 
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    margin: 20px 0;
+  }
 `;
 export const Text = styled.div`
   font-size: 13px;

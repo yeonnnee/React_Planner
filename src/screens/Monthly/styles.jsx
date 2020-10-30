@@ -8,6 +8,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    height: 430px;
+    top: -30px;
+  }
 `;
 
 export const AddLink = styled(Link)`

@@ -7,6 +7,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    margin-bottom: 10px;
+  }
 `;
 const Header = styled.div`
   height: 30px;

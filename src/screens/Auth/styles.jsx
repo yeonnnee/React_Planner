@@ -6,6 +6,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 640px) {
+    height: 95%;
+    margin-top: 0;
+    justify-content: center;
+    position: relative;
+    top: -20px;
+  }
 `;
 export const PasswordLink = styled(Link)`
   text-decoration: none;
@@ -14,6 +21,10 @@ export const PasswordLink = styled(Link)`
   align-self: flex-end;
   padding-right: 54px;
   color: rgb(148, 30, 30);
+  @media only screen and (max-width: 640px) {
+    position: relative;
+    right: -15px;
+  }
 `;
 export const SignUpLink = styled(Link)`
   text-decoration: none;
