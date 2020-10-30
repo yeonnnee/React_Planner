@@ -29,6 +29,7 @@ const LogIn = (logInProps) => {
 
       if (status === 400) {
         setUser({ ...user, error: msg });
+        setError("400");
       } else if (status === 504) {
         setError("504");
       } else if (status === 500) {
