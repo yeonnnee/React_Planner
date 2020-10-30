@@ -2,6 +2,7 @@ import React from "react";
 
 import Loader from "../../../components/Loader";
 import GatewayError from "../../../components/msg/GatewayError";
+import ErrorPage from "../../../components/msg/ErrorPage";
 import ServerError from "../../../components/msg/ServerError";
 import { Header, Tag } from "../Enroll/styles";
 import { Button } from "../styles";
@@ -30,6 +31,8 @@ const RecordPresenter = (recordPresenterProps) => {
         <ServerError />
       ) : state.error === "504" ? (
         <GatewayError />
+      ) : !state.selected ? (
+        <ErrorPage />
       ) : (
         <>
           <Header>
