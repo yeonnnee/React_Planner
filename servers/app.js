@@ -37,12 +37,12 @@ const authRoutes = require("./routes/authRoutes");
 const accountRoutes = require("./routes/accountRoutes");
 const challengeRoutes = require("./routes/challengeRoutes");
 
-app.use("/api/auth", authRoutes);
-app.use("/api/user", signUpRoutes);
-app.use("/api/monthly", monthlyRoutes);
-app.use("/api/Account", accountRoutes);
-app.use("/api/challenge", challengeRoutes);
-app.use("/api", taskRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", signUpRoutes);
+app.use("/monthly", monthlyRoutes);
+app.use("/Account", accountRoutes);
+app.use("/challenge", challengeRoutes);
+app.use("/", taskRoutes);
 
 // Association //
 const User = require("./models/user");
