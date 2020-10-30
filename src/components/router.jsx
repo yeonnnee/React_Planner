@@ -20,6 +20,7 @@ import Footer from "./Footer";
 import Challenge from "../screens/Challenge";
 import Enroll from "../screens/Challenge/Enroll";
 import Record from "../screens/Challenge/Record";
+import Detail from "../screens/Monthly/Detail";
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
+        <PrivateRoute exact path="/monthly/:id" component={Detail} />
         <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
         <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
         <PrivateRoute exact path="/challenge" component={Challenge} />
