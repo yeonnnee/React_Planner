@@ -38,7 +38,7 @@ const MonthlyPresenter = (monthlyProps) => {
             })
           ) : (
             <AddSection>
-              <AddLink to="/add">ADD</AddLink>
+              <AddLink to="/monthly/add">ADD</AddLink>
             </AddSection>
           )}
 

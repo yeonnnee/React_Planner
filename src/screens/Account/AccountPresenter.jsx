@@ -129,10 +129,10 @@ const AccountPresenter = (accountProps) => {
           <Info>{state.name}</Info>
           <Info>{state.user}</Info>
         </User>
-        <AccountLink to="/reset-password">
+        <AccountLink to="account/reset-password">
           <DropDownList>비밀번호 변경</DropDownList>
         </AccountLink>
-        <AccountLink to="/delete-account">
+        <AccountLink to="account/delete-account">
           <DropDownList>계정삭제</DropDownList>
         </AccountLink>
         <LogOutBtn onClick={onClick}>로그아웃</LogOutBtn>

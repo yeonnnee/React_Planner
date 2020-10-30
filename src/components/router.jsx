@@ -33,14 +33,23 @@ const Router = () => {
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
-        <PrivateRoute exact path="/add" component={AddMonthly} />
-        <PrivateRoute exact path="/edit" component={EditMonthly} />
+        <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
+        <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
         <PrivateRoute exact path="/challenge" component={Challenge} />
-        <PrivateRoute exact path="/enroll" component={Enroll} />
+        <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
+        <PrivateRoute exact path="/challenge/:id" component={Record} />
         <PrivateRoute exact path="/account" component={Account} />
-        <PrivateRoute exact path="/reset-password" component={ResetPw} />
-        <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
-        <PrivateRoute exact path="/:id" component={Record} />
+        <PrivateRoute
+          exact
+          path="/account/reset-password"
+          component={ResetPw}
+        />
+        <PrivateRoute
+          exact
+          path="/account/delete-account"
+          component={DeleteAccount}
+        />
+
         <Route component={NotFound} />
       </Switch>
       <Footer />

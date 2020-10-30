@@ -56,7 +56,7 @@ const ChallengeList = (challengeListProps) => {
   }
 
   return (
-    <SLink to={`${id}`}>
+    <SLink to={`challenge/${id}`}>
       <ListItem onClick={selectList} id={id}>
         <Column onClick={selectList} id={id}>
           <Title onClick={selectList} id={id}>

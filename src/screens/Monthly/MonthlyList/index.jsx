@@ -36,7 +36,7 @@ const MonthlyList = (monthlyProps) => {
         </Detail>
 
         <BtnSection>
-          <EditLink to={`/edit`}>
+          <EditLink to={`monthly/edit/${id}`}>
             <Btn onClick={onEdit} id={id}>
               Edit
             </Btn>
