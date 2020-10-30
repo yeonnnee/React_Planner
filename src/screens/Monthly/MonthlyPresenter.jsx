@@ -1,8 +1,8 @@
 import React from "react";
 
-import MonthlyList from "./MonthlyList";
 import Loader from "../../components/Loader";
 import Calendar from "./Calendar";
+import { List, Title } from "./Detail/styles";
 import {
   Container,
   AddLink,
@@ -12,10 +12,12 @@ import {
   Scroll,
   UnSelectedMonthly,
   Text,
+  SubTitle,
+  DetailLink,
 } from "./styles";
 
 const MonthlyPresenter = (monthlyProps) => {
-  const { selected, unSelected, isLoading, onConfirm, onEdit } = monthlyProps;
+  const { selected, unSelected, isLoading, seeDetail } = monthlyProps;
 
   return (
     <Container>
@@ -24,15 +26,17 @@ const MonthlyPresenter = (monthlyProps) => {
         <Loader />
       ) : (
         <>
+          <SubTitle>Selected Plan</SubTitle>
+
           {selected.length > 0 ? (
             selected.map((plan, index) => {
               return (
                 <SelectedMonthly key={index}>
-                  <MonthlyList
-                    {...plan}
-                    onConfirm={onConfirm}
-                    onEdit={onEdit}
-                  />
+                  <DetailLink to={`monthly/${plan.id}`}>
+                    <List tabIndex="0" id={plan.id} onClick={seeDetail}>
+                      <Title>{plan.date.substring(0, 10)}</Title>
+                    </List>
+                  </DetailLink>
                 </SelectedMonthly>
               );
             })
@@ -41,19 +45,18 @@ const MonthlyPresenter = (monthlyProps) => {
               <AddLink to="/monthly/add">ADD</AddLink>
             </AddSection>
           )}
-
+          <SubTitle>Other Plans</SubTitle>
           <Wrapper>
             <Scroll>
               <UnSelectedMonthly>
                 {unSelected.length > 0 ? (
                   unSelected.map((plan, index) => {
                     return (
-                      <MonthlyList
-                        {...plan}
-                        key={index}
-                        onConfirm={onConfirm}
-                        onEdit={onEdit}
-                      />
+                      <DetailLink to={`monthly/${plan.id}`} key={index}>
+                        <List tabIndex="0" id={plan.id} onClick={seeDetail}>
+                          <Title>{plan.date.substring(0, 10)}</Title>
+                        </List>
+                      </DetailLink>
                     );
                   })
                 ) : (

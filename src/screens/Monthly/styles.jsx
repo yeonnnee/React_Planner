@@ -27,42 +27,41 @@ export const AddLink = styled(Link)`
   border-radius: 3px;
   font-family: "Rajdhani", sans-serif;
 `;
+
+export const DetailLink = styled(Link)`
+  text-decoration: none;
+`;
+
 export const AddSection = styled.div`
-  width: 90%;
-  padding: 14px;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid #30475e;
-  border-bottom: 1px solid #30475e;
+  margin-top: 20px;
 `;
 export const Wrapper = styled.div`
   width: 460px;
   height: 250px;
   overflow: hidden;
+
   @media only screen and (max-width: 640px) {
-    width: 330px;
-    height: 110px;
+    display: none;
+  }
+  @media only screen and (max-width: 700px) {
+    width: 350px;
+    height: 100px;
   }
 `;
 export const SelectedMonthly = styled.ul`
   width: 90%;
   padding: 14px;
   height: 100px;
-  border-top: 1px solid #30475e;
-  border-bottom: 1px solid #30475e;
   display: grid;
+  z-index: 1;
   &:focus-within {
     height: 250px;
   }
   &:focus-within ~ ${Wrapper} {
     display: none;
-  }
-  @media only screen and (max-width: 640px) {
-    &:focus-within {
-      height: 200px;
-    }
   }
 `;
 
@@ -74,20 +73,46 @@ export const Scroll = styled.div`
     width: 350px;
     height: 100px;
   }
+  @media only screen and (max-width: 700px) {
+    width: 370px;
+    height: 100px;
+  }
 `;
 export const UnSelectedMonthly = styled.ul`
   height: 260px;
   padding: 20px;
+
   @media only screen and (max-width: 640px) {
     width: 330px;
     height: 130px;
     position: relative;
     top: -15px;
   }
+  @media only screen and (max-width: 700px) {
+    width: 350px;
+    height: 100px;
+  }
 `;
 export const Text = styled.div`
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
   display: flex;
   justify-content: center;
   margin-top: 30px;
+`;
+
+export const SubTitle = styled.div`
+  font-family: "Rajdhani", sans-serif;
+  font-size: 13px;
+  opacity: 0.7;
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid #30475e;
+  @media only screen and (max-width: 640px) {
+    &:nth-child(4) {
+      display: none;
+    }
+  }
 `;
