@@ -16,7 +16,6 @@ import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
 import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./msg/NotFound";
-import ErrorPage from "./msg/ErrorPage";
 import Footer from "./Footer";
 import Challenge from "../screens/Challenge";
 import Enroll from "../screens/Challenge/Enroll";
@@ -32,7 +31,6 @@ const Router = () => {
         <Route path="/find-password" component={FindPassword} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-up/success" component={SignUpSuccess} />
-        <Route path="/error" component={ErrorPage} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/add" component={AddMonthly} />
