@@ -35,7 +35,7 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, isLoading: false, verification: true };
     }
     case UPDATE_PASSWORD_VALIDATION_ERROR: {
-      if (!action.payload.password || action.payload.password) {
+      if (action.payload.password === "" || action.payload.password) {
         return {
           ...state,
           isLoading: false,
@@ -45,7 +45,7 @@ const accountReducer = (state = initialState, action) => {
           },
         };
       }
-      if (!action.payload.confirmPw || action.payload.confirmPw) {
+      if (action.payload.confirmPw === "" || action.payload.confirmPw) {
         return {
           ...state,
           isLoading: false,

@@ -40,14 +40,15 @@ const userReducer = (state = initialState, action) => {
       };
 
     case VALIDATION_ERROR:
-      if (!action.payload.email || action.payload.email) {
+      if (action.payload.email === "" || action.payload.email) {
         return {
           ...state,
           isLoading: false,
           validation: { ...state.validation, email: action.payload.email },
         };
       }
-      if (!action.payload.password || action.payload.password) {
+      if (action.payload.password === "" || action.payload.password) {
+        console.log(action.payload);
         return {
           ...state,
           isLoading: false,
@@ -57,7 +58,7 @@ const userReducer = (state = initialState, action) => {
           },
         };
       }
-      if (!action.payload.confirmPw || action.payload.confirmPw) {
+      if (action.payload.confrimPw === "" || action.payload.confirmPw) {
         return {
           ...state,
           isLoading: false,
@@ -67,14 +68,14 @@ const userReducer = (state = initialState, action) => {
           },
         };
       }
-      if (!action.payload.name || action.payload.name) {
+      if (action.payload.name === "" || action.payload.name) {
         return {
           ...state,
           isLoading: false,
           validation: { ...state.validation, name: action.payload.name },
         };
       }
-      return { ...state };
+      return state;
     case CANCEL_SIGNUP:
       return {
         ...state,
