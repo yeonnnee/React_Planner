@@ -7,6 +7,13 @@ module.exports = function (app) {
     createProxyMiddleware("/api", {
       target: "http://localhost:3001/",
       changeOrigin: true,
+      pathRewrite: {
+        "^/api": "",
+        "/monthly/api": "",
+        "/monthly/edit/api": "",
+        "/challenge/api": "",
+        "/account/api": "",
+      },
     })
   );
 };
