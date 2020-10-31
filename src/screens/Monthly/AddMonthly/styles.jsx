@@ -28,7 +28,7 @@ export const Button = styled.button`
   border: 1px solid #30475e;
   background: none;
   cursor: pointer;
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
   &:hover {
     background-color: #30475e;
     color: white;
@@ -39,6 +39,7 @@ export const ListCon = styled.ul`
   margin: 10px 0;
   border: 1px solid #30475e;
   height: 150px;
+  background-color: #e8e8e8;
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -64,4 +65,11 @@ export const Section = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+export const ListSection = styled.div`
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px 20px 0 20px;
+  background-color: #e8e8e8;
 `;
