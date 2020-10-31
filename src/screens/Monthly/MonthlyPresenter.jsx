@@ -44,8 +44,8 @@ const MonthlyPresenter = (monthlyProps) => {
               return (
                 <SelectedMonthly key={index}>
                   <DetailLink to={`monthly/${plan.id}`}>
-                    <List tabIndex="0" id={plan.id} onClick={seeDetail}>
-                      <Title>
+                    <List id={plan.id} onClick={seeDetail}>
+                      <Title id={plan.id}>
                         {month}-{planDate}-{year}
                       </Title>
                     </List>
@@ -76,8 +76,8 @@ const MonthlyPresenter = (monthlyProps) => {
                     }
                     return (
                       <DetailLink to={`monthly/${plan.id}`} key={index}>
-                        <List tabIndex="0" id={plan.id} onClick={seeDetail}>
-                          <Title>
+                        <List id={plan.id} onClick={seeDetail}>
+                          <Title id={plan.id}>
                             {month}-{planDate}-{year}
                           </Title>
                         </List>
