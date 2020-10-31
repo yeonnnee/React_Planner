@@ -48,7 +48,6 @@ const userReducer = (state = initialState, action) => {
         };
       }
       if (action.payload.password === "" || action.payload.password) {
-        console.log(action.payload);
         return {
           ...state,
           isLoading: false,
@@ -58,7 +57,7 @@ const userReducer = (state = initialState, action) => {
           },
         };
       }
-      if (action.payload.confrimPw === "" || action.payload.confirmPw) {
+      if (action.payload.confirmPw === "" || action.payload.confirmPw) {
         return {
           ...state,
           isLoading: false,
