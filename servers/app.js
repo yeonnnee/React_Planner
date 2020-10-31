@@ -14,27 +14,41 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(helmet());
-  app.use(hpp());
-}
-
 //* SESSION *//
 const config = require("./config/config");
 
-app.use(
-  session({
-    secret: config.session_secret,
+let sessionOption;
+
+if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+  app.use(hpp());
+  sessionOption = {
+    secret: config.production.session_secret,
+    resave: false,
+    saveUninitialized: false,
+    porxy: true,
+    store: new MysqlStore({
+      host: config.production.host,
+      user: config.production.username,
+      password: config.production.password,
+      database: config.production.database,
+    }),
+  };
+} else {
+  sessionOption = {
+    secret: config.development.session_secret,
     resave: false,
     saveUninitialized: false,
     store: new MysqlStore({
-      host: config.host,
-      user: config.username,
-      password: config.password,
-      database: config.database,
+      host: config.development.host,
+      user: config.development.username,
+      password: config.development.password,
+      database: config.development.database,
     }),
-  })
-);
+  };
+}
+
+app.use(session(sessionOption));
 
 // ROUTES //
 const taskRoutes = require("./routes/taskRoutes");
