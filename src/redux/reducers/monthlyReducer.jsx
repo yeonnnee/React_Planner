@@ -68,6 +68,7 @@ const monthlyReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
+          detail: [],
           selected: selected_plan,
           unSelected: unSelected_plan,
           plans: [...action.payload],
