@@ -21,14 +21,8 @@ export const Container = styled.div`
 
 export const Section = styled.div`
   width: 100%;
-  /* height: 150px; */
-  padding: 10px;
+  padding: 10px 20px 0 20px;
   background-color: #e8e8e8;
-  &:hover {
-    display: block;
-    background-color: #e8e8e8;
-    z-index: 1;
-  }
   animation: ${SlideDown} 0.5s linear forwards;
 `;
 
@@ -52,34 +46,39 @@ export const List = styled.li`
   &:focus {
     background-color: #374851;
   }
-  /* &:focus ~ ${Section} {
-    display: block;
-    animation: ${SlideDown} 0.5s linear forwards;
-    background-color: #e8e8e8;
-  } */
 `;
 export const Header = styled.div`
   width: 100%;
   height: 20px;
   border-bottom: 1px solid grey;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.7;
 `;
 export const Title = styled.div``;
 export const Wrapper = styled.div`
   width: 100%;
-  /* height: 70px; */
+  height: 200px;
   overflow: hidden;
+  @media only screen and (max-width: 640px) {
+    height: 265px;
+  }
 `;
 export const Scroll = styled.div`
   width: 110%;
-  /* height: 60px; */
+  height: 200px;
   overflow: auto;
+  @media only screen and (max-width: 640px) {
+    height: 230px;
+  }
 `;
 export const Detail = styled.ul`
   font-family: "Rajdhani", sans-serif;
 `;
 export const Desc = styled.li`
-  margin: 5px 0 0 30px;
+  margin: 5px 0 0 20px;
   list-style: square;
   width: 80%;
 `;
@@ -98,13 +97,13 @@ export const Btn = styled.button`
   height: 30px;
   border-radius: 20px;
   outline: none;
-  border: 1px solid #30475e;
+  border: 1px solid #374851;
   margin-right: 10px;
   font-family: "Rajdhani", sans-serif;
   font-weight: bold;
   cursor: pointer;
   &:hover {
-    background-color: #30475e;
-    color: white;
+    background-color: #374851;
+    color: #c2b0ad;
   }
 `;

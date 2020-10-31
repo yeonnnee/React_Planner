@@ -36,13 +36,16 @@ const MonthlyDetailPresenter = (monthlyProps) => {
       ) : (
         <>
           <List tabIndex="0">
-            <Title>
-              {month}-{planDate}-{year}
-            </Title>
+            <Title>SCHEDULE</Title>
           </List>
           <Section>
             <Detail>
-              <Header>Description</Header>
+              <Header>
+                <Title>Description</Title>
+                <Title>
+                  {month}-{planDate}-{year}
+                </Title>
+              </Header>
               <Wrapper>
                 <Scroll>
                   {state.detail.contents.map((content, index) => {

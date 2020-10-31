@@ -21,12 +21,12 @@ const MonthlyPresenter = (monthlyProps) => {
   const { selected, unSelected, isLoading, seeDetail } = monthlyProps;
 
   return (
-    <Container>
+    <>
       <Calendar />
       {isLoading ? (
         <Loader />
       ) : (
-        <>
+        <Container>
           <SubTitle>Selected Plan</SubTitle>
 
           {selected.length > 0 ? (
@@ -90,9 +90,9 @@ const MonthlyPresenter = (monthlyProps) => {
               </UnSelectedMonthly>
             </Scroll>
           </Wrapper>
-        </>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 export default MonthlyPresenter;

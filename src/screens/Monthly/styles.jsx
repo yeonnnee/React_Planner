@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  position: relative;
-  top: -30px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   @media only screen and (max-width: 640px) {
-    height: 430px;
-    top: -30px;
+    position: relative;
+    top: -20px;
+    margin: 0;
+    height: 150px;
   }
 `;
 
@@ -40,6 +40,7 @@ export const AddSection = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  height: 50px;
 `;
 
 export const List = styled.li`
@@ -79,16 +80,16 @@ export const Wrapper = styled.div`
 `;
 export const SelectedMonthly = styled.ul`
   width: 90%;
-  padding: 14px;
   height: 100px;
   display: grid;
   z-index: 1;
-  &:focus-within {
+  padding: 10px;
+  /* &:focus-within {
     height: 250px;
   }
   &:focus-within ~ ${Wrapper} {
     display: none;
-  }
+  } */
 `;
 
 export const Scroll = styled.div`
@@ -107,7 +108,6 @@ export const Scroll = styled.div`
 export const UnSelectedMonthly = styled.ul`
   height: 260px;
   padding: 20px;
-
   @media only screen and (max-width: 640px) {
     width: 330px;
     height: 130px;
@@ -137,7 +137,7 @@ export const SubTitle = styled.div`
   letter-spacing: 1.5px;
   border-bottom: 1px solid #30475e;
   @media only screen and (max-width: 640px) {
-    &:nth-child(4) {
+    &:nth-child(3) {
       display: none;
     }
   }

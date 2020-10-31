@@ -8,7 +8,9 @@ import { SELECT_MONTHLY, CHANGE_MONTHLY } from "../../redux/types";
 
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
-  padding: 10px;
+  padding: 10px 15px 10px 10px;
+  position: relative;
+  top: -30px;
 `;
 
 /* 

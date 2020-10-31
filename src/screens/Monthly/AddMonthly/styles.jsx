@@ -7,10 +7,16 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 30px;
+  @media only screen and (max-width: 640px) {
+    height: 430px;
+    position: relative;
+    top: -60px;
+    margin: 0;
+  }
 `;
 
 export const Date = styled.div`
-  font-family: "Life Savers", cursive;
+  font-family: "Rajdhani", sans-serif;
   margin-bottom: 10px;
 `;
 
