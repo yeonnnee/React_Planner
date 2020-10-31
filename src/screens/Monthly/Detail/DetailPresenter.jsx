@@ -20,14 +20,14 @@ import {
 const MonthlyDetailPresenter = (monthlyProps) => {
   const { state, onConfirm } = monthlyProps;
   const date = new Date(state.detail.date);
-  const month = date.getMonth() + 1;
+  let month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const planDate = date.getDate();
-  if (month < 10) {
-    return "0" + month;
-  }
+  let planDate = date.getDate();
   if (planDate < 10) {
-    return "0" + planDate;
+    planDate = "0" + planDate;
+  }
+  if (month < 10) {
+    month = "0" + month;
   }
   return (
     <Container>
