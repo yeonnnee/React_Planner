@@ -34,9 +34,9 @@ const Router = () => {
         <Route path="/sign-up/success" component={SignUpSuccess} />
         <PrivateRoute exact path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
-        <PrivateRoute exact path="/monthly/:id" component={Detail} />
         <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
         <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
+        <PrivateRoute exact path="/monthly/:id" component={Detail} />
         <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
         <PrivateRoute exact path="/challenge/:id" component={Record} />
