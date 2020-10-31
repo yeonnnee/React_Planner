@@ -8,7 +8,7 @@ import GatewayError from "../../../components/msg/GatewayError";
 import { DELETE_MONTHLY, MONTHLY_ERROR } from "../../../redux/types";
 
 const MonthlyDetail = (monthlyProps) => {
-  const { state, deletePlan, setError } = monthlyProps;
+  const { state, deletePlan, setError, history } = monthlyProps;
 
   const onDelete = async (event) => {
     try {
@@ -16,6 +16,7 @@ const MonthlyDetail = (monthlyProps) => {
       const target = state.plans.find((plan) => plan.date === date);
       await monthlyApi.deletePlan(target);
       deletePlan(target);
+      history.push("/monthly");
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
