@@ -53,7 +53,7 @@ const Monthly = (monthlyProps) => {
         return;
       }
     }
-  }, [fetch_monthly, fetch_success]);
+  }, [fetch_monthly, fetch_success, setError]);
 
   useEffect(() => {
     fetchData();

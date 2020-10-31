@@ -16,7 +16,6 @@ import ChallengePresenter from "./ChallengePresenter";
 const Challenge = (challengeProps) => {
   const {
     state,
-    history,
     select,
     fetchStart,
     fetch_success,
@@ -55,7 +54,7 @@ const Challenge = (challengeProps) => {
         setError("504");
       }
     }
-  }, [fetchStart, fetch_success, fetch_failed, history]);
+  }, [fetchStart, fetch_success, fetch_failed, setError]);
 
   useEffect(() => {
     fetchData();
