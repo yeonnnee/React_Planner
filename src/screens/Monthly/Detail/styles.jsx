@@ -60,7 +60,7 @@ export const Header = styled.div`
 export const Title = styled.div``;
 export const Wrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: ${(props) => (props.scroll ? "430px" : "")};
   overflow: hidden;
   @media only screen and (max-width: 640px) {
     height: 265px;
@@ -68,7 +68,7 @@ export const Wrapper = styled.div`
 `;
 export const Scroll = styled.div`
   width: 110%;
-  height: 200px;
+  height: ${(props) => (props.scroll ? "430px" : "")};
   overflow: auto;
   @media only screen and (max-width: 640px) {
     height: 230px;
@@ -98,7 +98,7 @@ export const Btn = styled.button`
   border-radius: 20px;
   outline: none;
   border: 1px solid #374851;
-  margin-right: 10px;
+  margin: 10px 10px 0 0;
   font-family: "Rajdhani", sans-serif;
   font-weight: bold;
   cursor: pointer;

@@ -46,8 +46,12 @@ const MonthlyDetailPresenter = (monthlyProps) => {
                   {month}-{planDate}-{year}
                 </Title>
               </Header>
-              <Wrapper>
-                <Scroll>
+              <Wrapper
+                scroll={state.detail.contents.length >= 19 ? true : false}
+              >
+                <Scroll
+                  scroll={state.detail.contents.length >= 19 ? true : false}
+                >
                   {state.detail.contents.map((content, index) => {
                     return <Desc key={index}>{content.text}</Desc>;
                   })}
