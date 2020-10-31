@@ -30,6 +30,9 @@ export const AddLink = styled(Link)`
 
 export const DetailLink = styled(Link)`
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const AddSection = styled.div`
