@@ -1,16 +1,30 @@
 const Sequelize = require("sequelize");
-const configs = require("../utils/configs");
+const configs = require("../config/config");
 
-const sequelize = new Sequelize(
-  configs.database,
-  configs.username,
-  configs.password,
-  {
-    dialect: configs.dialect,
-    host: configs.host,
-    port: configs.port,
-  }
-);
+let sequelize;
+if (process.env.NODE_ENV === "prodcution") {
+  sequelize = new Sequelize(
+    configs.production.database,
+    configs.production.username,
+    configs.production.password,
+    {
+      dialect: configs.production.dialect,
+      host: configs.production.host,
+      port: configs.production.port,
+    }
+  );
+} else {
+  sequelize = new Sequelize(
+    configs.development.database,
+    configs.development.username,
+    configs.development.password,
+    {
+      dialect: configs.development.dialect,
+      host: configs.development.host,
+      port: configs.development.port,
+    }
+  );
+}
 
 sequelize
   .authenticate()
