@@ -31,11 +31,23 @@ const MonthlyPresenter = (monthlyProps) => {
 
           {selected.length > 0 ? (
             selected.map((plan, index) => {
+              const date = new Date(plan.date.substring(0, 15));
+              const month = date.getMonth() + 1;
+              const year = date.getFullYear();
+              const planDate = date.getDate();
+              if (month < 10) {
+                return "0" + month;
+              }
+              if (planDate < 10) {
+                return "0" + planDate;
+              }
               return (
                 <SelectedMonthly key={index}>
                   <DetailLink to={`monthly/${plan.id}`}>
                     <List tabIndex="0" id={plan.id} onClick={seeDetail}>
-                      <Title>{plan.date.substring(0, 10)}</Title>
+                      <Title>
+                        {month}-{planDate}-{year}
+                      </Title>
                     </List>
                   </DetailLink>
                 </SelectedMonthly>
@@ -52,10 +64,22 @@ const MonthlyPresenter = (monthlyProps) => {
               <UnSelectedMonthly>
                 {unSelected.length > 0 ? (
                   unSelected.map((plan, index) => {
+                    const date = new Date(plan.date.substring(0, 15));
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+                    const planDate = date.getDate();
+                    if (month < 10) {
+                      return "0" + month;
+                    }
+                    if (planDate < 10) {
+                      return "0" + planDate;
+                    }
                     return (
                       <DetailLink to={`monthly/${plan.id}`} key={index}>
                         <List tabIndex="0" id={plan.id} onClick={seeDetail}>
-                          <Title>{plan.date.substring(0, 10)}</Title>
+                          <Title>
+                            {month}-{planDate}-{year}
+                          </Title>
                         </List>
                       </DetailLink>
                     );

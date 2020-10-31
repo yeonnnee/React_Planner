@@ -19,6 +19,16 @@ import {
 
 const MonthlyDetailPresenter = (monthlyProps) => {
   const { state, onConfirm } = monthlyProps;
+  const date = new Date(state.detail.date);
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const planDate = date.getDate();
+  if (month < 10) {
+    return "0" + month;
+  }
+  if (planDate < 10) {
+    return "0" + planDate;
+  }
   return (
     <Container>
       {state.isLoading ? (
@@ -26,7 +36,9 @@ const MonthlyDetailPresenter = (monthlyProps) => {
       ) : (
         <>
           <List tabIndex="0">
-            <Title>{state.detail.date.substring(0, 10)}</Title>
+            <Title>
+              {month}-{planDate}-{year}
+            </Title>
           </List>
           <Section>
             <Detail>

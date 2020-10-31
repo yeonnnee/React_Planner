@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -92,6 +92,19 @@ const EditMonthly = (editProps) => {
       });
     }
   }
+  useEffect(() => {
+    const newDate = new Date(planList.date);
+    const month = newDate.getMonth() + 1;
+    const year = newDate.getFullYear();
+    const planDate = newDate.getDate();
+    if (month < 10) {
+      return "0" + month;
+    }
+    if (planDate < 10) {
+      return "0" + planDate;
+    }
+    setPlanList({ ...planList, date: `${month}-${planDate}-${year}` });
+  }, [planList]);
 
   return (
     <>
@@ -108,7 +121,6 @@ const EditMonthly = (editProps) => {
           content={content}
           save={save}
           cancel={cancel}
-          date={planList.date}
           state={state}
         />
       )}

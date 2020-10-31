@@ -17,7 +17,6 @@ const AddMonthlyPresenter = (monthlyProps) => {
     onChange,
     onSubmit,
     save,
-    date,
     cancel,
     planList,
     content,
@@ -31,7 +30,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
         <Loader />
       ) : (
         <>
-          <Date>{date.substring(0, 10)}</Date>
+          <Date>{planList.date}</Date>
           <TasksInput
             onChange={onChange}
             onSubmit={onSubmit}
@@ -39,9 +38,9 @@ const AddMonthlyPresenter = (monthlyProps) => {
             error={content.error}
           />
           <ListCon>
-            {planList.contents.map((content, index) => (
-              <List key={index} id={content.id}>
-                {content.text}
+            {planList.contents.map((planListContent, index) => (
+              <List key={index} id={planListContent.id}>
+                {planListContent.text}
                 <DelBtn onClick={deleteItem}>X</DelBtn>
               </List>
             ))}
