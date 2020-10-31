@@ -38,6 +38,29 @@ export const AddSection = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+
+export const List = styled.li`
+  width: 100%;
+  height: 70px;
+  margin: 5px 0;
+  border: 1px solid #30475e;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 18px;
+  background-color: #4b5d67;
+  color: #c2b0ad;
+  z-index: 1;
+  &:hover {
+    background-color: #374851;
+  }
+  &:focus {
+    background-color: #374851;
+  }
+`;
+export const Title = styled.div``;
 export const Wrapper = styled.div`
   width: 460px;
   height: 250px;

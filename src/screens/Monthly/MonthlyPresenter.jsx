@@ -2,10 +2,11 @@ import React from "react";
 
 import Loader from "../../components/Loader";
 import Calendar from "./Calendar";
-import { List, Title } from "./Detail/styles";
 import {
   Container,
   AddLink,
+  List,
+  Title,
   AddSection,
   Wrapper,
   SelectedMonthly,

@@ -13,6 +13,7 @@ export const SlideDown = keyframes`
 
 export const Container = styled.div`
   width: 100%;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,14 +21,15 @@ export const Container = styled.div`
 
 export const Section = styled.div`
   width: 100%;
-  height: 150px;
+  /* height: 150px; */
   padding: 10px;
-  display: none;
+  background-color: #e8e8e8;
   &:hover {
     display: block;
     background-color: #e8e8e8;
     z-index: 1;
   }
+  animation: ${SlideDown} 0.5s linear forwards;
 `;
 
 export const List = styled.li`
@@ -50,11 +52,11 @@ export const List = styled.li`
   &:focus {
     background-color: #374851;
   }
-  &:focus ~ ${Section} {
+  /* &:focus ~ ${Section} {
     display: block;
     animation: ${SlideDown} 0.5s linear forwards;
     background-color: #e8e8e8;
-  }
+  } */
 `;
 export const Header = styled.div`
   width: 100%;
@@ -65,12 +67,12 @@ export const Header = styled.div`
 export const Title = styled.div``;
 export const Wrapper = styled.div`
   width: 100%;
-  height: 70px;
+  /* height: 70px; */
   overflow: hidden;
 `;
 export const Scroll = styled.div`
   width: 110%;
-  height: 60px;
+  /* height: 60px; */
   overflow: auto;
 `;
 export const Detail = styled.ul`
