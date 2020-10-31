@@ -3,17 +3,24 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
 const MysqlStore = require("express-mysql-session")(session);
+const helmet = require("helmet");
+const hpp = require("hpp");
 
 const sequelize = require("./models");
 
 const app = express();
-
+app.set("port", process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+  app.use(hpp());
+}
+
 //* SESSION *//
-const config = require("./utils/configs");
+const config = require("./config/config");
 
 app.use(
   session({
@@ -74,4 +81,6 @@ const driver = async () => {
 };
 driver();
 
-app.listen(3001, () => console.log("hello from the server"));
+app.listen(app.get("port"), () =>
+  console.log("hello from the server", app.get("port"))
+);
