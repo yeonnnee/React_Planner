@@ -68,7 +68,6 @@ const monthlyReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: false,
-          detail: [],
           selected: selected_plan,
           unSelected: unSelected_plan,
           plans: [...action.payload],
@@ -118,7 +117,11 @@ const monthlyReducer = (state = initialState, action) => {
 
     //* ACTIVE WHEN MONTHLY UPDATED *//
     case UPDATE_MONTHLY: {
-      return { ...state, plans: [...state.plans, action.payload] };
+      return {
+        ...state,
+        isLoading: false,
+        plans: [...state.plans, action.payload],
+      };
     }
 
     //* ACTIVE WHEN MONTHLY DELETED *//
