@@ -144,6 +144,7 @@ const Calendar = (calendarProps) => {
       calendarType={"US"}
       onClickDay={onClickDay}
       onClickMonth={init}
+      onViewChange={getMonthYear}
       locale="en-US"
     />
   );
