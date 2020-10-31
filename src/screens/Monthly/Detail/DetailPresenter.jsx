@@ -18,7 +18,7 @@ import {
 } from "./styles";
 
 const MonthlyDetailPresenter = (monthlyProps) => {
-  const { state, onConfirm, onEdit } = monthlyProps;
+  const { state, onConfirm } = monthlyProps;
   return (
     <Container>
       {state.isLoading ? (
@@ -41,10 +41,8 @@ const MonthlyDetailPresenter = (monthlyProps) => {
             </Detail>
 
             <BtnSection>
-              <EditLink to={`monthly/edit/${state.detail.id}`}>
-                <Btn onClick={onEdit} id={state.detail.id}>
-                  Edit
-                </Btn>
+              <EditLink to={`edit/${state.detail.id}`}>
+                <Btn>Edit</Btn>
               </EditLink>
               <Btn onClick={onConfirm} id={state.detail.date}>
                 Delete

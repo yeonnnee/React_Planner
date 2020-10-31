@@ -1,7 +1,6 @@
 import {
   FETCH_MONTHLY_START,
   FETCH_MONTHLY_SUCCESS,
-  EDIT_MONTHLY,
   CREATE_MONTHLY,
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
@@ -20,7 +19,6 @@ const initialState = {
   selected: [],
   unSelected: [],
   detail: [],
-  isEdit: "",
   deleted: "",
   plans: [],
 };
@@ -115,15 +113,6 @@ const monthlyReducer = (state = initialState, action) => {
     //* ACTIVE MONTHLY CREATED *//
     case CREATE_MONTHLY: {
       return { ...state, plans: [...state.plans, action.payload] };
-    }
-
-    //* ACTIVE WHEN EeditBtn CLICKED *//
-    case EDIT_MONTHLY: {
-      const target = state.plans.find((plan) => plan.id === action.payload);
-      const filteredPlans = state.plans.filter(
-        (plan) => plan.id !== action.payload
-      );
-      return { ...state, isEdit: target, plans: filteredPlans };
     }
 
     //* ACTIVE WHEN MONTHLY UPDATED *//

@@ -5,14 +5,10 @@ import MonthlyDetailPresenter from "./DetailPresenter";
 import { monthlyApi } from "../../../api";
 import ServerError from "../../../components/msg/ServerError";
 import GatewayError from "../../../components/msg/GatewayError";
-import {
-  DELETE_MONTHLY,
-  EDIT_MONTHLY,
-  MONTHLY_ERROR,
-} from "../../../redux/types";
+import { DELETE_MONTHLY, MONTHLY_ERROR } from "../../../redux/types";
 
 const MonthlyDetail = (monthlyProps) => {
-  const { state, edit, deletePlan, setError } = monthlyProps;
+  const { state, deletePlan, setError } = monthlyProps;
 
   const onDelete = async (event) => {
     try {
@@ -38,10 +34,7 @@ const MonthlyDetail = (monthlyProps) => {
       onDelete(event);
     }
   };
-  const onEdit = (event) => {
-    const target = event.target.id;
-    edit(target);
-  };
+
   return (
     <>
       {state.error === "500" ? (
@@ -49,11 +42,7 @@ const MonthlyDetail = (monthlyProps) => {
       ) : state.error === "504" ? (
         <GatewayError />
       ) : (
-        <MonthlyDetailPresenter
-          onConfirm={onConfirm}
-          onEdit={onEdit}
-          state={state}
-        />
+        <MonthlyDetailPresenter onConfirm={onConfirm} state={state} />
       )}
     </>
   );
@@ -64,9 +53,6 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    edit: (id) => {
-      dispatch({ type: EDIT_MONTHLY, payload: id });
-    },
     deletePlan: (plan) => {
       dispatch({ type: DELETE_MONTHLY, payload: plan });
     },

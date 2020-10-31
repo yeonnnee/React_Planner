@@ -13,12 +13,12 @@ import {
 } from "../../../redux/types";
 
 const EditMonthly = (editProps) => {
-  const { state, update, history, saveMonthly, setError } = editProps;
+  const { state, update, history, saveMonthly, setError, location } = editProps;
 
   const [planList, setPlanList] = useState({
-    id: state.isEdit.id,
-    date: state.isEdit.date,
-    contents: state.isEdit.contents,
+    id: state.detail.id,
+    date: state.detail.date,
+    contents: state.detail.contents,
   });
   const [content, setContent] = useState({
     id: "",
@@ -27,7 +27,8 @@ const EditMonthly = (editProps) => {
   });
 
   function cancel() {
-    history.push("/monthly");
+    const planId = location.pathname.split("/")[3];
+    history.push(`/monthly/${planId}`);
   }
 
   async function save() {
@@ -36,7 +37,8 @@ const EditMonthly = (editProps) => {
         saveMonthly();
         await monthlyApi.updatePlan(planList);
         update(planList);
-        history.push("/monthly");
+        const planId = location.pathname.split("/")[3];
+        history.push(`/monthly/${planId}`);
       } else {
         setContent({ ...content, error: "내용을 입력해주십시오" });
       }
