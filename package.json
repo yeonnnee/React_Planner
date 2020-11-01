@@ -39,7 +39,8 @@
     "uuidv4": "^6.2.3"
   },
   "scripts": {
-    "start": "echo use start:client | start:server",
+    "start": "npx nodemon ./servers/app.js",
+    "dev": "echo use start:client | start:server",
     "start:client": "react-scripts start",
     "start:server": "npx nodemon ./servers/app.js",
     "production": "cross-env NODE_ENV=production PORT=80 pm2 start ./servers/app.js -i 0",
