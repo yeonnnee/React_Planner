@@ -3,50 +3,27 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
 const MysqlStore = require("express-mysql-session")(session);
-const helmet = require("helmet");
-const hpp = require("hpp");
-
 const sequelize = require("./models");
 
 const app = express();
-app.set("port", process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 //* SESSION *//
-const config = require("./config/config");
+const config = require("./utils/configs");
 
-let sessionOption;
-
-if (process.env.NODE_ENV === "production") {
-  app.use(helmet());
-  app.use(hpp());
-  sessionOption = {
-    secret: config.production.session_secret,
-    resave: false,
-    saveUninitialized: false,
-    porxy: true,
-    store: new MysqlStore({
-      host: config.production.host,
-      user: config.production.username,
-      password: config.production.password,
-      database: config.production.database,
-    }),
-  };
-} else {
-  sessionOption = {
-    secret: config.development.session_secret,
-    resave: false,
-    saveUninitialized: false,
-    store: new MysqlStore({
-      host: config.development.host,
-      user: config.development.username,
-      password: config.development.password,
-      database: config.development.database,
-    }),
-  };
-}
+const sessionOption = {
+  secret: config.session_secret,
+  resave: false,
+  saveUninitialized: false,
+  store: new MysqlStore({
+    host: config.host,
+    user: config.username,
+    password: config.password,
+    database: config.database,
+  }),
+};
 
 app.use(session(sessionOption));
 
@@ -95,6 +72,4 @@ const driver = async () => {
 };
 driver();
 
-app.listen(app.get("port"), () =>
-  console.log("hello from the server", app.get("port"))
-);
+app.listen(3001, () => console.log("hello from the server"));
