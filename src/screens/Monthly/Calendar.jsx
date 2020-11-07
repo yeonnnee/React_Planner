@@ -70,15 +70,17 @@ const Calendar = (calendarProps) => {
       const abbr = document.querySelector(
         `[aria-label= "${month} ${date}, ${year}" ]`
       );
-      const dateNum = abbr.textContent;
-      if (dateNum.length === 2) {
-        abbr.style.borderRadius = "25px";
-        abbr.style.padding = "4px";
-        abbr.style.backgroundColor = "#BAA7A1";
-      } else {
-        abbr.style.borderRadius = "25px";
-        abbr.style.padding = "3px 7px";
-        abbr.style.backgroundColor = "#BAA7A1";
+      if (abbr) {
+        const dateNum = abbr.textContent;
+        if (dateNum.length === 2) {
+          abbr.style.borderRadius = "25px";
+          abbr.style.padding = "4px";
+          abbr.style.backgroundColor = "#BAA7A1";
+        } else {
+          abbr.style.borderRadius = "25px";
+          abbr.style.padding = "3px 7px";
+          abbr.style.backgroundColor = "#BAA7A1";
+        }
       }
     }
   }, []);
