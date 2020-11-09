@@ -49,6 +49,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "homepage": "https://y-planner.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
