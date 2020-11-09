@@ -72,4 +72,6 @@ const driver = async () => {
 };
 driver();
 
-app.listen(3001, () => console.log("hello from the server"));
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => console.log("hello from the server"));
