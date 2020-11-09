@@ -5,7 +5,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
     createProxyMiddleware("/api", {
-      target: "https://suspicious-hypatia-73498e.netlify.app/",
+      target: "https://y-planner.herokuapp.com/",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "",
