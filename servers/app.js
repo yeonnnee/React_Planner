@@ -6,6 +6,7 @@ const MysqlStore = require("express-mysql-session")(session);
 const sequelize = require("./models");
 
 const app = express();
+app.set("port", process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -72,6 +73,4 @@ const driver = async () => {
 };
 driver();
 
-const port = process.env.PORT || 3001;
-
-app.listen(port, () => console.log("hello from the server"));
+app.listen(app.get("port"), () => console.log("hello from the server"));

@@ -37,7 +37,7 @@
     "uuidv4": "^6.2.3"
   },
   "scripts": {
-    "start": "npx nodemon app.js",
+    "start": "node app.js",
     "dev": "echo use start:client | start:server",
     "start:client": "react-scripts start",
     "start:server": "npx nodemon ./servers/app.js",
