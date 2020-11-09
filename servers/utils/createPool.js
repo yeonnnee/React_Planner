@@ -13,6 +13,7 @@ pool.getConnection(function (err, connection) {
   if (!err) {
     connection.query("SELECT * FROM users", function (error, result) {
       if (error) {
+        console.log(error);
         throw error;
       } else {
         console.log(result);
