@@ -17,6 +17,7 @@ const config = require("./utils/configs");
 const sessionOption = {
   secret: config.session_secret,
   resave: false,
+  proxy: true,
   saveUninitialized: false,
   store: new MysqlStore({
     host: config.host,
@@ -24,6 +25,9 @@ const sessionOption = {
     password: config.password,
     database: config.database,
   }),
+  cookie: {
+    secure: true,
+  },
 };
 
 app.use(session(sessionOption));
