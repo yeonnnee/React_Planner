@@ -1,9 +1,5 @@
 import axios from "axios";
 
-// const api = axios.create({
-//   baseURL: "https://y-planner.herokuapp.com/",
-// });
-
 export const authApi = {
   logIn: (user) => axios.post("api/auth/logIn", user),
   logOut: () => axios.post("/api/auth/logOut"),
