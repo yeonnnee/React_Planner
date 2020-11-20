@@ -17,16 +17,13 @@ const config = require("./utils/configs");
 const sessionOption = {
   secret: config.session_secret,
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   store: new MysqlStore({
     host: config.host,
     user: config.username,
     password: config.password,
     database: config.database,
   }),
-  cookie: {
-    secure: true,
-  },
 };
 
 app.use(session(sessionOption));
@@ -76,4 +73,6 @@ const driver = async () => {
 };
 driver();
 
-app.listen(app.get("port"), () => console.log("hello from the server"));
+app.listen(app.get("port"), () =>
+  console.log(`hello from the server ${process.env.PORT}`)
+);
