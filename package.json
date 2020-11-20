@@ -21,7 +21,6 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
     "mysql2": "^2.1.0",
-    "pm2": "^4.5.0",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",
     "react-dom": "^16.13.1",
@@ -48,7 +47,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://y-planner.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
