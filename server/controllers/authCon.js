@@ -31,6 +31,7 @@ exports.postLogIn = async (req, res) => {
 
 exports.checkAuth = (req, res) => {
   try {
+    console.log(req.session);
     const session = req.session;
     const user = session.user;
     if (!user) {

@@ -6,7 +6,7 @@ const MysqlStore = require("express-mysql-session")(session);
 const sequelize = require("./models");
 
 const app = express();
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -17,7 +17,6 @@ const config = require("./utils/configs");
 const sessionOption = {
   secret: config.session_secret,
   resave: false,
-  proxy: true,
   saveUninitialized: false,
   store: new MysqlStore({
     host: config.host,
