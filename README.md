@@ -37,13 +37,13 @@ yeonnnee
 
 :one: _Tasks_
 
-You can check which one has been finished and which one still remain at a glance.
+You can check which one has been finished and which one still remains at a glance.
 
 :two: _Monthly_
 
-Selected Section is for plans for selected date and the default is today's.
+Selected Section is for plans matched with selected date and the default is today's.
 If you hav any plans on selected date, the list will be shown at the selected section, or
-Add button will be shown. The others will be shown at the Other plans section by date.
+Add button will be ativated. The others will be shown at the Other plans section by date.
 
 :three: _Challenge_
 
