@@ -25,11 +25,13 @@ yeonnnee
 
 ## <div id="demo">Demo</div>
 
+<div>
 <Img src="https://user-images.githubusercontent.com/61894688/99830094-8de09700-2ba0-11eb-8533-3bf563465456.gif" width="220px" height="300px"  alt="Tasks" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830276-d26c3280-2ba0-11eb-89d1-9ab545f02554.gif" width="220px" height="300px"  alt="Monthly" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830352-ee6fd400-2ba0-11eb-99e6-efaa40e87796.gif" width="220px" height="300px"  alt="Monthly" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830471-16f7ce00-2ba1-11eb-9dcd-76a1ca270b67.gif" width="220px" height="300px"  alt="Challenge" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830538-2ecf5200-2ba1-11eb-95ad-3a5770fe58e4.gif" width="220px" height="300px"  alt="Record" />
+</div>
 
 ## <div id="features">Features</div>
 
