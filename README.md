@@ -151,6 +151,7 @@ $ git clone https://github.com/yeonnnee/React_Planner
 
 Find `.env.example` file, and set values.
 Default values also can be changed depending on you.
+:exclamation: :exclamation: After fill out the contents, please rename the file to `.env` :exclamation: :exclamation:
 
 | Variable           | Description                  | Default                    |
 | ------------------ | ---------------------------- | -------------------------- |
