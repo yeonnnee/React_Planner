@@ -1,6 +1,6 @@
 # Y_PLANNER
 
-Manage To-do-List, Monthly plans and Challenges web application with React
+Manage Daily, Monthly plans and Challenges web application with React
 
 ## Contributor
 
@@ -65,8 +65,8 @@ According to the status of challenge, you can filter the list.
 
 - mysql
 
-[download mysql](https://dev.mysql.com/downloads/mysql/)
-[download node](https://nodejs.org/ko/)
+-[download mysql](https://dev.mysql.com/downloads/mysql/)
+-[download node](https://nodejs.org/ko/)
 
 ## Getting started
 
