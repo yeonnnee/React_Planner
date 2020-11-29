@@ -65,8 +65,9 @@ According to the status of challenge, you can filter the list.
 
 - mysql
 
--[download mysql](https://dev.mysql.com/downloads/mysql/)
--[download node](https://nodejs.org/ko/)
+-mysql:point_right:[download mysql](https://dev.mysql.com/downloads/mysql/)
+
+-node.js:point_right:[download node](https://nodejs.org/ko/)
 
 ## Getting started
 
