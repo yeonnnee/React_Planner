@@ -1,6 +1,6 @@
 # Y_PLANNER
 
-Manage To-do-List, Monthly plans and Challenges web application with React
+Manage Daily, Monthly plans and Challenges web application with React
 
 ## Contributor
 
@@ -66,6 +66,7 @@ According to the status of challenge, you can filter the list.
 - mysql
 
 [download mysql](https://dev.mysql.com/downloads/mysql/)
+
 [download node](https://nodejs.org/ko/)
 
 ## Getting started
@@ -151,6 +152,7 @@ $ git clone https://github.com/yeonnnee/React_Planner
 
 Find `.env.example` file, and set values.
 Default values also can be changed depending on you.
+
 :exclamation: :exclamation: After fill out the contents, please rename the file to `.env` :exclamation: :exclamation:
 
 | Variable           | Description                  | Default                    |
