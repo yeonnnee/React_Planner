@@ -47,9 +47,7 @@ Add button will be ativated. The others will be shown at the Other plans section
 
 :three: _Challenge_
 
-You can create any challenges, and record page for 30 days will be created.
-Challenge starts from the day after challenges created,and check btn will be enabled on corresponding date, the date has passed, check btn also disabled.
-When the challenge finished, the rate of success will be shown on the list.
+After the challenge is created, 30 day record page will be created. Challenge starts a day after challenges created. The check button will be enabled on corresponding date. However when the date has passed, check button will be disabled. As the challenge is terminated, the percentage rate of success will be appear on the list.
 
 Challenge has three status,
 
