@@ -4,7 +4,7 @@ Manage Daily, Monthly plans and Challenges web application with React
 
 ## Contributor
 
-yeonnnee
+Seung Yeon Choung
 
 ## Project Period
 
