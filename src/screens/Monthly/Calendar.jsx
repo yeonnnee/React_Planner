@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
@@ -12,142 +12,51 @@ const MonthlyCalendar = styled(ReactCalendar)`
   position: relative;
   top: -30px;
 `;
-
-/* 
-  다음 버튼을 눌러도 getMonthYear는 새로운 값을 받아오지 못하는 문제를 해결하기 위해 
-  useEffect를 통해 init에 변화가 생길시 매 re render시켜 getMonthYear를 동작시켜야 했다. 
-  이를 위해 clicked라는 state를 만들어 init 이 동작할때마다, state 값을 올려주었고, 
-  state 값이 변경할때마다 init 은 동작하고, 
-  useEffect가 발동하여 getMonthYear가 새로운 값을 받아올 수 있게 되었다.
-  이때, clicked 함수를 사용하지 않고 바로 getMonthYear 와 init을 연결시켜버리면, 1달씩 밀려서 데이터가 저장되는 현상이 발생하게 된다.
-*/
+const Mark = styled.div`
+  width: 6px;
+  height: 6px;
+  background-color: #856969;
+  border-radius: 5px;
+  transform: translateX(37px) translateY(-20px);
+`;
 
 const Calendar = (calendarProps) => {
-  const { select, change, state } = calendarProps;
-  const [clicked, setClicked] = useState(0);
+  const { select, state, change } = calendarProps;
 
-  // plans 삭제시 마크 지우는 함수
-  const removeMark = useCallback(async () => {
-    const monthYear = state.monthYear.split(" ");
-    const year = monthYear[1];
-    const month = monthYear[0];
-
-    if (state.deleted) {
-      const deletedItem_Date = state.deleted.split(" ")[2];
-      let deletedAbbr;
-      if (deletedItem_Date.split("")[0] === "0") {
-        const deletedItem_Date_SingleNum = deletedItem_Date.split("")[1];
-        deletedAbbr = await document.querySelector(
-          `[aria-label= "${month} ${deletedItem_Date_SingleNum}, ${year}" ]`
-        );
-      } else {
-        deletedAbbr = await document.querySelector(
-          `[aria-label= "${month} ${deletedItem_Date}, ${year}" ]`
-        );
-      }
-
-      if (deletedAbbr) {
-        deletedAbbr.style.padding = "";
-        deletedAbbr.style.borderRadius = "";
-        deletedAbbr.style.backgroundColor = "";
-      }
-    }
-  }, [state.deleted, state.monthYear]);
-
-  // plan 생성 시 달력에 마킹하는 함수
-  const markingDate = useCallback((plans, month, year) => {
-    const targets = plans.map((plan) => {
-      const number = plan.date.split(" ")[2];
-      if (number.split("")[0] === "0") {
-        return number.split("")[1];
-      } else {
-        return number;
-      }
-    });
-
-    for (let i = 0; i < targets.length; i++) {
-      const date = targets[i];
-      const abbr = document.querySelector(
-        `[aria-label= "${month} ${date}, ${year}" ]`
-      );
-      if (abbr) {
-        const dateNum = abbr.textContent;
-        if (dateNum.length === 2) {
-          abbr.style.borderRadius = "25px";
-          abbr.style.padding = "4px";
-          abbr.style.backgroundColor = "#BAA7A1";
-        } else {
-          abbr.style.borderRadius = "25px";
-          abbr.style.padding = "3px 7px";
-          abbr.style.backgroundColor = "#BAA7A1";
-        }
-      }
-    }
-  }, []);
-
-  // plans 있는 날짜 표시하는 함수
-  const getPlans = useCallback(() => {
-    const monthYear = state.monthYear.split(" ");
-    const year = monthYear[1];
-    const month = monthYear[0];
-
-    const plans = state.plans.filter((plan) => {
-      const planDate = plan.date.split(" ");
-      return planDate[1] === month.substring(0, 3) && planDate[3] === year;
-    });
-
-    markingDate(plans, month, year);
-  }, [state.monthYear, state.plans, markingDate]);
-
-  // 날짜 선택 시 실행되는 함수
   const onClickDay = (event) => {
     const target = event.toString().substring(0, 15);
     select(target);
   };
 
-  // 네비게이션 버튼 클릭시 년도, 월 갱신시키는 함수
-  const init = useCallback(() => {
-    const nextMonth = document.querySelector(
-      ".react-calendar__navigation__next-button"
-    );
-    const nextYear = document.querySelector(
-      ".react-calendar__navigation__next2-button"
-    );
-    const preYear = document.querySelector(
-      ".react-calendar__navigation__prev2-button"
-    );
-    const preMonth = document.querySelector(
-      ".react-calendar__navigation__prev-button"
-    );
-    nextMonth.onclick = () => setClicked(clicked + 1);
-    nextYear.onclick = () => setClicked(clicked + 1);
-    preMonth.onclick = () => setClicked(clicked + 1);
-    preYear.onclick = () => setClicked(clicked + 1);
-  }, [clicked]);
+  /* 
+    Function called when the user navigates from one view to another 
+    using previous/next button.
+  */
+  const changeMonth = (monthInfo) => {
+    const activeStartDate = monthInfo.activeStartDate
+      .toString()
+      .substring(0, 15);
+    const activeMonth = activeStartDate.split(" ")[1];
+    const activeYear = activeStartDate.split(" ")[3];
 
-  // 년도, 월 받아오는 함수
-  const getMonthYear = useCallback(async () => {
-    const monthSection = await document.querySelector(
-      ".react-calendar__navigation__label__labelText"
-    );
-    const monthYear = await monthSection.textContent;
-    change(monthYear);
-  }, [change]);
+    change(activeMonth, activeYear);
+  };
 
-  useEffect(() => {
-    getMonthYear();
-    getPlans();
-    removeMark();
-    init();
-  }, [getMonthYear, init, getPlans, removeMark]);
+  const markDate = (tileContentInfo) => {
+    const date = tileContentInfo.date.toString().substring(0, 15);
+
+    return state.plans.map((plan, index) =>
+      plan.date === date ? <Mark key={index} /> : null
+    );
+  };
 
   return (
     <MonthlyCalendar
-      calendarType={"US"}
-      onClickDay={onClickDay}
-      onClickMonth={init}
-      onViewChange={getMonthYear}
+      calendarType="US"
       locale="en-US"
+      onClickDay={onClickDay}
+      tileContent={markDate}
+      onActiveStartDateChange={changeMonth}
     />
   );
 };
@@ -161,8 +70,11 @@ function mapDispatchToProps(dispatch) {
     select: (date) => {
       dispatch({ type: SELECT_MONTHLY, payload: date });
     },
-    change: (monthYear) => {
-      dispatch({ type: CHANGE_MONTHLY, payload: monthYear });
+    change: (activeMonth, activeYear) => {
+      dispatch({
+        type: CHANGE_MONTHLY,
+        payload: { month: activeMonth, year: activeYear },
+      });
     },
   };
 }
