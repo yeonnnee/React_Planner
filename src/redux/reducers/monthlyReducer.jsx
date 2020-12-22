@@ -151,12 +151,12 @@ const monthlyReducer = (state = initialState, action) => {
     //* ACTIVE WHEN MONTH & YEAR CHANGED *//
     case CHANGE_MONTHLY: {
       const unSelected_plan = state.plans.filter((plan) => {
-        const monthYear = action.payload.split(" ");
         const planDate = plan.date.split(" ");
+
         return (
           plan.date !== state.date &&
-          planDate[1] === monthYear[0].substring(0, 3) &&
-          planDate[3] === monthYear[1]
+          planDate[1] === action.payload.month &&
+          planDate[3] === action.payload.year
         );
       });
       // SORTED BY DATE //
