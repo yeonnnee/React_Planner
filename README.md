@@ -4,7 +4,7 @@ Manage Daily, Monthly plans and Challenges web application with React
 
 ## Contributor
 
-yeonnnee
+Seung Yeon Choung
 
 ## Project Period
 
@@ -47,9 +47,7 @@ Add button will be ativated. The others will be shown at the Other plans section
 
 :three: _Challenge_
 
-You can create any challenges, and record page for 30 days will be created.
-Challenge starts from the day after challenges created,and check btn will be enabled on corresponding date, the date has passed, check btn also disabled.
-When the challenge finished, the rate of success will be shown on the list.
+After the challenge is created, 30 day record page will be created. Challenge starts a day after challenges created. The check button will be enabled to the corresponding date, yet this button will be disabled after the date has passed. As the challenge is completed, the percentage rate of success will be displayed on the list.
 
 Challenge has three status,
 
