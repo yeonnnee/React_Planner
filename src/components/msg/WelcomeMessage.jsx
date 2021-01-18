@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = styled.div`
-  width: 80%;
-  padding: 30px;
+  width: 100%;
+  padding: 20px 30px;
+  border: 2px solid grey;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid #382933;
+
   @media only screen and (max-width: 640px) {
     width: 90%;
     padding: 0;
@@ -17,6 +19,7 @@ const Header = styled.div`
 const Title = styled.div`
   font-family: "Cinzel Decorative", cursive;
   font-size: 25px;
+
   @media only screen and (max-width: 640px) {
     font-size: 23px;
   }
