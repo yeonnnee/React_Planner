@@ -95,7 +95,7 @@ const LogIn = (logInProps) => {
       ) : state.error === "504" ? (
         <GatewayError />
       ) : state.isAuthenticated ? (
-        <Redirect to="/tasks" />
+        <Redirect to="/" />
       ) : (
         <LogInPresenter
           state={state}
