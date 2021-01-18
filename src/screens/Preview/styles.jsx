@@ -5,7 +5,7 @@ export const Section = styled.div`
   height: 100%;
   margin-top: 40px;
   display: grid;
-  grid-template-rows: 80px 250px 200px;
+  grid-template-rows: 80px 260px 200px;
   gap: 25px;
 `;
 export const Column = styled.div`
@@ -49,5 +49,19 @@ export const Tasks = styled.div`
     border: none;
     border-top: 1px solid #9c9b9b;
     transform: translateY(100px);
+  }
+`;
+
+export const Monthly = styled.div`
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(2, 1fr);
+`;
+export const Detail = styled.div`
+  width: 330px;
+  height: 200px;
+
+  &:nth-child(2) {
+    border-left: 1px solid #9c9b9b;
   }
 `;

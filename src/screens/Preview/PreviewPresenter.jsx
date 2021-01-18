@@ -1,8 +1,9 @@
 import React from "react";
 
 import Header from "../../components/Header";
+import Calendar from "../Monthly/Calendar/PreviewCalendar";
 import { Container, Frame, Main } from "../../components/styles/Templates";
-import { Column, Section, Tag, Tasks, Title } from "./styles";
+import { Column, Section, Tag, Tasks, Title, Monthly, Detail } from "./styles";
 
 const PreviewPresenter = () => {
   return (
@@ -16,6 +17,12 @@ const PreviewPresenter = () => {
             </Column>
             <Column>
               <Tag>Today&apos;s Schedule</Tag>
+              <Monthly>
+                <Detail>
+                  <Calendar />
+                </Detail>
+                <Detail></Detail>
+              </Monthly>
             </Column>
             <Column>
               <Tasks>
