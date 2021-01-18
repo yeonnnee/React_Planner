@@ -5,7 +5,6 @@ import Tasks from "../screens/Tasks";
 import Monthly from "../screens/Monthly";
 import AddMonthly from "../screens/Monthly/AddMonthly";
 import EditMonthly from "../screens/Monthly/EditMonthly";
-import Home from "../screens/Home";
 import Account from "../screens/Account";
 import ResetPw from "../screens/Account/ResetPw";
 import DeleteAccount from "../screens/Account/DeleteAccount";
@@ -27,8 +26,7 @@ const Router = () => {
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/logIn" component={LogIn} />
+        <Route path="/" exact component={LogIn} />
         <Route path="/find-password" component={FindPassword} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-up/success" component={SignUpSuccess} />
