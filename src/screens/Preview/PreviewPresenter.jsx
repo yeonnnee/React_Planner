@@ -15,6 +15,13 @@ export const Section = styled.div`
 export const Column = styled.div`
   border: 1px solid #9c9b9b;
   font-size: 15px;
+  &:nth-child(3) {
+    display: grid;
+    place-items: center;
+    border: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+  }
 `;
 export const Tag = styled.div`
   width: 150px;
@@ -24,6 +31,27 @@ export const Tag = styled.div`
   border: 1px solid #9c9b9b;
   background-color: white;
   transform: translateX(285px) translateY(-13px);
+`;
+
+export const Title = styled.div`
+  width: 150px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #9c9b9b;
+  background-color: white;
+  transform: translateX(40px) translateY(-13px);
+`;
+
+export const Tasks = styled.div`
+  border: 1px solid #9c9b9b;
+  width: 240px;
+  height: 200px;
+  &:nth-child(2) {
+    border: none;
+    border-top: 1px solid #9c9b9b;
+    transform: translateY(100px);
+  }
 `;
 
 const PreviewPresenter = () => {
@@ -40,7 +68,15 @@ const PreviewPresenter = () => {
               <Tag>Today&apos;s Schedule</Tag>
             </Column>
             <Column>
-              <Tag>Today&apos;s Tasks</Tag>
+              <Tasks>
+                <Title>Pending</Title>
+              </Tasks>
+              <Tasks>
+                <Title>Today&apos;s Tasks</Title>
+              </Tasks>
+              <Tasks>
+                <Title>Finished</Title>
+              </Tasks>
             </Column>
           </Section>
         </Main>
