@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import Header from "./Header";
 import Tasks from "../screens/Tasks";
 import Monthly from "../screens/Monthly";
 import AddMonthly from "../screens/Monthly/AddMonthly";
@@ -12,7 +13,6 @@ import LogIn from "../screens/Auth";
 import FindPassword from "../screens/FindPassword";
 import SignUp from "../screens/SignUp";
 import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
-import Header from "./Header";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./msg/NotFound";
 import Footer from "./Footer";
@@ -20,17 +20,19 @@ import Challenge from "../screens/Challenge";
 import Enroll from "../screens/Challenge/Enroll";
 import Record from "../screens/Challenge/Record";
 import Detail from "../screens/Monthly/Detail";
+import Preview from "../screens/Preview";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route path="/" exact component={LogIn} />
+        <Route path="/logIn" exact component={LogIn} />
         <Route path="/find-password" component={FindPassword} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-up/success" component={SignUpSuccess} />
-        <PrivateRoute exact path="/tasks" component={Tasks} />
+        <PrivateRoute exact path="/" component={Preview} />
+        <PrivateRoute path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
         <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
@@ -38,7 +40,7 @@ const Router = () => {
         <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
         <PrivateRoute exact path="/challenge/:id" component={Record} />
-        <PrivateRoute exact path="/account" component={Account} />
+        <PrivateRoute path="/account" component={Account} />
         <PrivateRoute
           exact
           path="/account/reset-password"
