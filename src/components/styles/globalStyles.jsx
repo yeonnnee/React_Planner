@@ -14,9 +14,11 @@ const globalStyles = createGlobalStyle`
     display: flex;
     justify-content:center;
     align-items:center;
-    background-color: #cfc0bd;
+    background-color: #777672;
     overflow: hidden;
     padding: 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
 `;
