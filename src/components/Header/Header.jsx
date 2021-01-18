@@ -37,16 +37,18 @@ const Section = styled.div``;
 
 const Header = () => {
   return (
-    <Container>
-      <Section>
-        <Title>Welcome to Y Planner</Title>
-        <Describe>
-          Manage your plan and record your day.
-          <br /> Dream, Plan, Do with our App.
-        </Describe>
-      </Section>
+    <>
+      <Container>
+        <Section>
+          <Title>Welcome to Y Planner</Title>
+          <Describe>
+            Manage your plan and record your day.
+            <br /> Dream, Plan, Do with our App.
+          </Describe>
+        </Section>
+      </Container>
       <Nav />
-    </Container>
+    </>
   );
 };
 

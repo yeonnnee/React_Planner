@@ -6,12 +6,9 @@ import { Link, withRouter } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   height: 30px;
+  margin-top: 20px;
   display: flex;
-  background-color: black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  box-shadow: 2px 0 5px #baa7a1, -2px 0 5px #baa7a1, inset -2px -2px 2px #baa7a1,
-    inset 2px -2px 5px #baa7a1;
+  border-radius: 10px;
 `;
 const List = styled.ul`
   width: 100%;
