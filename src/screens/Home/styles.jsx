@@ -1,58 +1,11 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-export const FadeIn = keyframes`
-from{
-  transform: translateY(-30px);
-  opacity: 0;
-} to{
-  transform: translateY(0);
-  opacity: 1;
-  }
-`;
-
-export const Container = styled.div`
-  width: 800px;
-  height: 880px;
-  background-color: #273c75;
-  box-shadow: 5px 5px 15px #615a58, 5px 5px 10px #615a58;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* width: 800px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  animation: ${FadeIn} 1s linear;
-  @media only screen and (max-width: 640px) {
-    height: 95%;
-    margin-top: 0;
-    justify-content: center;
-    position: relative;
-    top: -20px;
-  } */
-`;
-
-export const Template = styled.div`
-  width: 100%;
-  height: 150px;
-  padding: 20px;
-  background-color: #ac6e6c;
-`;
-
-export const Main = styled.div`
-  width: 100%;
-  height: 835px;
-  transform: translateY(-44%);
-  background-color: white;
-`;
 
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
   @media only screen and (max-width: 640px) {
     margin: 20px 0;
   }
