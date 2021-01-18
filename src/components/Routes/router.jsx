@@ -1,25 +1,25 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Tasks from "../screens/Tasks";
-import Monthly from "../screens/Monthly";
-import AddMonthly from "../screens/Monthly/AddMonthly";
-import EditMonthly from "../screens/Monthly/EditMonthly";
-import Account from "../screens/Account";
-import ResetPw from "../screens/Account/ResetPw";
-import DeleteAccount from "../screens/Account/DeleteAccount";
-import LogIn from "../screens/Auth";
-import FindPassword from "../screens/FindPassword";
-import SignUp from "../screens/SignUp";
-import SignUpSuccess from "../screens/SignUp/SignUpSuccess";
+import Tasks from "../../screens/Tasks";
+import Monthly from "../../screens/Monthly";
+import AddMonthly from "../../screens/Monthly/AddMonthly";
+import EditMonthly from "../../screens/Monthly/EditMonthly";
+import Account from "../../screens/Account";
+import ResetPw from "../../screens/Account/ResetPw";
+import DeleteAccount from "../../screens/Account/DeleteAccount";
+import LogIn from "../../screens/Auth";
+import FindPassword from "../../screens/FindPassword";
+import SignUp from "../../screens/SignUp";
+import SignUpSuccess from "../../screens/SignUp/SignUpSuccess";
 import PrivateRoute from "./PrivateRoute";
-import NotFound from "./msg/NotFound";
-import Footer from "./Footer";
-import Challenge from "../screens/Challenge";
-import Enroll from "../screens/Challenge/Enroll";
-import Record from "../screens/Challenge/Record";
-import Detail from "../screens/Monthly/Detail";
-import Preview from "../screens/Preview";
+import NotFound from "../msg/NotFound";
+import Footer from "../Footer";
+import Challenge from "../../screens/Challenge";
+import Enroll from "../../screens/Challenge/Enroll";
+import Record from "../../screens/Challenge/Record";
+import Detail from "../../screens/Monthly/Detail";
+import Preview from "../../screens/Preview";
 
 const Router = () => {
   return (

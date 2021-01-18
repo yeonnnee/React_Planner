@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import WelcomeMessage from "../../components/msg/WelcomeMessage";
+import WelcomeMessage from "../../components/Header";
 import { SLink, Text, Container, Question, Button } from "./styles";
 
 const SignUpSuccess = (signUpSuccessProps) => {

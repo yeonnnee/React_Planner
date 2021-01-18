@@ -2,7 +2,7 @@ import React from "react";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 import Loader from "../../components/Loader";
-import Header from "../../components/msg/WelcomeMessage";
+import Header from "../../components/Header";
 import ErrorMessage from "../../components/msg/ErrorMessage";
 import { Container, Frame, Main } from "../../components/styles/Templates";
 import {
@@ -56,7 +56,7 @@ const LogInPresenter = (logInProps) => {
           </Wrapper>
           <Section>
             <Button onClick={onClick}>로그인</Button>
-            <SignUpLink to="/sign-up">Create Planner Account</SignUpLink>
+            <SignUpLink to="/sign-up">Create Y Planner Account</SignUpLink>
           </Section>
         </Main>
       </Frame>
