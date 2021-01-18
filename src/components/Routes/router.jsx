@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Header from "./Header";
 import Tasks from "../screens/Tasks";
 import Monthly from "../screens/Monthly";
 import AddMonthly from "../screens/Monthly/AddMonthly";
@@ -25,7 +24,6 @@ import Preview from "../screens/Preview";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Switch>
         <Route path="/logIn" exact component={LogIn} />
         <Route path="/find-password" component={FindPassword} />
