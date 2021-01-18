@@ -12,8 +12,15 @@ from{
 `;
 
 export const Container = styled.div`
-  height: 60%;
-  margin-top: 30px;
+  width: 800px;
+  height: 880px;
+  background-color: #273c75;
+  box-shadow: 5px 5px 15px #615a58, 5px 5px 10px #615a58;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 800px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +32,21 @@ export const Container = styled.div`
     justify-content: center;
     position: relative;
     top: -20px;
-  }
+  } */
+`;
+
+export const Template = styled.div`
+  width: 100%;
+  height: 150px;
+  padding: 20px;
+  background-color: #ac6e6c;
+`;
+
+export const Main = styled.div`
+  width: 100%;
+  height: 835px;
+  transform: translateY(-44%);
+  background-color: white;
 `;
 
 export const Section = styled.div`
