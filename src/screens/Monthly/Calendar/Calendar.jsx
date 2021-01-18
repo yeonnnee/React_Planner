@@ -4,7 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import { SELECT_MONTHLY, CHANGE_MONTHLY } from "../../redux/types";
+import { SELECT_MONTHLY, CHANGE_MONTHLY } from "../../../redux/types";
 
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
@@ -17,7 +17,7 @@ const Mark = styled.div`
   height: 6px;
   background-color: #856969;
   border-radius: 5px;
-  transform: translateX(37px) translateY(-20px);
+  transform: translateX(25px);
 `;
 
 const Calendar = (calendarProps) => {
@@ -57,6 +57,9 @@ const Calendar = (calendarProps) => {
       onClickDay={onClickDay}
       tileContent={markDate}
       onActiveStartDateChange={changeMonth}
+      tileClassName={({ date, view }) =>
+        view === "month" && date.getDay() === 3 ? "wednesday" : null
+      }
     />
   );
 };
