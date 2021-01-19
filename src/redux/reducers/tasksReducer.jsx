@@ -1,11 +1,11 @@
 import {
-  FETCH_SUCCESS,
-  FETCH_START,
+  FETCH_TASKS,
+  FETCH_TASKS_SUCCESS,
   ADD_TASKS,
   TASKS_ERROR,
   CHANGE_STATUS,
   DELETE_TASKS,
-} from "../types";
+} from "../actions/tasksActions";
 
 export const initialState = {
   isLoading: false,
@@ -17,12 +17,12 @@ export const initialState = {
 const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
     //////////////////////* FETCH TASKS DATA  *////////////////
-    case FETCH_START:
+    case FETCH_TASKS:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_SUCCESS: {
+    case FETCH_TASKS_SUCCESS: {
       if (action.payload === []) {
         return {
           ...state,
