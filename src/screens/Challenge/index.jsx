@@ -13,14 +13,7 @@ import {
 import ChallengePresenter from "./ChallengePresenter";
 
 const Challenge = (challengeProps) => {
-  const {
-    state,
-    select,
-    fetchStart,
-    fetch_success,
-    fetch_failed,
-    setError,
-  } = challengeProps;
+  const { state, select, fetchStart, fetch_success, setError } = challengeProps;
 
   const selectList = async (event) => {
     fetchStart();
@@ -30,7 +23,7 @@ const Challenge = (challengeProps) => {
       select(res.data.challenge);
     } catch (error) {
       const status = error.response.status;
-      fetch_failed();
+
       if (status === 500) {
         setError("500");
       } else if (status === 504) {
@@ -52,7 +45,7 @@ const Challenge = (challengeProps) => {
         setError("504");
       }
     }
-  }, [fetchStart, fetch_success, fetch_failed, setError]);
+  }, [fetchStart, fetch_success, setError]);
 
   useEffect(() => {
     fetchData();
