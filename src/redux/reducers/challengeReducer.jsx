@@ -2,13 +2,12 @@ import {
   ENROLLED_CHALLENGE,
   ENROLLED_CHALLENGE_SUCCESS,
   FETCH_CHALLENGE,
-  FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
   SELECT_CHALLENGE,
   UPDATE_RECORD,
   DELETE_CHALLENGE,
   CHALLENGE_ERROR,
-} from "../types";
+} from "../actions/challengeActions";
 
 const initialState = {
   isLoading: false,
@@ -42,9 +41,6 @@ const challengeReducer = (state = initialState, action) => {
           challenges: [...action.payload],
         };
       }
-    }
-    case FETCH_CHALLENGE_FAIELD: {
-      return { ...state, isLoading: false };
     }
     case ENROLLED_CHALLENGE: {
       return { ...state, isLoading: true };
