@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Column, Title, Tasks } from "../styles";
-import TasksList from "./TasksList";
+import { Column, Title, Tasks } from "./styles";
+import TasksList from "./PreviewTasksList";
 
-const TasksSection = (tasksProps) => {
+const PreviewTasks = (tasksProps) => {
   const { pendingList, finishedList } = tasksProps;
   return (
     <Column>
@@ -24,4 +24,4 @@ const TasksSection = (tasksProps) => {
   );
 };
 
-export default TasksSection;
+export default PreviewTasks;
