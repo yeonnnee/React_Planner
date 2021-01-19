@@ -4,7 +4,10 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import { SELECT_MONTHLY, CHANGE_MONTHLY } from "../../../redux/types";
+import {
+  SELECT_MONTHLY,
+  CHANGE_MONTHLY,
+} from "../../../redux/actions/monthlyActions";
 
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
