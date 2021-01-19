@@ -57,15 +57,5 @@ export const Monthly = styled.div`
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
 `;
-export const Detail = styled.div`
-  width: 330px;
-  height: 200px;
-  display: grid;
-  place-items: center;
-
-  &:nth-child(2) {
-    border-left: 1px solid #9c9b9b;
-  }
-`;
 
 export const Text = styled.div``;
