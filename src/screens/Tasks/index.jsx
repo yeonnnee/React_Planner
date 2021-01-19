@@ -8,11 +8,11 @@ import Loader from "../../components/Loader";
 import ServerError from "../../components/msg/ServerError";
 import GatewayError from "../../components/msg/GatewayError";
 import {
-  FETCH_SUCCESS,
-  FETCH_START,
+  FETCH_TASKS_SUCCESS,
+  FETCH_TASKS,
   ADD_TASKS,
   TASKS_ERROR,
-} from "../../redux/types";
+} from "../../redux/actions/tasksActions";
 
 const Tasks = (tasksProps) => {
   const { state, start, success, add, setError } = tasksProps;
@@ -110,12 +110,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     start: () => {
-      dispatch({ type: FETCH_START });
+      dispatch({ type: FETCH_TASKS });
     },
     success: (data) => {
-      dispatch({ type: FETCH_SUCCESS, payload: data });
+      dispatch({ type: FETCH_TASKS_SUCCESS, payload: data });
     },
-
     add: (tasks) => {
       dispatch({
         type: ADD_TASKS,

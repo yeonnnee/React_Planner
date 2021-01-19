@@ -6,11 +6,11 @@ import MonthlyPresenter from "./MonthlyPresenter";
 import ServerError from "../../components/msg/ServerError";
 import GatewayError from "../../components/msg/GatewayError";
 import {
-  FETCH_MONTHLY_START,
+  FETCH_MONTHLY,
   FETCH_MONTHLY_SUCCESS,
   MONTHLY_ERROR,
   GET_DETAILED,
-} from "../../redux/types";
+} from "../../redux/actions/monthlyActions";
 
 const Monthly = (monthlyProps) => {
   const {
@@ -79,7 +79,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetch_monthly: () => {
-      dispatch({ type: FETCH_MONTHLY_START });
+      dispatch({ type: FETCH_MONTHLY });
     },
     fetch_success: (data) => {
       dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: data });

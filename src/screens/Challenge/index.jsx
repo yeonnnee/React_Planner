@@ -6,10 +6,9 @@ import ServerError from "../../components/msg/ServerError";
 import {
   CHALLENGE_ERROR,
   FETCH_CHALLENGE,
-  FETCH_CHALLENGE_FAIELD,
   FETCH_CHALLENGE_SUCCESS,
   SELECT_CHALLENGE,
-} from "../../redux/types";
+} from "../../redux/actions/challengeActions";
 
 import ChallengePresenter from "./ChallengePresenter";
 
@@ -47,7 +46,6 @@ const Challenge = (challengeProps) => {
       fetch_success(res.data.challenges);
     } catch (error) {
       const status = error.response.status;
-      fetch_failed();
       if (status === 500) {
         setError("500");
       } else if (status === 504) {
@@ -84,9 +82,7 @@ function mapDispatchToProps(dispatch) {
     fetch_success: (data) => {
       dispatch({ type: FETCH_CHALLENGE_SUCCESS, payload: data });
     },
-    fetch_failed: () => {
-      dispatch({ type: FETCH_CHALLENGE_FAIELD });
-    },
+
     select: (id) => {
       dispatch({ type: SELECT_CHALLENGE, payload: id });
     },

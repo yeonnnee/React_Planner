@@ -16,7 +16,7 @@ import {
   RESET_VERIFICATION_RECORD,
   UPDATE_PASSWORD_VALIDATION_ERROR,
   ACCOUNT_ERROR,
-} from "../../redux/types";
+} from "../../redux/actions/accountActions";
 
 const FindPassword = (findPasswordProps) => {
   const {

@@ -8,7 +8,7 @@ import {
   ENROLLED_CHALLENGE,
   ENROLLED_CHALLENGE_SUCCESS,
   CHALLENGE_ERROR,
-} from "../../../redux/types";
+} from "../../../redux/actions/challengeActions";
 import ServerError from "../../../components/msg/ServerError";
 import GatewayError from "../../../components/msg/GatewayError";
 

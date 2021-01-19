@@ -10,7 +10,7 @@ import {
   CREATE_MONTHLY,
   SAVE_MONTHLY,
   MONTHLY_ERROR,
-} from "../../../redux/types";
+} from "../../../redux/actions/monthlyActions";
 
 const MonthlyAdd = (monthlyAddProps) => {
   const { state, history, create, saveMonthly, setError } = monthlyAddProps;

@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 
 import { authApi } from "../../api";
 import AccountPresenter from "./AccountPresenter";
+import { LOG_OUT } from "../../redux/actions/authActions";
 import {
-  LOG_OUT,
   RESET_VERIFICATION_RECORD,
   ACCOUNT_ERROR,
-} from "../../redux/types";
+} from "../../redux/actions/accountActions";
 import ServerError from "../../components/msg/ServerError";
 import GatewayError from "../../components/msg/GatewayError";
 

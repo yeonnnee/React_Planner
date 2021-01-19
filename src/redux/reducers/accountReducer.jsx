@@ -4,7 +4,7 @@ import {
   RESET_VERIFICATION_RECORD,
   UPDATE_PASSWORD_VALIDATION_ERROR,
   ACCOUNT_ERROR,
-} from "../types";
+} from "../actions/accountActions";
 
 export const initialState = {
   verification: false,

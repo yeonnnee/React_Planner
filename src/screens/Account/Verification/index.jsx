@@ -10,7 +10,7 @@ import {
   LOADING,
   RESET_VERIFICATION_RECORD,
   ACCOUNT_ERROR,
-} from "../../../redux/types";
+} from "../../../redux/actions/accountActions";
 
 const UserVerification = (UserVerificationProps) => {
   const {

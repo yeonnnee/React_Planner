@@ -1,4 +1,9 @@
-import { TRY_LOGIN, LOGIN_SUCCESS, LOG_OUT, AUTH_ERROR } from "../types";
+import {
+  TRY_LOGIN,
+  LOGIN_SUCCESS,
+  LOG_OUT,
+  AUTH_ERROR,
+} from "../actions/authActions";
 
 export const initialState = {
   user: "",

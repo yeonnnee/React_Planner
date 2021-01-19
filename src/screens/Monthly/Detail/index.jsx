@@ -5,7 +5,10 @@ import MonthlyDetailPresenter from "./DetailPresenter";
 import { monthlyApi } from "../../../api";
 import ServerError from "../../../components/msg/ServerError";
 import GatewayError from "../../../components/msg/GatewayError";
-import { DELETE_MONTHLY, MONTHLY_ERROR } from "../../../redux/types";
+import {
+  DELETE_MONTHLY,
+  MONTHLY_ERROR,
+} from "../../../redux/actions/monthlyActions";
 
 const MonthlyDetail = (monthlyProps) => {
   const { state, deletePlan, setError, history } = monthlyProps;

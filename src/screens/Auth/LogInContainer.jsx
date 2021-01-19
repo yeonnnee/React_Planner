@@ -7,8 +7,8 @@ import {
   TRY_LOGIN,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  RESET_VERIFICATION_RECORD,
-} from "../../redux/types";
+} from "../../redux/actions/authActions";
+import { RESET_VERIFICATION_RECORD } from "../../redux/actions/accountActions";
 import { authApi } from "../../api";
 import ServerError from "../../components/msg/ServerError";
 import GatewayError from "../../components/msg/GatewayError";

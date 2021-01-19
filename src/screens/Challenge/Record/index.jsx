@@ -8,7 +8,7 @@ import {
   CHALLENGE_ERROR,
   DELETE_CHALLENGE,
   UPDATE_RECORD,
-} from "../../../redux/types";
+} from "../../../redux/actions/challengeActions";
 
 import RecordPresenter from "./RecordPresenter";
 

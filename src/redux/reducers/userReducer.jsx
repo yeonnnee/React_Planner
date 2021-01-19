@@ -4,7 +4,7 @@ import {
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
   CANCEL_SIGNUP,
-} from "../types";
+} from "../actions/signUpActions";
 
 export const initialState = {
   isLoading: false,

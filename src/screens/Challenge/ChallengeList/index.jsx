@@ -14,7 +14,7 @@ import {
   Achieve,
 } from "./styles";
 import { challengeApi } from "../../../api";
-import { CHALLENGE_ERROR } from "../../../redux/types";
+import { CHALLENGE_ERROR } from "../../../redux/actions/challengeActions";
 
 const ChallengeList = (challengeListProps) => {
   const {

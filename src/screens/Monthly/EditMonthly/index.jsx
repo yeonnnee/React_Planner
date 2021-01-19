@@ -10,7 +10,7 @@ import {
   SAVE_MONTHLY,
   UPDATE_MONTHLY,
   MONTHLY_ERROR,
-} from "../../../redux/types";
+} from "../../../redux/actions/monthlyActions";
 
 const EditMonthly = (editProps) => {
   const { state, update, history, saveMonthly, setError, location } = editProps;

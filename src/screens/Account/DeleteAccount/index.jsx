@@ -6,11 +6,11 @@ import DeleteAccountPresenter from "./DeletAccountPresenter";
 import { accountApi } from "../../../api";
 import ServerError from "../../../components/msg/ServerError";
 import GatewayError from "../../../components/msg/GatewayError";
+import { LOG_OUT } from "../../../redux/actions/authActions";
 import {
   LOADING,
-  LOG_OUT,
   RESET_VERIFICATION_RECORD,
-} from "../../../redux/types";
+} from "../../../redux/actions/accountActions";
 
 const DeleteAccount = (deleteAccountProps) => {
   const {

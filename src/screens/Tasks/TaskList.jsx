@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/types";
+import { CHANGE_STATUS, DELETE_TASKS } from "../../redux/actions/tasksActions";
 
 import { taskApi } from "../../api";
 import { ListItem, CheckBox, DelBtn } from "./styles";

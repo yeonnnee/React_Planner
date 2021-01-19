@@ -10,14 +10,13 @@ import {
   passwordValidation,
   confirmPw_validation,
 } from "../../SignUp/validation";
-
+import { LOG_OUT } from "../../../redux/actions/authActions";
 import {
   ACCOUNT_ERROR,
   LOADING,
-  LOG_OUT,
   RESET_VERIFICATION_RECORD,
   UPDATE_PASSWORD_VALIDATION_ERROR,
-} from "../../../redux/types";
+} from "../../../redux/actions/accountActions";
 
 const ResetPw = (resetPwProps) => {
   const {

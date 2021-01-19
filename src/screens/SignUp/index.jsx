@@ -19,7 +19,7 @@ import {
   SEND_DATA_SUCCESS,
   VALIDATION_ERROR,
   CANCEL_SIGNUP,
-} from "../../redux/types";
+} from "../../redux/actions/signUpActions";
 
 const SignUp = (signUpProps) => {
   const {
