@@ -1,10 +1,9 @@
 import React from "react";
 
-import Calendar from "../../Monthly/Calendar/PreviewCalendar";
-import { Column, Tag, Monthly, Text } from "../styles";
-import { ScheduleList, ListItem } from "./styles";
+import Calendar from "../Monthly/Calendar/PreviewCalendar";
+import { Column, Tag, Monthly, Text, ScheduleList, ListItem } from "./styles";
 
-const Schedule = (schedulProps) => {
+const PreviewSchedule = (schedulProps) => {
   const { schedule } = schedulProps;
 
   return (
@@ -26,4 +25,4 @@ const Schedule = (schedulProps) => {
     </Column>
   );
 };
-export default Schedule;
+export default PreviewSchedule;
