@@ -1,10 +1,10 @@
 import React from "react";
 
 import Header from "../../components/Header";
+import Challenges from "./PreviewChallenges";
+import Schedule from "./PreviewSchedule";
+import Tasks from "./PreviewTasks";
 import { Container, Frame, Main } from "../../components/styles/Templates";
-import ScheduleList from "./Schedule";
-import ChallengeList from "./Challenges";
-import Tasks from "./Tasks";
 import { Section } from "./styles";
 
 const PreviewPresenter = (previewProps) => {
@@ -16,8 +16,8 @@ const PreviewPresenter = (previewProps) => {
         <Main>
           <Header />
           <Section>
-            <ChallengeList challenges={challenge.enrolled} />
-            <ScheduleList schedule={monthly.selected} />
+            <Challenges challenges={challenge.enrolled} />
+            <Schedule schedule={monthly.selected} />
             <Tasks
               pendingList={tasks.pendingList}
               finishedList={tasks.finishedList}
