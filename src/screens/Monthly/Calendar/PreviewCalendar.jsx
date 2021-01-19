@@ -4,7 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 
 const Calendar = styled(ReactCalendar)`
-  width: 100%;
+  width: 350px;
   transform: translateY(-10px);
   background-color: #f1eeee;
   opacity: 0.7;
