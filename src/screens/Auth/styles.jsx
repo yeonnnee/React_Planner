@@ -36,15 +36,13 @@ export const Icon = styled(FontAwesomeIcon)`
 export const Label = styled.label``;
 export const Input = styled.input`
   width: 80%;
-  margin-left: 20px;
-  padding: 10px 20px;
+  margin-left: 10px;
+  padding: 7px 5px;
   border-radius: 5px;
   outline: none;
   border: none;
   border-bottom: 1px solid #cfd5dd;
-  &::placeholder {
-    font-family: "Life Savers", cursive;
-  }
+
   &:focus {
     border-bottom: 1px solid #487eb0;
   }
@@ -68,7 +66,6 @@ export const Section = styled.div`
 export const Button = styled.button`
   width: 150px;
   height: 40px;
-  margin-right: 10px;
   border: none;
   outline: none;
   background-color: #30475e;
