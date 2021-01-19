@@ -1,5 +1,5 @@
 import {
-  FETCH_MONTHLY_START,
+  FETCH_MONTHLY,
   FETCH_MONTHLY_SUCCESS,
   CREATE_MONTHLY,
   UPDATE_MONTHLY,
@@ -9,7 +9,7 @@ import {
   SAVE_MONTHLY,
   MONTHLY_ERROR,
   GET_DETAILED,
-} from "../types";
+} from "../actions/monthlyActions";
 
 const initialState = {
   isLoading: false,
@@ -33,7 +33,7 @@ const monthlyReducer = (state = initialState, action) => {
       };
     }
     //* FETCH DATA ACTION *//
-    case FETCH_MONTHLY_START: {
+    case FETCH_MONTHLY: {
       const date = new Date().toString();
       const today = date.substring(0, 15);
       return { ...state, isLoading: true, date: today };
