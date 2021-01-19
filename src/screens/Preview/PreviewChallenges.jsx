@@ -1,27 +1,26 @@
 import React from "react";
 
-import { Column, Tag, Text } from "../styles";
-import { List, ListItem } from "./styles";
+import { Column, Tag, Text, ChallengesList, ChallengeListItem } from "./styles";
 
-const ChallengeList = (challengeProps) => {
+const PreviewChallenges = (challengeProps) => {
   const { challenges } = challengeProps;
 
   return (
     <Column>
       <Tag>In Progress</Tag>
-      <List>
+      <ChallengesList>
         {challenges.length > 0 ? (
           challenges.map((list, index) => (
-            <ListItem key={index}>
+            <ChallengeListItem key={index}>
               {index + 1}.{list.title}
-            </ListItem>
+            </ChallengeListItem>
           ))
         ) : (
           <Text>진행중인 챌린지가 없습니다</Text>
         )}
-      </List>
+      </ChallengesList>
     </Column>
   );
 };
 
-export default ChallengeList;
+export default PreviewChallenges;
