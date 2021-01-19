@@ -1,11 +1,11 @@
 import React from "react";
 
-import { List, ListItem, Notice } from "./styles";
+import { TasksList, ListItem, Notice } from "./styles";
 
-const TasksList = (tasksProps) => {
+const PreviewTasksList = (tasksProps) => {
   const { tasks } = tasksProps;
   return (
-    <List>
+    <TasksList>
       {tasks.length > 0 ? (
         tasks.map((task, index) => {
           return <ListItem key={index}>{task.content}</ListItem>;
@@ -13,8 +13,8 @@ const TasksList = (tasksProps) => {
       ) : (
         <Notice>등록된 업무가 없습니다</Notice>
       )}
-    </List>
+    </TasksList>
   );
 };
 
-export default TasksList;
+export default PreviewTasksList;
