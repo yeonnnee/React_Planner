@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 export const Section = styled.div`
   width: 100%;
   height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: 340px 30px 230px;
   border: 1px solid #dbd7d7;
-  margin-top: 20px;
+  margin-top: 10px;
+  gap: 5px;
 `;
 
 export const Column = styled.div`
@@ -34,7 +37,6 @@ export const SubTitle = styled.div`
   justify-content: space-between;
   opacity: 0.7;
   font-size: 14px;
-  margin-top: 3px;
 `;
 export const Text = styled.div`
   font-family: "Rajdhani", sans-serif;
@@ -62,7 +64,7 @@ export const Scroll = styled.div`
 
 export const List = styled.ul`
   width: 617px;
-  height: 230px;
+  height: 210px;
   overflow: auto;
   padding-top: 10px;
   display: grid;
@@ -71,16 +73,18 @@ export const List = styled.ul`
   gap: 5px;
 `;
 export const ListItem = styled.li`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 50px 20px;
 `;
 
 // Add Section
 
 export const AddSection = styled.div`
-  display: grid;
-  place-items: center;
-  transform: translateY(80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-20px);
 `;
 
 export const AddLink = styled(Link)`
