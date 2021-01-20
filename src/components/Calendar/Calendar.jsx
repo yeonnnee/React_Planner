@@ -8,15 +8,15 @@ import { SELECT_MONTHLY } from "../../redux/actions/monthlyActions";
 
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
-  padding: 10px 15px 10px 10px;
   opacity: 0.7;
+  height: 340px;
 `;
 const Mark = styled.div`
   width: 6px;
   height: 6px;
-  background-color: #856969;
+  background-color: ${(props) => props.color};
   border-radius: 5px;
-  transform: translateX(25px);
+  transform: translateX(40px);
 `;
 
 const Calendar = (calendarProps) => {
@@ -31,7 +31,11 @@ const Calendar = (calendarProps) => {
     const date = tileContentInfo.date.toString().substring(0, 15);
 
     return state.plans.map((plan, index) =>
-      plan.date === date ? <Mark key={index} /> : null
+      plan.date === date && state.selectedDate !== date ? (
+        <Mark key={index} color="#856969" />
+      ) : (
+        <Mark key={index} color="transparent" />
+      )
     );
   };
 
