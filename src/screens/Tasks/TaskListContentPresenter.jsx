@@ -1,15 +1,19 @@
 import React from "react";
+import { faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
 
-import { ListItem, CheckBox, DelBtn, Mark, Text } from "./styles";
+import { ListItem, CheckBox, DelBtn, Text } from "./styles";
 
 const TaskListPresenter = (taskListProps) => {
   const { content, status, changeStatus, deleteTask } = taskListProps;
 
   return (
     <ListItem>
-      <CheckBox onClick={changeStatus}>
-        <Mark>{status === "PENDING" ? "" : "v"}</Mark>
-      </CheckBox>
+      {status === "PENDING" ? (
+        <CheckBox onClick={changeStatus} icon={faSquare} />
+      ) : (
+        <CheckBox onClick={changeStatus} icon={faCheckSquare} />
+      )}
+
       <Text>{content}</Text>
       <DelBtn onClick={deleteTask}>X</DelBtn>
     </ListItem>

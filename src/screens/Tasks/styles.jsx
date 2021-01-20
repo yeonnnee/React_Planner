@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 // Tasks
 
 export const Content = styled.div`
@@ -58,16 +60,15 @@ export const ListItem = styled.li`
   gap: 10px;
 `;
 
-export const CheckBox = styled.div`
+export const CheckBox = styled(FontAwesomeIcon)`
   width: 15px;
   height: 15px;
-  border: 1px solid #5a2330;
+  color: #5a2330;
   opacity: 0.6;
 
-  cursor: Default;
   &:hover {
     opacity: 1;
-    border: 1px solid #5a2330;
+    color: #5a2330;
   }
 `;
 
@@ -77,10 +78,6 @@ export const Text = styled.div`
   align-items: flex-start;
 `;
 
-export const Mark = styled.div`
-  color: #5a2330;
-  transform: translateX(3px) translateY(-4px);
-`;
 export const DelBtn = styled.button`
   outline: none;
   border: none;
