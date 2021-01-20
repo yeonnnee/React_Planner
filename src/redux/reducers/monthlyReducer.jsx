@@ -13,6 +13,8 @@ const initialState = {
   isLoading: false,
   error: "",
   selected: {},
+  selectedDate: "",
+  schedule: {},
   plans: [],
 };
 
@@ -29,21 +31,23 @@ const monthlyReducer = (state = initialState, action) => {
     case FETCH_MONTHLY: {
       const date = new Date().toString();
       const today = date.substring(0, 15);
-      return { ...state, isLoading: true, date: today };
+
+      return { ...state, isLoading: true, selectedDate: today };
     }
     case FETCH_MONTHLY_SUCCESS: {
       if (action.payload === []) {
         return { ...state, isLoading: false };
       } else {
-        // DISPLAY TODAY'S PLAN AS DEFAULT //
+        // DISPLAY TODAY'S PLAN AS DEFAULT && SET SCHEDULE FOR PREVIEW //
         const selected_plan = action.payload.find(
-          (plan) => plan.date === state.date
+          (plan) => plan.date === state.selectedDate
         );
 
         return {
           ...state,
           isLoading: false,
           selected: { ...selected_plan },
+          scheduel: { ...selected_plan },
           plans: [...action.payload],
         };
       }
@@ -59,6 +63,7 @@ const monthlyReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         selected: { ...selected_plan },
+        selectedDate: action.payload,
       };
     }
     case SAVE_MONTHLY: {
