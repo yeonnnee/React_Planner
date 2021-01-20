@@ -3,8 +3,8 @@ import React from "react";
 import Calendar from "../../components/Calendar/PreviewCalendar";
 import { Column, Tag, Monthly, Text, ScheduleList, ListItem } from "./styles";
 
-const PreviewSchedule = (schedulProps) => {
-  const { schedule } = schedulProps;
+const PreviewSchedule = (scheduleProps) => {
+  const { schedule } = scheduleProps;
 
   return (
     <Column>
@@ -13,7 +13,7 @@ const PreviewSchedule = (schedulProps) => {
         <Calendar />
 
         <ScheduleList>
-          {schedule.length > 0 ? (
+          {schedule?.contents.length > 0 ? (
             schedule.contents.map((content, index) => {
               return <ListItem key={index}>{content.text}</ListItem>;
             })
