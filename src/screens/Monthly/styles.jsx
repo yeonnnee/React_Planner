@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const Section = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
