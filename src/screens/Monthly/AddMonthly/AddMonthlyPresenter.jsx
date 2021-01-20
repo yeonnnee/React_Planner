@@ -1,16 +1,16 @@
 import React from "react";
 
-import Loader from "../../../components/Loader";
 import TasksInput from "../../Tasks/TasksInput";
+import Header from "../../../components/Header";
+import AddMonthlyContent from "./AddMonthlyContent";
+import { Container, Frame, Main } from "../../../components/styles/Templates";
 import {
-  Container,
-  ListCon,
   Date,
   Button,
-  List,
-  DelBtn,
   Section,
-} from "./styles";
+  Wrapper,
+  ListSection,
+} from "./AddMonthly.styles";
 
 const AddMonthlyPresenter = (monthlyProps) => {
   const {
@@ -20,37 +20,32 @@ const AddMonthlyPresenter = (monthlyProps) => {
     cancel,
     planList,
     content,
-    deleteItem,
-    isLoading,
+    planDate,
   } = monthlyProps;
 
   return (
     <Container>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <Date>{planList.date}</Date>
-          <TasksInput
-            onChange={onChange}
-            onSubmit={onSubmit}
-            content={content.text}
-            error={content.error}
-          />
-          <ListCon>
-            {planList.contents.map((planListContent, index) => (
-              <List key={index} id={planListContent.id}>
-                {planListContent.text}
-                <DelBtn onClick={deleteItem}>X</DelBtn>
-              </List>
-            ))}
-          </ListCon>
-          <Section>
-            <Button onClick={save}>Save</Button>
-            <Button onClick={cancel}>Cancel</Button>
-          </Section>
-        </>
-      )}
+      <Frame>
+        <Main>
+          <Header />
+          <Wrapper>
+            <Date>{planDate}</Date>
+            <TasksInput
+              onChange={onChange}
+              onSubmit={onSubmit}
+              content={content.text}
+              error={content.error}
+            />
+            <ListSection>
+              <AddMonthlyContent contents={planList.contents} />
+            </ListSection>
+            <Section>
+              <Button onClick={save}>Save</Button>
+              <Button onClick={cancel}>Cancel</Button>
+            </Section>
+          </Wrapper>
+        </Main>
+      </Frame>
     </Container>
   );
 };
