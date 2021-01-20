@@ -16,9 +16,7 @@ const initialState = {
   error: "",
   monthYear: "",
   date: "",
-  selected: [],
-  unSelected: [],
-  detail: [],
+  selected: {},
   deleted: "",
   plans: [],
 };
@@ -43,33 +41,14 @@ const monthlyReducer = (state = initialState, action) => {
         return { ...state, isLoading: false };
       } else {
         // DISPLAY TODAY'S PLAN AS DEFAULT //
-        const selected_plan = action.payload.filter(
+        const selected_plan = action.payload.find(
           (plan) => plan.date === state.date
         );
-        // DISPLAY OTHERS //
-        const unSelected_plan = action.payload.filter((plan) => {
-          const selectedDate = state.date.split(" ");
-          const planDate = plan.date.split(" ");
 
-          return (
-            plan.date !== state.date &&
-            planDate[1] === selectedDate[1] &&
-            planDate[3] === selectedDate[3]
-          );
-        });
-
-        // SORTED BY DATE //
-        unSelected_plan.sort(function (a, b) {
-          const day1 = a.date.split(" ")[2];
-          const day2 = b.date.split(" ")[2];
-
-          return +day1 - +day2;
-        });
         return {
           ...state,
           isLoading: false,
-          selected: selected_plan,
-          unSelected: unSelected_plan,
+          selected: { ...selected_plan },
           plans: [...action.payload],
         };
       }
