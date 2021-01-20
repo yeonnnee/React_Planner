@@ -1,6 +1,6 @@
 import React from "react";
 
-import Calendar from "../Monthly/Calendar/PreviewCalendar";
+import Calendar from "../../components/Calendar/PreviewCalendar";
 import { Column, Tag, Monthly, Text, ScheduleList, ListItem } from "./styles";
 
 const PreviewSchedule = (schedulProps) => {

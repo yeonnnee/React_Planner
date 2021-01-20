@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import {
   SELECT_MONTHLY,
   CHANGE_MONTHLY,
-} from "../../../redux/actions/monthlyActions";
+} from "../../redux/actions/monthlyActions";
 
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
