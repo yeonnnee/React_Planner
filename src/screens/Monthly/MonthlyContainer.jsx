@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 
 import { monthlyApi } from "../../api";
@@ -14,6 +14,7 @@ import {
 } from "../../redux/actions/monthlyActions";
 
 const Monthly = (monthlyProps) => {
+  const [planDate, setPlanDate] = useState("");
   const {
     state,
     fetch_monthly,
@@ -22,9 +23,26 @@ const Monthly = (monthlyProps) => {
     getDetailed,
   } = monthlyProps;
 
+  const changeDateFormat = () => {
+    const date = new Date(state.date);
+
+    const planYear = date.getFullYear();
+    let planDate = date.getDate();
+    let planMonth = date.getMonth() + 1;
+
+    if (planDate < 10) {
+      planDate = "0" + planDate;
+    }
+    if (planMonth < 10) {
+      planMonth = "0" + planMonth;
+    }
+
+    setPlanDate(`${planYear}-${planMonth}-${planDate}`);
+  };
+
   const seeDetail = async (event) => {
+    fetch_monthly();
     try {
-      fetch_monthly();
       const planId = event.target.id;
       const res = await monthlyApi.getDetail(planId);
       getDetailed(res.data.monthly);
@@ -44,6 +62,7 @@ const Monthly = (monthlyProps) => {
     try {
       const res = await monthlyApi.getMonthly();
       fetch_success(res.data.monthly);
+      changeDateFormat();
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
@@ -69,7 +88,11 @@ const Monthly = (monthlyProps) => {
       ) : state.error === "504" ? (
         <GatewayError />
       ) : (
-        <MonthlyPresenter {...state} seeDetail={seeDetail} />
+        <MonthlyPresenter
+          {...state}
+          planDate={planDate}
+          seeDetail={seeDetail}
+        />
       )}
     </>
   );
