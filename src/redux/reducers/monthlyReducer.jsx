@@ -5,19 +5,14 @@ import {
   UPDATE_MONTHLY,
   DELETE_MONTHLY,
   SELECT_MONTHLY,
-  CHANGE_MONTHLY,
   SAVE_MONTHLY,
   MONTHLY_ERROR,
-  GET_DETAILED,
 } from "../actions/monthlyActions";
 
 const initialState = {
   isLoading: false,
   error: "",
-  monthYear: "",
-  date: "",
   selected: {},
-  deleted: "",
   plans: [],
 };
 
@@ -56,33 +51,14 @@ const monthlyReducer = (state = initialState, action) => {
 
     //* ACTIVE WHEN DATE SELECTED *//
     case SELECT_MONTHLY: {
-      const selected_plan = state.plans.filter(
+      const selected_plan = state.plans.find(
         (plan) => plan.date === action.payload
       );
-      const unSelected_plan = state.plans.filter((plan) => {
-        const selectedDate = action.payload.split(" ");
-        const planDate = plan.date.split(" ");
-
-        return (
-          plan.date !== action.payload &&
-          planDate[1] === selectedDate[1] &&
-          planDate[3] === selectedDate[3]
-        );
-      });
-      // SORTED BY DATE //
-      unSelected_plan.sort(function (a, b) {
-        const day1 = a.date.split(" ")[2];
-        const day2 = b.date.split(" ")[2];
-
-        return +day1 - +day2;
-      });
 
       return {
         ...state,
         isLoading: false,
-        date: action.payload,
-        selected: selected_plan,
-        unSelected: unSelected_plan,
+        selected: { ...selected_plan },
       };
     }
     case SAVE_MONTHLY: {
@@ -100,63 +76,20 @@ const monthlyReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         plans: [...state.plans, action.payload],
-        detail: action.payload,
       };
     }
 
     //* ACTIVE WHEN MONTHLY DELETED *//
     case DELETE_MONTHLY: {
-      const deletedItem = state.plans.find(
-        (plan) => plan.id === action.payload.id
-      );
-      const filtered_selected = state.selected.filter(
-        (plan) => plan.id !== action.payload.id
-      );
-      const filtered_unSelected = state.unSelected.filter(
-        (plan) => plan.id !== action.payload.id
-      );
       const filteredPlans = state.plans.filter(
         (plan) => plan.id !== action.payload.id
       );
       return {
         ...state,
-        selected: filtered_selected,
-        unSelected: filtered_unSelected,
         plans: filteredPlans,
-        deleted: deletedItem.date,
       };
     }
 
-    //* ACTIVE WHEN MONTH & YEAR CHANGED *//
-    case CHANGE_MONTHLY: {
-      const unSelected_plan = state.plans.filter((plan) => {
-        const planDate = plan.date.split(" ");
-
-        return (
-          plan.date !== state.date &&
-          planDate[1] === action.payload.month &&
-          planDate[3] === action.payload.year
-        );
-      });
-      // SORTED BY DATE //
-      unSelected_plan.sort(function (a, b) {
-        const day1 = a.date.split(" ")[2];
-        const day2 = b.date.split(" ")[2];
-        return +day1 - +day2;
-      });
-      return {
-        ...state,
-        monthYear: action.payload,
-        unSelected: unSelected_plan,
-      };
-    }
-    case GET_DETAILED: {
-      return {
-        ...state,
-        isLoading: false,
-        detail: action.payload,
-      };
-    }
     default:
       return state;
   }

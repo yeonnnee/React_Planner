@@ -16,7 +16,7 @@ import {
 
 const MonthlyPresenter = (monthlyProps) => {
   const { selected } = monthlyProps;
-  console.log("monthlyPresenter", selected);
+
   return (
     <Container>
       <Frame>
@@ -25,14 +25,14 @@ const MonthlyPresenter = (monthlyProps) => {
           <Section>
             <Calendar />
             <Column>
-              {selected[0].contents?.length > 0 ? (
-                <EditLink to={`/monthly/edit/${selected[0].id}`}>
+              {selected.contents?.length > 0 ? (
+                <EditLink to={`/monthly/edit/${selected.id}`}>
                   수정하기
                 </EditLink>
               ) : null}
             </Column>
-            {selected[0].contents?.length > 0 ? (
-              <MonthlyContent contents={selected[0].contents} />
+            {selected.contents?.length > 0 ? (
+              <MonthlyContent contents={selected.contents} />
             ) : (
               <AddSection>
                 <Notice>일정이 없습니다</Notice>

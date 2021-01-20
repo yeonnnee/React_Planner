@@ -10,18 +10,11 @@ import {
   FETCH_MONTHLY,
   FETCH_MONTHLY_SUCCESS,
   MONTHLY_ERROR,
-  GET_DETAILED,
 } from "../../redux/actions/monthlyActions";
 
 const Monthly = (monthlyProps) => {
   const [planDate, setPlanDate] = useState("");
-  const {
-    state,
-    fetch_monthly,
-    fetch_success,
-    setError,
-    getDetailed,
-  } = monthlyProps;
+  const { state, fetch_monthly, fetch_success, setError } = monthlyProps;
 
   const changeDateFormat = () => {
     const date = new Date(state.date);
@@ -40,23 +33,6 @@ const Monthly = (monthlyProps) => {
     setPlanDate(`${planYear}-${planMonth}-${planDate}`);
   };
 
-  const seeDetail = async (event) => {
-    fetch_monthly();
-    try {
-      const planId = event.target.id;
-      const res = await monthlyApi.getDetail(planId);
-      getDetailed(res.data.monthly);
-    } catch (error) {
-      const status = error.response.status;
-      if (status === 500) {
-        setError("500");
-      } else if (status === 504) {
-        setError("504");
-      } else {
-        return;
-      }
-    }
-  };
   const fetchData = useCallback(async () => {
     fetch_monthly();
     try {
@@ -88,11 +64,7 @@ const Monthly = (monthlyProps) => {
       ) : state.error === "504" ? (
         <GatewayError />
       ) : (
-        <MonthlyPresenter
-          {...state}
-          planDate={planDate}
-          seeDetail={seeDetail}
-        />
+        <MonthlyPresenter {...state} planDate={planDate} />
       )}
     </>
   );
@@ -112,9 +84,6 @@ function mapDispatchToProps(dispatch) {
     },
     setError: (error) => {
       dispatch({ type: MONTHLY_ERROR, payload: error });
-    },
-    getDetailed: (data) => {
-      dispatch({ type: GET_DETAILED, payload: data });
     },
   };
 }
