@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+import Loader from "../../../components/Loader";
 import AddMonthlyPresenter from "./AddMonthlyPresenter";
 import GatewayError from "../../../components/msg/GatewayError";
 import ServerError from "../../../components/msg/ServerError";
@@ -15,17 +16,35 @@ import {
 const MonthlyAdd = (monthlyAddProps) => {
   const { state, history, create, saveMonthly, setError } = monthlyAddProps;
 
+  const [planDate, setPlanDate] = useState("");
   const [planList, setPlanList] = useState({
     id: "",
-    date: state.date,
+    date: state.selectedDate,
     contents: [],
   });
-
   const [content, setContent] = useState({
     id: "",
     text: "",
     error: "",
   });
+
+  function changeDateFormat() {
+    const date = new Date(state.selectedDate);
+
+    const planYear = date.getFullYear();
+    let planDate = date.getDate();
+    let planMonth = date.getMonth() + 1;
+
+    if (planDate < 10) {
+      planDate = "0" + planDate;
+    }
+    if (planMonth < 10) {
+      planMonth = "0" + planMonth;
+    }
+
+    setPlanDate(`${planYear}-${planMonth}-${planDate}`);
+  }
+
   function cancel() {
     history.push("/monthly");
   }
@@ -92,9 +111,15 @@ const MonthlyAdd = (monthlyAddProps) => {
     }
   }
 
+  useEffect(() => {
+    changeDateFormat();
+  });
+
   return (
     <>
-      {state.error === "500" ? (
+      {state.isLoading ? (
+        <Loader />
+      ) : state.error === "500" ? (
         <ServerError />
       ) : state.error === "504" ? (
         <GatewayError />
@@ -107,6 +132,7 @@ const MonthlyAdd = (monthlyAddProps) => {
           planList={planList}
           content={content}
           cancel={cancel}
+          planDate={planDate}
           {...state}
         />
       )}
