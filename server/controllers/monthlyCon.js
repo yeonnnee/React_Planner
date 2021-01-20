@@ -5,9 +5,29 @@ const sequelize = require("../models");
 exports.getMonthly = async (req, res) => {
   try {
     const user = req.session.user.email;
-    const plans = await Plan.findAll({ where: { writer: user } });
 
-    res.status(200).json({ monthly: plans });
+    await sequelize.transaction(async (t) => {
+      const plans = await Plan.findAll(
+        { where: { writer: user } },
+        { transaction: t }
+      );
+
+      let monthly = [];
+      for (let plan of plans) {
+        const contents = await Content.findAll(
+          { where: { planId: plan.id } },
+          { transaction: t }
+        );
+        const result = {
+          id: plan.id,
+          date: plan.date,
+          contents,
+        };
+        monthly.push(result);
+      }
+
+      res.status(200).json({ monthly: monthly });
+    });
   } catch (error) {
     if (error.name === "SequelizeDatabaseError") {
       res.status(400).json({ msg: "Something went wrong" });
