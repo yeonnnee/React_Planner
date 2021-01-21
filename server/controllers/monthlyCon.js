@@ -36,30 +36,7 @@ exports.getMonthly = async (req, res) => {
     }
   }
 };
-exports.getDetail = async (req, res) => {
-  try {
-    await sequelize.transaction(async (t) => {
-      const planId = req.params.planId;
-      const plan = await Plan.findByPk(planId);
 
-      const contents = await Content.findAll(
-        {
-          where: { planId: planId },
-        },
-        { transaction: t }
-      );
-      const result = {
-        id: plan.id,
-        date: plan.date,
-        contents,
-      };
-
-      res.status(200).json({ monthly: result });
-    });
-  } catch (error) {
-    throw new Error();
-  }
-};
 exports.postMonthly = async (req, res) => {
   try {
     await sequelize.transaction(async (t) => {

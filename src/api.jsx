@@ -22,7 +22,6 @@ export const monthlyApi = {
   updatePlan: (updatedPlan) =>
     axios.post(`/api/monthly/plan/edit/${updatedPlan.id}`, updatedPlan),
   deletePlan: (plan) => axios.post(`/api/monthly/plan/${plan.id}`, plan),
-  getDetail: (planId) => axios.get(`/api/monthly/detail/${planId}`),
 };
 
 export const accountApi = {
