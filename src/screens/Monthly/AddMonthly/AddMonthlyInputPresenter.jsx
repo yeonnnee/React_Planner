@@ -3,9 +3,6 @@ import React from "react";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import {
-  TimeSection,
-  TimeSelect,
-  Option,
   Container,
   TextColumn,
   Label,
@@ -13,32 +10,12 @@ import {
   Date,
   Input,
   Form,
-  TimeMark,
   AddBtn,
 } from "./AddMonthly.styles";
+import AddMonthlyTime from "./AddMonthlyTime";
 
 const AddMonthlyInputPresenter = (addMonthlyInputProps) => {
-  const { selectTime, planDate } = addMonthlyInputProps;
-
-  let hour = [];
-  let min = [];
-  for (let i = 0; i < 25; i++) {
-    if (i < 10) {
-      const result = "0" + i;
-      hour.push(result);
-    } else {
-      hour.push(i);
-    }
-  }
-
-  for (let i = 0; i < 60; i++) {
-    if (i < 10) {
-      const result = "0" + i;
-      min.push(result);
-    } else {
-      min.push(i);
-    }
-  }
+  const { selectTime, planDate, time } = addMonthlyInputProps;
 
   return (
     <Container>
@@ -53,23 +30,7 @@ const AddMonthlyInputPresenter = (addMonthlyInputProps) => {
           <Input type="text" placeholder="내용을 입력해주세요..." />
         </Form>
 
-        <TimeSection>
-          <TimeSelect name="hour" onChange={selectTime}>
-            {hour.map((h, index) => (
-              <Option value={h} key={index}>
-                {h}
-              </Option>
-            ))}
-          </TimeSelect>
-          <TimeMark>:</TimeMark>
-          <TimeSelect name="min" onChange={selectTime}>
-            {min.map((m, index) => (
-              <Option value={m} key={index}>
-                {m}
-              </Option>
-            ))}
-          </TimeSelect>
-        </TimeSection>
+        <AddMonthlyTime selectTime={selectTime} time={time} />
         <AddBtn icon={faPlusCircle} />
       </Column>
     </Container>
