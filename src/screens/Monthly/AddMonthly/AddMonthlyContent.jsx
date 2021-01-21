@@ -8,6 +8,7 @@ import {
   ListItem,
   Text,
   ContentText,
+  TimeMark,
 } from "./AddMonthly.styles";
 import { SubTitle } from "../styles";
 
@@ -25,7 +26,14 @@ const AddMonthlyContent = (monthlyProps) => {
           return (
             <ListItem key={index}>
               <ContentText>{content.text}</ContentText>
-              <TimeSection>:</TimeSection>
+              <TimeSection>
+                {content.time.hour !== "00" ? (
+                  <>
+                    {content.time.hour} <TimeMark>:</TimeMark>
+                    {content.time.min}
+                  </>
+                ) : null}
+              </TimeSection>
               <DelBtn
                 icon={faWindowClose}
                 id={content.id}

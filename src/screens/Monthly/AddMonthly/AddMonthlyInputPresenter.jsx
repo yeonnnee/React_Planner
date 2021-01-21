@@ -1,37 +1,48 @@
 import React from "react";
-
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
+import AddMonthlyTime from "./AddMonthlyTime";
 import {
   Container,
   TextColumn,
-  Label,
+  TableName,
   Column,
   Date,
   Input,
   Form,
   AddBtn,
 } from "./AddMonthly.styles";
-import AddMonthlyTime from "./AddMonthlyTime";
 
 const AddMonthlyInputPresenter = (addMonthlyInputProps) => {
-  const { selectTime, planDate, time } = addMonthlyInputProps;
+  const {
+    onChange,
+    onSubmit,
+    selectTime,
+    text,
+    error,
+    planDate,
+    time,
+  } = addMonthlyInputProps;
 
   return (
     <Container>
       <TextColumn>
-        <Label>Date</Label>
-        <Label>Description</Label>
-        <Label>Time</Label>
+        <TableName>Date</TableName>
+        <TableName>Description</TableName>
+        <TableName>Time</TableName>
       </TextColumn>
       <Column>
         <Date>{planDate}</Date>
         <Form>
-          <Input type="text" placeholder="내용을 입력해주세요..." />
+          <Input
+            type="text"
+            placeholder="내용을 입력해주세요..."
+            onChange={onChange}
+            value={text}
+          />
         </Form>
-
         <AddMonthlyTime selectTime={selectTime} time={time} />
-        <AddBtn icon={faPlusCircle} />
+        <AddBtn icon={faPlusCircle} onClick={onSubmit} />
       </Column>
     </Container>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import AddMonthlyInput from "./AddMonthlyInputContainer";
 import Header from "../../../components/Header";
-import AddMonthlyContent from "./AddMonthlyContent";
+import AddMonthlyContentList from "./AddMonthlyContent";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
 import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
 
@@ -13,7 +13,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
     save,
     cancel,
     planList,
-    planDate,
+    selectedDate,
     content,
     deleteListItem,
     selectTime,
@@ -28,14 +28,14 @@ const AddMonthlyPresenter = (monthlyProps) => {
             <AddMonthlyInput
               onChange={onChange}
               onSubmit={onSubmit}
-              content={content.text}
+              selectTime={selectTime}
+              text={content.text}
               error={content.error}
-              planDate={planDate}
+              selectedDate={selectedDate}
             />
             <ListSection>
-              <AddMonthlyContent
+              <AddMonthlyContentList
                 contents={planList.contents}
-                selectTime={selectTime}
                 deleteListItem={deleteListItem}
               />
             </ListSection>

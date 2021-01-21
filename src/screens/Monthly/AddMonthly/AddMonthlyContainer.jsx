@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,33 +16,89 @@ import {
 const MonthlyAdd = (monthlyAddProps) => {
   const { state, history, create, saveMonthly, setError } = monthlyAddProps;
 
-  const [planDate, setPlanDate] = useState("");
   const [planList, setPlanList] = useState({
-    id: "",
+    id: uuidv4().toString(),
     date: state.selectedDate,
     contents: [],
   });
   const [content, setContent] = useState({
     id: "",
     text: "",
+    time: { hour: "00", min: "00" },
     error: "",
   });
 
-  function changeDateFormat() {
-    const date = new Date(state.selectedDate);
+  function onChange(event) {
+    const value = event.target.value;
 
-    const planYear = date.getFullYear();
-    let planDate = date.getDate();
-    let planMonth = date.getMonth() + 1;
-
-    if (planDate < 10) {
-      planDate = "0" + planDate;
+    if (value.length > 30) {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        time: content.time,
+        error: "30자 이내로 작성해 주십시오",
+      });
+    } else {
+      setContent({
+        id: uuidv4().toString(),
+        text: value,
+        time: content.time,
+        error: "",
+      });
     }
-    if (planMonth < 10) {
-      planMonth = "0" + planMonth;
-    }
+  }
 
-    setPlanDate(`${planYear}-${planMonth}-${planDate}`);
+  function selectTime(event) {
+    const target = event.target;
+
+    if (target.name === "hour") {
+      setContent({
+        id: content.id,
+        text: content.text,
+        time: { hour: target.value, min: content.time.min },
+        error: "",
+      });
+    } else if (target.name === "min") {
+      setContent({
+        id: content.id,
+        text: content.text,
+        time: { hour: content.time.hour, min: target.value },
+        error: "",
+      });
+    }
+  }
+
+  function onSubmit(event) {
+    event.preventDefault();
+
+    if (content.text && !content.error) {
+      setPlanList({
+        ...planList,
+        contents: [...planList.contents, content],
+      });
+      setContent({
+        id: "",
+        text: "",
+        time: { hour: "00", min: "00" },
+        error: "",
+      });
+    } else {
+      setContent({
+        id: content.id,
+        text: content.text,
+        time: content.time,
+        error: "내용을 입력해 주세요",
+      });
+    }
+  }
+
+  function deleteListItem(event) {
+    const target = event.target.parentNode;
+
+    const filteredPlanList = planList.contents.filter(
+      (plan) => plan.id !== target.id
+    );
+    setPlanList({ ...planList, contents: [...filteredPlanList] });
   }
 
   function cancel() {
@@ -71,50 +127,6 @@ const MonthlyAdd = (monthlyAddProps) => {
     }
   }
 
-  function deleteItem(event) {
-    const target = event.target.parentNode.id;
-    const filteredPlanList = planList.contents.filter(
-      (plan) => plan.id !== target
-    );
-    setPlanList({ ...planList, contents: [...filteredPlanList] });
-  }
-
-  function onSubmit(event) {
-    event.preventDefault();
-    if (content.text && !content.error) {
-      setPlanList({
-        ...planList,
-        id: uuidv4().toString(),
-        contents: [...planList.contents, content],
-      });
-      setContent({
-        text: "",
-        error: "",
-      });
-    }
-  }
-
-  function onChange(event) {
-    const value = event.target.value;
-    if (value.length > 30) {
-      setContent({
-        id: uuidv4().toString(),
-        text: value,
-        error: "30자 이내로 작성해 주십시오",
-      });
-    } else {
-      setContent({
-        id: uuidv4().toString(),
-        text: value,
-        error: "",
-      });
-    }
-  }
-
-  useEffect(() => {
-    changeDateFormat();
-  });
-
   return (
     <>
       {state.isLoading ? (
@@ -127,12 +139,12 @@ const MonthlyAdd = (monthlyAddProps) => {
         <AddMonthlyPresenter
           onChange={onChange}
           onSubmit={onSubmit}
-          deleteItem={deleteItem}
+          deleteListItem={deleteListItem}
+          selectTime={selectTime}
           save={save}
+          cancel={cancel}
           planList={planList}
           content={content}
-          cancel={cancel}
-          planDate={planDate}
           {...state}
         />
       )}
