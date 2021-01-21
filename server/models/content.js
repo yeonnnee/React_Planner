@@ -13,6 +13,10 @@ const Content = sequelize.define(
       type: Sequelize.STRING(30),
       allowNull: false,
     },
+    time: {
+      type: Sequelize.STRING(5),
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

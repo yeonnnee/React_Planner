@@ -44,6 +44,7 @@ exports.postMonthly = async (req, res) => {
       const user = req.session.user.email;
       const planId = req.body.id;
       const date = req.body.date;
+
       await Plan.create(
         { id: planId, date: date, writer: user },
         { transaction: t }
@@ -53,10 +54,14 @@ exports.postMonthly = async (req, res) => {
       const contents = req.body.contents;
 
       for (const content of contents) {
+        const hour = content.time.hour;
+        const min = content.time.min;
+
         await Content.create(
           {
             id: content.id,
             text: content.text,
+            time: `${hour}:${min}`,
             planId: planId,
           },
           { transaction: t }
@@ -78,13 +83,18 @@ exports.postEditMonthly = async (req, res) => {
     await sequelize.transaction(async (t) => {
       const planId = req.body.id;
       const updatedContents = req.body.contents;
+
       await Content.destroy({ where: { planId: planId } }, { transaction: t });
 
       for (const content of updatedContents) {
+        const hour = content.time.hour;
+        const min = content.time.min;
+
         await Content.create(
           {
             id: content.id,
             text: content.text,
+            time: `${hour}:${min}`,
             planId: planId,
           },
           { transaction: t }
@@ -105,6 +115,7 @@ exports.postDeleteMonthly = async (req, res) => {
   try {
     await sequelize.transaction(async (t) => {
       const planId = req.body.id;
+
       await Content.destroy({ where: { planId: planId } }, { transaction: t });
       await Plan.destroy({ where: { id: planId } }, { transaction: t });
 
