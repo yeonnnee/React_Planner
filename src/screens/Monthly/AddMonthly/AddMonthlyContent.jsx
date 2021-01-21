@@ -1,16 +1,15 @@
 import React from "react";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
+import { SubTitle, TimeColumn } from "../styles";
 import {
   DelBtn,
-  TimeSection,
   List,
   ListItem,
   Text,
-  ContentText,
   TimeMark,
+  ContentText,
 } from "./AddMonthly.styles";
-import { SubTitle } from "../styles";
 
 const AddMonthlyContent = (monthlyProps) => {
   const { contents, deleteListItem } = monthlyProps;
@@ -26,14 +25,15 @@ const AddMonthlyContent = (monthlyProps) => {
           return (
             <ListItem key={index}>
               <ContentText>{content.text}</ContentText>
-              <TimeSection>
+              <TimeColumn>
                 {content.time.hour !== "00" ? (
                   <>
-                    {content.time.hour} <TimeMark>:</TimeMark>
-                    {content.time.min}
+                    <TimeMark>{content.time.hour}</TimeMark>
+                    <TimeMark>:</TimeMark>
+                    <TimeMark>{content.time.min}</TimeMark>
                   </>
                 ) : null}
-              </TimeSection>
+              </TimeColumn>
               <DelBtn
                 icon={faWindowClose}
                 id={content.id}

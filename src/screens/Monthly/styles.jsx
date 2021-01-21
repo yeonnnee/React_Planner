@@ -77,6 +77,15 @@ export const ListItem = styled.li`
   grid-template-columns: 1fr 50px 20px;
 `;
 
+export const TimeColumn = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+`;
+
 // Add Section
 
 export const AddSection = styled.div`
