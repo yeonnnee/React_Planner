@@ -14,6 +14,7 @@ export const Section = styled.div`
   border: 1px solid #dbd7d7;
   margin-top: 10px;
   gap: 5px;
+  overflow: hidden;
 `;
 
 export const Column = styled.div`
@@ -74,7 +75,7 @@ export const List = styled.ul`
 `;
 export const ListItem = styled.li`
   display: grid;
-  grid-template-columns: 1fr 50px 20px;
+  grid-template-columns: 510px 108px;
 `;
 
 export const TimeColumn = styled.div`
