@@ -1,16 +1,10 @@
 import React from "react";
 
-import TasksInput from "../../Tasks/TasksInput";
+import AddMonthlyInput from "./AddMonthlyInputContainer";
 import Header from "../../../components/Header";
 import AddMonthlyContent from "./AddMonthlyContent";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
-import {
-  Date,
-  Button,
-  Section,
-  Wrapper,
-  ListSection,
-} from "./AddMonthly.styles";
+import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
 
 const AddMonthlyPresenter = (monthlyProps) => {
   const {
@@ -19,8 +13,10 @@ const AddMonthlyPresenter = (monthlyProps) => {
     save,
     cancel,
     planList,
-    content,
     planDate,
+    content,
+    deleteListItem,
+    selectTime,
   } = monthlyProps;
 
   return (
@@ -29,15 +25,19 @@ const AddMonthlyPresenter = (monthlyProps) => {
         <Main>
           <Header />
           <Wrapper>
-            <Date>{planDate}</Date>
-            <TasksInput
+            <AddMonthlyInput
               onChange={onChange}
               onSubmit={onSubmit}
               content={content.text}
               error={content.error}
+              planDate={planDate}
             />
             <ListSection>
-              <AddMonthlyContent contents={planList.contents} />
+              <AddMonthlyContent
+                contents={planList.contents}
+                selectTime={selectTime}
+                deleteListItem={deleteListItem}
+              />
             </ListSection>
             <Section>
               <Button onClick={save}>Save</Button>

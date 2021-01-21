@@ -11,12 +11,6 @@ export const Wrapper = styled.div`
   margin-top: 30px;
 `;
 
-export const Date = styled.div`
-  font-family: "Rajdhani", sans-serif;
-  height: 30px;
-  font-weight: bold;
-`;
-
 export const Section = styled.div`
   width: 100%;
   height: 30px;
@@ -93,15 +87,82 @@ export const DelBtn = styled(FontAwesomeIcon)`
   }
 `;
 
+// Add Monthly Input
+
+export const Container = styled.div`
+  width: 100%;
+`;
+export const TextColumn = styled.div`
+  font-family: "Rajdhani", sans-serif;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 430px 90px;
+  grid-template-rows: 25px;
+  border: 1px solid grey;
+`;
+export const Column = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 430px 95px 43px;
+  grid-template-rows: 30px;
+  border: 1px solid grey;
+  border-top: none;
+`;
+export const Date = styled.div`
+  font-family: "Rajdhani", sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  padding-left: 5px;
+`;
+export const Form = styled.form`
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+  padding: 5px;
+`;
+export const Label = styled.div`
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5px;
+  &:nth-child(2) {
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+  }
+`;
+export const TimeMark = styled.span`
+  padding: 0 3px;
+`;
+export const Input = styled.input`
+  width: 100%;
+  outline: none;
+  border: none;
+`;
+export const AddBtn = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  transform: translateX(10px) translateY(5px);
+  font-size: 20px;
+  color: #a5a3a3;
+  &:hover {
+    color: #30475e;
+    opacity: 0.7;
+  }
+`;
+
 export const TimeSection = styled.section`
   display: flex;
   width: 90px;
-  justify-content: space-around;
+  padding: 5px;
+  justify-content: space-between;
 `;
-export const TimeSeclect = styled.select`
+export const TimeSelect = styled.select`
   width: 40px;
+  font-family: "Rajdhani", sans-serif;
 `;
 export const Option = styled.option`
   background-color: #525151;
   color: white;
+  font-family: "Rajdhani", sans-serif;
 `;
