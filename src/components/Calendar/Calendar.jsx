@@ -29,9 +29,10 @@ const Calendar = (calendarProps) => {
 
   const markDate = (tileContentInfo) => {
     const date = tileContentInfo.date.toString().substring(0, 15);
+    const today = new Date().toString().substring(0, 15);
 
     return state.plans.map((plan, index) =>
-      plan.date === date && state.selectedDate !== date ? (
+      plan.date === date && state.selectedDate !== date && date !== today ? (
         <Mark key={index} color="#856969" />
       ) : (
         <Mark key={index} color="transparent" />
