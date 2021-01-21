@@ -1,10 +1,19 @@
 import React from "react";
 
-import { SubTitle, Text, Wrapper, Scroll, List, ListItem } from "./styles";
+import { TimeMark, ContentText } from "./AddMonthly/AddMonthly.styles";
+import {
+  SubTitle,
+  Text,
+  Wrapper,
+  Scroll,
+  List,
+  ListItem,
+  TimeColumn,
+} from "./styles";
 
 const MonthlyContent = (monthlyProps) => {
   const { contents } = monthlyProps;
-  console.log("monthlyContent", contents);
+
   return (
     <Wrapper>
       <Scroll>
@@ -14,7 +23,20 @@ const MonthlyContent = (monthlyProps) => {
         </SubTitle>
         <List>
           {contents.map((content, index) => {
-            return <ListItem key={index}>{content.text}</ListItem>;
+            return (
+              <ListItem key={index}>
+                <ContentText>{content.text}</ContentText>
+                <TimeColumn>
+                  {content.time.hour !== "00" ? (
+                    <>
+                      <TimeMark>{content.time.hour}</TimeMark>
+                      <TimeMark>:</TimeMark>
+                      <TimeMark>{content.time.min}</TimeMark>
+                    </>
+                  ) : null}
+                </TimeColumn>
+              </ListItem>
+            );
           })}
         </List>
       </Scroll>
