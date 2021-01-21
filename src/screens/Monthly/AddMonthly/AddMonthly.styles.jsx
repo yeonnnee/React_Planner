@@ -116,17 +116,20 @@ export const Date = styled.div`
   font-weight: bold;
   padding-left: 5px;
 `;
-export const Form = styled.form`
+
+export const Form = styled.div`
   border-right: 1px solid grey;
   border-left: 1px solid grey;
   padding: 5px;
 `;
-export const Label = styled.div`
+
+export const TableName = styled.div`
   font-size: 15px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-left: 5px;
+
   &:nth-child(2) {
     border-right: 1px solid grey;
     border-left: 1px solid grey;
@@ -145,12 +148,14 @@ export const AddBtn = styled(FontAwesomeIcon)`
   transform: translateX(10px) translateY(5px);
   font-size: 20px;
   color: #a5a3a3;
+
   &:hover {
     color: #30475e;
     opacity: 0.7;
   }
 `;
 
+// Add Monthly Time
 export const TimeSection = styled.section`
   display: flex;
   width: 90px;
