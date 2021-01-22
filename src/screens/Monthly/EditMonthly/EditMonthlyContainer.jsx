@@ -13,7 +13,7 @@ import {
 } from "../../../redux/actions/monthlyActions";
 
 const EditMonthly = (editProps) => {
-  const { state, update, history, saveMonthly, setError, location } = editProps;
+  const { state, update, history, saveMonthly, setError } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.selected.id,
@@ -107,8 +107,8 @@ const EditMonthly = (editProps) => {
         saveMonthly();
         await monthlyApi.updatePlan(planList);
         update(planList);
-        const planId = location.pathname.split("/")[3];
-        history.push(`/monthly/${planId}`);
+
+        history.push(`/monthly`);
       } else {
         setContent({ ...content, error: "내용을 입력해주십시오" });
       }
