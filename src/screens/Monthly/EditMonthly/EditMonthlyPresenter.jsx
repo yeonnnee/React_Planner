@@ -6,24 +6,26 @@ const EditMonthlyPresenter = (editProps) => {
   const {
     onChange,
     onSubmit,
-    deleteItem,
+    deleteListItem,
     planList,
     content,
     save,
     cancel,
-    state,
+    selectedDate,
+    selectTime,
   } = editProps;
 
   return (
     <EditMonthlyForm
       onChange={onChange}
       onSubmit={onSubmit}
-      deleteItem={deleteItem}
-      planList={planList}
-      content={content}
       save={save}
       cancel={cancel}
-      isLoading={state.isLoading}
+      deleteListItem={deleteListItem}
+      planList={planList}
+      content={content}
+      selectTime={selectTime}
+      selectedDate={selectedDate}
     />
   );
 };
