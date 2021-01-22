@@ -21,6 +21,8 @@ const MonthlyAdd = (monthlyAddProps) => {
     create,
     saveMonthly,
     setError,
+    confirmDelete,
+    modalStatus,
   } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
@@ -154,6 +156,8 @@ const MonthlyAdd = (monthlyAddProps) => {
           content={content}
           {...state}
           location={location}
+          confirmDelete={confirmDelete}
+          modalStatus={modalStatus}
         />
       )}
     </>
