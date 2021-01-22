@@ -3,6 +3,7 @@ import React from "react";
 import AddMonthlyInput from "./AddMonthlyInputContainer";
 import Header from "../../../components/Header";
 import AddMonthlyContentList from "./AddMonthlyContent";
+import DeleteConfirmModal from "../../../components/Modal/DeleteConfirmModal";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
 import {
   Button,
@@ -24,7 +25,9 @@ const AddMonthlyPresenter = (monthlyProps) => {
     deleteListItem,
     selectTime,
     location,
-    onConfirm,
+    deleteMonthly,
+    modalStatus,
+    confirmDelete,
   } = monthlyProps;
 
   return (
@@ -34,7 +37,14 @@ const AddMonthlyPresenter = (monthlyProps) => {
           <Header />
           <Wrapper>
             {location.pathname.includes("edit") ? (
-              <DeleteBtn onClick={onConfirm}>삭제하기</DeleteBtn>
+              <DeleteBtn onClick={confirmDelete}>삭제하기</DeleteBtn>
+            ) : null}
+
+            {modalStatus !== "hidden" && location.pathname.includes("edit") ? (
+              <DeleteConfirmModal
+                confirmDelete={deleteMonthly}
+                cancelDelete={cancel}
+              />
             ) : null}
 
             <AddMonthlyInput

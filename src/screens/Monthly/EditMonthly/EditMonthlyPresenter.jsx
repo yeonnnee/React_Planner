@@ -6,15 +6,17 @@ const EditMonthlyPresenter = (editProps) => {
   const {
     onChange,
     onSubmit,
+    save,
+    cancel,
     deleteListItem,
     planList,
     content,
-    save,
-    cancel,
+    confirmDelete,
     selectedDate,
+    deleteMonthly,
     selectTime,
     location,
-    onConfirm,
+    modalStatus,
   } = editProps;
 
   return (
@@ -29,7 +31,9 @@ const EditMonthlyPresenter = (editProps) => {
       selectTime={selectTime}
       selectedDate={selectedDate}
       location={location}
-      onConfirm={onConfirm}
+      confirmDelete={confirmDelete}
+      deleteMonthly={deleteMonthly}
+      modalStatus={modalStatus}
     />
   );
 };

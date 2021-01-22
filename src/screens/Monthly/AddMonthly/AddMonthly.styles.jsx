@@ -7,14 +7,12 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-
   margin-top: 30px;
 `;
 
 export const Section = styled.div`
   width: 100%;
   height: 30px;
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -23,12 +21,13 @@ export const Section = styled.div`
 export const Button = styled.button`
   width: 80px;
   height: 30px;
-  margin-right: 5px;
+  margin-left: 5px;
   outline: none;
   border: 1px solid #30475e;
   background: none;
   cursor: pointer;
   font-family: "Rajdhani", sans-serif;
+
   &:hover {
     background-color: #30475e;
     color: white;
@@ -43,6 +42,16 @@ export const ListSection = styled.section`
 `;
 
 // Add Monthly Content
+
+export const DeleteBtn = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 13px;
+  color: #9b3333;
+  height: 20px;
+  cursor: pointer;
+`;
+
 export const Text = styled.div`
   font-family: "Rajdhani", sans-serif;
   font-size: 15px;

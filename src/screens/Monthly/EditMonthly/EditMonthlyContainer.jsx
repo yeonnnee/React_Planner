@@ -24,6 +24,8 @@ const EditMonthly = (editProps) => {
     deletePlan,
   } = editProps;
 
+  const [modalStatus, setModalStatus] = useState("hidden");
+
   const [planList, setPlanList] = useState({
     id: state.selected.id,
     date: state.selected.date,
@@ -36,6 +38,12 @@ const EditMonthly = (editProps) => {
     time: { hour: "00", min: "00" },
     error: "",
   });
+
+  function confirmDelete() {
+    if (modalStatus === "hidden") {
+      setModalStatus("show");
+    }
+  }
 
   function onChange(event) {
     const value = event.target.value;
@@ -156,13 +164,6 @@ const EditMonthly = (editProps) => {
     }
   }
 
-  const onConfirm = (event) => {
-    alert("정말로 삭제하시겠습니까?");
-    if (alert) {
-      deleteMonthly(event);
-    }
-  };
-
   return (
     <>
       {state.error === "500" ? (
@@ -181,7 +182,9 @@ const EditMonthly = (editProps) => {
           selectTime={selectTime}
           selectedDate={state.selected.date}
           location={location}
-          onConfirm={onConfirm}
+          confirmDelete={confirmDelete}
+          deleteMonthly={deleteMonthly}
+          modalStatus={modalStatus}
         />
       )}
     </>
