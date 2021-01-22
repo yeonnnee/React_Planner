@@ -10,10 +10,19 @@ import {
   SAVE_MONTHLY,
   UPDATE_MONTHLY,
   MONTHLY_ERROR,
+  DELETE_MONTHLY,
 } from "../../../redux/actions/monthlyActions";
 
 const EditMonthly = (editProps) => {
-  const { state, update, history, saveMonthly, setError } = editProps;
+  const {
+    state,
+    update,
+    history,
+    location,
+    saveMonthly,
+    setError,
+    deletePlan,
+  } = editProps;
 
   const [planList, setPlanList] = useState({
     id: state.selected.id,
@@ -128,6 +137,32 @@ const EditMonthly = (editProps) => {
     history.push("/monthly");
   }
 
+  async function deleteMonthly() {
+    try {
+      const target = location.pathname.split("/")[3];
+      const deletedPlan = state.plans.find((plan) => plan.id === target);
+      await monthlyApi.deletePlan(deletedPlan);
+      deletePlan(deletedPlan);
+      history.push("/monthly");
+    } catch (error) {
+      const status = error.response.status;
+      if (status === 500) {
+        setError("500");
+      } else if (status === 504) {
+        setError("504");
+      } else {
+        return;
+      }
+    }
+  }
+
+  const onConfirm = (event) => {
+    alert("정말로 삭제하시겠습니까?");
+    if (alert) {
+      deleteMonthly(event);
+    }
+  };
+
   return (
     <>
       {state.error === "500" ? (
@@ -145,6 +180,8 @@ const EditMonthly = (editProps) => {
           content={content}
           selectTime={selectTime}
           selectedDate={state.selected.date}
+          location={location}
+          onConfirm={onConfirm}
         />
       )}
     </>
@@ -164,6 +201,9 @@ function mapDispatchToProps(dispatch) {
     },
     setError: (error) => {
       dispatch({ type: MONTHLY_ERROR, payload: error });
+    },
+    deletePlan: (plan) => {
+      dispatch({ type: DELETE_MONTHLY, payload: plan });
     },
   };
 }

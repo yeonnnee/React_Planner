@@ -4,7 +4,13 @@ import AddMonthlyInput from "./AddMonthlyInputContainer";
 import Header from "../../../components/Header";
 import AddMonthlyContentList from "./AddMonthlyContent";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
-import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
+import {
+  Button,
+  Section,
+  Wrapper,
+  ListSection,
+  DeleteBtn,
+} from "./AddMonthly.styles";
 
 const AddMonthlyPresenter = (monthlyProps) => {
   const {
@@ -17,6 +23,8 @@ const AddMonthlyPresenter = (monthlyProps) => {
     content,
     deleteListItem,
     selectTime,
+    location,
+    onConfirm,
   } = monthlyProps;
 
   return (
@@ -25,6 +33,10 @@ const AddMonthlyPresenter = (monthlyProps) => {
         <Main>
           <Header />
           <Wrapper>
+            {location.pathname.includes("edit") ? (
+              <DeleteBtn onClick={onConfirm}>삭제하기</DeleteBtn>
+            ) : null}
+
             <AddMonthlyInput
               onChange={onChange}
               onSubmit={onSubmit}
@@ -33,6 +45,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
               error={content.error}
               selectedDate={selectedDate}
             />
+
             <ListSection>
               <AddMonthlyContentList
                 contents={planList.contents}

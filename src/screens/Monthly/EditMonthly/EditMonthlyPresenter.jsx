@@ -1,6 +1,6 @@
 import React from "react";
 
-import EditMonthlyForm from "../AddMonthly/AddMonthlyPresenter";
+import AddMonthlyForm from "../AddMonthly/AddMonthlyPresenter";
 
 const EditMonthlyPresenter = (editProps) => {
   const {
@@ -13,10 +13,12 @@ const EditMonthlyPresenter = (editProps) => {
     cancel,
     selectedDate,
     selectTime,
+    location,
+    onConfirm,
   } = editProps;
 
   return (
-    <EditMonthlyForm
+    <AddMonthlyForm
       onChange={onChange}
       onSubmit={onSubmit}
       save={save}
@@ -26,6 +28,8 @@ const EditMonthlyPresenter = (editProps) => {
       content={content}
       selectTime={selectTime}
       selectedDate={selectedDate}
+      location={location}
+      onConfirm={onConfirm}
     />
   );
 };

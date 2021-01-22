@@ -14,7 +14,14 @@ import {
 } from "../../../redux/actions/monthlyActions";
 
 const MonthlyAdd = (monthlyAddProps) => {
-  const { state, history, create, saveMonthly, setError } = monthlyAddProps;
+  const {
+    state,
+    history,
+    location,
+    create,
+    saveMonthly,
+    setError,
+  } = monthlyAddProps;
 
   const [planList, setPlanList] = useState({
     id: uuidv4().toString(),
@@ -146,6 +153,7 @@ const MonthlyAdd = (monthlyAddProps) => {
           planList={planList}
           content={content}
           {...state}
+          location={location}
         />
       )}
     </>
