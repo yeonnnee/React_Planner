@@ -38,8 +38,36 @@ const monthlyReducer = (state = initialState, action) => {
       if (action.payload === []) {
         return { ...state, isLoading: false };
       } else {
+        // Change Content Time Format
+
+        const plans = action.payload;
+        let monthly = [];
+
+        for (let plan of plans) {
+          const contents = plan.contents;
+          const formatChangedContents = [];
+
+          for (let content of contents) {
+            const data = {
+              id: content.id,
+              text: content.text,
+              time: {
+                hour: content.time.split(":")[0],
+                min: content.time.split(":")[1],
+              },
+            };
+            formatChangedContents.push(data);
+          }
+          const result = {
+            id: plan.id,
+            date: plan.date,
+            contents: formatChangedContents,
+          };
+          monthly.push(result);
+        }
+
         // DISPLAY TODAY'S PLAN AS DEFAULT && SET SCHEDULE FOR PREVIEW //
-        const selected_plan = action.payload.find(
+        const selected_plan = monthly.find(
           (plan) => plan.date === state.selectedDate
         );
 
@@ -48,7 +76,7 @@ const monthlyReducer = (state = initialState, action) => {
           isLoading: false,
           selected: { ...selected_plan },
           scheduel: { ...selected_plan },
-          plans: [...action.payload],
+          plans: [...monthly],
         };
       }
     }

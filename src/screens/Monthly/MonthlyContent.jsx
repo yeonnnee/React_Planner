@@ -27,11 +27,11 @@ const MonthlyContent = (monthlyProps) => {
               <ListItem key={index}>
                 <ContentText>{content.text}</ContentText>
                 <TimeColumn>
-                  {content.time !== "00:00" ? (
+                  {content.time !== "00" ? (
                     <>
-                      <TimeMark>{content.time.split(":")[0]}</TimeMark>
+                      <TimeMark>{content.time.hour}</TimeMark>
                       <TimeMark>:</TimeMark>
-                      <TimeMark>{content.time.split(":")[1]}</TimeMark>
+                      <TimeMark>{content.time.min}</TimeMark>
                     </>
                   ) : null}
                 </TimeColumn>

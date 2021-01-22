@@ -77,9 +77,9 @@ const MonthlyAdd = (monthlyAddProps) => {
         contents: [...planList.contents, content],
       });
       setContent({
+        ...content,
         id: "",
         text: "",
-        time: { hour: "00", min: "00" },
         error: "",
       });
     } else {
