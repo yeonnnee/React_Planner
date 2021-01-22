@@ -18,7 +18,6 @@ import Footer from "../Footer";
 import Challenge from "../../screens/Challenge";
 import Enroll from "../../screens/Challenge/Enroll";
 import Record from "../../screens/Challenge/Record";
-import Detail from "../../screens/Monthly/Detail";
 import Preview from "../../screens/Preview";
 
 const Router = () => {
@@ -34,7 +33,6 @@ const Router = () => {
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
         <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
-        <PrivateRoute exact path="/monthly/:id" component={Detail} />
         <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
         <PrivateRoute exact path="/challenge/:id" component={Record} />
