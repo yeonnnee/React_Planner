@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TimeMark, ContentText } from "./AddMonthly/AddMonthly.styles";
+import { TimeMark, ContentText } from "./MonthlyRecordForm/styles";
 import {
   SubTitle,
   Text,

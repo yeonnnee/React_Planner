@@ -1,17 +1,12 @@
 import React from "react";
 
-import AddMonthlyInput from "./AddMonthlyInputContainer";
 import Header from "../../../components/Header";
-import AddMonthlyContentList from "./AddMonthlyContent";
+import MonthlyRecordForm from "../MonthlyRecordForm/MonthlyRecordFormInputContainer";
+import MonthlyRecordFormContent from "../MonthlyRecordForm/MonthlyRecordFormContent";
 import DeleteConfirmModal from "../../../components/Modal/DeleteConfirmModal";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
-import {
-  Button,
-  Section,
-  Wrapper,
-  ListSection,
-  DeleteBtn,
-} from "./AddMonthly.styles";
+import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
+import { DeleteBtn } from "../MonthlyRecordForm/styles";
 
 const AddMonthlyPresenter = (monthlyProps) => {
   const {
@@ -47,7 +42,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
               />
             ) : null}
 
-            <AddMonthlyInput
+            <MonthlyRecordForm
               onChange={onChange}
               onSubmit={onSubmit}
               selectTime={selectTime}
@@ -57,7 +52,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
             />
 
             <ListSection>
-              <AddMonthlyContentList
+              <MonthlyRecordFormContent
                 contents={planList.contents}
                 deleteListItem={deleteListItem}
               />

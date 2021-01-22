@@ -1,8 +1,8 @@
 import React from "react";
 
-import { TimeSection, TimeSelect, Option, TimeMark } from "./AddMonthly.styles";
+import { TimeSection, TimeSelect, Option, TimeMark } from "./styles";
 
-const AddMonthlyTime = (timeProps) => {
+const MonthlyRecordFormTimeOption = (timeProps) => {
   const { selectTime, time } = timeProps;
   return (
     <TimeSection>
@@ -25,4 +25,4 @@ const AddMonthlyTime = (timeProps) => {
   );
 };
 
-export default AddMonthlyTime;
+export default MonthlyRecordFormTimeOption;
