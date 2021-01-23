@@ -1,13 +1,10 @@
 import React from "react";
 
-import Loader from "../../../components/Loader";
-import GatewayError from "../../../components/msg/GatewayError";
-import ErrorPage from "../../../components/msg/ErrorPage";
-import ServerError from "../../../components/msg/ServerError";
-import { Header, Tag } from "../Enroll/styles";
+import Header from "../../../components/Header";
+import { Container, Frame, Main } from "../../../components/styles/Templates";
+import { Tag } from "../Enroll/styles";
 import { Button } from "../styles";
 import {
-  Container,
   Title,
   Grid,
   Table,
@@ -25,20 +22,14 @@ const RecordPresenter = (recordPresenterProps) => {
 
   return (
     <Container>
-      {state.isLoading ? (
-        <Loader />
-      ) : state.error === "500" ? (
-        <ServerError />
-      ) : state.error === "504" ? (
-        <GatewayError />
-      ) : !state.selected ? (
-        <ErrorPage />
-      ) : (
-        <>
-          <Header>
+      <Frame>
+        <Main>
+          <Header />
+
+          <div>
             <Tag>Challenge</Tag>
             <Title>{state.selected.title}</Title>
-          </Header>
+          </div>
           <Grid>
             {state.selected.record.map((list, index) => {
               return (
@@ -68,8 +59,8 @@ const RecordPresenter = (recordPresenterProps) => {
               </Button>
             )}
           </Section>
-        </>
-      )}
+        </Main>
+      </Frame>
     </Container>
   );
 };

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Loader from "../../components/Loader";
+import Header from "../../components/Header";
+import { Container, Frame, Main } from "../../components/styles/Templates";
 import ChallengeList from "./ChallengeList";
 import {
-  Container,
   Section,
-  Header,
   Filter,
   Select,
   Option,
@@ -18,72 +18,72 @@ import {
 } from "./styles";
 
 const ChallengePresenter = (challengePresenterProps) => {
-  const { state, selectList } = challengePresenterProps;
-  const [option, setOption] = useState("all");
-
-  const filter = (event) => {
-    setOption(event.target.value);
-  };
+  const { state, selectList, filter, option } = challengePresenterProps;
 
   return (
     <Container>
-      <Section>
-        <Header>Challenges</Header>
-        <Filter>
-          View
-          <Select name="filter" onChange={filter}>
-            <Option value="all">All</Option>
-            <Option value="finished">Finished</Option>
-            <Option value="inProgress">In progress</Option>
-          </Select>
-        </Filter>
-      </Section>
-      <Wrapper>
-        <Scroll>
-          {state.isLoading ? (
-            <Loader />
-          ) : (
-            <List>
-              {option === "finished" && state.finished.length > 0 ? (
-                state.finished.map((list, index) => {
-                  return (
-                    <ChallengeList
-                      {...list}
-                      key={index}
-                      selectList={selectList}
-                    />
-                  );
-                })
-              ) : option === "inProgress" && state.enrolled.length > 0 ? (
-                state.enrolled.map((list, index) => {
-                  return (
-                    <ChallengeList
-                      {...list}
-                      key={index}
-                      selectList={selectList}
-                    />
-                  );
-                })
-              ) : option === "all" && state.challenges.length > 0 ? (
-                state.challenges.map((list, index) => {
-                  return (
-                    <ChallengeList
-                      {...list}
-                      key={index}
-                      selectList={selectList}
-                    />
-                  );
-                })
+      <Frame>
+        <Main>
+          <Header />
+          <Section>
+            Challenges
+            <Filter>
+              View
+              <Select name="filter" onChange={filter}>
+                <Option value="all">All</Option>
+                <Option value="finished">Finished</Option>
+                <Option value="inProgress">In progress</Option>
+              </Select>
+            </Filter>
+          </Section>
+          <Wrapper>
+            <Scroll>
+              {state.isLoading ? (
+                <Loader />
               ) : (
-                <Text>Nothing</Text>
+                <List>
+                  {option === "finished" && state.finished.length > 0 ? (
+                    state.finished.map((list, index) => {
+                      return (
+                        <ChallengeList
+                          {...list}
+                          key={index}
+                          selectList={selectList}
+                        />
+                      );
+                    })
+                  ) : option === "inProgress" && state.enrolled.length > 0 ? (
+                    state.enrolled.map((list, index) => {
+                      return (
+                        <ChallengeList
+                          {...list}
+                          key={index}
+                          selectList={selectList}
+                        />
+                      );
+                    })
+                  ) : option === "all" && state.challenges.length > 0 ? (
+                    state.challenges.map((list, index) => {
+                      return (
+                        <ChallengeList
+                          {...list}
+                          key={index}
+                          selectList={selectList}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text>Nothing</Text>
+                  )}
+                </List>
               )}
-            </List>
-          )}
-        </Scroll>
-      </Wrapper>
-      <SLink to="/challenge/enroll">
-        <Button>Enroll</Button>
-      </SLink>
+            </Scroll>
+          </Wrapper>
+          <SLink to="/challenge/enroll">
+            <Button>Enroll</Button>
+          </SLink>
+        </Main>
+      </Frame>
     </Container>
   );
 };

@@ -1,43 +1,32 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const Section = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: Center;
+  justify-content: space-between;
+  font-family: "Jaldi", sans-serif;
+  font-weight: bold;
+  letter-spacing: 1.5px;
 `;
+
 export const Wrapper = styled.div`
   width: 460px;
   height: 480px;
   overflow: hidden;
   margin: 20px 20px 0 10px;
-  @media only screen and (max-width: 640px) {
-    width: 340px;
-    height: 330px;
-    margin: 20px 20px 0 5px;
-  }
 `;
 export const Scroll = styled.div`
   width: 480px;
   height: 490px;
   overflow: auto;
-  @media only screen and (max-width: 640px) {
-    width: 370px;
-    height: 340px;
-  }
 `;
 export const List = styled.ul`
   height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media only screen and (max-width: 640px) {
-    height: 350px;
-    margin-right: 10px;
-    margin-top: 5px;
-  }
 `;
 
 export const Button = styled.button`
@@ -58,16 +47,6 @@ export const Header = styled.div`
   font-size: 15px;
 `;
 
-export const Section = styled.div`
-  width: 100%;
-  padding: 0 20px;
-  display: flex;
-  align-items: Center;
-  justify-content: space-between;
-  font-family: "Jaldi", sans-serif;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-`;
 export const Filter = styled.div`
   font-size: 13px;
   color: rgb(182, 29, 29);
