@@ -41,10 +41,6 @@ export const Input = styled.input`
   border-radius: 5px;
   outline: none;
   border: 1px solid #baa7a1;
-
-  &:placeholder {
-    font-family: "Life Savers", cursive;
-  }
 `;
 export const Button = styled.button`
   outline: none;
