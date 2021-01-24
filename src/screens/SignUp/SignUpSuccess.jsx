@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 import Header from "../../components/Header";
 import { Container, Frame, Main } from "../../components/styles/Templates";
-import { SLink, Text, Question, Button, Section } from "./styles";
+import { Button } from "../../components/Button";
+import { SLink, Text, Question, Section } from "./styles";
 
 const SignUpSuccess = (signUpSuccessProps) => {
   const { state } = signUpSuccessProps;
@@ -21,7 +22,7 @@ const SignUpSuccess = (signUpSuccessProps) => {
                 <Text>Account Successfuly Created</Text>
                 <Question>로그인 하시겠습니까?</Question>
                 <SLink to="/logIn">
-                  <Button>로그인</Button>
+                  <Button text="로그인" />
                 </SLink>
               </Section>
             </Main>

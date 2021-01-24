@@ -4,6 +4,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader";
 import Header from "../../components/Header";
 import ErrorMessage from "../../components/msg/ErrorMessage";
+import { Button } from "../../components/Button";
 import { Container, Frame, Main } from "../../components/styles/Templates";
 import {
   PasswordLink,
@@ -12,7 +13,6 @@ import {
   Input,
   Wrapper,
   Section,
-  Button,
   Label,
   Icon,
 } from "./styles";
@@ -55,7 +55,7 @@ const LogInPresenter = (logInProps) => {
             <PasswordLink to="/find-password">Forgot password?</PasswordLink>
           </Wrapper>
           <Section>
-            <Button onClick={onClick}>로그인</Button>
+            <Button onClick={onClick} text="로그인" />
             <SignUpLink to="/sign-up">Create Y Planner Account</SignUpLink>
           </Section>
         </Main>

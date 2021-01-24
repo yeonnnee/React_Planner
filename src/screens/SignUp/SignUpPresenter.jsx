@@ -5,7 +5,8 @@ import Header from "../../components/Header";
 import { Container, Frame, Main } from "../../components/styles/Templates";
 import SignUpInput from "./SignUpInput";
 import ErrorMessage from "../../components/msg/ErrorMessage";
-import { Title, Wrapper, Section, Button, Error, Column } from "./styles";
+import { Button } from "../../components/Button";
+import { Title, Wrapper, Section, Error, Column } from "./styles";
 
 const SignUpPresenter = (signUpProps) => {
   const { state, onSubmit, onChange, onCancel, selectEmail } = signUpProps;
@@ -61,8 +62,8 @@ const SignUpPresenter = (signUpProps) => {
               <Error>{state.validation.name}</Error>
             </Wrapper>
             <Column>
-              <Button onClick={onSubmit}>Submit</Button>
-              <Button onClick={onCancel}>Cancel</Button>
+              <Button onClick={onSubmit} text="확인" />
+              <Button onClick={onCancel} text="취소" />
             </Column>
           </Section>
         </Main>
