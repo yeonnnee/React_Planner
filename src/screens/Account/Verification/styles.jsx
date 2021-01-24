@@ -1,27 +1,19 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 80%;
+export const Section = styled.div`
+  width: 575px;
   height: 300px;
   border: 1px solid #baa7a1;
   border-radius: 10px;
-  margin-left: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 50px;
+  margin-left: 75px;
+`;
 
-  @media only screen and (max-width: 640px) {
-    margin-left: 35px;
-    margin-top: 50px;
-    margin-bottom: 80px;
-  }
-`;
-export const Header = styled.div`
-  font-size: 20px;
-  margin-bottom: 25px;
-`;
-export const Email = styled.span`
+export const Email = styled.div`
   padding: 5px 10px;
   border: 1px solid #baa7a1;
   border-radius: 20px;
@@ -29,6 +21,11 @@ export const Email = styled.span`
 export const Text = styled.div`
   font-size: 15px;
   margin-top: 20px;
+
+  &:nth-child(1) {
+    transform: translateY(-20px);
+    font-size: 18px;
+  }
 `;
 export const Form = styled.form`
   display: flex;
@@ -43,12 +40,10 @@ export const Input = styled.input`
   padding: 10px 20px;
   border-radius: 5px;
   outline: none;
-  border: none;
-  &::placeholder {
+  border: 1px solid #baa7a1;
+
+  &:placeholder {
     font-family: "Life Savers", cursive;
-  }
-  &:focus {
-    border: 1px solid #baa7a1;
   }
 `;
 export const Button = styled.button`
@@ -58,6 +53,8 @@ export const Button = styled.button`
   height: 30px;
   margin-top: 20px;
   background: none;
+  cursor: pointer;
+
   &:hover {
     background-color: #efefef;
   }
