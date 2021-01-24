@@ -34,11 +34,18 @@ const SignUp = (signUpProps) => {
 
   const [userInfo, setUserInfo] = useState({
     id: uuidv4().toString(),
-    email: "",
+    email: { id: "", domain: "" },
     password: "",
     confirmPassword: "",
     name: "",
   });
+
+  function selectEmail(event) {
+    setUserInfo({
+      ...userInfo,
+      email: { id: userInfo.email.id, domain: event.target.value },
+    });
+  }
 
   /* input 입력시 발생하는 함수 */
   function onChange(event) {
@@ -71,7 +78,7 @@ const SignUp = (signUpProps) => {
         emailValidation(value, setValidationError);
         return setUserInfo({
           ...userInfo,
-          email: value,
+          email: { id: value, domain: userInfo.email.domain },
         });
       }
       default:
@@ -81,9 +88,14 @@ const SignUp = (signUpProps) => {
 
   /* validation error가 없을 시 발생하는 함수 */
   async function sendData() {
+    send();
     try {
-      send();
-      await signUpApi.signUp(userInfo);
+      const info = {
+        ...userInfo,
+        email: `${userInfo.email.id}@${userInfo.email.domain}`,
+      };
+
+      await signUpApi.signUp(info);
 
       success();
       history.push("/sign-up/success");
@@ -114,8 +126,10 @@ const SignUp = (signUpProps) => {
   function onSubmit(event) {
     event.preventDefault();
 
-    if (
-      !userInfo.email ||
+    if (userInfo.email.domain === "") {
+      setValidationError({ email: "이메일 형식을 선택해 주십시오" });
+    } else if (
+      !userInfo.email.id ||
       !userInfo.name ||
       !userInfo.password ||
       !userInfo.confirmPassword
@@ -151,6 +165,7 @@ const SignUp = (signUpProps) => {
           onSubmit={onSubmit}
           onChange={onChange}
           onCancel={onCancel}
+          selectEmail={selectEmail}
           state={state}
         />
       )}

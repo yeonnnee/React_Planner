@@ -2,8 +2,9 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import WelcomeMessage from "../../components/Header";
-import { SLink, Text, Container, Question, Button } from "./styles";
+import Header from "../../components/Header";
+import { Container, Frame, Main } from "../../components/styles/Templates";
+import { SLink, Text, Question, Button, Section } from "./styles";
 
 const SignUpSuccess = (signUpSuccessProps) => {
   const { state } = signUpSuccessProps;
@@ -13,12 +14,18 @@ const SignUpSuccess = (signUpSuccessProps) => {
         <Redirect to="/tasks" />
       ) : (
         <Container>
-          <WelcomeMessage />
-          <Text>Account Successfuly Created</Text>
-          <Question>로그인 하시겠습니까?</Question>
-          <SLink to="/logIn">
-            <Button>로그인</Button>
-          </SLink>
+          <Frame>
+            <Main>
+              <Header />
+              <Section>
+                <Text>Account Successfuly Created</Text>
+                <Question>로그인 하시겠습니까?</Question>
+                <SLink to="/logIn">
+                  <Button>로그인</Button>
+                </SLink>
+              </Section>
+            </Main>
+          </Frame>
         </Container>
       )}
     </>
