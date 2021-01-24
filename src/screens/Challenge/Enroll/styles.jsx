@@ -1,46 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  font-family: "Jaldi", sans-serif;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media only screen and (max-width: 640px) {
-    height: 430px;
-    margin-top: 0;
-  }
+export const Tag = styled.span`
+  background-color: #f9ca24;
+  padding: 3px 5px;
 `;
 
-export const Header = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-export const Title = styled.div`
-  font-size: 38px;
-  font-family: "Cinzel Decorative", cursive;
-  letter-spacing: 1.5px;
-  color: rgb(65, 25, 25);
-  @media only screen and (max-width: 640px) {
-    font-size: 30px;
-  }
-`;
-export const Tag = styled.span`
-  margin-bottom: 5px;
-  background-color: #f9ca24;
-  padding: 0 3px;
-`;
 export const Section = styled.div`
   margin-top: 20px;
-  @media only screen and (max-width: 640px) {
-    padding: 0 20px;
-  }
+  font-family: "Jaldi", sans-serif;
+  display: grid;
+  place-items: center;
 `;
-export const Form = styled.form`
-  margin: 20px 0;
-`;
+export const Form = styled.form``;
 export const Input = styled.input`
   padding: 5px 10px;
   outline: none;
@@ -59,21 +30,15 @@ export const Button = styled.button`
 `;
 export const Text = styled.div`
   line-height: 1.5;
-  font-size: 14px;
-  &:nth-child(3) {
+  font-size: 16px;
+
+  &:nth-child(2) {
     margin-top: 30px;
     font-size: 13px;
-  }
-  @media only screen and (max-width: 640px) {
-    font-size: 13px;
-    margin-top: 10px;
   }
 `;
 export const Example = styled.div`
   font-size: 12px;
   line-height: 2;
   color: rgb(65, 25, 25);
-  @media only screen and (max-width: 640px) {
-    font-size: 11px;
-  }
 `;
