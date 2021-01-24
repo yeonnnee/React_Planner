@@ -10,6 +10,7 @@ export const Section = styled.div`
   font-family: "Jaldi", sans-serif;
   display: grid;
   place-items: center;
+  padding: 20px;
 `;
 export const Form = styled.form``;
 export const Input = styled.input`
