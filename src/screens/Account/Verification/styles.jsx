@@ -41,17 +41,21 @@ export const Input = styled.input`
   border-radius: 5px;
   outline: none;
   border: 1px solid #baa7a1;
+
+  &:focus {
+    border: 1px solid #30475e;
+  }
 `;
 export const Button = styled.button`
   outline: none;
   border: 1px solid #baa7a1;
+  box-shadow: 2px 2px 5px #baa7a1, inset -1px -1px 3px #baa7a1;
   width: 100px;
   height: 30px;
   margin-top: 20px;
-  background: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #efefef;
+    background-color: #eeebeb;
   }
 `;

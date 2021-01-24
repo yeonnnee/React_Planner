@@ -39,18 +39,6 @@ export const Wrapper = styled.div`
 export const Column = styled.div`
   display: flex;
 `;
-export const Button = styled.button`
-  width: 150px;
-  height: 40px;
-  margin-right: 10px;
-  border: 1px solid #30475e;
-  outline: none;
-
-  &:hover {
-    background-color: #30475e;
-    color: white;
-  }
-`;
 
 export const SLink = styled(Link)`
   text-decoration: none;

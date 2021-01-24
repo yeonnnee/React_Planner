@@ -99,16 +99,17 @@ export const AddSection = styled.div`
 
 export const AddLink = styled(Link)`
   text-decoration: none;
+  width: 80px;
+  height: 30px;
+  margin-top: 20px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #525151;
-  color: #f3f1f1;
-  width: 80px;
-  height: 30px;
-  border: 1px solid #353535;
-  margin-top: 20px;
-  font-size: 13px;
+  color: white;
+  border: 1px solid #30475e;
+  background-color: #677d92;
+  box-shadow: 2px 2px 5px #3e5368, 0 0 2px #30475e;
 `;
 
 export const Notice = styled.div`

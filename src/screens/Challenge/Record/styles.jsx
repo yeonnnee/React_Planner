@@ -50,7 +50,9 @@ export const CheckSection = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const CheckBtn = styled.button``;
+export const CheckBtn = styled.button`
+  padding: 3px 5px;
+`;
 export const Section = styled.div`
   width: 100%;
   display: grid;
@@ -62,4 +64,16 @@ export const Stamp = styled.div`
   border: 1px solid #c23616;
   padding: 5px 3px;
   transform: rotate(-40deg);
+`;
+
+export const Button = styled.button`
+  border: 1px solid #30475e;
+  outline: none;
+  width: 100px;
+  height: 30px;
+  margin-left: 5px;
+  cursor: pointer;
+  background-color: #30475e;
+  opacity: 0.7;
+  color: white;
 `;

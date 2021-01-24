@@ -35,18 +35,13 @@ export const List = styled.ul`
 export const Button = styled.button`
   border: 1px solid #5e3030;
   outline: none;
-  background-color: transparent;
-  color: #5e3030;
+  background-color: #5e3030;
+  color: white;
   width: 100px;
   height: 30px;
   margin-left: 5px;
+  opacity: 0.7;
   cursor: pointer;
-
-  &:hover {
-    background-color: #5e3030;
-    opacity: 0.7;
-    color: white;
-  }
 `;
 
 export const Filter = styled.div`
