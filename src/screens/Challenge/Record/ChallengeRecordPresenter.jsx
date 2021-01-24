@@ -6,6 +6,8 @@ import { Tag } from "../Enroll/styles";
 import { Button } from "../../../components/Modal/DeleteConfirmModal.styles";
 import {
   Title,
+  TitleText,
+  Wrapper,
   Grid,
   Table,
   Day,
@@ -25,42 +27,43 @@ const RecordPresenter = (recordPresenterProps) => {
       <Frame>
         <Main>
           <Header />
-
-          <div>
-            <Tag>Challenge</Tag>
-            <Title>{state.title}</Title>
-          </div>
-          <Grid>
-            {state.record
-              ? state.record.map((list, index) => {
-                  return (
-                    <Table key={index}>
-                      <Day>{list.day}</Day>
-                      <CheckSection>
-                        {list.status ? (
-                          <Stamp>성공!</Stamp>
-                        ) : today === list.date ? (
-                          <CheckBtn id={list.id} onClick={checkedList}>
-                            Check!
-                          </CheckBtn>
-                        ) : null}
-                      </CheckSection>
-                    </Table>
-                  );
-                })
-              : null}
-          </Grid>
-          <Section>
-            {state.status === "FINISHED" ? (
-              <Button onClick={onConfirm} id={state.id}>
-                Delete
-              </Button>
-            ) : (
-              <Button onClick={onConfirm} id={state.id}>
-                포기할래요..
-              </Button>
-            )}
-          </Section>
+          <Wrapper>
+            <Title>
+              <Tag>Challenge</Tag>
+              <TitleText>{state.title}</TitleText>
+            </Title>
+            <Grid>
+              {state.record
+                ? state.record.map((list, index) => {
+                    return (
+                      <Table key={index}>
+                        <Day>{list.day}</Day>
+                        <CheckSection>
+                          {list.status ? (
+                            <Stamp>성공!</Stamp>
+                          ) : today === list.date ? (
+                            <CheckBtn id={list.id} onClick={checkedList}>
+                              Check!
+                            </CheckBtn>
+                          ) : null}
+                        </CheckSection>
+                      </Table>
+                    );
+                  })
+                : null}
+            </Grid>
+            <Section>
+              {state.status === "FINISHED" ? (
+                <Button onClick={onConfirm} id={state.id}>
+                  Delete
+                </Button>
+              ) : (
+                <Button onClick={onConfirm} id={state.id}>
+                  포기할래요..
+                </Button>
+              )}
+            </Section>
+          </Wrapper>
         </Main>
       </Frame>
     </Container>
