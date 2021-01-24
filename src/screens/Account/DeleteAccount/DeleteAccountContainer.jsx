@@ -20,9 +20,24 @@ const DeleteAccount = (deleteAccountProps) => {
     sendData,
     deleted,
     setError,
+    history,
   } = deleteAccountProps;
+
+  const [modalStatus, setModalStatus] = useState("hidden");
   const [value, setValue] = useState({ password: "", error: "" });
   const [optionVal, setOptionVal] = useState({ reason: "", error: "" });
+  const [checkBoxStatus, setCheckBoxStatus] = useState({
+    status: "unchecked",
+    error: "",
+  });
+
+  const changeCheckBoxStatus = () => {
+    if (checkBoxStatus.status === "unchecked") {
+      setCheckBoxStatus({ status: "checked", error: "" });
+    } else {
+      setCheckBoxStatus({ status: "unchecked", error: "" });
+    }
+  };
 
   const onChange = (event) => {
     const target = event.target;
@@ -37,8 +52,13 @@ const DeleteAccount = (deleteAccountProps) => {
       setValue({ password: value, error: "" });
     }
   };
+
   const onSelect = (event) => {
     setOptionVal({ reason: event.target.value, error: "" });
+  };
+
+  const cancel = () => {
+    history.push("/account");
   };
 
   const deleteAccount = async () => {
@@ -62,15 +82,26 @@ const DeleteAccount = (deleteAccountProps) => {
     }
   };
 
-  const onClick = () => {
-    if (!value.password) {
-      setValue({ password: "", error: "비밀번호를 입력해주십시오" });
-    } else if (!optionVal.reason) {
+  const checkError = () => {
+    if (!optionVal.reason) {
       setOptionVal({ reason: "", error: "계정 삭제 사유를 선택해 주십시오" });
-    } else if (value.password && !value.error && optionVal) {
-      deleteAccount();
+    } else if (!value.password) {
+      setValue({ password: "", error: "비밀번호를 입력해주십시오" });
+    } else if (checkBoxStatus.status === "unchecked") {
+      setCheckBoxStatus({
+        status: checkBoxStatus.status,
+        error: "확인후 체크해주십시오",
+      });
+    } else if (
+      value.password &&
+      !value.error &&
+      optionVal &&
+      checkBoxStatus.status === "checked"
+    ) {
+      setModalStatus("display");
     }
   };
+
   return (
     <>
       {state.error === "500" ? (
@@ -83,9 +114,14 @@ const DeleteAccount = (deleteAccountProps) => {
           {...state}
           onChange={onChange}
           onSelect={onSelect}
-          onClick={onClick}
+          checkError={checkError}
           passwordError={value.error}
           error={optionVal.error}
+          changeCheckBoxStatus={changeCheckBoxStatus}
+          checkBoxError={checkBoxStatus.error}
+          cancel={cancel}
+          modalStatus={modalStatus}
+          deleteAccount={deleteAccount}
         />
       )}
     </>

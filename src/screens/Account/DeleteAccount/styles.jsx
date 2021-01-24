@@ -1,24 +1,21 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 90%;
-  height: 450px;
-  margin-left: 30px;
-  @media only screen and (max-width: 640px) {
-    height: 430px;
-  }
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 570px;
+  padding: 20px;
+  border-radius: 5px;
+  transform: translateY(30px);
+  border: 1px solid #cfcdcd;
 `;
-export const Header = styled.div`
+
+export const Title = styled.div`
   font-size: 20px;
-  margin-bottom: 25px;
-  @media only screen and (max-width: 640px) {
-    margin-bottom: 10px;
-  }
 `;
 export const Text = styled.div`
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 10px;
-  line-break: auto;
+  line-height: 1.5;
 `;
 export const Section = styled.div`
   width: 100%;
@@ -28,16 +25,10 @@ export const Section = styled.div`
 export const Question = styled.span`
   font-size: 14px;
   font-weight: bold;
-  @media only screen and (max-width: 640px) {
-    margin-top: 20px;
-  }
 `;
 export const Select = styled.select`
   margin-left: 10px;
   padding: 5px;
-  @media only screen and (max-width: 640px) {
-    margin: 10px 0;
-  }
 `;
 export const Option = styled.option``;
 export const Form = styled.form`
@@ -51,34 +42,42 @@ export const Input = styled.input`
   width: 80%;
   padding: 10px 20px;
   border-radius: 5px;
-  margin-top: 10px;
+  margin: 10px 0;
   outline: none;
-  border: ${(props) => (props.error ? "1px solid red" : "1px solid #baa7a1")};
-  &::placeholder {
-    font-family: "Life Savers", cursive;
+  border: ${(props) => (props.error ? "1px solid red" : "1px solid #dfdede")};
+
+  &:focus {
+    border: ${(props) =>
+      props.error ? "1px solid red" : "1px solid  #30475e"};
   }
 `;
 export const Intro = styled.div`
   width: 100%;
   height: 80px;
   border-bottom: 1px solid #efefef;
+  margin-top: 20px;
 `;
+export const CheckForm = styled.form`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+`;
+export const CheckBox = styled.input``;
+
 export const Notice = styled.div`
   margin-top: 40px;
   padding: 20px 0;
   font-size: 13px;
   border-bottom: 1px solid #efefef;
   line-height: 1.5;
-
-  @media only screen and (max-width: 640px) {
-    margin-right: 15px;
-  }
 `;
+
 export const Error = styled.span`
   color: red;
   font-size: 13px;
-  margin-top: 5px;
+  margin-left: 5px;
 `;
+
 export const Button = styled.button`
   outline: none;
   border: none;
@@ -89,8 +88,4 @@ export const Button = styled.button`
   height: 30px;
   margin-top: 20px;
   background: linear-gradient(to left top, #b71540, #eb5757);
-
-  @media only screen and (max-width: 640px) {
-    margin-top: 10px;
-  }
 `;
