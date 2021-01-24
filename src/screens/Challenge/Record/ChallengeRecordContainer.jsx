@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { challengeApi } from "../../../api";
@@ -9,6 +9,8 @@ import ChallengeRecordPresenter from "./ChallengeRecordPresenter";
 import {
   CHALLENGE_ERROR,
   DELETE_CHALLENGE,
+  FETCH_CHALLENGE,
+  SELECT_CHALLENGE,
   UPDATE_RECORD,
 } from "../../../redux/actions/challengeActions";
 
@@ -20,6 +22,7 @@ const ChallengeRecordContainer = (recordProps) => {
     updateRecord,
     deleteItem,
     setError,
+    select,
   } = recordProps;
 
   const deleteChallenge = async (event) => {
@@ -38,12 +41,14 @@ const ChallengeRecordContainer = (recordProps) => {
       }
     }
   };
+
   const onConfirm = (event) => {
     alert("정말로 삭제하시겠습니까?");
     if (alert) {
       deleteChallenge(event);
     }
   };
+
   const checkedList = async (event) => {
     try {
       const challengeId = location.pathname.split("/")[1];
@@ -64,6 +69,15 @@ const ChallengeRecordContainer = (recordProps) => {
     }
   };
 
+  const getRecord = useCallback(() => {
+    const target = location.pathname.split("/")[2];
+    select(target);
+  }, [location.pathname, select]);
+
+  useEffect(() => {
+    getRecord();
+  }, [getRecord]);
+
   return (
     <>
       {state.isLoading ? (
@@ -74,7 +88,7 @@ const ChallengeRecordContainer = (recordProps) => {
         <GatewayError />
       ) : (
         <ChallengeRecordPresenter
-          state={state}
+          state={state.selected}
           checkedList={checkedList}
           onConfirm={onConfirm}
         />
@@ -89,6 +103,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchStart: () => {
+      dispatch({ type: FETCH_CHALLENGE });
+    },
+    select: (challenge) => {
+      dispatch({ type: SELECT_CHALLENGE, payload: challenge });
+    },
     updateRecord: (data) => {
       dispatch({ type: UPDATE_RECORD, payload: data });
     },

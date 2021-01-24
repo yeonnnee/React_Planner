@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../components/Header";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
 import { Tag } from "../Enroll/styles";
-import { Button } from "../styles";
+import { Button } from "../../../components/Modal/DeleteConfirmModal.styles";
 import {
   Title,
   Grid,
@@ -28,33 +28,35 @@ const RecordPresenter = (recordPresenterProps) => {
 
           <div>
             <Tag>Challenge</Tag>
-            <Title>{state.selected.title}</Title>
+            <Title>{state.title}</Title>
           </div>
           <Grid>
-            {state.selected.record.map((list, index) => {
-              return (
-                <Table key={index}>
-                  <Day>{list.day}</Day>
-                  <CheckSection>
-                    {list.status ? (
-                      <Stamp>성공!</Stamp>
-                    ) : today === list.date ? (
-                      <CheckBtn id={list.id} onClick={checkedList}>
-                        Check!
-                      </CheckBtn>
-                    ) : null}
-                  </CheckSection>
-                </Table>
-              );
-            })}
+            {state.record
+              ? state.record.map((list, index) => {
+                  return (
+                    <Table key={index}>
+                      <Day>{list.day}</Day>
+                      <CheckSection>
+                        {list.status ? (
+                          <Stamp>성공!</Stamp>
+                        ) : today === list.date ? (
+                          <CheckBtn id={list.id} onClick={checkedList}>
+                            Check!
+                          </CheckBtn>
+                        ) : null}
+                      </CheckSection>
+                    </Table>
+                  );
+                })
+              : null}
           </Grid>
           <Section>
-            {state.selected.status === "FINISHED" ? (
-              <Button onClick={onConfirm} id={state.selected.id}>
+            {state.status === "FINISHED" ? (
+              <Button onClick={onConfirm} id={state.id}>
                 Delete
               </Button>
             ) : (
-              <Button onClick={onConfirm} id={state.selected.id}>
+              <Button onClick={onConfirm} id={state.id}>
                 포기할래요..
               </Button>
             )}

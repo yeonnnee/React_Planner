@@ -11,50 +11,36 @@ import {
   Percentage,
   Name,
   Achieve,
+  Category,
 } from "./styles";
 
 const ChallengeListPresenter = (challengeListProps) => {
-  const {
-    selectList,
-    challengeDay,
-    id,
-    title,
-    achievement,
-    status,
-  } = challengeListProps;
+  const { challengeDay, id, title, achievement, status } = challengeListProps;
   return (
     <SLink to={`challenge/${id}`}>
-      <ListItem onClick={selectList} id={id}>
-        <Column onClick={selectList} id={id}>
-          <Title onClick={selectList} id={id}>
-            {title}
-          </Title>
+      <ListItem>
+        <Category>CHALLENGE</Category>
+        <Column>
+          <Title>{title}</Title>
           {status === "ENROLLED" && challengeDay.length > 0 ? (
-            <Status onClick={selectList} id={id}>
-              In Progress / {challengeDay[0].day}
-            </Status>
+            <Status>In Progress / {challengeDay[0].day}</Status>
           ) : status === "ENROLLED" && challengeDay.length === 0 ? (
-            <Status onClick={selectList} id={id}>
-              Ready / starts tomorrow
-            </Status>
+            <Status>Ready / starts tomorrow</Status>
           ) : (
-            <Status onClick={selectList} id={id}>
-              FINISHED
-            </Status>
+            <Status>FINISHED</Status>
           )}
         </Column>
-        {achievement ? (
-          <Achieve onClick={selectList} id={id}>
-            <Name onClick={selectList} id={id}>
-              Completed
-            </Name>
-            <Percentage onClick={selectList} id={id}>
-              {achievement}
-            </Percentage>
-          </Achieve>
-        ) : null}
-        <Column onClick={selectList} id={id}>
-          <Icon icon={faChevronRight} onClick={selectList} id={id} />
+        <Column>
+          {achievement ? (
+            <Achieve>
+              <Name>Completed</Name>
+              <Percentage>{achievement}</Percentage>
+            </Achieve>
+          ) : null}
+        </Column>
+
+        <Column>
+          <Icon icon={faChevronRight} />
         </Column>
       </ListItem>
     </SLink>

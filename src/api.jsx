@@ -36,7 +36,6 @@ export const accountApi = {
 
 export const challengeApi = {
   getChallenges: () => axios.get("api/challenge"),
-  getChallengeRecord: (id) => axios.get(`/api/challenge/record/${id}`),
   postChallenge: (data) => axios.post("/api/challenge/enrolled", data),
   updateStatus: (id) => axios.patch("api/challenge/update", id),
   checkDay: (target) => axios.patch("/api/challenge/check", target),

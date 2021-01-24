@@ -12,10 +12,10 @@ const ChallengeList = (challengeListProps) => {
     achievement,
     status,
     id,
-    selectList,
     setError,
   } = challengeListProps;
 
+  // 챌린지 종료시 상태 업데이트
   const updateStatus = async () => {
     try {
       await challengeApi.updateStatus({ id: id });
@@ -51,7 +51,6 @@ const ChallengeList = (challengeListProps) => {
       status={status}
       achievement={achievement}
       challengeDay={challengeDay}
-      selectList={selectList}
     />
   );
 };
