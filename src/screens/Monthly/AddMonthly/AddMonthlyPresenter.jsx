@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../components/Header";
 import MonthlyRecordForm from "../MonthlyRecordForm/MonthlyRecordFormInputContainer";
 import MonthlyRecordFormContent from "../MonthlyRecordForm/MonthlyRecordFormContent";
-import DeleteConfirmModal from "../../../components/Modal/DeleteConfirmModal";
+import DeleteConfirmModal from "../../../components/Modal";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
 import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
 import { DeleteBtn } from "../MonthlyRecordForm/styles";
@@ -39,6 +39,7 @@ const AddMonthlyPresenter = (monthlyProps) => {
               <DeleteConfirmModal
                 confirmDelete={deleteMonthly}
                 cancelDelete={cancel}
+                message="정말 삭제하시겠습니까?"
               />
             ) : null}
 

@@ -6,18 +6,18 @@ import {
   ConfirmMessage,
   Column,
   Button,
-} from "./DeleteConfirmModal.styles";
+} from "./ConfirmModal.styles";
 
 const DeleteConfirmModal = (modalProps) => {
-  const { conFirmDelete, cancelDelete } = modalProps;
+  const { confirm, cancel, message } = modalProps;
 
   return (
     <ModalContainer>
       <Modal>
-        <ConfirmMessage>정말 삭제하시겠습니까?</ConfirmMessage>
+        <ConfirmMessage>{message}</ConfirmMessage>
         <Column>
-          <Button onClick={conFirmDelete}>확인</Button>
-          <Button onClick={cancelDelete}>취소</Button>
+          <Button onClick={confirm}>확인</Button>
+          <Button onClick={cancel}>취소</Button>
         </Column>
       </Modal>
     </ModalContainer>

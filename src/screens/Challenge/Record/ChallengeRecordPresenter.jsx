@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../../components/Header";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
 import { Tag } from "../Enroll/styles";
-import { Button } from "../../../components/Modal/DeleteConfirmModal.styles";
+import { Button } from "../../../components/Modal/ConfirmModal.styles";
 import {
   Title,
   TitleText,

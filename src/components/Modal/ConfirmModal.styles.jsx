@@ -16,8 +16,7 @@ export const ModalContainer = styled.div`
   height: 100%;
   left: 0;
   top: 0;
-  background-color: #cccbcb;
-  opacity: 0.8;
+  background-color: rgba(204, 203, 203, 0.521);
   display: grid;
   place-items: center;
 `;
@@ -25,6 +24,7 @@ export const ModalContainer = styled.div`
 export const Modal = styled.div`
   width: 455px;
   height: 209px;
+  z-index: 0;
   border: 1px solid #30475e;
   background-color: #f1efef;
   box-shadow: 5px 5px 5px grey, 0 0 5px grey;
