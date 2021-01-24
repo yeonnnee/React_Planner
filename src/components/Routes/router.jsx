@@ -36,7 +36,7 @@ const Router = () => {
         <PrivateRoute exact path="/challenge" component={Challenge} />
         <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
         <PrivateRoute exact path="/challenge/:id" component={Record} />
-        <PrivateRoute path="/account" component={Account} />
+        <PrivateRoute exact path="/account" component={Account} />
         <PrivateRoute
           exact
           path="/account/reset-password"
