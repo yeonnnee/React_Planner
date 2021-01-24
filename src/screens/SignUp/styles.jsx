@@ -107,7 +107,7 @@ export const Select = styled.select`
   height: 37px;
   width: 100%;
   opacity: 0.7;
-  border: ${(props) => (props.error ? "1px solid red" : "1px solid #dfdede;")};
+  border: ${(props) => (props.error ? "1px solid red" : "1px solid #dfdede")};
 `;
 export const Option = styled.option``;
 
