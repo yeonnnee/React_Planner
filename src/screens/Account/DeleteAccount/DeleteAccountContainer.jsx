@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { connect } from "react-redux";
 
 import DeleteAccountPresenter from "./DeletAccountPresenter";
@@ -116,7 +115,7 @@ const DeleteAccount = (deleteAccountProps) => {
           onSelect={onSelect}
           checkError={checkError}
           passwordError={value.error}
-          error={optionVal.error}
+          optionError={optionVal.error}
           changeCheckBoxStatus={changeCheckBoxStatus}
           checkBoxError={checkBoxStatus.error}
           cancel={cancel}
