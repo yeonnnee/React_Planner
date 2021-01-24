@@ -5,46 +5,48 @@ export const Section = styled.div`
   width: 100%;
   display: flex;
   align-items: Center;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-family: "Jaldi", sans-serif;
   font-weight: bold;
   letter-spacing: 1.5px;
+  margin-top: 20px;
 `;
 
 export const Wrapper = styled.div`
-  width: 460px;
+  width: 720px;
   height: 480px;
   overflow: hidden;
-  margin: 20px 20px 0 10px;
 `;
 export const Scroll = styled.div`
-  width: 480px;
+  width: 740px;
   height: 490px;
   overflow: auto;
 `;
 export const List = styled.ul`
   height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 80px;
+  gap: 15px;
+  padding: 20px;
 `;
 
 export const Button = styled.button`
-  font-family: "Jaldi", sans-serif;
+  border: 1px solid #5e3030;
+  outline: none;
+  background-color: transparent;
+  color: #5e3030;
   width: 100px;
   height: 30px;
-  border-radius: 3px;
-  margin-top: 25px;
-  outline: none;
-  border: none;
-  background-color: rgb(65, 25, 25);
-  color: wheat;
-  letter-spacing: 1.5px;
+  margin-left: 5px;
   cursor: pointer;
-`;
 
-export const Header = styled.div`
-  font-size: 15px;
+  &:hover {
+    background-color: #5e3030;
+    opacity: 0.7;
+    color: white;
+  }
 `;
 
 export const Filter = styled.div`
@@ -53,7 +55,7 @@ export const Filter = styled.div`
 `;
 export const Select = styled.select`
   margin-left: 5px;
-  border: 1px solid white;
+  border: 1px solid #5e3030;
   background-color: transparent;
   outline: none;
   font-size: 13px;
@@ -77,4 +79,7 @@ export const Text = styled.div`
 export const SLink = styled(Link)`
   text-decoration: none;
   color: rgb(65, 25, 25);
+  width: 100%;
+  display: grid;
+  place-items: center;
 `;
