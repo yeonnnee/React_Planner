@@ -1,7 +1,5 @@
 export const emailValidation = (val, setValidationError) => {
-  if (!val.includes("@")) {
-    setValidationError({ email: "유효하지 않은 이메일입니다." });
-  } else if (val.length > 80) {
+  if (val.length > 80) {
     setValidationError({ email: "이메일은 80자 이내로 작성해주십시오." });
   } else {
     setValidationError({ email: "" });
