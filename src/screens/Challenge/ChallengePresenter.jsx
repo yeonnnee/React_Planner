@@ -12,9 +12,9 @@ import {
   Wrapper,
   Scroll,
   List,
-  Button,
   Text,
   SLink,
+  Button,
 } from "./styles";
 
 const ChallengePresenter = (challengePresenterProps) => {
@@ -26,7 +26,6 @@ const ChallengePresenter = (challengePresenterProps) => {
         <Main>
           <Header />
           <Section>
-            Challenges
             <Filter>
               View
               <Select name="filter" onChange={filter}>
