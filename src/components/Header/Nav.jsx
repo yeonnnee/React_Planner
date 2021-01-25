@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
+import { SLink } from "./Header.styles";
 
 const Container = styled.div`
   width: 100%;
@@ -25,9 +27,6 @@ const Menu = styled.li`
   &:hover {
     color: #4d3e3e;
   }
-`;
-const SLink = styled(Link)`
-  text-decoration: none;
 `;
 
 const Nav = withRouter((headerProps) => {
