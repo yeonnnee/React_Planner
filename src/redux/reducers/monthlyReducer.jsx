@@ -43,11 +43,11 @@ const monthlyReducer = (state = initialState, action) => {
         const plans = action.payload;
         let monthly = [];
 
-        for (let plan of plans) {
+        for (const plan of plans) {
           const contents = plan.contents;
           const formatChangedContents = [];
 
-          for (let content of contents) {
+          for (const content of contents) {
             const data = {
               id: content.id,
               text: content.text,
