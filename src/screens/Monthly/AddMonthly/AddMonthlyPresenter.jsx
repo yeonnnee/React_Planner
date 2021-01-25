@@ -37,8 +37,8 @@ const AddMonthlyPresenter = (monthlyProps) => {
 
             {modalStatus !== "hidden" && location.pathname.includes("edit") ? (
               <DeleteConfirmModal
-                confirmDelete={deleteMonthly}
-                cancelDelete={cancel}
+                confirm={deleteMonthly}
+                cancel={cancel}
                 message="정말 삭제하시겠습니까?"
               />
             ) : null}
