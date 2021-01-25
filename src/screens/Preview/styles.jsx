@@ -148,14 +148,14 @@ export const DateText = styled.div`
     opacity: 0.9;
   }
   &:nth-child(2) {
-    font-size: 14px;
+    font-size: 16px;
     opacity: 0.9;
     letter-spacing: 1.5px;
     transform: translateY(-9px);
   }
   &:nth-child(3) {
     color: #d0a67b;
-    font-size: 40px;
+    font-size: 60px;
     font-family: "Old Standard TT", serif;
     transform: translateY(-10px);
   }
@@ -170,20 +170,39 @@ export const DateText = styled.div`
 // Tasks
 
 export const Notice = styled.div`
-  transform: translateX(-7px) translateY(-7px);
+  transform: translateX(10px) translateY(57px);
 `;
 export const TasksList = styled.ul`
   width: 220px;
-  height: 160px;
-  margin-left: 10px;
+  height: 140px;
   display: grid;
+  grid-auto-rows: 30px;
+  overflow: hidden;
   place-items: center;
+`;
+
+export const TaskText = styled.div`
+  margin-left: 5px;
+  width: 180px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 15px;
+`;
+
+export const TaskListItem = styled.li`
+  width: 180px;
+  height: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 export const Tasks = styled.div`
   border: 1px solid #9c9b9b;
   width: 240px;
   height: 200px;
+  padding: 0 3px;
 
   &:nth-child(2) {
     border: none;
