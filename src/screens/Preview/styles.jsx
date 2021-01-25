@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Common
 export const Section = styled.div`
@@ -43,6 +44,16 @@ export const Title = styled.div`
 
 export const Text = styled.div``;
 
+export const More = styled(Link)`
+  font-size: 13px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  transform: translateY(15px);
+  color: #551616;
+  text-decoration: none;
+`;
+
 // Challenges
 
 export const ChallengesList = styled.ul`
@@ -54,19 +65,44 @@ export const ChallengeListItem = styled.li``;
 
 // Schedule
 
-export const ScheduleList = styled.ul`
-  display: grid;
-  place-items: center;
-  width: 355px;
-  height: 213px;
-  border-left: 1px solid #9c9b9b;
-`;
-export const ListItem = styled.li``;
-
 export const Monthly = styled.div`
   display: grid;
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
+`;
+
+export const ScheduleSection = styled.div`
+  display: grid;
+  grid-template-columns: 340px;
+  grid-template-rows: 30px 150px;
+  width: 355px;
+  height: 213px;
+  border-left: 1px solid #9c9b9b;
+  padding: 10px;
+`;
+
+export const SubTitle = styled.div`
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid grey;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.7;
+  font-size: 14px;
+  transform: translateY(-12px);
+`;
+
+export const ScheduleList = styled.ul`
+  display: grid;
+  grid-template-columns: 340px;
+  grid-auto-rows: 30px;
+  overflow: hidden;
+`;
+
+export const ListItem = styled.li`
+  display: grid;
+  grid-template-columns: 287px 52px;
+  grid-template-rows: 30px;
 `;
 
 // schedule date
@@ -84,16 +120,16 @@ export const Container = styled.div`
 
 export const DateText = styled.div`
   font-family: "Nanum Gothic Coding", monospace;
+  color: white;
 
   &:nth-child(1) {
     font-family: "Rajdhani", sans-serif;
     opacity: 0.9;
-    color: grey;
   }
   &:nth-child(2) {
     font-size: 14px;
     opacity: 0.9;
-    color: grey;
+    letter-spacing: 1.5px;
     transform: translateY(-9px);
   }
   &:nth-child(3) {
@@ -103,7 +139,6 @@ export const DateText = styled.div`
     transform: translateY(-10px);
   }
   &:nth-child(4) {
-    color: white;
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 1.5px;

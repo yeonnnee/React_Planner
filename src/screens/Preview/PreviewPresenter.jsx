@@ -10,8 +10,6 @@ import { Section } from "./styles";
 const PreviewPresenter = (previewProps) => {
   const { tasks, monthly, challenge } = previewProps;
 
-  const schedule = monthly.selected[0];
-
   return (
     <Container>
       <Frame>
@@ -19,7 +17,7 @@ const PreviewPresenter = (previewProps) => {
           <Header />
           <Section>
             <Challenges challenges={challenge.enrolled} />
-            <Schedule schedule={schedule} />
+            <Schedule schedule={monthly.selected} />
             <Tasks
               pendingList={tasks.pendingList}
               finishedList={tasks.finishedList}

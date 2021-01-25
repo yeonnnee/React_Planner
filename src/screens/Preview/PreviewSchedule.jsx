@@ -1,7 +1,19 @@
 import React from "react";
 
 import ScheduleDate from "./PreviewScheduleDate";
-import { Column, Tag, Monthly, Text, ScheduleList, ListItem } from "./styles";
+import { TimeMark } from "../Monthly/MonthlyRecordForm/styles";
+import { TimeColumn } from "../Monthly/styles";
+import {
+  Column,
+  Tag,
+  Monthly,
+  Text,
+  ScheduleSection,
+  ListItem,
+  SubTitle,
+  ScheduleList,
+  More,
+} from "./styles";
 
 const PreviewSchedule = (scheduleProps) => {
   const { schedule } = scheduleProps;
@@ -11,15 +23,35 @@ const PreviewSchedule = (scheduleProps) => {
       <Tag>Today&apos;s Schedule</Tag>
       <Monthly>
         <ScheduleDate />
-        <ScheduleList>
-          {schedule?.contents.length > 0 ? (
-            schedule.contents.map((content, index) => {
-              return <ListItem key={index}>{content.text}</ListItem>;
-            })
-          ) : (
-            <Text>등록된 일정이 없습니다</Text>
-          )}
-        </ScheduleList>
+        <ScheduleSection>
+          <SubTitle>
+            <Text>DESCRIPTION</Text>
+            <Text>TIME</Text>
+          </SubTitle>
+          <ScheduleList>
+            {schedule.contents?.length > 0 ? (
+              schedule.contents.map((content, index) => {
+                return (
+                  <ListItem key={index}>
+                    {content.text}
+                    <TimeColumn>
+                      {content.time.hour !== "00" ? (
+                        <>
+                          <TimeMark>{content.time.hour}</TimeMark>
+                          <TimeMark>:</TimeMark>
+                          <TimeMark>{content.time.min}</TimeMark>
+                        </>
+                      ) : null}
+                    </TimeColumn>
+                  </ListItem>
+                );
+              })
+            ) : (
+              <Text>등록된 일정이 없습니다</Text>
+            )}
+          </ScheduleList>
+          <More to="/monthly">더보기</More>
+        </ScheduleSection>
       </Monthly>
     </Column>
   );
