@@ -14,7 +14,7 @@ export const Section = styled.div`
 
 export const Wrapper = styled.div`
   width: 720px;
-  height: 480px;
+  height: 500px;
   overflow: hidden;
 `;
 export const Scroll = styled.div`
@@ -42,6 +42,7 @@ export const Button = styled.button`
   margin-left: 5px;
   opacity: 0.7;
   cursor: pointer;
+  transform: translateY(20px);
 `;
 
 export const Filter = styled.div`

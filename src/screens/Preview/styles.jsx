@@ -42,26 +42,44 @@ export const Title = styled.div`
   transform: translateX(40px) translateY(-13px);
 `;
 
-export const Text = styled.div``;
-
 export const More = styled(Link)`
   font-size: 13px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  transform: translateY(15px);
+
   color: #551616;
   text-decoration: none;
+
+  &:nth-child(3) {
+    transform: translateY(15px);
+  }
 `;
 
 // Challenges
 
-export const ChallengesList = styled.ul`
+export const ChallengeSection = styled.div`
   display: grid;
   place-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30px 20px;
+  padding: 0 8px;
+`;
+export const ChallengesList = styled.ul`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow: hidden;
 `;
 
-export const ChallengeListItem = styled.li``;
+export const ChallengeListItem = styled.li`
+  &::first-letter {
+    font-style: italic;
+    font-family: "Old Standard TT", serif;
+    font-weight: bold;
+  }
+`;
 
 // Schedule
 
@@ -97,6 +115,7 @@ export const ScheduleList = styled.ul`
   grid-template-columns: 340px;
   grid-auto-rows: 30px;
   overflow: hidden;
+  place-items: center;
 `;
 
 export const ListItem = styled.li`
@@ -104,6 +123,8 @@ export const ListItem = styled.li`
   grid-template-columns: 287px 52px;
   grid-template-rows: 30px;
 `;
+
+export const Text = styled.div``;
 
 // schedule date
 
