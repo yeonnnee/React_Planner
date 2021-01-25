@@ -1,6 +1,6 @@
 import React from "react";
 
-import Calendar from "../../components/Calendar/PreviewCalendar";
+import ScheduleDate from "./PreviewScheduleDate";
 import { Column, Tag, Monthly, Text, ScheduleList, ListItem } from "./styles";
 
 const PreviewSchedule = (scheduleProps) => {
@@ -10,8 +10,7 @@ const PreviewSchedule = (scheduleProps) => {
     <Column>
       <Tag>Today&apos;s Schedule</Tag>
       <Monthly>
-        <Calendar />
-
+        <ScheduleDate />
         <ScheduleList>
           {schedule?.contents.length > 0 ? (
             schedule.contents.map((content, index) => {

@@ -29,7 +29,7 @@ const PreviewContainer = (previewProps) => {
       const tasks = await taskApi.getTasks();
       const monthly = await monthlyApi.getMonthly();
       const challenge = await challengeApi.getChallenges();
-      console.log(monthly);
+
       fetch_tasks_success(tasks.data.tasks);
       fetch_monthly_success(monthly.data.monthly);
       fetch_challenge_success(challenge.data.challenges);

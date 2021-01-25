@@ -60,7 +60,6 @@ export const ScheduleList = styled.ul`
   width: 355px;
   height: 213px;
   border-left: 1px solid #9c9b9b;
-  transform: translateY(-7px);
 `;
 export const ListItem = styled.li``;
 
@@ -68,6 +67,48 @@ export const Monthly = styled.div`
   display: grid;
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
+`;
+
+// schedule date
+
+export const Container = styled.div`
+  width: 320px;
+  height: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20px 30px 100px 30px;
+  place-items: center;
+  background-color: #1f1f1f;
+`;
+
+export const DateText = styled.div`
+  font-family: "Nanum Gothic Coding", monospace;
+
+  &:nth-child(1) {
+    font-family: "Rajdhani", sans-serif;
+    opacity: 0.9;
+    color: grey;
+  }
+  &:nth-child(2) {
+    font-size: 14px;
+    opacity: 0.9;
+    color: grey;
+    transform: translateY(-9px);
+  }
+  &:nth-child(3) {
+    color: #d0a67b;
+    font-size: 40px;
+    font-family: "Old Standard TT", serif;
+    transform: translateY(-10px);
+  }
+  &:nth-child(4) {
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    transform: translateY(-15px);
+  }
 `;
 
 // Tasks
