@@ -1,92 +1,98 @@
-import React, { useEffect, useCallback } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect, useCallback } from "react";
 
 import PreviewPresenter from "./PreviewPresenter";
 import { taskApi, monthlyApi, challengeApi } from "../../api";
-import { FETCH_CHALLENGE_SUCCESS } from "../../redux/actions/challengeActions";
-import { FETCH_TASKS_SUCCESS } from "../../redux/actions/tasksActions";
-import {
-  FETCH_MONTHLY_SUCCESS,
-  FETCH_MONTHLY,
-  MONTHLY_ERROR,
-} from "../../redux/actions/monthlyActions";
 
 const PreviewContainer = (previewProps) => {
-  const {
-    tasksState,
-    monthlyState,
-    challengeState,
-    fetch_start,
-    fetch_tasks_success,
-    fetch_monthly_success,
-    fetch_challenge_success,
-    setError,
-  } = previewProps;
+  const { history } = previewProps;
+
+  // state
+  const [tasks, setTasks] = useState({
+    pendingList: [],
+    finishedList: [],
+  });
+  const [schedule, setSchedule] = useState({
+    contents: [],
+  });
+  const [challenges, setChallenges] = useState([]);
+
+  const filterTasks = (tasks) => {
+    const filtered_PendingList = tasks.filter(
+      (task) => task.status === "PENDING"
+    );
+    const filtered_FinishedList = tasks.filter(
+      (task) => task.status === "FINISHED"
+    );
+    setTasks({
+      pendingList: filtered_PendingList,
+      finishedList: filtered_FinishedList,
+    });
+  };
+
+  // funtions
+
+  const filterMonthly = (monthly) => {
+    const today = new Date();
+    const date = today.toString().substring(0, 15);
+
+    const scheduledPlan = monthly.find((plan) => plan.date === date);
+    if (scheduledPlan) {
+      const contents = scheduledPlan.contents;
+      const formatChangedContents = [];
+
+      for (const content of contents) {
+        const data = {
+          id: content.id,
+          text: content.text,
+          time: {
+            hour: content.time.split(":")[0],
+            min: content.time.split(":")[1],
+          },
+        };
+        formatChangedContents.push(data);
+      }
+      setSchedule({ contents: formatChangedContents });
+    } else {
+      return;
+    }
+  };
+
+  const filterChallenges = (challenges) => {
+    const enrolledChallenges = challenges.filter(
+      (challenge) => challenge.status === "ENROLLED"
+    );
+    setChallenges(enrolledChallenges.splice(0, 3));
+  };
 
   const fetchData = useCallback(async () => {
-    fetch_start();
     try {
       const tasks = await taskApi.getTasks();
       const monthly = await monthlyApi.getMonthly();
-      const challenge = await challengeApi.getChallenges();
+      const challenges = await challengeApi.getChallenges();
 
-      fetch_tasks_success(tasks.data.tasks);
-      fetch_monthly_success(monthly.data.monthly);
-      fetch_challenge_success(challenge.data.challenges);
+      filterTasks(tasks.data.tasks);
+      filterMonthly(monthly.data.monthly);
+      filterChallenges(challenges.data.challenges);
     } catch (error) {
       const status = error.response.status;
       if (status === 500) {
-        setError("500");
+        history.push("/500");
       } else if (status === 504) {
-        setError("504");
+        history.push("/504");
       }
     }
-  }, [
-    fetch_start,
-    fetch_tasks_success,
-    fetch_monthly_success,
-    fetch_challenge_success,
-    setError,
-  ]);
+  }, [history]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
   return (
     <PreviewPresenter
-      tasks={tasksState}
-      monthly={monthlyState}
-      challenge={challengeState}
+      tasks={tasks}
+      schedule={schedule}
+      challenges={challenges}
     />
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    tasksState: state.tasksReducer,
-    monthlyState: state.monthlyReducer,
-    challengeState: state.challengeReducer,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetch_start: () => {
-      dispatch({ type: FETCH_MONTHLY });
-    },
-    fetch_tasks_success: (tasks) => {
-      dispatch({ type: FETCH_TASKS_SUCCESS, payload: tasks });
-    },
-    fetch_monthly_success: (monthly) => {
-      dispatch({ type: FETCH_MONTHLY_SUCCESS, payload: monthly });
-    },
-    fetch_challenge_success: (challenge) => {
-      dispatch({ type: FETCH_CHALLENGE_SUCCESS, payload: challenge });
-    },
-    setError: (error) => {
-      dispatch({ type: MONTHLY_ERROR, payload: error });
-    },
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PreviewContainer);
+export default PreviewContainer;

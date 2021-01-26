@@ -8,7 +8,7 @@ import { Container, Frame, Main } from "../../components/styles/Templates";
 import { Section } from "./styles";
 
 const PreviewPresenter = (previewProps) => {
-  const { tasks, monthly, challenge } = previewProps;
+  const { tasks, schedule, challenges } = previewProps;
 
   return (
     <Container>
@@ -16,8 +16,8 @@ const PreviewPresenter = (previewProps) => {
         <Main>
           <Header />
           <Section>
-            <Challenges challenges={challenge.enrolled} />
-            <Schedule schedule={monthly.selected} />
+            <Challenges challenges={challenges} />
+            <Schedule schedule={schedule} />
             <Tasks
               pendingList={tasks.pendingList}
               finishedList={tasks.finishedList}

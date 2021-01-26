@@ -12,15 +12,14 @@ import {
 
 const PreviewChallenges = (challengeProps) => {
   const { challenges } = challengeProps;
-  const challengesArr = challenges.splice(0, 3);
 
   return (
     <Column>
       <Tag>Goal</Tag>
       <ChallengeSection>
         <ChallengesList>
-          {challengesArr.length > 0 ? (
-            challengesArr.map((challenge, index) => (
+          {challenges.length > 0 ? (
+            challenges.map((challenge, index) => (
               <ChallengeListItem key={index}>
                 {index + 1}.{challenge.title}
               </ChallengeListItem>
