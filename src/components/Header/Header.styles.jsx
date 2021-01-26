@@ -24,4 +24,5 @@ export const Describe = styled.div`
 export const SLink = styled(Link)`
   text-decoration: none;
   color: #382933;
+  display: flex;
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Nav from "./Nav";
+import Nav from "../Nav";
 import { Container, Title, Describe, SLink } from "./Header.styles";
 
 const Header = () => {
