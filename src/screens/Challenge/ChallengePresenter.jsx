@@ -60,7 +60,7 @@ const ChallengePresenter = (challengePresenterProps) => {
               )}
             </Scroll>
           </Wrapper>
-          <SLink to="/challenge/enroll">
+          <SLink to="/challenges/enroll">
             <Button>Enroll</Button>
           </SLink>
         </Main>

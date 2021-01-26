@@ -15,7 +15,7 @@ import SignUpSuccess from "../../screens/SignUp/SignUpSuccess";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "../msg/NotFound";
 import Footer from "../Footer";
-import Challenge from "../../screens/Challenge";
+import Challenges from "../../screens/Challenge";
 import Enroll from "../../screens/Challenge/Enroll";
 import Record from "../../screens/Challenge/Record";
 import Preview from "../../screens/Preview";
@@ -33,9 +33,9 @@ const Router = () => {
         <PrivateRoute exact path="/monthly" component={Monthly} />
         <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
         <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
-        <PrivateRoute exact path="/challenge" component={Challenge} />
-        <PrivateRoute exact path="/challenge/enroll" component={Enroll} />
-        <PrivateRoute exact path="/challenge/:id" component={Record} />
+        <PrivateRoute exact path="/challenges" component={Challenges} />
+        <PrivateRoute exact path="/challenges/enroll" component={Enroll} />
+        <PrivateRoute exact path="/challenges/:id" component={Record} />
         <PrivateRoute exact path="/account" component={Account} />
         <PrivateRoute
           exact

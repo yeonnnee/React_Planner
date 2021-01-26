@@ -38,7 +38,7 @@ const ChallengeEnrollContainer = (enrollProps) => {
       if (!challenge.error && challenge.title) {
         await challengeApi.postChallenge(challenge);
         success();
-        history.push("/challenge");
+        history.push("/challenges");
       }
     } catch (error) {
       if (error.response.status === 500) {

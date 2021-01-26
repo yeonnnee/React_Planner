@@ -29,7 +29,7 @@ const ChallengeRecordContainer = (recordProps) => {
     try {
       const challengeId = event.target.id;
       await challengeApi.deleteChallenge({ id: challengeId });
-      history.push("/challenge");
+      history.push("/challenges");
       deleteItem();
     } catch (error) {
       const status = error.response.status;

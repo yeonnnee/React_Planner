@@ -18,7 +18,7 @@ const ChallengeListPresenter = (challengeListProps) => {
   const { list, challengeRecordDay } = challengeListProps;
 
   return (
-    <SLink to={`challenge/${list.id}`}>
+    <SLink to={`challenges/${list.id}`}>
       <ListItem>
         <Category>CHALLENGE</Category>
         <Column>
