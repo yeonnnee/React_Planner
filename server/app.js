@@ -61,10 +61,10 @@ Task.belongsTo(User, { foreignKey: "userId", targetKey: "email" });
 Plan.belongsTo(User, { foreignKey: "writer", targetKey: "email" });
 Plan.hasMany(Content, { foreignKey: "planId", sourceKey: "id" });
 Content.belongsTo(Plan, { foreignKey: "planId", sourceKey: "id" });
-Challenge.hasMany(Record, { foreignKey: "challengeTitle", sourceKey: "title" });
+Challenge.hasMany(Record, { foreignKey: "challengeId", sourceKey: "title" });
 Challenge.belongsTo(User, { foreignKey: "challenger", targetKey: "email" });
 Record.belongsTo(Challenge, {
-  foreignKey: "challengeTitle",
+  foreignKey: "challengeId",
   targetKey: "title",
 });
 

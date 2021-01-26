@@ -16,7 +16,7 @@ exports.getChallenge = async (req, res) => {
       for (const challenge of challenges) {
         const records = await Record.findAll(
           {
-            where: { challengeTitle: challenge.title },
+            where: { challengeId: challenge.id },
           },
           { transaction: t }
         );
@@ -63,7 +63,7 @@ exports.postChallenge = async (req, res) => {
           {
             day: `DAY-${i}`,
             date: day.toString().substring(0, 15),
-            challengeTitle: title,
+            challengeId: id,
           },
           { transaction: t }
         );
@@ -80,14 +80,17 @@ exports.patchChallenge = async (req, res) => {
     await sequelize.transaction(async (t) => {
       const challengeId = req.body.id;
       const challenge = await Challenge.findByPk(challengeId);
+
       const records = await Record.findAll(
         {
-          where: { challengeTitle: challenge.title },
+          where: { challengeId: challengeId },
         },
         { transaction: t }
       );
+
       const success = records.filter((record) => record.status === "CHECKED");
       const percentage = (success.length / 30) * 100;
+
       await Challenge.update(
         {
           ...challenge,
@@ -130,13 +133,13 @@ exports.deleteChallenge = async (req, res) => {
   try {
     await sequelize.transaction(async (t) => {
       const challengeId = req.body.id;
-      const challenge = await Challenge.findByPk(challengeId);
+
       await Challenge.destroy(
         { where: { id: challengeId } },
         { transaction: t }
       );
       await Record.destroy(
-        { where: { challengeTitle: challenge.title } },
+        { where: { challengeId: challengeId } },
         { transaction: t }
       );
       await res.status(201).json({ msg: "Deleted challenge successfully" });
