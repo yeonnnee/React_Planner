@@ -15,26 +15,27 @@ import {
 } from "./styles";
 
 const ChallengeListPresenter = (challengeListProps) => {
-  const { challengeDay, id, title, achievement, status } = challengeListProps;
+  const { list, challengeRecordDay } = challengeListProps;
+
   return (
-    <SLink to={`challenge/${id}`}>
+    <SLink to={`challenge/${list.id}`}>
       <ListItem>
         <Category>CHALLENGE</Category>
         <Column>
-          <Title>{title}</Title>
-          {status === "ENROLLED" && challengeDay.length > 0 ? (
-            <Status>In Progress / {challengeDay[0].day}</Status>
-          ) : status === "ENROLLED" && challengeDay.length === 0 ? (
+          <Title>{list.title}</Title>
+          {list.status === "ENROLLED" && challengeRecordDay ? (
+            <Status>In Progress /{challengeRecordDay[0]}</Status>
+          ) : list.status === "ENROLLED" && !challengeRecordDay ? (
             <Status>Ready / starts tomorrow</Status>
           ) : (
             <Status>FINISHED</Status>
           )}
         </Column>
         <Column>
-          {achievement ? (
+          {list.achievement ? (
             <Achieve>
               <Name>Completed</Name>
-              <Percentage>{achievement}</Percentage>
+              <Percentage>{list.achievement}</Percentage>
             </Achieve>
           ) : null}
         </Column>

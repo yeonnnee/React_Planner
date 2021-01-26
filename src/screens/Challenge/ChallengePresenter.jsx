@@ -18,7 +18,7 @@ import {
 } from "./styles";
 
 const ChallengePresenter = (challengePresenterProps) => {
-  const { state, selectList, filter, option } = challengePresenterProps;
+  const { state, filter, option } = challengePresenterProps;
 
   return (
     <Container>
@@ -43,33 +43,15 @@ const ChallengePresenter = (challengePresenterProps) => {
                 <List>
                   {option === "finished" && state.finished.length > 0 ? (
                     state.finished.map((list, index) => {
-                      return (
-                        <ChallengeList
-                          {...list}
-                          key={index}
-                          selectList={selectList}
-                        />
-                      );
+                      return <ChallengeList list={list} key={index} />;
                     })
                   ) : option === "inProgress" && state.enrolled.length > 0 ? (
                     state.enrolled.map((list, index) => {
-                      return (
-                        <ChallengeList
-                          {...list}
-                          key={index}
-                          selectList={selectList}
-                        />
-                      );
+                      return <ChallengeList list={list} key={index} />;
                     })
                   ) : option === "all" && state.challenges.length > 0 ? (
                     state.challenges.map((list, index) => {
-                      return (
-                        <ChallengeList
-                          {...list}
-                          key={index}
-                          selectList={selectList}
-                        />
-                      );
+                      return <ChallengeList list={list} key={index} />;
                     })
                   ) : (
                     <Text>Nothing</Text>
