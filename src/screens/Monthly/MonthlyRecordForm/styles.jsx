@@ -122,8 +122,18 @@ export const DelBtn = styled(FontAwesomeIcon)`
     opacity: 1;
   }
 `;
-export const TimeMark = styled.span`
-  padding: 0 3px;
+export const TimeMark = styled.div`
+  width: 16px;
+  margin-right: 2px;
+
+  &:nth-child(2) {
+    width: 4px;
+  }
+  &:nth-child(3) {
+    width: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 // Add Monthly Time
