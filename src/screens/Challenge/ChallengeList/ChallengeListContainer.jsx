@@ -42,7 +42,7 @@ const ChallengeList = (challengeListProps) => {
   return (
     <ChallengeListPresenter
       list={list}
-      challengeRecordDay={challengeRecordDay}
+      challengeRecordDay={challengeRecordDay.day}
     />
   );
 };

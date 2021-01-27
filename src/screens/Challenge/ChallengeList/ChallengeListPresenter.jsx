@@ -24,7 +24,7 @@ const ChallengeListPresenter = (challengeListProps) => {
         <Column>
           <Title>{list.title}</Title>
           {list.status === "ENROLLED" && challengeRecordDay ? (
-            <Status>In Progress /{challengeRecordDay[0]}</Status>
+            <Status>In Progress /{challengeRecordDay}</Status>
           ) : list.status === "ENROLLED" && !challengeRecordDay ? (
             <Status>Ready / starts tomorrow</Status>
           ) : (
