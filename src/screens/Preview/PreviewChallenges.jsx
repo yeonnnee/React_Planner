@@ -28,7 +28,7 @@ const PreviewChallenges = (challengeProps) => {
             <Text>진행중인 챌린지가 없습니다</Text>
           )}
         </ChallengesList>
-        <More to="/challenge">더보기</More>
+        <More to="/challenges">더보기</More>
       </ChallengeSection>
     </Column>
   );
