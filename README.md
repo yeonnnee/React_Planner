@@ -27,16 +27,13 @@ Seung Yeon Choung
 
 ## <div id="demo">Demo</div>
 
-<div>
-<Img src="./public/img/preview" width="600px" height="300px"  alt="Preview" />
-<Img src="./public/img/tasks" width="600px" height="300px"  alt="Tasks" />
-<Img src="./public/img/monthly" width="600px" height="300px"  alt="Monthly" />
-<Img src="./public/img/editMonthly" width="600px" height="300px"  alt="Edit Monthly" />
-<Img src="./public/img/challengeRecord" width="600px" height="300px"  alt="Challenge Record" />
-<Img src="./public/img/challenges" width="600px" height="300px"  alt="Challenge" />
-<Img src="./public/img/account" width="600px" height="300px"  alt="Account" />
-<Img src="./public/img/logIn" width="600px" height="300px"  alt="logIn" />
-</div>
+![Preview](./public/img/preview.png)
+![Monthly](./public/img/monthly.png)
+![Edit Monthly](./public/img/editMonthly.png)
+![Challenge Record](./public/img/challengeRecord.png)
+![Challenge](./public/img/challenges.png)
+![Account](./public/img/account.png)
+![logIn](./public/img/logIn.png)
 
 <div>
 <Img src="https://user-images.githubusercontent.com/61894688/99830094-8de09700-2ba0-11eb-8533-3bf563465456.gif" width="220px" height="300px"  alt="Tasks" />
@@ -65,9 +62,7 @@ You can check which one has been finished and which one still remains at a glanc
 
 :three: _Monthly_
 
-Selected Section is for plans matched with selected date and the default is today's.
-If you hav any plans on selected date, the list will be shown at the selected section, or
-Add button will be ativated. The others will be shown at the Other plans section by date.
+You can manage monthly plans.
 
 :four: _Challenge_
 
