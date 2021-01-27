@@ -146,11 +146,13 @@ const MonthlyAdd = (monthlyAddProps) => {
     const target = event.target.parentNode;
 
     if (location.pathname.includes("edit")) {
+      // edit 페이지
       const filteredPlanList = editPlanList.contents.filter(
         (plan) => plan.id !== target.id
       );
       setEditPlanList({ ...editPlanList, contents: [...filteredPlanList] });
-    } else if (!location.pathname.includes("edit")) {
+    } else if (location.pathname.includes("add")) {
+      // add 페이지
       const filteredPlanList = planList.contents.filter(
         (plan) => plan.id !== target.id
       );
