@@ -3,8 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Tasks from "../../screens/Tasks";
 import Monthly from "../../screens/Monthly";
-import AddMonthly from "../../screens/Monthly/AddMonthly";
-import EditMonthly from "../../screens/Monthly/EditMonthly";
+import RecordMonthly from "../../screens/Monthly/RecordMonthly";
 import Account from "../../screens/Account";
 import ResetPw from "../../screens/Account/ResetPw";
 import DeleteAccount from "../../screens/Account/DeleteAccount";
@@ -31,8 +30,12 @@ const Router = () => {
         <PrivateRoute exact path="/" component={Preview} />
         <PrivateRoute path="/tasks" component={Tasks} />
         <PrivateRoute exact path="/monthly" component={Monthly} />
-        <PrivateRoute exact path="/monthly/add" component={AddMonthly} />
-        <PrivateRoute exact path="/monthly/edit/:id" component={EditMonthly} />
+        <PrivateRoute exact path="/monthly/add" component={RecordMonthly} />
+        <PrivateRoute
+          exact
+          path="/monthly/edit/:id"
+          component={RecordMonthly}
+        />
         <PrivateRoute exact path="/challenges" component={Challenges} />
         <PrivateRoute exact path="/challenges/enroll" component={Enroll} />
         <PrivateRoute exact path="/challenges/:id" component={Record} />

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import Loader from "../../../components/Loader";
-import AddMonthlyPresenter from "./AddMonthlyPresenter";
+import AddMonthlyPresenter from "./RecordMonthlyPresenter";
 import GatewayError from "../../../components/msg/GatewayError";
 import ServerError from "../../../components/msg/ServerError";
 import { monthlyApi } from "../../../api";
@@ -11,6 +11,7 @@ import {
   CREATE_MONTHLY,
   SAVE_MONTHLY,
   MONTHLY_ERROR,
+  DELETE_MONTHLY,
 } from "../../../redux/actions/monthlyActions";
 
 const MonthlyAdd = (monthlyAddProps) => {
@@ -21,10 +22,15 @@ const MonthlyAdd = (monthlyAddProps) => {
     create,
     saveMonthly,
     setError,
-    confirmDelete,
-    modalStatus,
+    deletePlan,
   } = monthlyAddProps;
 
+  const [modalStatus, setModalStatus] = useState("hidden");
+  const [editPlanList, setEditPlanList] = useState({
+    id: state.selected.id,
+    date: state.selected.date,
+    contents: state.selected.contents,
+  });
   const [planList, setPlanList] = useState({
     id: uuidv4().toString(),
     date: state.selectedDate,
@@ -37,6 +43,7 @@ const MonthlyAdd = (monthlyAddProps) => {
     error: "",
   });
 
+  // input 에 입력했을 때
   function onChange(event) {
     const value = event.target.value;
 
@@ -57,6 +64,7 @@ const MonthlyAdd = (monthlyAddProps) => {
     }
   }
 
+  // 시간 선택했을 때 실행
   function selectTime(event) {
     const target = event.target;
 
@@ -77,43 +85,105 @@ const MonthlyAdd = (monthlyAddProps) => {
     }
   }
 
+  // input, time 작성후 제출할때
   function onSubmit(event) {
     event.preventDefault();
 
-    if (content.text && !content.error) {
-      setPlanList({
-        ...planList,
-        contents: [...planList.contents, content],
-      });
-      setContent({
-        ...content,
-        id: "",
-        text: "",
-        error: "",
-      });
-    } else {
-      setContent({
-        id: content.id,
-        text: content.text,
-        time: content.time,
-        error: "내용을 입력해 주세요",
-      });
+    if (location.pathname.includes("add")) {
+      // add page
+      if (content.text && !content.error) {
+        setPlanList({
+          ...planList,
+          contents: [...planList.contents, content],
+        });
+        setContent({
+          ...content,
+          id: "",
+          text: "",
+          error: "",
+        });
+      } else {
+        setContent({
+          id: content.id,
+          text: content.text,
+          time: content.time,
+          error: "내용을 입력해 주세요",
+        });
+      }
+    } else if (location.pathname.includes("edit")) {
+      // edit 페이지
+      if (content.text && !content.error) {
+        setEditPlanList({
+          ...editPlanList,
+          contents: [...editPlanList.contents, content],
+        });
+        setContent({
+          ...content,
+          id: "",
+          text: "",
+          error: "",
+        });
+      } else {
+        setContent({
+          id: content.id,
+          text: content.text,
+          time: content.time,
+          error: "내용을 입력해 주세요",
+        });
+      }
     }
   }
 
+  // 삭제버튼 클릭시 modal 창 띄우기
+  function confirmDelete() {
+    if (modalStatus === "hidden") {
+      setModalStatus("show");
+    }
+  }
+
+  // monthly 입력한 리스트들 중 하나 삭제
   function deleteListItem(event) {
     const target = event.target.parentNode;
 
-    const filteredPlanList = planList.contents.filter(
-      (plan) => plan.id !== target.id
-    );
-    setPlanList({ ...planList, contents: [...filteredPlanList] });
+    if (location.pathname.includes("edit")) {
+      const filteredPlanList = editPlanList.contents.filter(
+        (plan) => plan.id !== target.id
+      );
+      setEditPlanList({ ...editPlanList, contents: [...filteredPlanList] });
+    } else if (!location.pathname.includes("edit")) {
+      const filteredPlanList = planList.contents.filter(
+        (plan) => plan.id !== target.id
+      );
+      setPlanList({ ...planList, contents: [...filteredPlanList] });
+    }
   }
 
+  // monthly 전체 삭제
+  async function deleteMonthly() {
+    try {
+      const target = location.pathname.split("/")[3];
+      const deletedPlan = state.plans.find((plan) => plan.id === target);
+      await monthlyApi.deletePlan(deletedPlan);
+      deletePlan(deletedPlan);
+      history.push("/monthly");
+    } catch (error) {
+      const status = error.response.status;
+      if (status === 500) {
+        setError("500");
+      } else if (status === 504) {
+        setError("504");
+      } else {
+        return;
+      }
+    }
+  }
+
+  // 취소버튼
   function cancel() {
     history.push("/monthly");
   }
 
+  // 저장버튼
   async function save() {
     try {
       if (planList.contents.length > 0) {
@@ -148,16 +218,18 @@ const MonthlyAdd = (monthlyAddProps) => {
         <AddMonthlyPresenter
           onChange={onChange}
           onSubmit={onSubmit}
-          deleteListItem={deleteListItem}
-          selectTime={selectTime}
           save={save}
           cancel={cancel}
+          deleteListItem={deleteListItem}
+          selectTime={selectTime}
           planList={planList}
+          editPlanList={editPlanList}
           content={content}
-          {...state}
           location={location}
+          selectedDate={state.selectedDate}
           confirmDelete={confirmDelete}
           modalStatus={modalStatus}
+          deleteMonthly={deleteMonthly}
         />
       )}
     </>
@@ -175,6 +247,9 @@ function mapDispatchToProps(dispatch) {
     },
     create: (plan) => {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
+    },
+    deletePlan: (plan) => {
+      dispatch({ type: DELETE_MONTHLY, payload: plan });
     },
     setError: (error) => {
       dispatch({ type: MONTHLY_ERROR, payload: error });

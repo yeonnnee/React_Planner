@@ -5,7 +5,7 @@ import MonthlyRecordForm from "../MonthlyRecordForm/MonthlyRecordFormInputContai
 import MonthlyRecordFormContent from "../MonthlyRecordForm/MonthlyRecordFormContent";
 import DeleteConfirmModal from "../../../components/Modal";
 import { Container, Frame, Main } from "../../../components/styles/Templates";
-import { Button, Section, Wrapper, ListSection } from "./AddMonthly.styles";
+import { Button, Section, Wrapper, ListSection } from "./RecordMonthly.styles";
 import { DeleteBtn } from "../MonthlyRecordForm/styles";
 
 const AddMonthlyPresenter = (monthlyProps) => {
@@ -14,12 +14,13 @@ const AddMonthlyPresenter = (monthlyProps) => {
     onSubmit,
     save,
     cancel,
-    planList,
-    selectedDate,
-    content,
     deleteListItem,
     selectTime,
+    planList,
+    editPlanList,
+    content,
     location,
+    selectedDate,
     deleteMonthly,
     modalStatus,
     confirmDelete,
@@ -53,10 +54,17 @@ const AddMonthlyPresenter = (monthlyProps) => {
             />
 
             <ListSection>
-              <MonthlyRecordFormContent
-                contents={planList.contents}
-                deleteListItem={deleteListItem}
-              />
+              {location.pathname.includes("edit") ? (
+                <MonthlyRecordFormContent
+                  contents={editPlanList.contents}
+                  deleteListItem={deleteListItem}
+                />
+              ) : (
+                <MonthlyRecordFormContent
+                  contents={planList.contents}
+                  deleteListItem={deleteListItem}
+                />
+              )}
             </ListSection>
             <Section>
               <Button onClick={save}>Save</Button>
