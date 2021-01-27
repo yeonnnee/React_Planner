@@ -9,14 +9,14 @@ import { SELECT_MONTHLY } from "../../redux/actions/monthlyActions";
 const MonthlyCalendar = styled(ReactCalendar)`
   width: 100%;
   opacity: 0.7;
-  height: 340px;
+  height: 320px;
 `;
 const Mark = styled.div`
   width: 6px;
   height: 6px;
   background-color: ${(props) => props.color};
   border-radius: 5px;
-  transform: translateX(40px);
+  transform: translateX(37px);
 `;
 
 const Calendar = (calendarProps) => {
@@ -28,15 +28,15 @@ const Calendar = (calendarProps) => {
   };
 
   const markDate = (tileContentInfo) => {
-    const date = tileContentInfo.date.toString().substring(0, 15);
+    const tile = tileContentInfo.date.toString().substring(0, 15);
     const today = new Date().toString().substring(0, 15);
 
     return state.plans.map((plan, index) =>
-      plan.date === date && state.selectedDate !== date && date !== today ? (
+      tile.includes(plan.date) &&
+      !tile.includes(state.selectedDate) &&
+      tile !== today ? (
         <Mark key={index} color="#856969" />
-      ) : (
-        <Mark key={index} color="transparent" />
-      )
+      ) : null
     );
   };
 
@@ -46,9 +46,6 @@ const Calendar = (calendarProps) => {
       locale="en-US"
       onClickDay={onClickDay}
       tileContent={markDate}
-      tileClassName={({ date, view }) =>
-        view === "month" && date.getDay() === 3 ? "wednesday" : null
-      }
     />
   );
 };
