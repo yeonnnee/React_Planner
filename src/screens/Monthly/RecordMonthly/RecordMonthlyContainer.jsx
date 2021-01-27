@@ -12,6 +12,7 @@ import {
   SAVE_MONTHLY,
   MONTHLY_ERROR,
   DELETE_MONTHLY,
+  UPDATE_MONTHLY,
 } from "../../../redux/actions/monthlyActions";
 
 const MonthlyAdd = (monthlyAddProps) => {
@@ -20,6 +21,7 @@ const MonthlyAdd = (monthlyAddProps) => {
     history,
     location,
     create,
+    update,
     saveMonthly,
     setError,
     deletePlan,
@@ -188,13 +190,25 @@ const MonthlyAdd = (monthlyAddProps) => {
   // 저장버튼
   async function save() {
     try {
-      if (planList.contents.length > 0) {
-        saveMonthly();
-        await monthlyApi.postPlan(planList);
-        create(planList);
-        history.push("/monthly");
-      } else {
-        setContent({ ...content, error: "내용을 입력해주십시오" });
+      saveMonthly();
+      if (location.pathname.includes("add")) {
+        // 최초저장
+        if (planList.contents.length > 0) {
+          await monthlyApi.postPlan(planList);
+          create(planList);
+          history.push("/monthly");
+        } else {
+          setContent({ ...content, error: "내용을 입력해주십시오" });
+        }
+      } else if (location.pathname.includes("edit")) {
+        if (editPlanList.contents.length > 0) {
+          // 변경사항 저장
+          await monthlyApi.updatePlan(editPlanList);
+          update(planList);
+          history.push("/monthly");
+        } else {
+          setContent({ ...content, error: "내용을 입력해주십시오" });
+        }
       }
     } catch (error) {
       const status = error.response.status;
@@ -249,6 +263,9 @@ function mapDispatchToProps(dispatch) {
     },
     create: (plan) => {
       dispatch({ type: CREATE_MONTHLY, payload: plan });
+    },
+    update: (plan) => {
+      dispatch({ type: UPDATE_MONTHLY, payload: plan });
     },
     deletePlan: (plan) => {
       dispatch({ type: DELETE_MONTHLY, payload: plan });
