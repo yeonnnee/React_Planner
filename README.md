@@ -10,6 +10,8 @@ Seung Yeon Choung
 
 2020.09.07 ~ 2020.10.31
 
+2021.01.27(_updated_)
+
 ## Index
 
 - [Demo](#demo)
@@ -26,6 +28,17 @@ Seung Yeon Choung
 ## <div id="demo">Demo</div>
 
 <div>
+<Img src="./public/img/preview" width="600px" height="300px"  alt="Preview" />
+<Img src="./public/img/tasks" width="600px" height="300px"  alt="Tasks" />
+<Img src="./public/img/monthly" width="600px" height="300px"  alt="Monthly" />
+<Img src="./public/img/editMonthly" width="600px" height="300px"  alt="Edit Monthly" />
+<Img src="./public/img/challengeRecord" width="600px" height="300px"  alt="Challenge Record" />
+<Img src="./public/img/challenges" width="600px" height="300px"  alt="Challenge" />
+<Img src="./public/img/account" width="600px" height="300px"  alt="Account" />
+<Img src="./public/img/logIn" width="600px" height="300px"  alt="logIn" />
+</div>
+
+<div>
 <Img src="https://user-images.githubusercontent.com/61894688/99830094-8de09700-2ba0-11eb-8533-3bf563465456.gif" width="220px" height="300px"  alt="Tasks" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830276-d26c3280-2ba0-11eb-89d1-9ab545f02554.gif" width="220px" height="300px"  alt="Monthly" />
 <Img src="https://user-images.githubusercontent.com/61894688/99830352-ee6fd400-2ba0-11eb-99e6-efaa40e87796.gif" width="220px" height="300px"  alt="Monthly" />
@@ -35,17 +48,28 @@ Seung Yeon Choung
 
 ## <div id="features">Features</div>
 
-:one: _Tasks_
+v.2.0. updated
+
+- UI updated
+- Improved Monthly page
+- Add Preview page
+
+:one: _Preview_
+
+Monthly, Challenge, Tasks displayed briefly, you can check them at a glance.
+But this page is for read-only, so you can't modify data.
+
+:two: _Tasks_
 
 You can check which one has been finished and which one still remains at a glance.
 
-:two: _Monthly_
+:three: _Monthly_
 
 Selected Section is for plans matched with selected date and the default is today's.
 If you hav any plans on selected date, the list will be shown at the selected section, or
 Add button will be ativated. The others will be shown at the Other plans section by date.
 
-:three: _Challenge_
+:four: _Challenge_
 
 After the challenge is created, 30 day record page will be created. Challenge starts a day after challenges created. The check button will be enabled to the corresponding date, yet this button will be disabled after the date has passed. As the challenge is completed, the percentage rate of success will be displayed on the list.
 
