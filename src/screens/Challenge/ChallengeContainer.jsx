@@ -26,10 +26,12 @@ const Challenge = (challengeProps) => {
       fetch_success(res.data.challenges);
     } catch (error) {
       const status = error.response.status;
-      if (status === 500) {
+      if (status && status === 500) {
         setError("500");
-      } else if (status === 504) {
+      } else if (status && status === 504) {
         setError("504");
+      } else {
+        console.log(error);
       }
     }
   }, [fetchStart, fetch_success, setError]);
